@@ -1,4 +1,5 @@
 import 'package:Clapp/src/User/bloc/login_bloc.dart';
+import 'package:Clapp/src/User/bloc/signup_bloc.dart';
 
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class Provider extends InheritedWidget{
 
 
   final loginBloc = LoginBloc();
+  final signUp = SignUp();
 
 
   @override

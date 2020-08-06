@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
               
               children: <Widget>[
                 
-                Background(),
+                Background(text:"Bienvenido a Clapp"),
                 _loginForm(context),
               ],
             ),
@@ -136,7 +136,7 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   icon: Icon(Icons.lock_outline,color: Color.fromRGBO(89, 122, 121, 1.0)),
-                  labelText: 'Contraseña',
+                  labelText: 'Contrasenia',
                   //counterText: snapshot.data,
                   errorText: snapshot.error
                 ),
@@ -184,7 +184,7 @@ class LoginPage extends StatelessWidget {
           ),
           elevation: 0.0,
           color: Color.fromRGBO(227, 227, 227, 1.0),
-          onPressed: snapshot.hasData ? () =>_login(context,bloc) : null,
+          onPressed: (){Navigator.pushNamed(context, 'signUp');},
         );
       },
     );

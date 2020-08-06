@@ -4,7 +4,7 @@ import 'package:Clapp/src/User/bloc/validator.dart';
 
 import 'package:rxdart/rxdart.dart';
 
-class LoginBloc with Validator{
+class SignUp with Validator{
 
 
   final _emailController    = BehaviorSubject<String>();
