@@ -1,9 +1,9 @@
-import 'package:Clapp/src/bloc/login_bloc.dart';
-import 'package:Clapp/src/bloc/provider.dart';
+import 'package:Clapp/src/User/bloc/login_bloc.dart';
+import 'package:Clapp/src/User/bloc/provider.dart';
+import 'package:Clapp/src/User/widgets/background_login.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-
 
 
   @override
@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
               
               children: <Widget>[
                 
-                _crearFondo(context),
+                Background(),
                 _loginForm(context),
               ],
             ),
@@ -28,54 +28,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _crearFondo(BuildContext context){
 
-      final size = MediaQuery.of(context).size;
-
-      final fondoSuperior =  Container(
-
-          height: size.height * 0.4,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color> [
-                Color.fromRGBO(0,51,51,1.0),
-                Color.fromRGBO(89,122,121,1.0)
-              ]
-            )
-          ),
-
-      );
-
-      final circulo = Container(
-        width: 100.0,
-        height: 100.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: Color.fromRGBO(255, 255, 255, 0.05),
-        ),
-      );
-
-      final profileBanner = Container(
-        padding: EdgeInsets.only(top: 80.0),
-        child: Column(
-          children: <Widget>[
-            Icon(Icons.supervised_user_circle, color: Colors.white,size: 100),
-            SizedBox(height: 10.0, width: double.infinity),
-            Text('Welcome to Clapp', style: TextStyle(color: Colors.white, fontSize: 25.0, ))
-          ],
-        ),
-      );
-
-      return Stack(
-        children: <Widget>[
-          fondoSuperior,
-          Positioned( top: 90.0, left: 30.0, child: circulo),
-          Positioned( bottom: -10.0, right: 10.0, child: circulo),
-          Positioned( top: 10.0, right: 10.0, child: circulo),
-          profileBanner,    
-        ],
-      );
 
   }
   
@@ -104,13 +57,15 @@ class LoginPage extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            Text('Sing In', style: TextStyle(fontSize: 20.0)),
+            Text('Sing In', style: TextStyle(fontSize: 20.0,fontFamily: "Raleway")),
             SizedBox(height: 50.0),
             _crearEmail(bloc),
             SizedBox(height: 30.0),
             _crearPassword(bloc),
             SizedBox(height: 30.0),
             _crearBotonSingIn(bloc),
+            SizedBox(height: 30.0),
+            _crearBotonSignUp(bloc),
           ],
         ),
     );
@@ -152,8 +107,10 @@ class LoginPage extends StatelessWidget {
               hintText: 'ejemplo@dominio.com.co',
               labelText: 'Correo Electronico',
               errorText: snapshot.error,
+
             ),
             onChanged: bloc.changeEmail,
+
           ),
 
         );
@@ -200,7 +157,7 @@ class LoginPage extends StatelessWidget {
            return RaisedButton(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0 ,vertical: 15.0),
-              child: Text('Sing In'),
+              child: Text('Sign In'),
             ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
@@ -209,6 +166,26 @@ class LoginPage extends StatelessWidget {
             color: Color.fromRGBO(227, 227, 227, 1.0),
             onPressed: snapshot.hasData ? () =>_login(context,bloc) : null,
           );
+      },
+    );
+  }
+  Widget _crearBotonSignUp(LoginBloc bloc){
+
+    return StreamBuilder(
+      stream: bloc.formValidStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return RaisedButton(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 80.0 ,vertical: 15.0),
+            child: Text('Sign Up'),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          elevation: 0.0,
+          color: Color.fromRGBO(227, 227, 227, 1.0),
+          onPressed: snapshot.hasData ? () =>_login(context,bloc) : null,
+        );
       },
     );
   }
@@ -225,4 +202,4 @@ class LoginPage extends StatelessWidget {
     Navigator.pushNamed(context, 'home');
 
   }
-}
+

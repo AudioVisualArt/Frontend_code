@@ -1,7 +1,8 @@
-import 'package:Clapp/src/bloc/provider.dart';
+import 'package:Clapp/src/User/bloc/provider.dart';
+import 'package:Clapp/src/User/pages/home_page.dart';
+import 'package:Clapp/src/User/pages/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:Clapp/src/pages/login_page.dart';
-import 'package:Clapp/src/pages/home_page.dart';
+
 
 void main() => runApp(MyApp());
  
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'login' : (BuildContext context) => LoginPage(),
           'home'  : (BuildContext context) => HomePage(),
+          'signUp': (BuildContext context) => HomePage()
         },
         theme: ThemeData(
           primaryColor: Color.fromRGBO(0, 51, 51, 1.0)

@@ -1,4 +1,5 @@
-import 'package:Clapp/src/bloc/provider.dart';
+import 'package:Clapp/src/User/bloc/provider.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
