@@ -1,4 +1,5 @@
 
+import 'package:Clapp/src/User/bloc/provider.dart';
 import 'package:Clapp/src/User/bloc/provider_SignUp.dart';
 import 'package:Clapp/src/User/bloc/signup_bloc.dart';
 import 'package:Clapp/src/User/widgets/background_appbar.dart';
@@ -23,7 +24,8 @@ class SignUp extends StatelessWidget {
   }
 
   Widget _signUp(BuildContext context) {
-    final bloc = ProviderSignUp.of(context);
+
+    final bloc = Provider.ofSignUp(context);
     final size = MediaQuery
         .of(context)
         .size;

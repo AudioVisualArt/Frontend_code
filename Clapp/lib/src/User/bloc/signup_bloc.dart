@@ -21,6 +21,7 @@ class SignUpBloc with Validator  {
 
   Function (String) get changeEmail    => _emailController.sink.add;
   Function (String) get changePassword => _passwordController.sink.add;
+  Function (String) get changePassword2 => _passwordController2.sink.add;
 
   //Cerrar Streams
   dispose(){
