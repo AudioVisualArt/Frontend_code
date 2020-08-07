@@ -1,9 +1,15 @@
-import 'package:Clapp/src/User/bloc/provider.dart';
+
+import 'package:Clapp/src/User/bloc/provider_SignUp.dart';
+import 'package:Clapp/src/User/bloc/signup_bloc.dart';
 import 'package:Clapp/src/User/widgets/background_appbar.dart';
 import 'package:Clapp/src/User/widgets/background_login.dart';
 import 'package:flutter/material.dart';
 
+
+
 class SignUp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +23,10 @@ class SignUp extends StatelessWidget {
   }
 
   Widget _signUp(BuildContext context) {
-    final bloc = Provider.of(context);
-    final size = MediaQuery.of(context).size;
-
+    final bloc = ProviderSignUp.of(context);
+    final size = MediaQuery
+        .of(context)
+        .size;
 
 
     final container = Container(
@@ -33,7 +40,7 @@ class SignUp extends StatelessWidget {
             BoxShadow(
                 color: Colors.black26,
                 blurRadius: 3.0,
-                offset: Offset(0.0,5.0),
+                offset: Offset(0.0, 5.0),
                 spreadRadius: 3.0
             ),
           ]
@@ -41,7 +48,7 @@ class SignUp extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(height: 50.0),
-          //_registroEmail(bloc),
+          _registroEmail(bloc),
           //SizedBox(height: 30.0),
           //_crearPassword(bloc),
           //SizedBox(height: 30.0),
@@ -70,4 +77,31 @@ class SignUp extends StatelessWidget {
     );
   }
 
+  Widget _registroEmail(SignUpBloc bloc) {
+    return StreamBuilder(
+
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon(Icons.alternate_email,
+                  color: Color.fromRGBO(89, 122, 121, 1.0)),
+              hintText: 'ejemplo@dominio.com.co',
+              labelText: 'Correo Electronico',
+              errorText: snapshot.error,
+
+            ),
+            onChanged: bloc.changeEmail,
+
+          ),
+
+        );
+      },
+
+    );
+  }
 }

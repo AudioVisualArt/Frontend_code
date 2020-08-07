@@ -22,7 +22,7 @@ class Provider extends InheritedWidget{
 
 
   final loginBloc = LoginBloc();
-  final signUp = SignUp();
+
 
 
   @override
@@ -31,6 +31,7 @@ class Provider extends InheritedWidget{
   static LoginBloc of (BuildContext context){
     return context.dependOnInheritedWidgetOfExactType<Provider>().loginBloc;     
   }
+
 
 
 }
