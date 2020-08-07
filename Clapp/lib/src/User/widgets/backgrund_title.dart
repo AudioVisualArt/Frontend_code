@@ -25,12 +25,13 @@ class BackgroundTitle extends StatelessWidget{
       padding: EdgeInsets.only(top: 80.0),
       child: Column(
         children: <Widget>[
+          
           BackgroundImage(pathImage: pathImage,left: left,width: width,height: height),
-          SizedBox(height: 10.0, width: double.infinity),
+          SizedBox(height: 20.0, width: double.infinity),
           Text(text , style: TextStyle(color: Colors.white, fontSize: 25.0, fontFamily: "RalewayBold" ))
         ],
       ),
-    );;
+    );
   }
 
 

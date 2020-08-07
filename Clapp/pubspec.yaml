@@ -79,6 +79,7 @@ flutter:
 
   assets:
     - assets/img/CORPORATELOGO_whitebackgrounds-HEXA.png
+    - data/menu_Clapp.json
 
   fonts:
     - family: Raleway
