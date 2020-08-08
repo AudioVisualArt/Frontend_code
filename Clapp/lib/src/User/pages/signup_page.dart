@@ -1,8 +1,6 @@
 
 import 'package:Clapp/src/User/bloc/provider.dart';
-import 'package:Clapp/src/User/bloc/provider_SignUp.dart';
 import 'package:Clapp/src/User/bloc/signup_bloc.dart';
-import 'package:Clapp/src/User/widgets/background_appbar.dart';
 import 'package:Clapp/src/User/widgets/background_login.dart';
 import 'package:flutter/material.dart';
 
