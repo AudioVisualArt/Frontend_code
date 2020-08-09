@@ -1,5 +1,6 @@
-import 'package:Clapp/src/User/models/producto_models.dart';
 import 'package:flutter/material.dart';
+import 'package:Clapp/src/User/models/producto_models.dart';
+import 'package:Clapp/src/User/providers/productos_provider.dart';
 import 'package:Clapp/src/User/utils/utils.dart' as utils;
 
 class ProductoPage extends StatefulWidget {
@@ -11,6 +12,8 @@ class _ProductoPageState extends State<ProductoPage> {
   final formKey = GlobalKey<FormState>();
 
   ProductoModel producto = new ProductoModel();
+
+  final productoProvider = new ProductosProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -121,5 +124,7 @@ class _ProductoPageState extends State<ProductoPage> {
     formKey.currentState.save();
 
     print('Todo Ok');
+
+    productoProvider.crearProducto(producto);
   }
 }
