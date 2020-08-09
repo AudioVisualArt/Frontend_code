@@ -9,7 +9,7 @@ Map<String, WidgetBuilder>getApplicationRoutes(){
 
     return <String, WidgetBuilder>{
       
-      'login' : (BuildContext context) => LogInPage(),
+      'login' : (BuildContext context) => LoginPage(),
       'home'  : (BuildContext context) => HomePage(),
       'signUp': (BuildContext context) => SignUp()
       
