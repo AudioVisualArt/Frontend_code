@@ -17,20 +17,7 @@ class Validator{
     }
   );
 
-  final validarNombre = StreamTransformer<String,String>.fromHandlers(
-      handleData: (nombre, sink) {
 
-        Pattern pattern = r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]';
-        RegExp regExp = new RegExp(pattern);
-
-        if (regExp.hasMatch(nombre)) {
-          sink.add(nombre);
-        }else{
-          sink.addError('Nombre no cumple el formato');
-        }
-
-      }
-  );
 
 
   final validarPassword = StreamTransformer<String,String>.fromHandlers(

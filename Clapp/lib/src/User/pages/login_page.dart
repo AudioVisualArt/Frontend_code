@@ -1,70 +1,36 @@
-import 'package:Clapp/src/User/auth/auth.dart';
 import 'package:Clapp/src/User/bloc/login_bloc.dart';
 import 'package:Clapp/src/User/bloc/provider.dart';
-import 'package:Clapp/src/User/pages/home_page.dart';
 import 'package:Clapp/src/User/widgets/background_login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+class LoginPage extends StatelessWidget {
 
-class LogInPage extends StatefulWidget {
-
-  @override
-  State createState() {
-    return _LogInPage();
-  }
-}
-
-class _LogInPage extends State<LogInPage> {
-
-  LoginBloc loginBloc;
 
   @override
   Widget build(BuildContext context) {
-    loginBloc = Provider.of(context);
-    //return _handleCurrentSession(loginBloc);
-    return _loginPage(context);
-  }
-
-
-
-  }
-
-Widget _loginPage (context){
-  return GestureDetector(
-    onTap: (){
-      FocusScopeNode currentFocus = FocusScope.of(context);
-      if(!currentFocus.hasPrimaryFocus){
-        currentFocus.unfocus();
-      }
-    },
-    child: Scaffold(
-      body: Stack(
-
-        children: <Widget>[
-
-          Background(text:"Bienvenido a Clapp"),
-          _loginForm(context),
-        ],
+    return GestureDetector(
+          onTap: (){
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if(!currentFocus.hasPrimaryFocus){
+                currentFocus.unfocus();
+              }
+            },
+          child: Scaffold(
+            body: Stack(
+              
+              children: <Widget>[
+                
+                Background(text:"Bienvenido a Clapp"),
+                _loginForm(context),
+              ],
+            ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _handleCurrentSession( LoginBloc loginBloc){
 
-  return StreamBuilder(
-    stream: loginBloc.authStatus,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      //snapshot- data - Object User
-      if(!snapshot.hasData || snapshot.hasError) {
-        return _loginPage(context);
-      } else {
-        return HomePage();
-      }
-    },
-  );
-}
+
+  }
   
   Widget _loginForm(BuildContext context){
 
@@ -184,7 +150,7 @@ Widget _handleCurrentSession( LoginBloc loginBloc){
   }
 
   Widget _crearBotonSingIn(LoginBloc bloc){
-    var authHandler = new AuthFirebase();
+
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -198,12 +164,7 @@ Widget _handleCurrentSession( LoginBloc loginBloc){
             ),
             elevation: 0.0,
             color: Color.fromRGBO(227, 227, 227, 1.0),
-            onPressed: () {
-              authHandler.handleSignInEmail(bloc.email, bloc.passw)
-                  .then((FirebaseUser user) {
-                Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage()));
-              }).catchError((e) => print(e));
-            } ,
+            onPressed: snapshot.hasData ? () =>_login(context,bloc) : null,
           );
       },
     );
