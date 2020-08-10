@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:Clapp/src/User/models/producto_models.dart';
 import 'package:Clapp/src/User/providers/productos_provider.dart';
-import 'package:flutter/material.dart';
 
 class MostrarProductosPage extends StatefulWidget {
   @override
@@ -16,6 +17,16 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
         child: Scaffold(
       appBar: AppBar(
         title: Text('Productos en FireBase'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.autorenew),
+            onPressed: () {
+              setState(() {
+                _crearListado();
+              });
+            },
+          ),
+        ],
       ),
       body: _crearListado(),
     ));
@@ -41,10 +52,20 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
   }
 
   Widget _crearItem(BuildContext context, ProductoModel producto) {
-    return ListTile(
-      title: Text('${producto.titulo} - ${producto.valor}'),
-      subtitle: Text(producto.id),
-      onTap: () => Navigator.pushNamed(context, 'producto'),
+    return Dismissible(
+      key: UniqueKey(),
+      background: Container(
+        color: Colors.red,
+      ),
+      onDismissed: (direction) {
+        productosProvider.borrarProducto(producto.id);
+      },
+      child: ListTile(
+        title: Text('${producto.titulo} - ${producto.valor}'),
+        subtitle: Text(producto.id),
+        onTap: () =>
+            Navigator.pushNamed(context, 'producto', arguments: producto),
+      ),
     );
   }
 }

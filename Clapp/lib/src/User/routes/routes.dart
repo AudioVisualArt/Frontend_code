@@ -4,6 +4,7 @@ import 'package:Clapp/src/User/pages/home_page.dart';
 import 'package:Clapp/src/User/pages/login_page.dart';
 import 'package:Clapp/src/User/pages/signup_page.dart';
 import 'package:Clapp/src/User/pages/producto_page.dart';
+import 'package:Clapp/src/User/pages/ver_productos_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -11,5 +12,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home': (BuildContext context) => HomePage(),
     'signUp': (BuildContext context) => SignUp(),
     'producto': (BuildContext context) => ProductoPage(),
+    'ver_producto': (BuildContext context) => MostrarProductosPage(),
   };
 }

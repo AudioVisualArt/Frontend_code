@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:Clapp/src/User/models/producto_models.dart';
 import 'package:Clapp/src/User/providers/productos_provider.dart';
 import 'package:Clapp/src/User/utils/utils.dart' as utils;
@@ -10,13 +11,22 @@ class ProductoPage extends StatefulWidget {
 
 class _ProductoPageState extends State<ProductoPage> {
   final formKey = GlobalKey<FormState>();
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
 
   ProductoModel producto = new ProductoModel();
+
+  bool _guardando = false;
 
   final productoProvider = new ProductosProvider();
 
   @override
   Widget build(BuildContext context) {
+    final ProductoModel prodData = ModalRoute.of(context).settings.arguments;
+
+    if (prodData != null) {
+      producto = prodData;
+    }
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -25,6 +35,7 @@ class _ProductoPageState extends State<ProductoPage> {
         }
       },
       child: Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text('Producto'),
           actions: <Widget>[
@@ -114,7 +125,7 @@ class _ProductoPageState extends State<ProductoPage> {
       textColor: Colors.white,
       label: Text('Guardar'),
       icon: Icon(Icons.save),
-      onPressed: _submit,
+      onPressed: (_guardando) ? null : _submit,
     );
   }
 
@@ -125,6 +136,31 @@ class _ProductoPageState extends State<ProductoPage> {
 
     print('Todo Ok');
 
-    productoProvider.crearProducto(producto);
+    setState(() {
+      _guardando = true;
+    });
+
+    if (producto.id == null) {
+      productoProvider.crearProducto(producto);
+    } else {
+      productoProvider.editarProducto(producto);
+    }
+
+    // setState(() {
+    //   _guardando = false;
+    // });
+
+    mostrarSnackbar('Registro Guardado');
+    Duration(milliseconds: 1500);
+    Navigator.pop(context);
+  }
+
+  void mostrarSnackbar(String mensaje) {
+    final snacckbar = SnackBar(
+      content: Text(mensaje),
+      duration: Duration(milliseconds: 1500),
+    );
+
+    scaffoldKey.currentState.showSnackBar(snacckbar);
   }
 }
