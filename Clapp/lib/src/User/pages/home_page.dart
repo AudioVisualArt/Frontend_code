@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home Page'),
       ),
-      body: Container(),
+      //Ejemplo Rest Api Firebase
       floatingActionButton: _crearBoton(context),
     );
   }
