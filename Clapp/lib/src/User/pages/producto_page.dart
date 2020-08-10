@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/models/producto_models.dart';
 import 'package:Clapp/src/User/providers/productos_provider.dart';
 import 'package:Clapp/src/User/utils/utils.dart' as utils;
+import 'package:image_picker/image_picker.dart';
 
 class ProductoPage extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class _ProductoPageState extends State<ProductoPage> {
   ProductoModel producto = new ProductoModel();
 
   bool _guardando = false;
+
+  File foto;
 
   final productoProvider = new ProductosProvider();
 
@@ -41,11 +46,11 @@ class _ProductoPageState extends State<ProductoPage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.photo_size_select_actual),
-              onPressed: () {},
+              onPressed: _seleccionarFoto,
             ),
             IconButton(
               icon: Icon(Icons.camera_alt),
-              onPressed: () {},
+              onPressed: _tomarFoto,
             ),
           ],
         ),
@@ -56,6 +61,7 @@ class _ProductoPageState extends State<ProductoPage> {
               key: formKey,
               child: Column(
                 children: <Widget>[
+                  _mostrarFoto(),
                   _crearNombre(),
                   _crearPrecio(),
                   _crearDisponible(),
@@ -152,7 +158,7 @@ class _ProductoPageState extends State<ProductoPage> {
 
     mostrarSnackbar('Registro Guardado');
     Duration(milliseconds: 1500);
-    Navigator.pop(context);
+    Navigator.pushReplacementNamed(context, 'producto');
   }
 
   void mostrarSnackbar(String mensaje) {
@@ -162,5 +168,36 @@ class _ProductoPageState extends State<ProductoPage> {
     );
 
     scaffoldKey.currentState.showSnackBar(snacckbar);
+  }
+
+  Widget _mostrarFoto() {
+    if (producto.fotoUrl != null) {
+      // TODO: tengo adelnatar esto
+      return Container();
+    } else {
+      return Image(
+        image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
+        height: 300.0,
+        fit: BoxFit.cover,
+      );
+    }
+  }
+
+  _seleccionarFoto() async {
+    foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    if (foto == null) {
+      //limpiar
+      setState(() {});
+    }
+  }
+
+  _tomarFoto() async {
+    foto = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    if (foto == null) {
+      //limpiar
+      setState(() {});
+    }
   }
 }
