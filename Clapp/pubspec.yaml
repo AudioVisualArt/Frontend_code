@@ -31,6 +31,8 @@ dependencies:
   rxdart: ^0.24.1
   http:
   image_picker:
+  shared_preferences:
+
   #generic_bloc_provider: ^1.0.8
   #firebase_auth:
   #google_sign_in:

@@ -1,9 +1,14 @@
-import 'package:Clapp/src/User/bloc/login_bloc.dart';
-import 'package:Clapp/src/User/bloc/provider.dart';
-import 'package:Clapp/src/User/widgets/background_login.dart';
 import 'package:flutter/material.dart';
 
+import 'package:Clapp/src/User/bloc/login_bloc.dart';
+import 'package:Clapp/src/User/bloc/provider.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
+import 'package:Clapp/src/User/utils/utils.dart' as utils;
+import 'package:Clapp/src/User/widgets/background_login.dart';
+
 class LoginPage extends StatelessWidget {
+  final usuarioProvider = new UsuarioProvider();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,147 +28,149 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _loginForm(BuildContext context) {
-  final bloc = Provider.of(context);
-  final size = MediaQuery.of(context).size;
+  Widget _loginForm(BuildContext context) {
+    final bloc = Provider.of(context);
+    final size = MediaQuery.of(context).size;
 
-  final container = Container(
-    width: size.width * 0.85,
-    margin: EdgeInsets.symmetric(vertical: 10.0),
-    padding: EdgeInsets.symmetric(vertical: 50.0),
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5.0),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.black26,
-              blurRadius: 3.0,
-              offset: Offset(0.0, 5.0),
-              spreadRadius: 3.0),
-        ]),
-    child: Column(
-      children: <Widget>[
-        Text('Sing In',
-            style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-        SizedBox(height: 50.0),
-        _crearEmail(bloc),
-        SizedBox(height: 30.0),
-        _crearPassword(bloc),
-        SizedBox(height: 30.0),
-        _crearBotonSingIn(bloc),
-        SizedBox(height: 30.0),
-        _crearBotonSignUp(bloc),
-      ],
-    ),
-  );
-
-  return SingleChildScrollView(
+    final container = Container(
+      width: size.width * 0.85,
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 50.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black26,
+                blurRadius: 3.0,
+                offset: Offset(0.0, 5.0),
+                spreadRadius: 3.0),
+          ]),
       child: Column(
-    children: <Widget>[
-      SafeArea(
-          child: Container(
-        height: 180.0,
-      )),
-      container,
-    ],
-  ));
-}
+        children: <Widget>[
+          Text('Sing In',
+              style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+          SizedBox(height: 50.0),
+          _crearEmail(bloc),
+          SizedBox(height: 30.0),
+          _crearPassword(bloc),
+          SizedBox(height: 30.0),
+          _crearBotonSingIn(bloc),
+          SizedBox(height: 30.0),
+          _crearBotonSignUp(bloc),
+        ],
+      ),
+    );
 
-Widget _crearEmail(LoginBloc bloc) {
-  return StreamBuilder(
-    stream: bloc.emailStream,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: TextField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            icon: Icon(Icons.alternate_email,
-                color: Color.fromRGBO(89, 122, 121, 1.0)),
-            hintText: 'ejemplo@dominio.com.co',
-            labelText: 'Correo Electronico',
-            errorText: snapshot.error,
-          ),
-          onChanged: bloc.changeEmail,
-        ),
-      );
-    },
-  );
-}
+    return SingleChildScrollView(
+        child: Column(
+      children: <Widget>[
+        SafeArea(
+            child: Container(
+          height: 180.0,
+        )),
+        container,
+      ],
+    ));
+  }
 
-Widget _crearPassword(LoginBloc bloc) {
-  return StreamBuilder(
-    stream: bloc.passwordStream,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: TextField(
-          keyboardType: TextInputType.emailAddress,
-          obscureText: true,
-          decoration: InputDecoration(
-              icon: Icon(Icons.lock_outline,
+  Widget _crearEmail(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon(Icons.alternate_email,
                   color: Color.fromRGBO(89, 122, 121, 1.0)),
-              labelText: 'Contrasenia',
-              //counterText: snapshot.data,
-              errorText: snapshot.error),
-          onChanged: bloc.changePassword,
-        ),
-      );
-    },
-  );
-}
+              hintText: 'ejemplo@dominio.com.co',
+              labelText: 'Correo Electronico',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeEmail,
+          ),
+        );
+      },
+    );
+  }
 
-Widget _crearBotonSingIn(LoginBloc bloc) {
-  return StreamBuilder(
-    stream: bloc.formValidStream,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return RaisedButton(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: Text('Sign In'),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        elevation: 0.0,
-        color: Color.fromRGBO(227, 227, 227, 1.0),
-        onPressed: snapshot.hasData ? () => _login(context, bloc) : null,
-      );
-    },
-  );
-}
+  Widget _crearPassword(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.passwordStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            obscureText: true,
+            decoration: InputDecoration(
+                icon: Icon(Icons.lock_outline,
+                    color: Color.fromRGBO(89, 122, 121, 1.0)),
+                labelText: 'Contrasenia',
+                //counterText: snapshot.data,
+                errorText: snapshot.error),
+            onChanged: bloc.changePassword,
+          ),
+        );
+      },
+    );
+  }
 
-Widget _crearBotonSignUp(LoginBloc bloc) {
-  return StreamBuilder(
-    stream: bloc.formValidStream,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return RaisedButton(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: Text('Sign Up'),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        elevation: 0.0,
-        color: Color.fromRGBO(227, 227, 227, 1.0),
-        onPressed: () {
-          Navigator.pushNamed(context, 'signUp');
-        },
-      );
-    },
-  );
-}
+  Widget _crearBotonSingIn(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.formValidStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return RaisedButton(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+            child: Text('Sign In'),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          elevation: 0.0,
+          color: Color.fromRGBO(227, 227, 227, 1.0),
+          onPressed: snapshot.hasData ? () => _login(context, bloc) : null,
+        );
+      },
+    );
+  }
 
-//Metodo de Prueba No eliminar por favor
+  Widget _crearBotonSignUp(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.formValidStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return RaisedButton(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+            child: Text('Sign Up'),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          elevation: 0.0,
+          color: Color.fromRGBO(227, 227, 227, 1.0),
+          onPressed: () {
+            Navigator.pushNamed(context, 'signUp');
+          },
+        );
+      },
+    );
+  }
 
-_login(BuildContext context, LoginBloc bloc) {
-  print('===========');
-  print('Email: ${bloc.email}');
-  print('Passw: ${bloc.passw}');
-  print('===========');
+  _login(BuildContext context, LoginBloc bloc) async {
+    Map info = await usuarioProvider.login(bloc.email, bloc.passw);
 
-  Navigator.pushNamed(context, 'home');
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      utils.mostrarAlerta(
+          context, 'Usuario o Contraseña Invalidos ${info['mensaje']}');
+    }
+
+    //Navigator.pushNamed(context, 'home');
+  }
 }

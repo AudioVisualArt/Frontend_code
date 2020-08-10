@@ -1,9 +1,13 @@
-import 'package:Clapp/src/User/bloc/provider.dart';
-import 'package:Clapp/src/User/bloc/signup_bloc.dart';
-import 'package:Clapp/src/User/widgets/background_login.dart';
 import 'package:flutter/material.dart';
 
+import 'package:Clapp/src/User/bloc/provider.dart';
+import 'package:Clapp/src/User/bloc/signup_bloc.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
+import 'package:Clapp/src/User/widgets/background_login.dart';
+import 'package:Clapp/src/User/utils/utils.dart' as utils;
+
 class SignUp extends StatelessWidget {
+  final usuarioProvider = new UsuarioProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +37,8 @@ class SignUp extends StatelessWidget {
           ]),
       child: Column(
         children: <Widget>[
+          Text('Crear Cuenta',
+              style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
           SizedBox(height: 50.0),
           _registroEmail(bloc),
           SizedBox(height: 30.0),
@@ -97,11 +103,12 @@ class SignUp extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             obscureText: true,
             decoration: InputDecoration(
-                icon: Icon(Icons.lock_outline,
-                    color: Color.fromRGBO(89, 122, 121, 1.0)),
-                labelText: 'Contrasenia',
-                //counterText: snapshot.data,
-                errorText: snapshot.error),
+              icon: Icon(Icons.lock_outline,
+                  color: Color.fromRGBO(89, 122, 121, 1.0)),
+              labelText: 'Contraseña',
+              //counterText: snapshot.data,
+              errorText: snapshot.error,
+            ),
             onChanged: bloc.changePassword,
           ),
         );
@@ -123,9 +130,21 @@ class SignUp extends StatelessWidget {
           ),
           elevation: 0.0,
           color: Color.fromRGBO(227, 227, 227, 1.0),
-          onPressed: snapshot.hasData ? () => Text('Bien') : null,
+          onPressed: snapshot.hasData ? () => _register(context, bloc) : null,
         );
       },
     );
+  }
+
+  _register(BuildContext context, SignUpBloc bloc) async {
+    Map info = await usuarioProvider.nuevoUsuario(bloc.email, bloc.passw);
+
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      utils.mostrarAlerta(context, 'Revisar Campos ${info['mensaje']}');
+    }
+
+    //Navigator.pushNamed(context, 'home');
   }
 }

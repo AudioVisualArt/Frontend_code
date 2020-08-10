@@ -175,11 +175,13 @@ class _ProductoPageState extends State<ProductoPage> {
       // TODO: tengo adelnatar esto
       return Container();
     } else {
-      return Image(
-        image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
-        height: 300.0,
-        fit: BoxFit.cover,
-      );
+      if (foto != null) {
+        return Image(
+          image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
+          height: 300.0,
+          fit: BoxFit.cover,
+        );
+      }
     }
   }
 

@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:Clapp/src/User/models/producto_models.dart';
 
 class ProductosProvider {
   final String _url = 'https://clappauth.firebaseio.com';
+  final _prefs = new PreferenciasUsuario();
 
   Future<bool> crearProducto(ProductoModel producto) async {
-    final url = '$_url/productos.json';
+    final url = '$_url/productos.json?auth=${_prefs.token}';
 
     final resp = await http.post(url, body: productoModelToJson(producto));
 
@@ -20,7 +21,7 @@ class ProductosProvider {
   }
 
   Future<bool> editarProducto(ProductoModel producto) async {
-    final url = '$_url/productos/${producto.id}.json';
+    final url = '$_url/productos/${producto.id}.json?auth=${_prefs.token}';
 
     final resp = await http.put(url, body: productoModelToJson(producto));
 
@@ -32,7 +33,7 @@ class ProductosProvider {
   }
 
   Future<List<ProductoModel>> cargarProductos() async {
-    final url = '$_url/productos.json';
+    final url = '$_url/productos.json?auth=${_prefs.token}';
     final rsp = await http.get(url);
 
     final Map<String, dynamic> decodeData = json.decode(rsp.body);
@@ -51,7 +52,7 @@ class ProductosProvider {
   }
 
   Future<int> borrarProducto(String id) async {
-    final url = '$_url/productos/$id.json';
+    final url = '$_url/productos/$id.json?auth=${_prefs.token}';
     final rsp = await http.delete(url);
 
     print(json.decode(rsp.body));
