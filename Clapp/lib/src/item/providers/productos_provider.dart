@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
-
 import 'package:http/http.dart' as http;
 import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/producto_models.dart';
 
 class ProductosProvider {
-  final String _url = 'https://clappauth.firebaseio.com';
+  final String _url = 'http://192.168.0.12:8080';
   final _prefs = new PreferenciasUsuario();
 
   Future<bool> crearProducto(ProductoModel producto) async {
@@ -21,7 +20,7 @@ class ProductosProvider {
   }
 
   Future<bool> editarProducto(ProductoModel producto) async {
-    final url = '$_url/productos/${producto.id}.json?auth=${_prefs.token}';
+    final url = '$_url/getAllProducts/${producto.id}.json?auth=${_prefs.token}';
 
     final resp = await http.put(url, body: productoModelToJson(producto));
 
@@ -33,20 +32,26 @@ class ProductosProvider {
   }
 
   Future<List<ProductoModel>> cargarProductos() async {
-    final url = '$_url/productos.json?auth=${_prefs.token}';
+    print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getAllProducts';
+    print("la url que se trata de acceder es: $url");
     final rsp = await http.get(url);
+    print(rsp.body);
 
-    final Map<String, dynamic> decodeData = json.decode(rsp.body);
-    final List<ProductoModel> productos = new List();
-
+    final Iterable decodeData = json.decode(rsp.body);
+    List<ProductoModel> productos = new List();
+    print("el json es: $decodeData");
     if (decodeData == null) return [];
+    print("el json es: $decodeData");
 
-    decodeData.forEach((id, prod) {
-      final prodTemp = ProductoModel.fromJson(prod);
-      prodTemp.id = id;
+    productos = decodeData.map((model) => ProductoModel.fromJson(model)).toList();
+    /*decodeData.forEach((prod) {
+      ProductoModel prodTemp = ProductoModel.fromJson(prod);
+      print("el producto: $prodTemp");
+      //prodTemp.id = id;
       productos.add(prodTemp);
-      //print(productos[0].titulo);
-    });
+      print(productos[0].titulo);
+    });*/
 
     return productos;
   }

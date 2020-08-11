@@ -26,18 +26,18 @@ class ProductoModel {
 
   factory ProductoModel.fromJson(Map<String, dynamic> json) =>
       new ProductoModel(
-        id: json["id"],
+        disponible: json["disponible"],
         titulo: json["titulo"],
         valor: json["valor"],
-        disponible: json["disponible"],
+        id: json["id"],
         fotoUrl: json["fotoUrl"],
       );
 
   Map<String, dynamic> toJson() => {
-        // "id": id,
+        "disponible": disponible,
         "titulo": titulo,
         "valor": valor,
-        "disponible": disponible,
+        "id": id,
         "fotoUrl": fotoUrl,
       };
 }
