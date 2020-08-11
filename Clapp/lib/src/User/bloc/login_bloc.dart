@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:Clapp/src/User/bloc/validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:rxdart/rxdart.dart';
 
@@ -14,6 +15,11 @@ class LoginBloc with Validator{
 
   Stream<String> get emailStream    => _emailController.stream.transform(validarEmail);
   Stream<String> get passwordStream => _passwordController.stream.transform(validarPassword);
+
+  Stream<FirebaseUser> streamFirebase = FirebaseAuth.instance.onAuthStateChanged;
+  Stream<FirebaseUser> get authStatus => streamFirebase;
+  Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
+
 
   Stream<bool> get formValidStream =>  Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
 

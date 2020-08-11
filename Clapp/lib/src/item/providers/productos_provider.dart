@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:Clapp/src/User/models/producto_models.dart';
+import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/producto_models.dart';
 
 class ProductosProvider {
   final String _url = 'https://clappauth.firebaseio.com';

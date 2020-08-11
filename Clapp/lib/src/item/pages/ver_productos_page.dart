@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:Clapp/src/User/models/producto_models.dart';
-import 'package:Clapp/src/User/providers/productos_provider.dart';
+import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/producto_models.dart';
+import 'file:///E:/Tesis_Code/Clapp/lib/src/item/providers/productos_provider.dart';
 
 class MostrarProductosPage extends StatefulWidget {
   @override
