@@ -8,13 +8,15 @@ class ProductosProvider {
   final _prefs = new PreferenciasUsuario();
 
   Future<bool> crearProducto(ProductoModel producto) async {
-    final url = '$_url/productos.json?auth=${_prefs.token}';
+    final url = '$_url/saveProduct';
 
-    final resp = await http.post(url, body: productoModelToJson(producto));
+    final resp = await http.post(url,headers: <String, String>{
+      'Content-Type': 'application/json',
+    },body: productoModelToJson(producto));
 
-    final decodeData = json.decode(resp.body);
+    //final decodeData = json.decode(resp.body);
 
-    print(decodeData);
+    //print(decodeData);
 
     return true;
   }

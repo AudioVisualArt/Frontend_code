@@ -17,11 +17,11 @@ class ProductoModel {
   String fotoUrl;
 
   ProductoModel({
-    this.id,
+    this.id = "12",
     this.titulo = '',
     this.valor = 0.0,
     this.disponible = true,
-    this.fotoUrl,
+    this.fotoUrl="",
   });
 
   factory ProductoModel.fromJson(Map<String, dynamic> json) =>
