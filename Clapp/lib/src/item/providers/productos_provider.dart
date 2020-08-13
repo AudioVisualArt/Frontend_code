@@ -18,9 +18,10 @@ class ProductosProvider {
   }
 
   Future<bool> editarProducto(ProductoModel producto) async {
-    final url = '$_url/getAllProducts/${producto.id}.json?auth=${_prefs.token}';
+    final url = '$_url/getAllProducts/${producto.id}';
 
-    final resp = await http.put(url, body: productoModelToJson(producto));
+    final resp = await http.put(url,headers: <String, String>{
+    'Content-Type': 'application/json'}, body: productoModelToJson(producto));
 
     final decodeData = json.decode(resp.body);
 
