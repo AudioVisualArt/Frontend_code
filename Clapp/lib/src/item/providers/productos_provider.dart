@@ -33,24 +33,16 @@ class ProductosProvider {
   Future<List<ProductoModel>> cargarProductos() async {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllProducts';
-    print("la url que se trata de acceder es: $url");
     final rsp = await http.get(url);
     print(rsp.body);
 
     final Iterable decodeData = json.decode(rsp.body);
     List<ProductoModel> productos = new List();
-    print("el json es: $decodeData");
     if (decodeData == null) return [];
-    print("el json es: $decodeData");
+
 
     productos = decodeData.map((model) => ProductoModel.fromJson(model)).toList();
-    /*decodeData.forEach((prod) {
-      ProductoModel prodTemp = ProductoModel.fromJson(prod);
-      print("el producto: $prodTemp");
-      //prodTemp.id = id;
-      productos.add(prodTemp);
-      print(productos[0].titulo);
-    });*/
+
 
     return productos;
   }
