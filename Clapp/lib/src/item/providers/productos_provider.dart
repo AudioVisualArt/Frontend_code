@@ -14,10 +14,6 @@ class ProductosProvider {
       'Content-Type': 'application/json',
     },body: productoModelToJson(producto));
 
-    //final decodeData = json.decode(resp.body);
-
-    //print(decodeData);
-
     return true;
   }
 
