@@ -17,7 +17,7 @@ class ProductoModel {
   String fotoUrl;
 
   ProductoModel({
-    this.id = "12",
+    this.id,
     this.titulo = '',
     this.valor = 0.0,
     this.disponible = true,
