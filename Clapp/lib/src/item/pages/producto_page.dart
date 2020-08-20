@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/producto_models.dart';
+import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/item_models.dart';
 import 'file:///E:/Tesis_Code/Clapp/lib/src/item/providers/productos_provider.dart';
 import 'package:Clapp/src/User/utils/utils.dart' as utils;
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +16,7 @@ class _ProductoPageState extends State<ProductoPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  ProductoModel producto = new ProductoModel();
+  ItemModel producto = new ItemModel();
 
   bool _guardando = false;
 
@@ -28,7 +28,7 @@ class _ProductoPageState extends State<ProductoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ProductoModel prodData = ModalRoute.of(context).settings.arguments;
+    final ItemModel prodData = ModalRoute.of(context).settings.arguments;
 
     if (prodData != null) {
       producto = prodData;

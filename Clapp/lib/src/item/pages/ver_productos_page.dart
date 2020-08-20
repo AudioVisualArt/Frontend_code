@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/producto_models.dart';
+import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/item_models.dart';
 import 'file:///E:/Tesis_Code/Clapp/lib/src/item/providers/productos_provider.dart';
 
 class MostrarProductosPage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     return FutureBuilder(
       future: productosProvider.cargarProductos(),
       builder:
-          (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
+          (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
         if (snapshot.hasData) {
           final productos = snapshot.data;
           return ListView.builder(
@@ -51,7 +51,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     );
   }
 
-  Widget _crearItem(BuildContext context, ProductoModel producto) {
+  Widget _crearItem(BuildContext context, ItemModel producto) {
     return Dismissible(
       key: UniqueKey(),
       background: Container(

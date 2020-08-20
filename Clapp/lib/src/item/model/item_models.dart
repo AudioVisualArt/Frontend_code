@@ -4,19 +4,19 @@
 
 import 'dart:convert';
 
-ProductoModel productoModelFromJson(String str) =>
-    ProductoModel.fromJson(json.decode(str));
+ItemModel productoModelFromJson(String str) =>
+    ItemModel.fromJson(json.decode(str));
 
-String productoModelToJson(ProductoModel data) => json.encode(data.toJson());
+String itemModelToJson(ItemModel data) => json.encode(data.toJson());
 
-class ProductoModel {
+class ItemModel {
   String id;
   String titulo;
   double valor;
   bool disponible;
   String fotoUrl;
 
-  ProductoModel({
+  ItemModel({
     this.id,
     this.titulo = '',
     this.valor = 0.0,
@@ -24,8 +24,8 @@ class ProductoModel {
     this.fotoUrl="",
   });
 
-  factory ProductoModel.fromJson(Map<String, dynamic> json) =>
-      new ProductoModel(
+  factory ItemModel.fromJson(Map<String, dynamic> json) =>
+      new ItemModel(
         disponible: json["disponible"],
         titulo: json["titulo"],
         valor: json["valor"],
