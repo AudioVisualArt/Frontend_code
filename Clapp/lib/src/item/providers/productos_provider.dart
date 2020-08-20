@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
+import 'package:Clapp/src/item/model/item_models.dart';
 
 import 'package:http/http.dart' as http;
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/item_models.dart';
 
 class ProductosProvider {
   final String _url = 'http://192.168.0.12:8080';
@@ -11,9 +11,11 @@ class ProductosProvider {
   Future<bool> crearProducto(ItemModel producto) async {
     final url = '$_url/saveItem';
 
-    final resp = await http.post(url,headers: <String, String>{
-      'Content-Type': 'application/json',
-    },body: itemModelToJson(producto));
+    final resp = await http.post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: itemModelToJson(producto));
 
     print(resp.statusCode);
 
@@ -23,8 +25,9 @@ class ProductosProvider {
   Future<bool> editarProducto(ItemModel producto) async {
     final url = '$_url/updateItem/${producto.id}';
 
-    final resp = await http.put(url,headers: <String, String>{
-    'Content-Type': 'application/json'}, body: itemModelToJson(producto));
+    final resp = await http.put(url,
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: itemModelToJson(producto));
 
     final decodeData = json.decode(resp.body);
 
@@ -43,9 +46,7 @@ class ProductosProvider {
     List<ItemModel> productos = new List();
     if (decodeData == null) return [];
 
-
     productos = decodeData.map((model) => ItemModel.fromJson(model)).toList();
-
 
     return productos;
   }

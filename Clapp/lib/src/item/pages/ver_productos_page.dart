@@ -1,7 +1,6 @@
+import 'package:Clapp/src/item/model/item_models.dart';
+import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
-
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/item_models.dart';
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/providers/productos_provider.dart';
 
 class MostrarProductosPage extends StatefulWidget {
   @override
@@ -35,8 +34,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
   Widget _crearListado() {
     return FutureBuilder(
       future: productosProvider.cargarProductos(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
         if (snapshot.hasData) {
           final productos = snapshot.data;
           return ListView.builder(

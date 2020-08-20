@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:Clapp/src/item/model/item_models.dart';
+import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/model/item_models.dart';
-import 'file:///E:/Tesis_Code/Clapp/lib/src/item/providers/productos_provider.dart';
 import 'package:Clapp/src/User/utils/utils.dart' as utils;
 import 'package:image_picker/image_picker.dart';
 
@@ -21,8 +21,6 @@ class _ProductoPageState extends State<ProductoPage> {
   bool _guardando = false;
 
   File foto;
-
-
 
   final productoProvider = new ProductosProvider();
 
