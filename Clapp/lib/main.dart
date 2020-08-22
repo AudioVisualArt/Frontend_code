@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/bloc/provider.dart';
-import 'package:Clapp/src/User/routes/routes.dart';
+import 'package:Clapp/src/routes/routes.dart';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 
 void main() async {

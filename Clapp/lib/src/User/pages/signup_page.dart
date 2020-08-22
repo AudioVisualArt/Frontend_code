@@ -4,7 +4,7 @@ import 'package:Clapp/src/User/bloc/provider.dart';
 import 'package:Clapp/src/User/bloc/signup_bloc.dart';
 import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:Clapp/src/User/widgets/background_login.dart';
-import 'package:Clapp/src/User/utils/utils.dart' as utils;
+import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class SignUp extends StatelessWidget {
   final usuarioProvider = new UsuarioProvider();

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
+/**
+*La variable [url] sera utilizada para los provider (serivicios)
+*que lleguen desde el back, cuando cada uno tenga el front en su CPU,
+*esto sera solo hasta el despliegue o mientras se esta desarrollando mas
+*NO en Producción
+*/
+
+final url = 'http://192.168.0.16:8080'; //Camilo
+//final url = 'http://192.168.0.12:8080'; //Lemus
+
 bool isNumeric(String s) {
-
-
-
   if (s.isEmpty) {
     return false;
   }
@@ -12,7 +19,6 @@ bool isNumeric(String s) {
 
   return (n == null) ? false : true;
 }
-
 
 void mostrarAlerta(BuildContext context, String msg) {
   showDialog(

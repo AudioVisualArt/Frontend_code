@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:Clapp/src/item/model/item_models.dart';
-
+import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:http/http.dart' as http;
 
 class ProductosProvider {
-  final String _url = 'http://192.168.0.12:8080';
+  final String _url = utils.url; //'http://192.168.0.16:8080';
   final _prefs = new PreferenciasUsuario();
 
   Future<bool> crearProducto(ItemModel producto) async {

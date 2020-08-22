@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:Clapp/src/item/model/item_models.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Clapp/src/User/utils/utils.dart' as utils;
-import 'package:image_picker/image_picker.dart';
+import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class ProductoPage extends StatefulWidget {
   @override

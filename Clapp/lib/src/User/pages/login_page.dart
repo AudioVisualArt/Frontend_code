@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:Clapp/src/User/bloc/login_bloc.dart';
 import 'package:Clapp/src/User/bloc/provider.dart';
 import 'package:Clapp/src/User/providers/usuario_provider.dart';
-import 'package:Clapp/src/User/utils/utils.dart' as utils;
+import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:Clapp/src/User/widgets/background_login.dart';
 
 class LoginPage extends StatelessWidget {
