@@ -17,8 +17,52 @@ class _ProjectPageState extends State<ProjectPage> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
-      body: Center(),
+      body: _crearBody(context),
       bottomNavigationBar: BarraNavegacion(),
+    );
+  }
+
+  Widget _crearBody(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Container(
+        width: size.width,
+        margin: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 20.0),
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              Text('All projects',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")
+              ),
+              //Projects
+
+              //button
+              SizedBox(height: 50.0),
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                label: Text('New Project',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                textColor: Colors.white,
+                icon: Icon(
+                  Icons.create_new_folder,
+                  color: Colors.white,
+                ),
+                color: Color.fromRGBO(89, 122, 121, 1.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                onPressed: () {},
+              ),
+              SizedBox(height: 30.0),
+
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
