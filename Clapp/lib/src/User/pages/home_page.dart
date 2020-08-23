@@ -1,55 +1,137 @@
 import 'package:flutter/material.dart';
 
-import 'package:Clapp/src/User/bloc/provider.dart';
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-class HomePage extends StatelessWidget {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Home',
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
-      //Ejemplo Rest Api Firebase
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(50.0),
-          child: _crearBotones(context),
+      //Rest backend Springboot
+      body: _crearBody(context),
+    );
+  }
+
+  Widget _crearBody(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Container(
+        width: size.width,
+        margin: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 50.0),
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              _mostrarFotoPerfil(),
+              SizedBox(height: 50.0),
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                label: Text('My Studio',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                textColor: Colors.white,
+                icon: Icon(
+                  Icons.streetview,
+                  color: Colors.white,
+                ),
+                color: Color.fromRGBO(89, 122, 121, 1.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                onPressed: () => Navigator.pushNamed(context, 'project'),
+              ),
+              SizedBox(height: 30.0),
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                label: Text('Market',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                textColor: Colors.white,
+                icon: Icon(Icons.store, color: Colors.white),
+                color: Color.fromRGBO(89, 122, 121, 1.0),
+                padding: EdgeInsets.symmetric(horizontal: 45.0),
+                onPressed: () => Navigator.pushNamed(context, 'producto'),
+              ),
+              SizedBox(height: 30.0),
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                label: Text('Services',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                textColor: Colors.white,
+                icon: Icon(Icons.storage, color: Colors.white),
+                color: Color.fromRGBO(89, 122, 121, 1.0),
+                padding: EdgeInsets.symmetric(horizontal: 35.0),
+                onPressed: () {},
+              ),
+              SizedBox(height: 30.0),
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                label: Text('Forums',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                textColor: Colors.white,
+                icon: Icon(Icons.forum, color: Colors.white),
+                color: Color.fromRGBO(89, 122, 121, 1.0),
+                padding: EdgeInsets.symmetric(horizontal: 38.0),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _crearBotones(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        RaisedButton.icon(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          label: Text('Ingresar Producto'),
-          textColor: Colors.white,
-          icon: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          color: Color.fromRGBO(89, 122, 121, 1.0),
-          onPressed: () => Navigator.pushNamed(context, 'producto'),
-        ),
-        RaisedButton.icon(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          label: Text('Ver Inventario'),
-          textColor: Colors.white,
-          icon: Icon(Icons.art_track, color: Colors.white),
-          color: Color.fromRGBO(89, 122, 121, 1.0),
-          onPressed: () => Navigator.pushNamed(context, 'ver_producto'),
-        ),
-      ],
+  Widget _mostrarFotoPerfil() {
+    return Image(
+      image: AssetImage('assets/img/no-image.png'),
+      height: 200.0,
+      width: 200.0,
+      fit: BoxFit.cover,
     );
+  }
+
+  List<Widget> crear() {
+    return [
+      RaisedButton.icon(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        label: Text('Ingresar Producto'),
+        textColor: Colors.white,
+        icon: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        color: Color.fromRGBO(89, 122, 121, 1.0),
+        onPressed: () => Navigator.pushNamed(context, 'producto'),
+      ),
+      RaisedButton.icon(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        label: Text('Ver Inventario'),
+        textColor: Colors.white,
+        icon: Icon(Icons.art_track, color: Colors.white),
+        color: Color.fromRGBO(89, 122, 121, 1.0),
+        onPressed: () => Navigator.pushNamed(context, 'ver_producto'),
+      ),
+    ];
   }
 }

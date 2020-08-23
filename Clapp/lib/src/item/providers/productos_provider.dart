@@ -5,7 +5,7 @@ import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:http/http.dart' as http;
 
 class ProductosProvider {
-  final String _url = utils.url; //'http://192.168.0.16:8080';
+  final String _url = utils.url;
   final _prefs = new PreferenciasUsuario();
 
   Future<bool> crearProducto(ItemModel producto) async {
