@@ -15,7 +15,8 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     return Container(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('Productos en FireBase'),
+        title: Text('Productos',
+            style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.autorenew),
@@ -51,19 +52,40 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
   Widget _crearItem(BuildContext context, ItemModel producto) {
     return Dismissible(
-      key: UniqueKey(),
-      background: Container(
-        color: Colors.red,
-      ),
-      onDismissed: (direction) {
-        productosProvider.borrarProducto(producto.id);
-      },
-      child: ListTile(
-        title: Text('${producto.titulo} - ${producto.valor}'),
-        subtitle: Text(producto.id),
-        onTap: () =>
-            Navigator.pushNamed(context, 'producto', arguments: producto),
-      ),
-    );
+        key: UniqueKey(),
+        background: Container(
+          color: Colors.red,
+        ),
+        onDismissed: (direction) {
+          productosProvider.borrarProducto(producto.id);
+        },
+        child: Card(
+          elevation: 20.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                title: Text('${producto.titulo} - ${producto.valor}',
+                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                subtitle: Text(producto.id,
+                    style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
+                leading: Icon(Icons.arrow_forward_ios),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text('Details',
+                        style:
+                            TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
+                    onPressed: () => Navigator.pushNamed(context, 'producto',
+                        arguments: producto),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
