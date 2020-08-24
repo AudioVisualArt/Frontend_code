@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
-                onPressed: () => Navigator.pushNamed(context, 'project'),
+                onPressed: () => Navigator.pushNamed(context, 'my_studio'),
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(

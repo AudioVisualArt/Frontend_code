@@ -10,6 +10,12 @@ class ShowPage extends StatefulWidget {
 class _ShowPageState extends State<ShowPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Show',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+      ),
+    );
   }
 }

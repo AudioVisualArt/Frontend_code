@@ -10,6 +10,12 @@ class ManagePage extends StatefulWidget {
 class _ManagePageState extends State<ManagePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Manage',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+      ),
+    );
   }
 }

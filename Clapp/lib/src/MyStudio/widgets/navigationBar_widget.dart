@@ -16,7 +16,7 @@ class _BarraNavegacionState extends State<BarraNavegacion> {
       onTap: (value) {},
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-            icon: Icon(Icons.assignment), title: Text('Projects')),
+            icon: Icon(Icons.assignment), title: Text('Proj ects')),
         BottomNavigationBarItem(
             icon: Icon(Icons.store_mall_directory), title: Text('Store')),
         BottomNavigationBarItem(

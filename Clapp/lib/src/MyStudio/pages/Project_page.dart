@@ -1,4 +1,3 @@
-import 'package:Clapp/src/MyStudio/widgets/navigationBar_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -17,8 +16,7 @@ class _ProjectPageState extends State<ProjectPage> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
-      body: Center(),
-      bottomNavigationBar: BarraNavegacion(),
+      body: Container(),
     );
   }
 }

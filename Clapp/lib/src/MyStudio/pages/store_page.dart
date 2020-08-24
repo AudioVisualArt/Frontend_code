@@ -10,6 +10,12 @@ class StorePage extends StatefulWidget {
 class _StorePageState extends State<StorePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Store',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+      ),
+    );
   }
 }
