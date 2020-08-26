@@ -15,16 +15,21 @@ class MyStudioPage extends StatefulWidget {
 }
 
 class _MyStudioPageState extends State<MyStudioPage> {
-  final List<Widget> _screens = [
-    ProjectPage(),
-    StorePage(),
-    MostrarProductosPage(),
-    ManagePage()
-  ];
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final idUsuario = ModalRoute.of(context).settings.arguments;
+
+    final List<Widget> _screens = [
+      ProjectPage(),
+      StorePage(),
+      MostrarProductosPage(),
+      ManagePage()
+    ];
+
+    print('IdUsuario: ' + idUsuario.toString());
+
     return Scaffold(
         body: _screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(

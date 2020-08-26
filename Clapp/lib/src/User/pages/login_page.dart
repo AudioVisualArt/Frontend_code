@@ -164,8 +164,11 @@ class LoginPage extends StatelessWidget {
   _login(BuildContext context, LoginBloc bloc) async {
     Map info = await usuarioProvider.login(bloc.email, bloc.passw);
 
+    //print('Info:  ' + info.toString() + '\n');
+
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home');
+      Navigator.pushReplacementNamed(context, 'home',
+          arguments: info['idUser']);
     } else {
       utils.mostrarAlerta(
           context, 'Usuario o Contraseña Invalidos ${info['mensaje']}');

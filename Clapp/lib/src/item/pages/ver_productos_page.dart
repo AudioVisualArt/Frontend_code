@@ -3,6 +3,7 @@ import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
 class MostrarProductosPage extends StatefulWidget {
+  MostrarProductosPage();
   @override
   _MostrarProductosPageState createState() => _MostrarProductosPageState();
 }
@@ -12,6 +13,8 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final idUsuario = ModalRoute.of(context).settings.arguments;
+
     return Container(
         child: Scaffold(
       appBar: AppBar(

@@ -24,7 +24,7 @@ class UsuarioProvider {
 
     if (decodeData.containsKey('idToken')) {
       _prefs.token = decodeData['idToken'];
-      return {'ok': true, 'token': decodeData['idToken']};
+      return {'ok': true, 'idUser': decodeData['localId']};
     } else {
       return {'ok': false, 'mensaje': decodeData['error']['message']};
     }
@@ -44,7 +44,7 @@ class UsuarioProvider {
 
     Map<String, dynamic> decodeData = json.decode(resp.body);
 
-    print(decodeData);
+    print('Decode Data' + decodeData.toString());
 
     if (decodeData.containsKey('idToken')) {
       _prefs.token = decodeData['idToken'];

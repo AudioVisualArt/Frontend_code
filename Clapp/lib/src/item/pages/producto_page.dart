@@ -152,12 +152,8 @@ class _ProductoPageState extends State<ProductoPage> {
       productoProvider.editarProducto(producto);
     }
 
-    // setState(() {
-    //   _guardando = false;
-    // });
-
     mostrarSnackbar('Registro Guardado');
-    Duration(milliseconds: 1500);
+    Duration(milliseconds: 40000);
     Navigator.pushReplacementNamed(context, 'producto');
   }
 

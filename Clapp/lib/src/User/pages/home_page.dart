@@ -10,17 +10,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final idUsuario = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Home',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       //Rest backend Springboot
-      body: _crearBody(context),
+      body: _crearBody(context, idUsuario),
     );
   }
 
-  Widget _crearBody(BuildContext context) {
+  Widget _crearBody(BuildContext context, String idUsuario) {
     final size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -47,7 +49,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
-                onPressed: () => Navigator.pushNamed(context, 'my_studio'),
+                onPressed: () => Navigator.pushNamed(context, 'my_studio',
+                    arguments: idUsuario),
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(
@@ -120,7 +123,10 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
         ),
         color: Color.fromRGBO(89, 122, 121, 1.0),
-        onPressed: () => Navigator.pushNamed(context, 'producto'),
+        onPressed: () => Navigator.pushNamed(
+          context,
+          'producto',
+        ),
       ),
       RaisedButton.icon(
         shape: RoundedRectangleBorder(

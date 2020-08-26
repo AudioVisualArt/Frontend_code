@@ -5,31 +5,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:rxdart/rxdart.dart';
 
-class LoginBloc with Validator{
-
-
-  final _emailController    = BehaviorSubject<String>();
+class LoginBloc with Validator {
+  final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
+  final _userId = BehaviorSubject<String>();
 
   //Recuperar los datos del Stream
 
-  Stream<String> get emailStream    => _emailController.stream.transform(validarEmail);
-  Stream<String> get passwordStream => _passwordController.stream.transform(validarPassword);
+  Stream<String> get emailStream =>
+      _emailController.stream.transform(validarEmail);
+  Stream<String> get passwordStream =>
+      _passwordController.stream.transform(validarPassword);
 
-  Stream<FirebaseUser> streamFirebase = FirebaseAuth.instance.onAuthStateChanged;
+  Stream<FirebaseUser> streamFirebase =
+      FirebaseAuth.instance.onAuthStateChanged;
   Stream<FirebaseUser> get authStatus => streamFirebase;
   Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
 
-
-  Stream<bool> get formValidStream =>  Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
+  Stream<bool> get formValidStream =>
+      Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
 
   //Insertar Valores al Stream
 
-  Function (String) get changeEmail    => _emailController.sink.add;
-  Function (String) get changePassword => _passwordController.sink.add;
+  Function(String) get changeEmail => _emailController.sink.add;
+  Function(String) get changePassword => _passwordController.sink.add;
 
   //Cerrar Streams
-  dispose(){
+  dispose() {
     _emailController?.close();
     _passwordController?.close();
   }
@@ -38,6 +40,4 @@ class LoginBloc with Validator{
 
   String get email => _emailController.value;
   String get passw => _passwordController.value;
-
-
 }
