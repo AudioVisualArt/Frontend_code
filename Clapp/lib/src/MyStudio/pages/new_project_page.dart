@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/item/model/item_models.dart';
-import 'package:Clapp/src/MyStudio/pages/project_management.dart';
+
+import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 
 import 'manage_page.dart';
 
@@ -16,6 +17,7 @@ class NewProjectPage extends StatefulWidget{
 
 class _NewProjectPage extends State<NewProjectPage>{
 
+  var _categoryNameProject = TextEditingController();
   // tipo de projecto
   var _selectedValue;
 
@@ -82,7 +84,7 @@ class _NewProjectPage extends State<NewProjectPage>{
 
                   onPressed: () { Navigator.push(context, new MaterialPageRoute(
                       builder: (context) =>
-                      new ProjectManagement())
+                      new VerContratos())
 
                   );},
                 ),
@@ -99,6 +101,7 @@ class _NewProjectPage extends State<NewProjectPage>{
   Widget _projectname() {
     return TextFormField(
 
+      controller: _categoryNameProject,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Project Name',

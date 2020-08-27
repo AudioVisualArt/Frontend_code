@@ -1,54 +1,56 @@
-// To parse this JSON data, do
-//
-//     final contractModel = contractModelFromJson(jsonString);
+
 
 import 'dart:convert';
 
-ContractModel contractModelFromJson(String str) =>
+ContractModel contractsModelFromJson(String str) =>
     ContractModel.fromJson(json.decode(str));
 
-String contractModelToJson(ContractModel data) => json.encode(data.toJson());
+String ContractModelToJson(ContractModel data) => json.encode(data.toJson());
 
 class ContractModel {
-  ContractModel({
-    this.city,
-    this.desiredSkills,
-    this.jobPosition,
-    this.payment,
-    this.workHours,
-    this.userApplicantId,
-    this.userBidderId,
-    this.id,
-  });
-
   String city;
-  List<String> desiredSkills;
+ // List<String> desiredSkills;
   String jobPosition;
   double payment;
   int workHours;
-  String userApplicantId;
-  String userBidderId;
+  //String userApplicantId;
+  //String userBidderId;
   String id;
 
-  factory ContractModel.fromJson(Map<String, dynamic> json) => ContractModel(
+
+  ContractModel({
+    this.id,
+    this.city = '',
+    this.payment = 0.0,
+    this.jobPosition = '',
+    //this.desiredSkills,
+    this.workHours = 0,
+    //this.userApplicantId,
+    //this.userBidderId,
+
+  });
+
+  factory ContractModel.fromJson(Map<String, dynamic> json) =>
+      new ContractModel(
         city: json["city"],
-        desiredSkills: List<String>.from(json["desiredSkills"].map((x) => x)),
+       // desiredSkills: json["desiredSkills"],
         jobPosition: json["jobPosition"],
-        payment: json["payment"].toDouble(),
+        payment: json["payment"],
         workHours: json["workHours"],
-        userApplicantId: json["userApplicantId"],
-        userBidderId: json["userBidderId"],
+        //userApplicantId: json["userApplicantId"],
+        //userBidderId: json["userBidderId"],
         id: json["id"],
+
       );
 
   Map<String, dynamic> toJson() => {
-        "city": city,
-        "desiredSkills": List<dynamic>.from(desiredSkills.map((x) => x)),
-        "jobPosition": jobPosition,
-        "payment": payment,
-        "workHours": workHours,
-        "userApplicantId": userApplicantId,
-        "userBidderId": userBidderId,
-        "id": id,
-      };
+    "city": city,
+    //"desiredSkills": desiredSkills,
+    "jobPosition": jobPosition,
+    "payment": payment,
+    "workHours": workHours,
+   // "userApplicantId": userApplicantId,
+    //"userBidderId": userBidderId,
+    "id": id,
+  };
 }
