@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/item/model/item_models.dart';
+import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 
 import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
-
-import 'manage_page.dart';
+import 'package:Clapp/src/utils/utils.dart' as utils;
+import '../../MyStudio/pages/manage_page.dart';
 
 class NewProjectPage extends StatefulWidget{
   @override
@@ -20,6 +22,9 @@ class _NewProjectPage extends State<NewProjectPage>{
   var _categoryNameProject = TextEditingController();
   // tipo de projecto
   var _selectedValue;
+  ProjectModel proyecto = new ProjectModel();
+  bool _guardando = false;
+  final proyectoProvider = new ProyectosProvider();
 
   var _categoriesProjectType = List<DropdownMenuItem>();
   // job positions
@@ -59,14 +64,15 @@ class _NewProjectPage extends State<NewProjectPage>{
               children: <Widget>[
                _projectname(),
                 SizedBox(height: 25),
+                _contacto(),
+               SizedBox(height: 25),
+
                 _projectTipo(),
                 SizedBox(height: 25),
-                _jobPosition(),
+                _description(),
+               // SizedBox(height: 25),
+                //_locations(),
                 SizedBox(height: 25),
-                _locations(),
-                SizedBox(height: 25),
-                _projectpublico(),
-                SizedBox(height: 45),
 
                 RaisedButton.icon(
                   shape: RoundedRectangleBorder(
@@ -100,38 +106,57 @@ class _NewProjectPage extends State<NewProjectPage>{
 
   Widget _projectname() {
     return TextFormField(
-
-      controller: _categoryNameProject,
+      initialValue: proyecto.proyectName,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Project Name',
       ),
+      onSaved: (value) => proyecto.proyectName = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingrese el nombre del proyecto correctamente';
+        } else {
+          return null;
+        }
+      },
 
     );
   }
   Widget _projectTipo(){
-    return DropdownButtonFormField(
-        value: _selectedValue,
-        items:  _categoriesProjectType,
-        hint: Text('Project Type'),
-        onChanged: (value){
-          setState(() {
-            _selectedValue = value;
-    });
-    },
-        );
+    return TextFormField(
+      initialValue: proyecto.projectType,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Project Type',
+      ),
+      onSaved: (value) => proyecto.projectType = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingrese el tipo del proyecto correctamente';
+        } else {
+          return null;
+        }
+      },
+
+    );
   }
 
-  Widget _jobPosition(){
-    return DropdownButtonFormField(
-      value: _selectedValue,
-      items: _categoriesJobPosition,
-      hint: Text('Job Positions'),
-      onChanged: (value){
-        setState(() {
-          _selectedValue = value;
-        });
+  Widget _description(){
+    return TextFormField(
+      initialValue: proyecto.description,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Description',
+      ),
+      onSaved: (value) => proyecto.description = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingrese la descripcion del proyecto correctamente';
+        } else {
+          return null;
+        }
       },
+
     );
   }
 
@@ -147,16 +172,22 @@ class _NewProjectPage extends State<NewProjectPage>{
     );
   }
 
-  Widget _projectpublico(){
-    return DropdownButtonFormField(
-      value: _selectedValue,
-      items:_categoriesPublico,
-      hint: Text('Job Positions'),
-      onChanged: (value){
-        setState(() {
-          _selectedValue = value;
-        });
+  Widget _contacto(){
+    return TextFormField(
+      initialValue: proyecto.contacto,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Contacto',
+      ),
+      onSaved: (value) => proyecto.contacto = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingrese el nombre correctamente';
+        } else {
+          return null;
+        }
       },
+
     );
   }
 

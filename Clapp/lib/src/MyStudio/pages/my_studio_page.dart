@@ -5,7 +5,7 @@ import 'package:Clapp/src/MyStudio/pages/manage_page.dart';
 import 'package:Clapp/src/MyStudio/pages/show_page.dart';
 import 'package:Clapp/src/MyStudio/pages/store_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
-import 'package:Clapp/src/MyStudio/pages/new_project_page.dart';
+import 'file:///C:/Users/user/AndroidStudioProjects/front_clapp/Code/Clapp/lib/src/projectos/pages/new_project_page.dart';
 
 class MyStudioPage extends StatefulWidget {
   MyStudioPage({Key key}) : super(key: key);

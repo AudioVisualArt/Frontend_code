@@ -7,7 +7,7 @@ String ProjectModelToJson(ProjectModel data) => json.encode(data.toJson());
 
 class ProjectModel {
   String contacto;
-  List<String> crew;
+  //List<String> crew;
   //List<String>locations;
   String proyectName;
   String projectType;
@@ -18,7 +18,7 @@ class ProjectModel {
   ProjectModel({
     this.id,
     this.contacto = "",
-    this.crew ,
+   // this.crew ,
     this.proyectName = "",
     this.projectType = "",
 
@@ -31,7 +31,7 @@ class ProjectModel {
       new ProjectModel(
         contacto: json["contacto"],
 
-        crew: json["crew "],
+        //crew: json["crew "],
         proyectName: json["proyectName"],
         projectType: json["projectType"],
         description: json["description"],
@@ -43,7 +43,7 @@ class ProjectModel {
   Map<String, dynamic> toJson() => {
     "contacto": contacto,
 
-    "crew": crew,
+   // "crew": crew,
     "proyectName": proyectName,
     "projectType": projectType,
 
