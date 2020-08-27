@@ -44,13 +44,13 @@ class _VerContratos extends State<VerContratos> {
                           children: <Widget>[
                             TitleBar('Actors'),
 
-                            SizedBox(height: 30),
+                            SizedBox(height: 9),
                             SizedBox(
-                              height: 400,
+                              height: 450,
                               child: _crearListado(),
                             ),
 
-                            SizedBox(height: 30),
+                            SizedBox(height: 20),
                             RaisedButton.icon(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.0),
