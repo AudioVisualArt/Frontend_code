@@ -14,7 +14,7 @@ class EquipmentProvider {
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: contractModelToJson(contractModel));
+        body: ContractModelToJson(contractModel));
 
     print(resp.statusCode);
 
@@ -22,11 +22,12 @@ class EquipmentProvider {
   }
 
   Future<bool> editarContract(ContractModel contractModel) async {
+
     final url = '$_url/updateContract${contractModel.id}.json';
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: contractModelToJson(contractModel));
+        body: ContractModelToJson(contractModel));
 
     print('Edit 1: ${resp.body.trim()} ');
 
