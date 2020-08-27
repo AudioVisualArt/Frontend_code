@@ -33,7 +33,7 @@ class UsuarioProvider {
       UserModel userModel = UserModel.fromJson(json.decode(rsp.body));
 
 
-      return {'ok': true, 'user':userModel};
+      return {'ok': true, 'user':userModel.id};
     } else {
       return {'ok': false, 'mensaje': decodeData['error']['message']};
     }
