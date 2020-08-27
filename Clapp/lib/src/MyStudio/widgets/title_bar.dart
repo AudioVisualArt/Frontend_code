@@ -24,7 +24,7 @@ class TitleBar extends StatelessWidget{
       ),
 
       //border: Border.all(color: Color.fromRGBO(89, 122, 121, 1.0), width: 1.7),
-      //borderRadius: BorderRadius.all(Radius.circular(5.0) //),
+      borderRadius: BorderRadius.all(Radius.circular(5) ),
     );
   }
 

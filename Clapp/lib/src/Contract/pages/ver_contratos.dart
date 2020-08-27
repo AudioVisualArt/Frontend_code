@@ -42,7 +42,7 @@ class _VerContratos extends State<VerContratos> {
                       //key: formKey,
                         child: Column(
                           children: <Widget>[
-                            TitleBar('Actors'),
+                            TitleBar('Contracts'),
 
                             SizedBox(height: 9),
                             SizedBox(
@@ -89,9 +89,12 @@ class _VerContratos extends State<VerContratos> {
         if (snapshot.hasData) {
           final contratos = snapshot.data;
           return ListView.builder(
+
+           // padding: const EdgeInsets.all(8.0),
             itemCount: contratos.length,
             itemBuilder: (context, index) =>
                 _crearcontrato(context, contratos[index]),
+
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -110,9 +113,12 @@ class _VerContratos extends State<VerContratos> {
           contratosProvider.borrarContrato(contrato.id);
         },
         child: Card(
-          elevation: 20.0,
+          //margin: EdgeInsets.all(10),
+
+          elevation: 10.0,
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+         // color: Color.fromRGBO(227, 227, 227, 1.0),
           child: Column(
             children: <Widget>[
               ListTile(
