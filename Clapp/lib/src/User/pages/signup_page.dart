@@ -42,11 +42,18 @@ class SignUp extends StatelessWidget {
           SizedBox(height: 50.0),
           _registroEmail(bloc),
           SizedBox(height: 30.0),
+          _registroNombre(bloc),
+          SizedBox(height: 30.0),
+          _registroAge(bloc),
+          SizedBox(height: 30.0),
           _crearPassword(bloc),
           SizedBox(height: 30.0),
+          _registroCity(bloc),
+          SizedBox(height: 30.0),
+          _registroDescription(bloc),
+          SizedBox(height: 30.0),
           _crearBotonRegistro(bloc),
-          //SizedBox(height: 30.0),
-          //_crearBotonSignUp(bloc),
+
         ],
       ),
     );
@@ -70,7 +77,69 @@ class SignUp extends StatelessWidget {
       )),
     );
   }
-
+  Widget _registroCity(SignUpBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.cityStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              icon: Icon(Icons.location_on,
+                  color: Color.fromRGBO(89, 122, 121, 1.0)),
+              hintText: 'Ingresa la ciudad en la que vives',
+              labelText: 'Ciudad',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeCity,
+          ),
+        );
+      },
+    );
+  }
+  Widget _registroAge(SignUpBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.ageStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              icon: Icon(Icons.date_range,
+                  color: Color.fromRGBO(89, 122, 121, 1.0)),
+              hintText: 'Ingresa tu edad',
+              labelText: 'Edad',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeAge,
+          ),
+        );
+      },
+    );
+  }
+  Widget _registroDescription(SignUpBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.descriptionStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              icon: Icon(Icons.text_fields,
+                  color: Color.fromRGBO(89, 122, 121, 1.0)),
+              hintText: 'cuentanos de ti!',
+              labelText: 'Descripcion',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeDescription,
+          ),
+        );
+      },
+    );
+  }
   Widget _registroEmail(SignUpBloc bloc) {
     return StreamBuilder(
       stream: bloc.emailStream,
@@ -87,6 +156,29 @@ class SignUp extends StatelessWidget {
               errorText: snapshot.error,
             ),
             onChanged: bloc.changeEmail,
+          ),
+        );
+      },
+    );
+  }
+
+
+  Widget _registroNombre(SignUpBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              icon: Icon(Icons.verified_user,
+                  color: Color.fromRGBO(89, 122, 121, 1.0)),
+              hintText: 'Pepito Perez',
+              labelText: 'Nombre completo',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeName,
           ),
         );
       },
@@ -137,7 +229,7 @@ class SignUp extends StatelessWidget {
   }
 
   _register(BuildContext context, SignUpBloc bloc) async {
-    Map info = await usuarioProvider.nuevoUsuario(bloc.email, bloc.passw);
+    Map info = await usuarioProvider.nuevoUsuario(bloc.email, bloc.passw, bloc.city, bloc.age,bloc.name,bloc.description);
 
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'home');

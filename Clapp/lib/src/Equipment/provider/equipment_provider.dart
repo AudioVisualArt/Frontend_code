@@ -1,32 +1,32 @@
 import 'dart:convert';
 
-import 'package:Clapp/src/item/model/contract_models.dart';
+import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:http/http.dart' as http;
 
 class EquipmentProvider {
   final String _url = utils.url;
 
-  Future<bool> crearContract(ContractModel contractModel) async {
-    final url = '$_url/saveContract';
+  Future<bool> crearEquipmente(EquipmentModel equipmentModel) async {
+    final url = '$_url/saveEquipment';
 
     final resp = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: contractModelToJson(contractModel));
+        body: equipmentModelToJson(equipmentModel));
 
     print(resp.statusCode);
 
     return true;
   }
 
-  Future<bool> editarContract(ContractModel contractModel) async {
-    final url = '$_url/updateContract${contractModel.id}.json';
+  Future<bool> editarEquipment(EquipmentModel equipmentModel) async {
+    final url = '$_url/updateEquipment${equipmentModel.id}.json';
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: contractModelToJson(contractModel));
+        body: equipmentModelToJson(equipmentModel));
 
     print('Edit 1: ${resp.body.trim()} ');
 
@@ -37,24 +37,24 @@ class EquipmentProvider {
     return true;
   }
 
-  Future<List<ContractModel>> cargarContracts() async {
+  Future<List<EquipmentModel>> cargarEquipments() async {
     print("la url que se trata de acceder es: $_url");
-    final url = '$_url/getAllContracts';
+    final url = '$_url/getAllEquipments';
     final rsp = await http.get(url);
     print(rsp.body);
 
     final Iterable decodeData = json.decode(rsp.body);
-    List<ContractModel> contractModels = new List();
+    List<EquipmentModel> equipmentModels = new List();
     if (decodeData == null) return [];
 
-    contractModels =
-        decodeData.map((model) => ContractModel.fromJson(model)).toList();
+    equipmentModels =
+        decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
 
-    return contractModels;
+    return equipmentModels;
   }
 
-  Future<int> borrarContract(String id) async {
-    final url = '$_url/deleteContract/$id';
+  Future<int> borrarProducto(String id) async {
+    final url = '$_url/deleteEquipment/$id';
     final rsp = await http.delete(url);
 
     //print(json.decode(rsp.body));

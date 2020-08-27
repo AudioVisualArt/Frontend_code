@@ -30,12 +30,35 @@ class Validator{
     }
   );
 
-  final validarPassword2 = StreamTransformer<String,String>.fromHandlers(
-      handleData: (password, sink) {
-        if(password.length >= 6){
-          sink.add(password);
+  final validarDescription = StreamTransformer<String,String>.fromHandlers(
+      handleData: (description, sink) {
+        if(description.length > 0){
+          sink.add(description);
         }else{
-          sink.addError('Mas de 6 caracteres por favor');
+          sink.addError('ingrese una descripcion por favor');
+        }
+      }
+  );
+  final validarName = StreamTransformer<String,String>.fromHandlers(
+      handleData: (description, sink) {
+        if(description.length > 0){
+          sink.add(description);
+        }else{
+          sink.addError('porfavor ingrese su nombre');
+        }
+      }
+  );
+  final validarAge = StreamTransformer<String,String>.fromHandlers(
+      handleData: (description, sink) {
+
+      }
+  );
+  final validarCity= StreamTransformer<String,String>.fromHandlers(
+      handleData: (description, sink) {
+        if(description.length > 0){
+          sink.add(description);
+        }else{
+          sink.addError('porfavor ingrese su nombre');
         }
       }
   );

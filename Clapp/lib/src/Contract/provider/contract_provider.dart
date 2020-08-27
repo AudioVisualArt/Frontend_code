@@ -1,33 +1,32 @@
 import 'dart:convert';
-import 'dart:html';
 
-import 'package:Clapp/src/item/model/event_models.dart';
+import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:http/http.dart' as http;
 
 class EquipmentProvider {
   final String _url = utils.url;
 
-  Future<bool> crearEvento(EventModel eventModel) async {
-    final url = '$_url/saveEvent';
+  Future<bool> crearContract(ContractModel contractModel) async {
+    final url = '$_url/saveContract';
 
     final resp = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
-        body: eventModelToJson(eventModel));
+        body: contractModelToJson(contractModel));
 
     print(resp.statusCode);
 
     return true;
   }
 
-  Future<bool> editarEvent(EventModel eventModel) async {
-    final url = '$_url/updateEvent${eventModel.id}';
+  Future<bool> editarContract(ContractModel contractModel) async {
+    final url = '$_url/updateContract${contractModel.id}.json';
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: eventModelToJson(eventModel));
+        body: contractModelToJson(contractModel));
 
     print('Edit 1: ${resp.body.trim()} ');
 
@@ -38,24 +37,24 @@ class EquipmentProvider {
     return true;
   }
 
-  Future<List<EventModel>> cargarEventos() async {
+  Future<List<ContractModel>> cargarContracts() async {
     print("la url que se trata de acceder es: $_url");
-    final url = '$_url/getAllEvents';
+    final url = '$_url/getAllContracts';
     final rsp = await http.get(url);
     print(rsp.body);
 
     final Iterable decodeData = json.decode(rsp.body);
-    List<EventModel> eventModels = new List();
+    List<ContractModel> contractModels = new List();
     if (decodeData == null) return [];
 
-    eventModels =
-        decodeData.map((model) => EventModel.fromJson(model)).toList();
+    contractModels =
+        decodeData.map((model) => ContractModel.fromJson(model)).toList();
 
-    return eventModels;
+    return contractModels;
   }
 
-  Future<int> borrarEvento(String id) async {
-    final url = '$_url/deleteEvent/$id';
+  Future<int> borrarContract(String id) async {
+    final url = '$_url/deleteContract/$id';
     final rsp = await http.delete(url);
 
     //print(json.decode(rsp.body));
