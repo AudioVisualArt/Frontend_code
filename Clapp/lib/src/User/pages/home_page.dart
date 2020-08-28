@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:Clapp/src/User/models/user_model.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -10,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    final idUsuario = ModalRoute.of(context).settings.arguments;
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -18,11 +20,11 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       //Rest backend Springboot
-      body: _crearBody(context, idUsuario),
+      body: _crearBody(context, usuario),
     );
   }
 
-  Widget _crearBody(BuildContext context, String idUsuario) {
+  Widget _crearBody(BuildContext context, UserModel usuario) {
     final size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 onPressed: () => Navigator.pushNamed(context, 'my_studio',
-                    arguments: idUsuario),
+                    arguments: usuario),
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(

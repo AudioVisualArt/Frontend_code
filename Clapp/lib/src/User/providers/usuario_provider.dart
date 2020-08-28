@@ -22,25 +22,25 @@ class UsuarioProvider {
 
     Map<String, dynamic> decodeData = json.decode(resp.body);
 
-    print(decodeData);
+    //print(decodeData);
 
     if (decodeData.containsKey('idToken')) {
       _prefs.token = decodeData['idToken'];
 
       final url = '$_url/getUserByEmail/$email';
       final rsp = await http.get(url);
-      print(rsp.body);
+
       UserModel userModel = UserModel.fromJson(json.decode(rsp.body));
+      //print(rsp.body);
 
-
-      return {'ok': true, 'user':userModel.id};
+      return {'ok': true, 'user': userModel};
     } else {
       return {'ok': false, 'mensaje': decodeData['error']['message']};
     }
   }
 
-  Future<Map<String, dynamic>> nuevoUsuario(
-      String email, String password, String city, String age, String name, String description) async {
+  Future<Map<String, dynamic>> nuevoUsuario(String email, String password,
+      String city, String age, String name, String description) async {
     final authData = {
       'email': email,
       'password': password,
@@ -62,10 +62,10 @@ class UsuarioProvider {
       UserModel user = new UserModel();
       user.description = description;
       user.name = name;
-      user.age= int.parse(age);
-      user.rating =0;
-      user.cityResidence= city;
-      user.email= email;
+      user.age = int.parse(age);
+      user.rating = 0;
+      user.cityResidence = city;
+      user.email = email;
 
       final url = '$_url/saveUser';
       final resp = await http.post(url,
@@ -74,14 +74,11 @@ class UsuarioProvider {
           },
           body: userModelToJson(user));
 
-      print(resp.statusCode);
+      //print(resp.statusCode);
 
       return {'ok': true, 'token': decodeData['idToken']};
     } else {
       return {'ok': false, 'mensaje': decodeData['error']['message']};
     }
-
-
-
   }
 }

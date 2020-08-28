@@ -1,26 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:Clapp/src/item/model/item_models.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
-
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import '../../MyStudio/pages/manage_page.dart';
 
-class NewProjectPage extends StatefulWidget{
-
-
+class NewProjectPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _NewProjectPage();
   }
-
 }
 
-class _NewProjectPage extends State<NewProjectPage>{
-
+class _NewProjectPage extends State<NewProjectPage> {
   var _categoryNameProject = TextEditingController();
   // tipo de projecto
   var _selectedValue;
@@ -37,76 +34,74 @@ class _NewProjectPage extends State<NewProjectPage>{
 
   @override
   Widget build(BuildContext context) {
-    final idUsuario = ModalRoute.of(context).settings.arguments;
-    print("id de usuario en new project: $idUsuario");
-    // TODO: implement build
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
+
+    print("id de usuario en new project: ${usuario.id}");
+
     return GestureDetector(
         onTap: () {
-      FocusScopeNode currentFocus = FocusScope.of(context);
-      if (!currentFocus.hasPrimaryFocus) {
-        currentFocus.unfocus();
-      }
-    },
-    child: Scaffold(
-      appBar: AppBar(
-        title: Text('New Project',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-    ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            right: 15.0,
-            left: 15.0,
-            top: 50.0,
-
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('New Project',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           ),
-          child: Form(
-            //key: formKey,
-            child: Column(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                right: 15.0,
+                left: 15.0,
+                top: 50.0,
+              ),
+              child: Form(
+                //key: formKey,
+                child: Column(
+                  children: <Widget>[
+                    _projectname(),
+                    SizedBox(height: 25),
+                    _contacto(),
+                    SizedBox(height: 25),
 
-              children: <Widget>[
-               _projectname(),
-                SizedBox(height: 25),
-                _contacto(),
-               SizedBox(height: 25),
+                    _projectTipo(),
+                    SizedBox(height: 25),
+                    _description(),
+                    // SizedBox(height: 25),
+                    //_locations(),
+                    SizedBox(height: 25),
 
-                _projectTipo(),
-                SizedBox(height: 25),
-                _description(),
-               // SizedBox(height: 25),
-                //_locations(),
-                SizedBox(height: 25),
-
-                RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  label: Text('Start Project',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                  textColor: Colors.white,
-                  icon: Icon(
-                    Icons.playlist_add_check,
-                    color: Colors.white,
-                  ),
-                  color: Color.fromRGBO(89, 122, 121, 1.0),
-
-                  onPressed: () { Navigator.push(context, new MaterialPageRoute(
-                      builder: (context) =>
-                      new VerContratos())
-
-                  );},
+                    RaisedButton.icon(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      label: Text('Start Project',
+                          textAlign: TextAlign.center,
+                          style:
+                              TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                      textColor: Colors.white,
+                      icon: Icon(
+                        Icons.playlist_add_check,
+                        color: Colors.white,
+                      ),
+                      color: Color.fromRGBO(89, 122, 121, 1.0),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new VerContratos()));
+                      },
+                    ),
+                  ],
                 ),
-
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
-
 
   Widget _projectname() {
     return TextFormField(
@@ -123,10 +118,10 @@ class _NewProjectPage extends State<NewProjectPage>{
           return null;
         }
       },
-
     );
   }
-  Widget _projectTipo(){
+
+  Widget _projectTipo() {
     return TextFormField(
       initialValue: proyecto.projectType,
       textCapitalization: TextCapitalization.sentences,
@@ -141,11 +136,10 @@ class _NewProjectPage extends State<NewProjectPage>{
           return null;
         }
       },
-
     );
   }
 
-  Widget _description(){
+  Widget _description() {
     return TextFormField(
       initialValue: proyecto.description,
       textCapitalization: TextCapitalization.sentences,
@@ -160,23 +154,19 @@ class _NewProjectPage extends State<NewProjectPage>{
           return null;
         }
       },
-
     );
   }
 
-
   Widget _locations() {
     return TextFormField(
-
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Locations',
       ),
-
     );
   }
 
-  Widget _contacto(){
+  Widget _contacto() {
     return TextFormField(
       initialValue: proyecto.contacto,
       textCapitalization: TextCapitalization.sentences,
@@ -191,11 +181,6 @@ class _NewProjectPage extends State<NewProjectPage>{
           return null;
         }
       },
-
     );
   }
-
-
-  }
-
-
+}

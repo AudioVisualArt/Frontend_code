@@ -1,3 +1,4 @@
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/bloc/login_bloc.dart';
@@ -164,16 +165,14 @@ class LoginPage extends StatelessWidget {
   _login(BuildContext context, LoginBloc bloc) async {
     Map info = await usuarioProvider.login(bloc.email, bloc.passw);
 
-    //print('Info:  ' + info.toString() + '\n');
+    // UserModel user = info['user'];
+    // print('Info User:  ' + user.id + '\n');
 
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home',
-          arguments: info['user']);
+      Navigator.pushReplacementNamed(context, 'home', arguments: info['user']);
     } else {
       utils.mostrarAlerta(
           context, 'Usuario o Contraseña Invalidos ${info['mensaje']}');
     }
-
-    //Navigator.pushNamed(context, 'home');
   }
 }

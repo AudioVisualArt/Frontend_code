@@ -5,6 +5,7 @@ import 'package:Clapp/src/MyStudio/pages/manage_page.dart';
 import 'package:Clapp/src/MyStudio/pages/show_page.dart';
 import 'package:Clapp/src/MyStudio/pages/store_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 
 class MyStudioPage extends StatefulWidget {
   MyStudioPage({Key key}) : super(key: key);
@@ -18,16 +19,18 @@ class _MyStudioPageState extends State<MyStudioPage> {
 
   @override
   Widget build(BuildContext context) {
-    final idUsuario = ModalRoute.of(context).settings.arguments;
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
 
     final List<Widget> _screens = [
-      ProjectPage(),
+      ProjectPage(
+        user: usuario,
+      ),
       StorePage(),
       MostrarProductosPage(),
       ManagePage()
     ];
 
-    print('IdUsuario: ' + idUsuario.toString());
+    print('IdUsuario: ' + usuario.id);
 
     return Scaffold(
         body: _screens[_currentIndex],

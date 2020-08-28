@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 class ProyectosProvider {
   final String _url = utils.url;
-  final _prefs = new PreferenciasUsuario();
 
   Future<bool> crearProyecto(ProjectModel proyecto) async {
     final url = '$_url/saveProject';
@@ -46,7 +45,8 @@ class ProyectosProvider {
     List<ProjectModel> proyectos = new List();
     if (decodeData == null) return [];
 
-    proyectos = decodeData.map((model) => ProjectModel.fromJson(model)).toList();
+    proyectos =
+        decodeData.map((model) => ProjectModel.fromJson(model)).toList();
 
     return proyectos;
   }
