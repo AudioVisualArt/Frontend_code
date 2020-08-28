@@ -36,7 +36,7 @@ class ProyectosProvider {
     return true;
   }
 
-  Future<List<ProjectModel>> cargarProyectos() async {
+  Future<List<ProjectModel>> cargarProyectos(idUsuario) async {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllProjects';
     final rsp = await http.get(url);

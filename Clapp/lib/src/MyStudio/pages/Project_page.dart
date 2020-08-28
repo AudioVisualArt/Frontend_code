@@ -16,8 +16,11 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   final proyectosProvider = new ProyectosProvider();
+
   @override
   Widget build(BuildContext context) {
+    final idUsuario = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Projects',
@@ -31,7 +34,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Widget _createproject(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final idUsuario = ModalRoute.of(context).settings.arguments;
     return
       SingleChildScrollView(
           child: Container(
@@ -49,7 +52,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       SizedBox(height: 9),
                       SizedBox(
                         height: 450,
-                        child: _crearListado(),
+                        child: _crearListado(idUsuario),
                       ),
 
                       SizedBox(height: 10),
@@ -83,9 +86,9 @@ class _ProjectPageState extends State<ProjectPage> {
 
   }
 
-  Widget _crearListado() {
+  Widget _crearListado(idUsuario) {
     return FutureBuilder(
-      future: proyectosProvider.cargarProyectos(),
+      future: proyectosProvider.cargarProyectos(idUsuario),
       builder: (BuildContext context, AsyncSnapshot<List<ProjectModel>> snapshot) {
         if (snapshot.hasData) {
           final projectos = snapshot.data;

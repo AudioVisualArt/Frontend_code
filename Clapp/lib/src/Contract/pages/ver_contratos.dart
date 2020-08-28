@@ -14,6 +14,7 @@ class _VerContratos extends State<VerContratos> {
 
   @override
   Widget build(BuildContext context) {
+    final idUsuario = ModalRoute.of(context).settings.arguments;
     return Container(
         child: Scaffold(
           appBar: AppBar(
@@ -24,7 +25,7 @@ class _VerContratos extends State<VerContratos> {
                 icon: Icon(Icons.autorenew),
                 onPressed: () {
                   setState(() {
-                    _crearListado();
+                    _crearListado(idUsuario);
                   });
                 },
               ),
@@ -47,7 +48,7 @@ class _VerContratos extends State<VerContratos> {
                             SizedBox(height: 9),
                             SizedBox(
                               height: 450,
-                              child: _crearListado(),
+                              child: _crearListado(idUsuario),
                             ),
 
                             SizedBox(height: 20),
@@ -82,9 +83,9 @@ class _VerContratos extends State<VerContratos> {
 
   }
 
-  Widget _crearListado() {
+  Widget _crearListado(String idUsuario) {
     return FutureBuilder(
-      future: contratosProvider.cargarContratos(),
+      future: contratosProvider.cargarContratosPropietario(idUsuario),
       builder: (BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
         if (snapshot.hasData) {
           final contratos = snapshot.data;

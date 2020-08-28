@@ -34,11 +34,16 @@ class _NewContract extends State<NewContract>{
   @override
   Widget build(BuildContext context) {
 
+
+    final idUsuario = ModalRoute.of(context).settings.arguments;
+    print("id de usuario en new contract: $idUsuario");
     final ContractModel prodData = ModalRoute.of(context).settings.arguments;
+
 
     if (prodData != null) {
       contrato = prodData;
     }
+    contrato.userBidderId=idUsuario;
     // TODO: implement build
     return GestureDetector(
         onTap: () {

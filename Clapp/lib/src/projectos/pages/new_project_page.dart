@@ -9,6 +9,8 @@ import 'package:Clapp/src/utils/utils.dart' as utils;
 import '../../MyStudio/pages/manage_page.dart';
 
 class NewProjectPage extends StatefulWidget{
+
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -35,6 +37,8 @@ class _NewProjectPage extends State<NewProjectPage>{
 
   @override
   Widget build(BuildContext context) {
+    final idUsuario = ModalRoute.of(context).settings.arguments;
+    print("id de usuario en new project: $idUsuario");
     // TODO: implement build
     return GestureDetector(
         onTap: () {

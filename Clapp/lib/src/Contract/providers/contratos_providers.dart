@@ -36,9 +36,10 @@ class ContratosProvider {
     return true;
   }
 
-  Future<List<ContractModel>> cargarContratos() async {
+  Future<List<ContractModel>> cargarContratosPropietario(String idUsuario) async {
     print("la url que se trata de acceder es: $_url");
-    final url = '$_url/getAllContracts';
+    print("con el id usuario: $idUsuario");
+    final url = '$_url/getAllContractsBidder/$idUsuario';
     final rsp = await http.get(url);
     print(rsp.body);
 
