@@ -13,6 +13,7 @@ class ProjectModel {
   String projectType;
   String description;
   String id;
+  String idUser;
 
 
   ProjectModel({
@@ -23,6 +24,7 @@ class ProjectModel {
     this.projectType = "",
 
     this.description = "",
+    this.idUser="",
 
 
   });
@@ -36,6 +38,7 @@ class ProjectModel {
         projectType: json["projectType"],
         description: json["description"],
         id: json["id"],
+        idUser: json["idUser"]
 
 
       );
@@ -49,5 +52,6 @@ class ProjectModel {
 
     "description": description,
     "id": id,
+    "idUser": id
   };
 }

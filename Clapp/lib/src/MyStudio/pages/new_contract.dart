@@ -55,7 +55,7 @@ class _NewContract extends State<NewContract>{
         child: Scaffold(
 
           appBar: AppBar(
-            title: Text('New Contract',
+            title: Text('Nuevo contrato',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           ),
@@ -102,7 +102,7 @@ class _NewContract extends State<NewContract>{
       initialValue: contrato.city,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'City',
+        labelText: 'Ciudad',
       ),
       onSaved: (value) => contrato.city = value,
       validator: (value) {
@@ -120,7 +120,7 @@ class _NewContract extends State<NewContract>{
       initialValue: contrato.jobPosition,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Job Position',
+        labelText: 'Posicion de trabajo',
       ),
       onSaved: (value) => contrato.jobPosition = value,
       validator: (value) {
@@ -139,7 +139,7 @@ class _NewContract extends State<NewContract>{
       initialValue: contrato.workHours.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
-        labelText: 'Work Hours',
+        labelText: 'Horas de trabajo',
       ),
       onSaved: (value) => contrato.workHours = int.parse(value),
       validator: (value) {
@@ -159,7 +159,7 @@ class _NewContract extends State<NewContract>{
       initialValue: contrato.payment.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
-        labelText: 'Payment',
+        labelText: 'Pago',
       ),
       onSaved: (value) => contrato.payment = double.parse(value),
       validator: (value) {
@@ -176,7 +176,7 @@ class _NewContract extends State<NewContract>{
     return DropdownButtonFormField(
       value: _selectedValue,
       items: _categoriesDesiredSkills,
-      hint: Text('Desired Skills'),
+      hint: Text('habilidades requeridas'),
       onChanged: (value){
         setState(() {
           _selectedValue = value;
@@ -191,7 +191,7 @@ class _NewContract extends State<NewContract>{
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      label: Text('Open Contract',
+      label: Text('Contrato abierto',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
       textColor: Colors.white,

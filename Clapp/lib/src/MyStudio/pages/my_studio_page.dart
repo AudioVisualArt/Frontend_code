@@ -45,17 +45,17 @@ class _MyStudioPageState extends State<MyStudioPage> {
               icon: Icon(
                 Icons.assignment,
               ),
-              title: Text('Projects'),
+              title: Text('Proyectos'),
             ),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.store_mall_directory,
                 ),
-                title: Text('Store')),
+                title: Text('Tienda')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.slideshow), title: Text('Show')),
+                icon: Icon(Icons.slideshow), title: Text('Ver')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.work), title: Text('Manage')),
+                icon: Icon(Icons.work), title: Text('Administrar')),
           ],
         ));
   }

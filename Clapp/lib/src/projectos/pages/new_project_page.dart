@@ -10,6 +10,9 @@ import 'package:Clapp/src/utils/utils.dart' as utils;
 import '../../MyStudio/pages/manage_page.dart';
 
 class NewProjectPage extends StatefulWidget {
+  final UserModel user;
+  NewProjectPage({Key key, this.user}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -89,6 +92,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                       ),
                       color: Color.fromRGBO(89, 122, 121, 1.0),
                       onPressed: () {
+                        _submit(usuario);
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
@@ -101,6 +105,12 @@ class _NewProjectPage extends State<NewProjectPage> {
             ),
           ),
         ));
+  }
+  void _submit(UserModel usuario){
+    proyecto.idUser= usuario.id;
+    proyectoProvider.crearProyecto(proyecto);
+
+
   }
 
   Widget _projectname() {

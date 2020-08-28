@@ -26,7 +26,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Projects',
+        title: Text('Proyectos',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
@@ -49,18 +49,18 @@ class _ProjectPageState extends State<ProjectPage> {
                 //key: formKey,
                 child: Column(
               children: <Widget>[
-                TitleBar('All projects'),
+                TitleBar('Todos los proyectos'),
                 SizedBox(height: 9),
                 SizedBox(
                   height: 450,
-                  child: _crearListado(idUsuario),
+                  child: _crearListado(userModel.id),
                 ),
                 SizedBox(height: 10),
                 RaisedButton.icon(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  label: Text('New Project',
+                  label: Text('Proyecto nuevo',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                   textColor: Colors.white,
@@ -115,7 +115,7 @@ class _ProjectPageState extends State<ProjectPage> {
               ListTile(
                 title: Text('${proyecto.proyectName}',
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                subtitle: Text(proyecto.id,
+                subtitle: Text(proyecto.description,
                     style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
                 leading: Icon(Icons.arrow_forward_ios),
               ),
