@@ -1,3 +1,5 @@
+import 'package:Clapp/src/User/bloc/provider.dart';
+import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +42,7 @@ class _NewProjectPage extends State<NewProjectPage> {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
 
     print("id de usuario en new project: ${usuario.id}");
+    final bloc = ProyectosProvider.of(context);
 
     return GestureDetector(
         onTap: () {
@@ -65,14 +68,14 @@ class _NewProjectPage extends State<NewProjectPage> {
                 //key: formKey,
                 child: Column(
                   children: <Widget>[
-                    _projectname(),
+                    _projectname(bloc),
                     SizedBox(height: 25),
-                    _contacto(),
+                    _contacto(bloc),
                     SizedBox(height: 25),
 
-                    _projectTipo(),
+                    _projectTipo(bloc),
                     SizedBox(height: 25),
-                    _description(),
+                    _description(bloc),
                     // SizedBox(height: 25),
                     //_locations(),
                     SizedBox(height: 25),
@@ -92,7 +95,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                       ),
                       color: Color.fromRGBO(89, 122, 121, 1.0),
                       onPressed: () {
-                        _submit(usuario);
+                        _submit(usuario, bloc);
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
@@ -106,20 +109,25 @@ class _NewProjectPage extends State<NewProjectPage> {
           ),
         ));
   }
-  void _submit(UserModel usuario){
+  void _submit(UserModel usuario, ProjectBloc bloc){
+
     proyecto.idUser= usuario.id;
     proyectoProvider.crearProyecto(proyecto);
 
 
   }
 
-  Widget _projectname() {
-    return TextFormField(
+  Widget _projectname(ProjectBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.proyectNameStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+      return TextFormField(
       initialValue: proyecto.proyectName,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Project Name',
+        labelText: 'nombre del proyecto',
       ),
+      onChanged: bloc.changeproyectName,
       onSaved: (value) => proyecto.proyectName = value,
       validator: (value) {
         if (value.length < 3) {
@@ -128,16 +136,23 @@ class _NewProjectPage extends State<NewProjectPage> {
           return null;
         }
       },
-    );
+      );
+        }
+     );
+
   }
 
-  Widget _projectTipo() {
+  Widget _projectTipo(ProjectBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.projectTypeStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
     return TextFormField(
       initialValue: proyecto.projectType,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Project Type',
       ),
+      onChanged: bloc.changeprojectType,
       onSaved: (value) => proyecto.projectType = value,
       validator: (value) {
         if (value.length < 3) {
@@ -145,24 +160,33 @@ class _NewProjectPage extends State<NewProjectPage> {
         } else {
           return null;
         }
+      }
+       );
       },
     );
   }
 
-  Widget _description() {
+  Widget _description(ProjectBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.descriptionStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
     return TextFormField(
+
       initialValue: proyecto.description,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Description',
       ),
-      onSaved: (value) => proyecto.description = value,
+      onChanged: bloc.changedescription,
+        onSaved: (value) => proyecto.description = value,
       validator: (value) {
-        if (value.length < 3) {
+          if (value.length < 3) {
           return 'Ingrese la descripcion del proyecto correctamente';
-        } else {
+          } else {
           return null;
-        }
+          }
+          }
+        );
       },
     );
   }
@@ -176,7 +200,7 @@ class _NewProjectPage extends State<NewProjectPage> {
     );
   }
 
-  Widget _contacto() {
+  Widget _contacto(ProjectBloc bloc) {
     return TextFormField(
       initialValue: proyecto.contacto,
       textCapitalization: TextCapitalization.sentences,

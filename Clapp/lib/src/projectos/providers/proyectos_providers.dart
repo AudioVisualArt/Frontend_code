@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
+import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ProyectosProvider {
+class ProyectosProvider extends InheritedWidget{
   final String _url = utils.url;
 
   Future<bool> crearProyecto(ProjectModel proyecto) async {
@@ -59,4 +61,15 @@ class ProyectosProvider {
 
     return 1;
   }
+
+  final projectBloc = ProjectBloc();
+
+  static ProjectBloc of (BuildContext context){
+
+    return context.dependOnInheritedWidgetOfExactType<ProyectosProvider>().projectBloc;
+  }
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+
 }
