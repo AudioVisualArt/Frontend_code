@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('My Studio',
+                label: Text('Estudio',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Market',
+                label: Text('Tienda',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Services',
+                label: Text('Servicios',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Forums',
+                label: Text('Foros',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
