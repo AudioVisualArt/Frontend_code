@@ -1,3 +1,5 @@
+import 'package:Clapp/src/Contract/pages/new_contract.dart';
+import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/pages/home_page.dart';
@@ -19,5 +21,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'my_studio': (BuildContext context) => MyStudioPage(),
     'store': (BuildContext context) => StorePage(),
     'new_project': (BuildContext context) => NewProjectPage(),
+    'see_contracts': (BuildContext context) => VerContratos(),
+    'new_contract': (BuildContext context) => NewContract(),
   };
 }
