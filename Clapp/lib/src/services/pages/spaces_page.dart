@@ -12,7 +12,7 @@ class _SpacesPage extends State<SpacesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Spaces',
+        title: Text('Espacios',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),

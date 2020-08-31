@@ -12,7 +12,7 @@ class _EquipmentPage extends State<EquipmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Equipment',
+        title: Text('Equipo',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),

@@ -12,7 +12,7 @@ class _OtherPage extends State<OtherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Other',
+        title: Text('Otros',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),

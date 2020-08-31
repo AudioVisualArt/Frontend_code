@@ -12,7 +12,7 @@ class _PersonelPage extends State<PersonelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personel',
+        title: Text('Personal',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),

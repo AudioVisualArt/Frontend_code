@@ -16,7 +16,7 @@ class _ServicesPages extends State<ServicesPages>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text('Services',
+        title: Text('Servicios',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
 
@@ -59,7 +59,7 @@ class _ServicesPages extends State<ServicesPages>{
 
                 size: 70.0,
               ),
-              Text("Audiovisual Arts",
+              Text("Arte Audiovisual",
                   style: TextStyle(fontSize: 17.0, fontFamily: "Raleway"))
 
             ],
@@ -84,7 +84,7 @@ class _ServicesPages extends State<ServicesPages>{
 
                 size: 70.0,
               ),
-              Text("Music Production",
+              Text("Producción musical",
                   style: TextStyle(fontSize: 17.0, fontFamily: "Raleway"))
 
             ],
@@ -109,7 +109,7 @@ class _ServicesPages extends State<ServicesPages>{
 
                 size: 70.0,
               ),
-              Text("Performative arts",
+              Text("Artes Escénicas",
                   style: TextStyle(fontSize: 17.0, fontFamily: "Raleway"))
 
             ],
@@ -135,7 +135,7 @@ class _ServicesPages extends State<ServicesPages>{
                 size: 70.0,
               ),
 
-              Text("Modeling",
+              Text("Modelaje",
                   style: TextStyle(fontSize: 17.0, fontFamily: "Raleway"))
 
             ],

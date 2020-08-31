@@ -48,17 +48,17 @@ class _AudiovisualPage extends State<AudiovisualPage>{
               icon: Icon(
                 Icons.group,
               ),
-              title: Text('Personel'),
+              title: Text('Personal'),
             ),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.camera_roll,
                 ),
-                title: Text('Equipment')),
+                title: Text('Equipo')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.panorama), title: Text('Spaces')),
+                icon: Icon(Icons.panorama), title: Text('Espacios')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.camera_enhance), title: Text('other')),
+                icon: Icon(Icons.camera_enhance), title: Text('Otros')),
           ],
         ));
   }

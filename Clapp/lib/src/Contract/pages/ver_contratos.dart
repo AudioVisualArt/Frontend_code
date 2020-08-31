@@ -2,7 +2,7 @@ import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'file:///E:/Tesis_Code/Clapp/lib/src/Contract/pages/new_contract.dart';
+import 'file:///C:/Users/user/AndroidStudioProjects/front2/Code/Clapp/lib/src/Contract/pages/new_contract.dart';
 import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 
 class VerContratos extends StatefulWidget {
