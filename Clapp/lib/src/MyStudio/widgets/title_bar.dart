@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-class TitleBar extends StatelessWidget{
+class TitleBar extends StatelessWidget {
   String titleName;
   TitleBar(this.titleName);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return actores();
   }
 
@@ -14,17 +13,15 @@ class TitleBar extends StatelessWidget{
       gradient: LinearGradient(
           colors: [
             Color.fromRGBO(209, 209, 209, 1),
-            Color.fromRGBO(227 , 227, 227, 1),
-
+            Color.fromRGBO(227, 227, 227, 1),
           ],
           begin: FractionalOffset(0.2, 0.0),
           end: FractionalOffset(1.0, 0.6),
           stops: [0.0, 0.6],
-          tileMode: TileMode.clamp
-      ),
+          tileMode: TileMode.clamp),
 
       //border: Border.all(color: Color.fromRGBO(89, 122, 121, 1.0), width: 1.7),
-      borderRadius: BorderRadius.all(Radius.circular(5) ),
+      borderRadius: BorderRadius.all(Radius.circular(5)),
     );
   }
 
@@ -41,11 +38,9 @@ class TitleBar extends StatelessWidget{
           style: TextStyle(
               fontSize: 20.0,
               fontFamily: "Raleway",
-              color: Color.fromRGBO(89, 122, 121, 1.0)
-          ),
+              color: Color.fromRGBO(89, 122, 121, 1.0)),
         ),
       ),
     );
   }
-
 }
