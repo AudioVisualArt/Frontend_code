@@ -1,3 +1,4 @@
+import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -80,7 +81,13 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.storage, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 35.0),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) =>
+                          new ServicesPages()));
+                },
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(
