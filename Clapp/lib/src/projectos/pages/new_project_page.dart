@@ -94,9 +94,14 @@ class _NewProjectPage extends State<NewProjectPage> {
                       ),
                       color: Color.fromRGBO(89, 122, 121, 1.0),
                       onPressed: () {
-                        _submit(usuario);
-                        Navigator.pushNamed(context, 'see_contracts',
-                            arguments: usuario);
+                        if(proyecto.description.isNotEmpty&&
+                        proyecto.contacto.isNotEmpty&&
+                        proyecto.projectType.isNotEmpty&&
+                        proyecto.proyectName.isNotEmpty) {
+                          _submit(usuario);
+                          Navigator.pushNamed(context, 'see_contracts',
+                              arguments: usuario);
+                        }
                       },
                     ),
                   ],

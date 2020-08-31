@@ -68,7 +68,8 @@ class ProyectosProvider extends InheritedWidget{
   }
 
   Future<int> borrarProyectos(String id) async {
-    final url = '$_url/deleteProjects/$id';
+    print("se borrara el proyecto con id: $id");
+    final url = '$_url/deleteProject/$id';
     final rsp = await http.delete(url);
 
     //print(json.decode(rsp.body));
