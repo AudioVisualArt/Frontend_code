@@ -1,3 +1,4 @@
+import 'package:Clapp/src/services/pages/audiovisual_page.dart';
 import 'package:flutter/material.dart';
 
 class ServicesPages extends StatefulWidget{
@@ -42,7 +43,11 @@ class _ServicesPages extends State<ServicesPages>{
     return Card(
       margin: EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: (){},
+        onTap: (){Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) =>
+                new AudiovisualPage()));},
         splashColor: Color.fromRGBO(0, 51, 51, 1.0),
         child: Center(
           child: Column(
