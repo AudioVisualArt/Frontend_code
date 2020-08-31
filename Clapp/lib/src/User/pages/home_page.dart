@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home',
+        title: Text('Menu Principal',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       drawer: MenuWidget(
