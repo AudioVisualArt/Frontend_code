@@ -90,6 +90,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
+    - assets/img/
     - assets/img/CORPORATELOGO_whitebackgrounds-HEXA.png
     - assets/img/no-image.png
     - assets/img/jar-loading.gif

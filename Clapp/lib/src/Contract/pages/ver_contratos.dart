@@ -1,10 +1,12 @@
 import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:Clapp/src/MyStudio/pages/new_contract.dart';
 import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 
 class VerContratos extends StatefulWidget {
+  final UserModel user;
+  VerContratos({Key key, this.user}) : super(key: key);
   @override
   _VerContratos createState() => _VerContratos();
 }
@@ -14,7 +16,8 @@ class _VerContratos extends State<VerContratos> {
 
   @override
   Widget build(BuildContext context) {
-    final idUsuario = ModalRoute.of(context).settings.arguments;
+    //final idUsuario = ModalRoute.of(context).settings.arguments;
+    UserModel user = ModalRoute.of(context).settings.arguments;
     return Container(
         child: Scaffold(
           appBar: AppBar(
@@ -25,7 +28,7 @@ class _VerContratos extends State<VerContratos> {
                 icon: Icon(Icons.autorenew),
                 onPressed: () {
                   setState(() {
-                    _crearListado(idUsuario);
+                    _crearListado(user.id);
                   });
                 },
               ),
@@ -48,7 +51,7 @@ class _VerContratos extends State<VerContratos> {
                             SizedBox(height: 9),
                             SizedBox(
                               height: 450,
-                              child: _crearListado(idUsuario),
+                              child: _crearListado(user.id),
                             ),
 
                             SizedBox(height: 20),
@@ -67,11 +70,8 @@ class _VerContratos extends State<VerContratos> {
                               ),
                               color: Color.fromRGBO(89, 122, 121, 1.0),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (context) =>
-                                        new NewContract()));
+                                Navigator.pushNamed(context, 'new_contract',
+                                    arguments: user);
                               },
                             ),
                           ],

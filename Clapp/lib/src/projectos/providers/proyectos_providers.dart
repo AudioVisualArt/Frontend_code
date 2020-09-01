@@ -9,6 +9,20 @@ import 'package:http/http.dart' as http;
 class ProyectosProvider extends InheritedWidget{
   final String _url = utils.url;
 
+  static ProyectosProvider _instancia;
+
+  factory ProyectosProvider({Key key, Widget child}) {
+
+    if (_instancia == null) {
+      _instancia = new ProyectosProvider._internal(key: key , child: child);
+    }
+    return _instancia;
+  }
+
+  ProyectosProvider._internal({ Key key, Widget child})
+      : super(key: key , child: child);
+
+
   Future<bool> crearProyecto(ProjectModel proyecto) async {
     final url = '$_url/saveProject';
 
@@ -54,7 +68,8 @@ class ProyectosProvider extends InheritedWidget{
   }
 
   Future<int> borrarProyectos(String id) async {
-    final url = '$_url/deleteProjects/$id';
+    print("se borrara el proyecto con id: $id");
+    final url = '$_url/deleteProject/$id';
     final rsp = await http.delete(url);
 
     //print(json.decode(rsp.body));

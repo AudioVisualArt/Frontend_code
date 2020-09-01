@@ -1,3 +1,4 @@
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Contract/model/contract_models.dart';
@@ -5,7 +6,8 @@ import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class NewContract extends StatefulWidget{
-
+  final UserModel user;
+  NewContract({Key key, this.user}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -35,15 +37,10 @@ class _NewContract extends State<NewContract>{
   Widget build(BuildContext context) {
 
 
-    final idUsuario = ModalRoute.of(context).settings.arguments;
+    UserModel idUsuario = ModalRoute.of(context).settings.arguments;
     print("id de usuario en new contract: $idUsuario");
-    final ContractModel prodData = ModalRoute.of(context).settings.arguments;
 
-
-    if (prodData != null) {
-      contrato = prodData;
-    }
-    contrato.userBidderId=idUsuario;
+    contrato.userBidderId=idUsuario.id;
     // TODO: implement build
     return GestureDetector(
         onTap: () {
@@ -104,7 +101,7 @@ class _NewContract extends State<NewContract>{
       decoration: InputDecoration(
         labelText: 'Ciudad',
       ),
-      onSaved: (value) => contrato.city = value,
+      onChanged: (value) => contrato.city = value,
       validator: (value) {
         if (value.length < 3) {
           return 'Ingrese el nombre de la ciudad correctamente';
@@ -122,9 +119,9 @@ class _NewContract extends State<NewContract>{
       decoration: InputDecoration(
         labelText: 'Posicion de trabajo',
       ),
-      onSaved: (value) => contrato.jobPosition = value,
+      onChanged: (value) => contrato.jobPosition = value,
       validator: (value) {
-        if (value.length < 3) {
+        if (value.length < 1) {
           return 'Ingrese el nombre correctamente';
         } else {
           return null;
@@ -141,7 +138,7 @@ class _NewContract extends State<NewContract>{
       decoration: InputDecoration(
         labelText: 'Horas de trabajo',
       ),
-      onSaved: (value) => contrato.workHours = int.parse(value),
+      onChanged: (value) => contrato.workHours = int.parse(value),
       validator: (value) {
         if (utils.isNumeric(value)) {
           return null;
@@ -161,7 +158,7 @@ class _NewContract extends State<NewContract>{
       decoration: InputDecoration(
         labelText: 'Pago',
       ),
-      onSaved: (value) => contrato.payment = double.parse(value),
+      onChanged: (value) => contrato.payment = double.parse(value),
       validator: (value) {
         if (utils.isNumeric(value)) {
           return null;

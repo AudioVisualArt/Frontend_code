@@ -1,3 +1,4 @@
+import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('My Studio',
+                label: Text('Estudio',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Market',
+                label: Text('Tienda',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
@@ -75,21 +76,27 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Services',
+                label: Text('Servicios',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
                 icon: Icon(Icons.storage, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 35.0),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) =>
+                          new ServicesPages()));
+                },
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Forums',
+                label: Text('Foros',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
