@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                 ),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                padding: EdgeInsets.symmetric(horizontal: 42.0),
                 onPressed: () => Navigator.pushNamed(context, 'my_studio',
                     arguments: usuario),
               ),
@@ -82,13 +82,12 @@ class _HomePageState extends State<HomePage> {
                 textColor: Colors.white,
                 icon: Icon(Icons.storage, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 35.0),
+                padding: EdgeInsets.symmetric(horizontal: 35.5),
                 onPressed: () {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) =>
-                          new ServicesPages()));
+                          builder: (context) => new ServicesPages()));
                 },
               ),
               SizedBox(height: 30.0),
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 textColor: Colors.white,
                 icon: Icon(Icons.forum, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 38.0),
+                padding: EdgeInsets.symmetric(horizontal: 50.0),
                 onPressed: () {},
               ),
             ],
