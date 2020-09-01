@@ -2,6 +2,7 @@ import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/widgets/menu_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,14 +12,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     UserModel usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home',
+        title: Text('Menu Principal',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+      ),
+      drawer: MenuWidget(
+        userModel: usuario,
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
