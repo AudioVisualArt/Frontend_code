@@ -20,7 +20,16 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: ListView(
         children: <Widget>[
-          Container(),
+          Container(
+            padding: EdgeInsets.all(5.0),
+            child: Text(
+              'Ajustes:',
+              style: TextStyle(
+                  fontSize: 45.0,
+                  fontFamily: "Raleway",
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
     );

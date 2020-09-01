@@ -47,7 +47,10 @@ class MenuWidget extends StatelessWidget {
               'Perfil',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, 'profile');
+            },
           ),
           Divider(),
           //Favoritos
@@ -61,7 +64,10 @@ class MenuWidget extends StatelessWidget {
               'Favoritos',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, 'favourite');
+            },
           ),
           Divider(),
           //Mensajes
@@ -75,7 +81,10 @@ class MenuWidget extends StatelessWidget {
               'Mensajes',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, 'message');
+            },
           ),
           //Configuraciòn
           ListTile(
