@@ -81,7 +81,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                   FlatButton(
                     child: Text('Details',
                         style:
-                            TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
+                            TextStyle(fontSize: 13.0, fontFamily: "Raleway")),
                     onPressed: () => Navigator.pushNamed(context, 'producto',
                         arguments: producto),
                   ),

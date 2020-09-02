@@ -1,4 +1,3 @@
-import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/bloc/login_bloc.dart';
@@ -50,7 +49,7 @@ class LoginPage extends StatelessWidget {
           ]),
       child: Column(
         children: <Widget>[
-          Text('Sing In',
+          Text('Inicio de Sesión',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
           SizedBox(height: 50.0),
           _crearEmail(bloc),
@@ -110,7 +109,7 @@ class LoginPage extends StatelessWidget {
             decoration: InputDecoration(
                 icon: Icon(Icons.lock_outline,
                     color: Color.fromRGBO(89, 122, 121, 1.0)),
-                labelText: 'Contrasenia',
+                labelText: 'Contraseña',
                 //counterText: snapshot.data,
                 errorText: snapshot.error),
             onChanged: bloc.changePassword,
@@ -126,8 +125,8 @@ class LoginPage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return RaisedButton(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-            child: Text('Sign In'),
+            padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
+            child: Text('Iniciar Sesión'),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -147,7 +146,7 @@ class LoginPage extends StatelessWidget {
         return RaisedButton(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-            child: Text('Sign Up'),
+            child: Text('Registrate'),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),

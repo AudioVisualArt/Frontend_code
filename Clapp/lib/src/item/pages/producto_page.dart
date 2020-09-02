@@ -42,7 +42,10 @@ class _ProductoPageState extends State<ProductoPage> {
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          title: Text('Producto'),
+          title: Text(
+            'Agrega un Item',
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
+          ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.photo_size_select_actual),
@@ -63,6 +66,7 @@ class _ProductoPageState extends State<ProductoPage> {
                 children: <Widget>[
                   //_mostrarFoto(),
                   _crearNombre(),
+                  _crearDescripcion(),
                   _crearPrecio(),
                   _crearDisponible(),
                   _crearBoton(),
@@ -80,12 +84,32 @@ class _ProductoPageState extends State<ProductoPage> {
       initialValue: producto.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Producto',
+        labelText: 'Nombre de tu Item',
+        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       onSaved: (value) => producto.titulo = value,
       validator: (value) {
         if (value.length < 3) {
-          return 'Ingrese el nombre del producto correctamente';
+          return 'Ingrese el nombre del item correctamente';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  Widget _crearDescripcion() {
+    return TextFormField(
+      initialValue: producto.itemDescription,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Descripción Simple',
+        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
+      onSaved: (value) => producto.itemDescription = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingresa un pequeña descripción';
         } else {
           return null;
         }
@@ -99,6 +123,7 @@ class _ProductoPageState extends State<ProductoPage> {
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Precio',
+        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       onSaved: (value) => producto.valor = double.parse(value),
       validator: (value) {
@@ -114,7 +139,10 @@ class _ProductoPageState extends State<ProductoPage> {
   Widget _crearDisponible() {
     return SwitchListTile(
       value: producto.disponible,
-      title: Text('Disponible'),
+      title: Text(
+        'Disponible',
+        style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
       activeColor: Color.fromRGBO(153, 255, 204, 1.0),
       onChanged: (value) => setState(() {
         producto.disponible = value;
@@ -129,7 +157,10 @@ class _ProductoPageState extends State<ProductoPage> {
       ),
       color: Color.fromRGBO(89, 122, 121, 1.0),
       textColor: Colors.white,
-      label: Text('Guardar'),
+      label: Text(
+        'Guardar',
+        style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
       icon: Icon(Icons.save),
       onPressed: (_guardando) ? null : _submit,
     );
