@@ -21,7 +21,7 @@ class _VerContratos extends State<VerContratos> {
     return Container(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Project Management',
+            title: Text('Ver contratos',
                 style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
             actions: <Widget>[
               IconButton(
@@ -46,7 +46,7 @@ class _VerContratos extends State<VerContratos> {
                       //key: formKey,
                         child: Column(
                           children: <Widget>[
-                            TitleBar('Contracts'),
+                            TitleBar('Contratos'),
 
                             SizedBox(height: 9),
                             SizedBox(
