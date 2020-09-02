@@ -13,7 +13,7 @@ class _MessagePageState extends State<MessagePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Mesnajes',
+          'Mensajes',
           style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
         ),
       ),

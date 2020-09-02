@@ -64,7 +64,7 @@ class _ProductoPageState extends State<ProductoPage> {
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  //_mostrarFoto(),
+                  _mostrarFoto(),
                   _crearNombre(),
                   _crearDescripcion(),
                   _crearPrecio(),
