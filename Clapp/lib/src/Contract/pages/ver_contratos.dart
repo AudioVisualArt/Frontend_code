@@ -1,11 +1,12 @@
 import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 
 class VerContratos extends StatefulWidget {
-  final UserModel user;
+  final ProjectModel user;
   VerContratos({Key key, this.user}) : super(key: key);
   @override
   _VerContratos createState() => _VerContratos();
@@ -17,7 +18,7 @@ class _VerContratos extends State<VerContratos> {
   @override
   Widget build(BuildContext context) {
     //final idUsuario = ModalRoute.of(context).settings.arguments;
-    UserModel user = ModalRoute.of(context).settings.arguments;
+    ProjectModel project = ModalRoute.of(context).settings.arguments;
     return Container(
         child: Scaffold(
           appBar: AppBar(
@@ -28,7 +29,7 @@ class _VerContratos extends State<VerContratos> {
                 icon: Icon(Icons.autorenew),
                 onPressed: () {
                   setState(() {
-                    _crearListado(user.id);
+                    _crearListado(project.id);
                   });
                 },
               ),
@@ -51,7 +52,7 @@ class _VerContratos extends State<VerContratos> {
                             SizedBox(height: 9),
                             SizedBox(
                               height: 450,
-                              child: _crearListado(user.id),
+                              child: _crearListado(project.id),
                             ),
 
                             SizedBox(height: 20),
@@ -70,8 +71,7 @@ class _VerContratos extends State<VerContratos> {
                               ),
                               color: Color.fromRGBO(89, 122, 121, 1.0),
                               onPressed: () {
-                                Navigator.pushNamed(context, 'new_contract',
-                                    arguments: user);
+                               Navigator.pushNamed(context, 'new_contract', arguments: project);
                               },
                             ),
                           ],
@@ -85,7 +85,7 @@ class _VerContratos extends State<VerContratos> {
 
   Widget _crearListado(String idUsuario) {
     return FutureBuilder(
-      future: contratosProvider.cargarContratosPropietario(idUsuario),
+      future: contratosProvider.cargarContratosProoyecto(idUsuario),
       builder: (BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
         if (snapshot.hasData) {
           final contratos = snapshot.data;
@@ -123,10 +123,10 @@ class _VerContratos extends State<VerContratos> {
           child: Column(
             children: <Widget>[
               ListTile(
-                title: Text('${contrato.city} - ${contrato.workHours}',
+                title: Text('${contrato.jobPosition} - ${contrato.workHours} horas',
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                subtitle: Text(contrato.id,
-                    style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
+                subtitle: Text(contrato.city,
+                    style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
                 leading: Icon(Icons.arrow_forward_ios),
               ),
               /*Row(

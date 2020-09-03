@@ -1,4 +1,5 @@
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Contract/model/contract_models.dart';
@@ -37,10 +38,10 @@ class _NewContract extends State<NewContract>{
   Widget build(BuildContext context) {
 
 
-    UserModel idUsuario = ModalRoute.of(context).settings.arguments;
-    print("id de usuario en new contract: $idUsuario");
+    ProjectModel project = ModalRoute.of(context).settings.arguments;
+    print("id de proyecto en new contract: ${project.id}");
 
-    contrato.userBidderId=idUsuario.id;
+    contrato.projectId= project.id;
     // TODO: implement build
     return GestureDetector(
         onTap: () {

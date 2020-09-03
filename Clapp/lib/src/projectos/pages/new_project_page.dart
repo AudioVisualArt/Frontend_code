@@ -99,9 +99,10 @@ class _NewProjectPage extends State<NewProjectPage> {
                         proyecto.projectType.isNotEmpty&&
                         proyecto.proyectName.isNotEmpty) {
                           _submit(usuario);
-                          Navigator.pushNamed(context, 'see_contracts',
-                              arguments: usuario);
+                          Navigator.pushNamed(context, 'details_project',
+                              arguments: proyecto,  );
                         }
+
                       },
                     ),
                   ],
@@ -113,8 +114,9 @@ class _NewProjectPage extends State<NewProjectPage> {
   }
   void _submit(UserModel usuario, ){
 
-    proyecto.idUser= usuario.id;
-    proyectoProvider.crearProyecto(proyecto);
+    //proyecto.idUser= usuario.id;
+    proyecto.id= proyectoProvider.crearProyecto(proyecto).toString();
+    print("el id del proyecto es: ${proyecto.id}");
 
 
   }

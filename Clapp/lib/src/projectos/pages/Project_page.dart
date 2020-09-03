@@ -22,7 +22,7 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget build(BuildContext context) {
     //final idUsuario = ModalRoute.of(context).settings.arguments;
 
-    print('id User ' + widget.user.id);
+    //print('id User ' + widget.user.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +55,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   height: 450,
                   child: _crearListado(userModel.id),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 RaisedButton.icon(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -114,30 +114,26 @@ class _ProjectPageState extends State<ProjectPage> {
             children: <Widget>[
               ListTile(
                 title: Text('${proyecto.proyectName}',
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                subtitle: Text(proyecto.description,
-                    style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
+                    style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+                subtitle: Text(proyecto.projectType,
+                    style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
                 leading: Icon(Icons.arrow_forward_ios),
               ),
-              /*Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlatButton(
-                    child: Text('Details',
+                    child: Text('Details ->',
                         style:
                         TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
-                    onPressed: () { Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) =>
-                        new NewContract() )
+                    onPressed: () => Navigator.pushNamed(context, 'details_project',
+                        arguments: proyecto)
 
-                    );}
-                  ),
+                    ),
+                    ],
+                  )
                 ],
               )
-
-               */
-            ],
-          ),
-        ));
+            ));
   }
 }
