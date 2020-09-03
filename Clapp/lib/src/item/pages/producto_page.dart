@@ -178,7 +178,7 @@ class _ProductoPageState extends State<ProductoPage> {
     });
 
     if (producto.id == null) {
-      productoProvider.crearProducto(producto);
+      productoProvider.crearProducto(producto, foto);
     } else {
       productoProvider.editarProducto(producto);
     }
@@ -198,11 +198,20 @@ class _ProductoPageState extends State<ProductoPage> {
   }
 
   Widget _mostrarFoto() {
-    if (producto.fotoUrl != null) {
-      // TODO: tengo adelnatar esto
-      return Container();
+    print('FotoURL: ' + producto.fotoUrl);
+    if (producto.fotoUrl.isEmpty || producto.fotoUrl == null) {
+      return Image(
+        image: AssetImage('assets/img/no-image.png'),
+        height: 300.0,
+        fit: BoxFit.cover,
+      );
     } else {
-      if (foto != null) {
+      if (producto.fotoUrl != null) {
+        return FadeInImage(
+          placeholder: AssetImage('assets/img/jar-loading.gif'),
+          image: NetworkImage(producto.fotoUrl),
+        );
+      } else {
         return Image(
           image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
           height: 300.0,
@@ -215,10 +224,11 @@ class _ProductoPageState extends State<ProductoPage> {
   _seleccionarFoto() async {
     foto = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    if (foto == null) {
+    if (foto != null) {
       //limpiar
-      setState(() {});
+
     }
+    setState(() {});
   }
 
   _tomarFoto() async {

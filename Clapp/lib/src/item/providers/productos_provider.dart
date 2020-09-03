@@ -1,14 +1,29 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:Clapp/src/item/model/item_models.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 class ProductosProvider {
   final String _url = utils.url;
 
-  Future<bool> crearProducto(ItemModel producto) async {
+  Future<Map> crearProducto(ItemModel producto, File foto) async {
     final url = '$_url/saveItem';
+
+    final StorageReference postImageRef =
+        FirebaseStorage.instance.ref().child('Producto');
+
+    DateTime timeKey = DateTime.now();
+    final StorageUploadTask uploadTask =
+        postImageRef.child(producto.titulo).putFile(foto);
+
+    final imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
+
+    print('URL Image: ' + imageUrl);
+
+    producto.fotoUrl = imageUrl;
 
     final resp = await http.post(url,
         headers: <String, String>{
@@ -17,8 +32,8 @@ class ProductosProvider {
         body: itemModelToJson(producto));
 
     print(resp.statusCode);
-
-    return true;
+    //'
+    return {'ok': true, 'fotoUrl': imageUrl};
   }
 
   Future<bool> editarProducto(ItemModel producto) async {

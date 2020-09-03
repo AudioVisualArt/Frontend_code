@@ -69,7 +69,8 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.store, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
-                onPressed: () => Navigator.pushNamed(context, 'producto'),
+                onPressed: () =>
+                    Navigator.pushNamed(context, 'ver_productos_compra'),
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(
