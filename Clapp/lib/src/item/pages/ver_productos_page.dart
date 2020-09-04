@@ -14,28 +14,38 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
   @override
   Widget build(BuildContext context) {
     final idUsuario = ModalRoute.of(context).settings.arguments;
+    final _screenSize = MediaQuery.of(context).size;
 
     return Container(
         child: Scaffold(
       appBar: AppBar(
         title: Text('Productos',
-            style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.autorenew),
             onPressed: () {
               setState(() {
-                _crearListado();
+                _crearListado(_screenSize);
               });
             },
           ),
         ],
       ),
-      body: _crearListado(),
+      body: Column(
+        children: <Widget>[
+          Container(
+            child: _crearListado(_screenSize),
+            padding: EdgeInsets.all(4.0),
+            height: _screenSize.height * 0.7,
+          ),
+          _crearBotonAgregar(),
+        ],
+      ),
     ));
   }
 
-  Widget _crearListado() {
+  Widget _crearListado(Size size) {
     return FutureBuilder(
       future: productosProvider.cargarProductos(),
       builder: (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
@@ -81,7 +91,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                   FlatButton(
                     child: Text('Details',
                         style:
-                            TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
+                            TextStyle(fontSize: 13.0, fontFamily: "Raleway")),
                     onPressed: () => Navigator.pushNamed(context, 'producto',
                         arguments: producto),
                   ),
@@ -90,5 +100,24 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
             ],
           ),
         ));
+  }
+
+  Widget _crearBotonAgregar() {
+    return RaisedButton.icon(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      label: Text('Agregar Item',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+      textColor: Colors.white,
+      icon: Icon(
+        Icons.add_to_photos,
+        color: Colors.white,
+      ),
+      color: Color.fromRGBO(89, 122, 121, 1.0),
+      padding: EdgeInsets.symmetric(horizontal: 42.0),
+      onPressed: () => Navigator.pushNamed(context, 'producto'),
+    );
   }
 }

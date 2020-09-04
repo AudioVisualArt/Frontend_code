@@ -33,6 +33,7 @@ dependencies:
   shared_preferences:
   firebase_storage: ^2.1.0
   cloud_firestore: ^0.9.13
+  flutter_swiper: ^1.1.6
   #generic_bloc_provider: ^1.0.8
   firebase_auth:
 

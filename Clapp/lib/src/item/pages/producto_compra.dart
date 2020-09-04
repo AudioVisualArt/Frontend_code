@@ -1,18 +1,20 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:Clapp/src/item/model/item_models.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
-import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-class ProductoPage extends StatefulWidget {
+class ProductoCompraPage extends StatefulWidget {
+  ProductoCompraPage({Key key}) : super(key: key);
+
   @override
-  _ProductoPageState createState() => _ProductoPageState();
+  _ProductoCompraPageState createState() => _ProductoCompraPageState();
 }
 
-class _ProductoPageState extends State<ProductoPage> {
+class _ProductoCompraPageState extends State<ProductoCompraPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -23,7 +25,6 @@ class _ProductoPageState extends State<ProductoPage> {
   File foto;
 
   final productoProvider = new ProductosProvider();
-
   @override
   Widget build(BuildContext context) {
     final ItemModel prodData = ModalRoute.of(context).settings.arguments;
@@ -46,16 +47,6 @@ class _ProductoPageState extends State<ProductoPage> {
             'Agrega un Item',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.photo_size_select_actual),
-              onPressed: _seleccionarFoto,
-            ),
-            IconButton(
-              icon: Icon(Icons.camera_alt),
-              onPressed: _tomarFoto,
-            ),
-          ],
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -68,7 +59,8 @@ class _ProductoPageState extends State<ProductoPage> {
                   _crearNombre(),
                   _crearDescripcion(),
                   _crearPrecio(),
-                  _crearDisponible(),
+                  //_crearDisponible(),
+
                   _crearBoton(),
                 ],
               ),
@@ -83,18 +75,11 @@ class _ProductoPageState extends State<ProductoPage> {
     return TextFormField(
       initialValue: producto.titulo,
       textCapitalization: TextCapitalization.sentences,
+      enabled: false,
       decoration: InputDecoration(
-        labelText: 'Nombre de tu Item',
+        labelText: 'Titulo Item',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => producto.titulo = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese el nombre del item correctamente';
-        } else {
-          return null;
-        }
-      },
     );
   }
 
@@ -102,37 +87,23 @@ class _ProductoPageState extends State<ProductoPage> {
     return TextFormField(
       initialValue: producto.itemDescription,
       textCapitalization: TextCapitalization.sentences,
+      enabled: false,
       decoration: InputDecoration(
         labelText: 'Descripción Simple',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => producto.itemDescription = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingresa un pequeña descripción';
-        } else {
-          return null;
-        }
-      },
     );
   }
 
   Widget _crearPrecio() {
     return TextFormField(
       initialValue: producto.valor.toString(),
+      enabled: false,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Precio',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => producto.valor = double.parse(value),
-      validator: (value) {
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
     );
   }
 
@@ -158,11 +129,11 @@ class _ProductoPageState extends State<ProductoPage> {
       color: Color.fromRGBO(89, 122, 121, 1.0),
       textColor: Colors.white,
       label: Text(
-        'Guardar',
+        'Comprar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      icon: Icon(Icons.save),
-      onPressed: (_guardando) ? null : _submit,
+      icon: Icon(Icons.add_to_home_screen),
+      onPressed: _submit,
     );
   }
 
@@ -176,16 +147,11 @@ class _ProductoPageState extends State<ProductoPage> {
     setState(() {
       _guardando = true;
     });
-
-    if (producto.id == null) {
-      productoProvider.crearProducto(producto, foto);
-    } else {
-      productoProvider.editarProducto(producto, foto);
-    }
+    producto.disponible = false;
+    productoProvider.editarProducto(producto, foto);
 
     mostrarSnackbar('Registro Guardado');
-
-    Navigator.pop(context);
+    utils.mostrarAlerta(context, 'Compra Exitosa');
   }
 
   void mostrarSnackbar(String mensaje) {
