@@ -1,4 +1,5 @@
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
+import 'package:Clapp/src/services/pages/new_service.dart';
 import 'package:flutter/material.dart';
 
 class ServicesPages extends StatefulWidget{
@@ -20,23 +21,56 @@ class _ServicesPages extends State<ServicesPages>{
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
 
-      body: Container(
-        padding: EdgeInsets.all(30.0),
-        child: GridView.count(crossAxisCount: 2,
-          children: <Widget>[
-            opcionesMenu1(),
-            opcionesMenu2(),
-            opcionesMenu3(),
-            opcionesMenu4(),
+      body: Column(
+        children: <Widget> [
+          SizedBox(
+              height: 450,
+            child: _MenuServicios(),
 
-
-          ],),
+         ),
+          SizedBox(height: 10),
+          RaisedButton.icon(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            label: Text('Nuevo Servicio',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+            textColor: Colors.white,
+            icon: Icon(
+              Icons.create_new_folder,
+              color: Colors.white,
+            ),
+            color: Color.fromRGBO(89, 122, 121, 1.0),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new NewService()));
+            },
+          ),
+        ],
       ),
     );
   }
 
 
 
+  Widget _MenuServicios(){
+    return Container(
+      padding: EdgeInsets.all(30.0),
+      child: GridView.count(crossAxisCount: 2,
+        children: <Widget>[
+          opcionesMenu1(),
+          opcionesMenu2(),
+          opcionesMenu3(),
+          opcionesMenu4(),
+
+
+        ],)
+      ,
+    );
+  }
 
 
   Widget opcionesMenu1(){
@@ -145,13 +179,6 @@ class _ServicesPages extends State<ServicesPages>{
     );
   }
 
-  Widget _mostrarFoto() {
-    return Image(
-      image: AssetImage('assets/img/no-image.png'),
-      height: 200.0,
-      width: 200.0,
-      fit: BoxFit.cover,
-    );
-  }
+
 
 }

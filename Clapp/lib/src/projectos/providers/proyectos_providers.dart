@@ -23,7 +23,7 @@ class ProyectosProvider extends InheritedWidget{
       : super(key: key , child: child);
 
 
-  Future<bool> crearProyecto(ProjectModel proyecto) async {
+  Future<String> crearProyecto(ProjectModel proyecto) async {
     final url = '$_url/saveProject';
 
     final resp = await http.post(url,
@@ -32,9 +32,9 @@ class ProyectosProvider extends InheritedWidget{
         },
         body: ProjectModelToJson(proyecto));
 
-    print(resp.statusCode);
+    print(resp.body);
 
-    return true;
+    return resp.body;
   }
 
   Future<bool> editarProyecto(ProjectModel proyecto) async {
@@ -44,7 +44,7 @@ class ProyectosProvider extends InheritedWidget{
         headers: <String, String>{'Content-Type': 'application/json'},
         body: ProjectModelToJson(proyecto));
 
-    final decodeData = json.decode(resp.body);
+    final decodeData = resp.body;
 
     print(decodeData);
 
@@ -55,7 +55,7 @@ class ProyectosProvider extends InheritedWidget{
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllProjects';
     final rsp = await http.get(url);
-    print(rsp.body);
+    //print(rsp.body.toString());
 
     final Iterable decodeData = json.decode(rsp.body);
     List<ProjectModel> proyectos = new List();

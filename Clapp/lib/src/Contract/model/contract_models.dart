@@ -16,6 +16,7 @@ class ContractModel {
   //String userApplicantId;
   String userBidderId;
   String id;
+  String projectId;
 
 
   ContractModel({
@@ -27,6 +28,7 @@ class ContractModel {
     this.workHours = 0,
     //this.userApplicantId,
     this.userBidderId,
+    this.projectId
 
   });
 
@@ -40,6 +42,7 @@ class ContractModel {
         //userApplicantId: json["userApplicantId"],
         userBidderId: json["userBidderId"],
         id: json["id"],
+        projectId: json["projectId"]
 
       );
 
@@ -52,5 +55,6 @@ class ContractModel {
    // "userApplicantId": userApplicantId,
     "userBidderId": userBidderId,
     "id": id,
+    "projectId": projectId
   };
 }
