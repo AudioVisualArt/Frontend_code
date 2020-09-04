@@ -17,6 +17,7 @@ import 'package:Clapp/src/User/pages/favourites_page.dart';
 import 'package:Clapp/src/User/pages/profile_page.dart';
 import 'package:Clapp/src/User/pages/messages_page.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
+import 'package:Clapp/src/services/pages/new_service.dart';
 
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
@@ -37,6 +38,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'see_contracts': (BuildContext context) => VerContratos(),
     'new_contract': (BuildContext context) => NewContract(),
     'details_project': (BuildContext context) => ProjectDetails(),
+    'new_service': (BuildContext context) => NewService(),
 
   };
 }
