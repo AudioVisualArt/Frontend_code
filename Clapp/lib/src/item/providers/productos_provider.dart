@@ -15,7 +15,6 @@ class ProductosProvider {
     final StorageReference postImageRef =
         FirebaseStorage.instance.ref().child('Producto');
 
-    DateTime timeKey = DateTime.now();
     final StorageUploadTask uploadTask =
         postImageRef.child(producto.titulo).putFile(foto);
 
@@ -36,8 +35,25 @@ class ProductosProvider {
     return {'ok': true, 'fotoUrl': imageUrl};
   }
 
-  Future<bool> editarProducto(ItemModel producto) async {
-    final url = '$_url/updateItem/${producto.id}.json';
+  Future<bool> editarProducto(ItemModel producto, File foto) async {
+    final url = '$_url/updateItem/${producto.id}';
+
+    if (foto != null) {
+      if (producto.fotoUrl.isNotEmpty) {
+        final delete = (await FirebaseStorage.instance
+            .getReferenceFromUrl(producto.fotoUrl)
+            .then((value) => value.delete()));
+      }
+      final StorageReference postImageRef =
+          FirebaseStorage.instance.ref().child('Producto');
+
+      final StorageUploadTask uploadTask =
+          postImageRef.child(producto.titulo).putFile(foto);
+
+      final imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
+
+      producto.fotoUrl = imageUrl;
+    }
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},

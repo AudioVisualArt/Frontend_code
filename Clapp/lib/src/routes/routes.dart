@@ -16,6 +16,7 @@ import 'package:Clapp/src/User/pages/profile_page.dart';
 import 'package:Clapp/src/User/pages/messages_page.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_compra.dart';
+import 'package:Clapp/src/item/pages/producto_compra.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -36,5 +37,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'new_contract': (BuildContext context) => NewContract(),
     'ver_productos_compra': (BuildContext context) =>
         MostrarProductosCompraPage(),
+    'producto_compra': (BuildContext context) => ProductoCompraPage(),
   };
 }

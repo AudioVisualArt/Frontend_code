@@ -48,14 +48,22 @@ class _MostrarProductosCompraPageState
         if (snapshot.hasData) {
           final productos = snapshot.data;
 
+          final List<ItemModel> productosMos = new List<ItemModel>();
+
+          for (ItemModel item in productos) {
+            if (item.disponible) {
+              productosMos.add(item);
+            }
+          }
+
           return Container(
             child: Swiper(
-              itemCount: 3,
+              itemCount: productosMos.length,
               layout: SwiperLayout.STACK,
               itemWidth: _screenSize.width * 0.7,
               itemHeight: _screenSize.height * 0.51,
               itemBuilder: (context, index) => ClipRRect(
-                child: _crearItem(context, productos[index]),
+                child: _crearItem(context, productosMos[index]),
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
@@ -96,7 +104,8 @@ class _MostrarProductosCompraPageState
                           fontSize: 15.0,
                           fontFamily: "Raleway",
                           color: Colors.white)),
-                  onPressed: () => Navigator.pushNamed(context, 'producto',
+                  onPressed: () => Navigator.pushNamed(
+                      context, 'producto_compra',
                       arguments: producto),
                 ),
               ],
@@ -118,17 +127,16 @@ class _MostrarProductosCompraPageState
         fit: BoxFit.cover,
       );
     } else {
-      if (producto.fotoUrl != null) {
+      if (producto.fotoUrl.isEmpty || producto.fotoUrl == null) {
+        return Image(
+          image: AssetImage('assets/img/no-image.png'),
+          height: 300.0,
+          fit: BoxFit.cover,
+        );
+      } else if (producto.fotoUrl != null || producto.fotoUrl.isNotEmpty) {
         return FadeInImage(
           placeholder: AssetImage('assets/img/jar-loading.gif'),
           image: NetworkImage(producto.fotoUrl),
-        );
-      } else {
-        return Image(
-          image: AssetImage('assets/img/no-image.png'),
-          height: 5.0,
-          width: _screenSize.width * 0.2,
-          fit: BoxFit.cover,
         );
       }
     }

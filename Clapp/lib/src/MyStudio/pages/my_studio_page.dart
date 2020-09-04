@@ -53,7 +53,7 @@ class _MyStudioPageState extends State<MyStudioPage> {
                 ),
                 title: Text('Tienda')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.slideshow), title: Text('Ver')),
+                icon: Icon(Icons.slideshow), title: Text('Items')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.work), title: Text('Administrar')),
           ],
