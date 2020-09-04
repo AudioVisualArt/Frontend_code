@@ -77,19 +77,12 @@ class _MostrarProductosCompraPageState
 
   Widget _crearItem(BuildContext context, ItemModel producto) {
     return Card(
-      color: Color.fromRGBO(89, 122, 121, 1.0),
+      color: Colors.white,
       elevation: 20.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: <Widget>[
           _itemFoto(context, producto),
-          // ListTile(
-          //   title: Text('${producto.titulo} - ${producto.valor}',
-          //       style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-          //   subtitle: Text(producto.id,
-          //       style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
-          //   leading: Icon(Icons.arrow_forward_ios),
-          // ),
           Container(
             padding: EdgeInsets.all(10.0),
             height: 40.0,
@@ -103,7 +96,7 @@ class _MostrarProductosCompraPageState
                       style: TextStyle(
                           fontSize: 15.0,
                           fontFamily: "Raleway",
-                          color: Colors.white)),
+                          color: Colors.black)),
                   onPressed: () => Navigator.pushNamed(
                       context, 'producto_compra',
                       arguments: producto),
@@ -123,8 +116,7 @@ class _MostrarProductosCompraPageState
       return Image(
         image: AssetImage('assets/img/no-image.png'),
         height: _screenSize.height * 0.45,
-        width: _screenSize.width * 0.7,
-        fit: BoxFit.cover,
+        width: _screenSize.width * 0.45,
       );
     } else {
       if (producto.fotoUrl.isEmpty || producto.fotoUrl == null) {
@@ -136,7 +128,11 @@ class _MostrarProductosCompraPageState
       } else if (producto.fotoUrl != null || producto.fotoUrl.isNotEmpty) {
         return FadeInImage(
           placeholder: AssetImage('assets/img/jar-loading.gif'),
-          image: NetworkImage(producto.fotoUrl),
+          image: NetworkImage(
+            producto.fotoUrl,
+          ),
+          height: _screenSize.height * 0.45,
+          width: _screenSize.width * 0.45,
         );
       }
     }
