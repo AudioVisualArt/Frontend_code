@@ -1,3 +1,4 @@
+import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Contract/pages/new_contract.dart';
@@ -45,5 +46,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'producto_compra': (BuildContext context) => ProductoCompraPage(),
     'details_project': (BuildContext context) => ProjectDetails(),
     'new_service': (BuildContext context) => NewService(),
+    'collaborators': (BuildContext context) => VerColaboradores(),
   };
 }

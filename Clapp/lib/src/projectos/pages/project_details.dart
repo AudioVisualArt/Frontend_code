@@ -56,7 +56,8 @@ class _ProjectDetails extends State<ProjectDetails>{
               color: Color.fromRGBO(89, 122, 121, 1.0),
               padding: EdgeInsets.symmetric(horizontal: 72.5),
               onPressed: () {
-                //Navigator.push();
+                Navigator.pushNamed(context, 'collaborators',
+                    arguments: proyecto);
               },
             ),
             RaisedButton.icon(

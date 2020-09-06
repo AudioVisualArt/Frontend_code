@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
@@ -49,6 +50,22 @@ class ProyectosProvider extends InheritedWidget{
     print(decodeData);
 
     return true;
+  }
+
+  Future<List<UserModel>> cargarColaboradores(idProject) async {
+    print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getCollaborators/$idProject';
+    final rsp = await http.get(url);
+    //print(rsp.body.toString());
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<UserModel> users = new List();
+    if (decodeData == null) return [];
+
+    users =
+        decodeData.map((model) => UserModel.fromJson(model)).toList();
+
+    return users;
   }
 
   Future<List<ProjectModel>> cargarProyectos(idUsuario) async {

@@ -17,6 +17,7 @@ class ContractModel {
   String userBidderId;
   String id;
   String projectId;
+  bool accepted =false;
 
 
   ContractModel({
@@ -28,8 +29,8 @@ class ContractModel {
     this.workHours = 0,
     //this.userApplicantId,
     this.userBidderId,
-    this.projectId
-
+    this.projectId,
+    this.accepted
   });
 
   factory ContractModel.fromJson(Map<String, dynamic> json) =>
@@ -42,7 +43,8 @@ class ContractModel {
         //userApplicantId: json["userApplicantId"],
         userBidderId: json["userBidderId"],
         id: json["id"],
-        projectId: json["projectId"]
+        projectId: json["projectId"],
+        accepted: json["accepted"]
 
       );
 
@@ -55,6 +57,7 @@ class ContractModel {
    // "userApplicantId": userApplicantId,
     "userBidderId": userBidderId,
     "id": id,
-    "projectId": projectId
+    "projectId": projectId,
+    "accepted": accepted
   };
 }
