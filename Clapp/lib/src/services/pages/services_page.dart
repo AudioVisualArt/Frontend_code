@@ -1,5 +1,6 @@
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ServicesPages extends StatefulWidget{
@@ -23,13 +24,16 @@ class _ServicesPages extends State<ServicesPages>{
 
       body: Column(
         children: <Widget> [
-          SizedBox(
-              height: 450,
+         Expanded(
             child: _MenuServicios(),
 
          ),
-          SizedBox(height: 10),
-          RaisedButton.icon(
+         SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.only(bottom: 20.0),
+
+          child: RaisedButton.icon(
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             ),
@@ -48,7 +52,7 @@ class _ServicesPages extends State<ServicesPages>{
                   new MaterialPageRoute(
                       builder: (context) => new NewService()));
             },
-          ),
+          ),),
         ],
       ),
     );
@@ -58,14 +62,13 @@ class _ServicesPages extends State<ServicesPages>{
 
   Widget _MenuServicios(){
     return Container(
-      padding: EdgeInsets.all(30.0),
+      padding: EdgeInsets.all(10.0),
       child: GridView.count(crossAxisCount: 2,
         children: <Widget>[
           opcionesMenu1(),
           opcionesMenu2(),
           opcionesMenu3(),
           opcionesMenu4(),
-
 
         ],)
       ,

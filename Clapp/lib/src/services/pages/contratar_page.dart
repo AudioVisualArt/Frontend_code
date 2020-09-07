@@ -19,7 +19,7 @@ class _ContratarPage extends State<ContratarPage>{
         children: <Widget>[
           SizedBox(height: 15.0,),
           Container(
-            padding: EdgeInsets.only(right: 10.0, left: 10.0),
+            padding: EdgeInsets.only(right: 10.0, left: 10.0, top: 0.5),
             width: MediaQuery.of(context).size.width - 30.0,
             height: MediaQuery.of(context).size.height - 50.0,
             child:  GridView.count(
@@ -30,7 +30,9 @@ class _ContratarPage extends State<ContratarPage>{
             childAspectRatio: 0.69,
             children: <Widget>[
               _buildCard('James Franco', 'DP', "assets/img/perfiltest.PNG", true, context),
-              _buildCard('James Franco', '1st AC', "assets/img/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png", true, context)
+              _buildCard('James Franco', '1st AC', "assets/img/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png", true, context),
+
+
 
             ],),
           )

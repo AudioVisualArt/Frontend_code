@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:Clapp/src/services/pages/services_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
@@ -47,47 +48,81 @@ class _NewService extends State<NewService>{
         child: Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            title: Text('Nuevo Servicio',
+            title: Text('Servicio',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           ),
-          body: SingleChildScrollView(
-
-
-            child: Container(
-
-
-              padding: EdgeInsets.only(
-                right: 15.0,
-                left: 15.0,
-                top: 50.0,
-
-              ),
-              child: Form(
-                key: workerformkey,
+          body: Column(
+            children: [
+              Expanded(child: SingleChildScrollView(
                 child: Column(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(top: 15.0),
+                        child: Text('Nuevo Servicio',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 17.5, fontFamily: "Raleway"))
+                    ),
 
-                  children: <Widget>[
-                    //_profesion(),
-                    SizedBox(height: 25),
-                    _mainRol(),
-                    SizedBox(height: 25),
-                    _description(),
+                    Container(
+                      padding: EdgeInsets.only(
+                          right: 15.0,
+                          left: 15.0,
+                          top: 20.0,
+                          bottom: 30.0
+
+                      ),
+                      child: Form(
+                        key: workerformkey,
+
+                        child: Column(
+
+                          children: <Widget>[
+
+                            _description(),
+                            SizedBox(height: 10),
+                            _mainRol(),
+                            SizedBox(height: 10),
+                            _profesion(),
+
+                            SizedBox(height: 10),
+                            _laboral(),
+                            SizedBox(height: 10),
+
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
 
 
 
-                    SizedBox(height: 25),
-                    //_education(),
-                    SizedBox(height: 25),
-                    _laboral(),
-                    SizedBox(height: 45),
 
-                RaisedButton.icon(
+
+
+              ))
+              ,
+              Container(
+                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
+                child: RaisedButton(
+                  padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Nuevo servicio',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
+                  textColor: Colors.white,
+
+                  color: Color.fromRGBO(112, 252, 118, 0.8),
+
                   onPressed: (){ if(
                   //trabajador.profesion.isNotEmpty&&
-                      trabajador.mainRol.isNotEmpty&&
+                  trabajador.mainRol.isNotEmpty&&
                       trabajador.description.isNotEmpty
-                      //trabajador.estudios.isNotEmpty
+                  //trabajador.estudios.isNotEmpty
                   ) {
 
 
@@ -95,60 +130,81 @@ class _NewService extends State<NewService>{
                         context,
                         new MaterialPageRoute(
                             builder: (context) => new ServicesPages()));}}
-                        ,
+                  ,
 
 
 
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  label: Text('Habilitar nuevo servicio',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                  textColor: Colors.white,
-                  icon: Icon(Icons.playlist_add_check,
-                    color: Colors.white,
-                  ),
-                  color: Color.fromRGBO(89, 122, 121, 1.0),
 
 
-                ),
 
-                  ],
-                ),
-              ),
-            ),
+                ),)
+            ],
           ),
+
 
 
         ));
   }
   Widget _profesion() {
-    return TextFormField(
-      //initialValue: trabajador.profesion,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Categoria',
-      ),
-      //onChanged: (value) => trabajador.profesion = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese el nombre de la profesion correctamente';
-        } else {
-          return null;
-        }
-      },
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
 
+      child: Center(
+        child: TextFormField(
+          style: TextStyle(fontSize: 14.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold ),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 20,
+          maxLines: 1,
+          textAlign: TextAlign.left,
+          //initialValue: trabajador.profesion,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Categoria', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+            helperText: "Ejemplo: Arte audiovisual",
+            border: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(16.0),
+            ),
+    enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+        borderRadius: BorderRadius.circular(16.0)),
+          ),
+          //onChanged: (value) => trabajador.profesion = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese el nombre de la profesion correctamente';
+            } else {
+              return null;
+            }
+          },
+
+        ),
+      ),
     );
+
+
   }
 
   Widget _mainRol() {
-    return TextFormField(
+   return Container(
+
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+
+      child: Center(
+     child: TextFormField(
+       style: TextStyle(fontSize: 14.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold ),
+       cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+       maxLength: 20,
       initialValue: trabajador.mainRol,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Rol Principal',
-      ),
+        labelText: 'Rol Principal', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+          helperText: "Ejemplo: DP",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0)),
+          enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+          borderRadius: BorderRadius.circular(16.0))),
+
       onChanged: (value) => trabajador.mainRol = value,
       validator: (value) {
         if (value.length < 3) {
@@ -158,17 +214,31 @@ class _NewService extends State<NewService>{
         }
       },
 
-    );
+    )));
   }
 
 
   Widget _description() {
-    return TextFormField(
+    return Container(
+
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+
+      child: Center(
+      child: TextFormField(
+        style: TextStyle(fontSize: 14.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold ),
+        cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+        maxLength: 200,
+        maxLines: 3,
       initialValue: trabajador.description,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Perfil profesional',
-      ),
+        labelText: 'Perfil profesional', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+    helperText: "Breve descripcion de su perfil",
+    border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(16.0)),
+          enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+          borderRadius: BorderRadius.circular(16.0))),
       onChanged: (value) => trabajador.description = value,
       validator: (value) {
         if (value.length < 3) {
@@ -178,6 +248,7 @@ class _NewService extends State<NewService>{
         }
       },
 
+    ))
     );
   }
 
@@ -201,12 +272,28 @@ class _NewService extends State<NewService>{
   }
 
   Widget _laboral() {
-    return TextFormField(
+    return Container(
+
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+    child: Center(
+
+
+
+    child: TextFormField(
+      style: TextStyle(fontSize: 14.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold ),
+      cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+      maxLength: 50,
       //initialValue: trabajador.description,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Experiencia laboral',
+        labelText: 'Experiencia laboral', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+          //helperText: "Ejemplo: ",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
       ),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+              borderRadius: BorderRadius.circular(16.0))),
       //onChanged: (value) => trabajador.description = value,
       validator: (value) {
         if (value.length < 3) {
@@ -216,7 +303,7 @@ class _NewService extends State<NewService>{
         }
       },
 
-    );
+    )));
   }
 
 

@@ -31,6 +31,7 @@ class _AudiovisualPage extends State<AudiovisualPage>{
       EquipmentPage(),
       SpacesPage(),
       OtherPage(),
+
     ];
 
 
@@ -57,6 +58,8 @@ class _AudiovisualPage extends State<AudiovisualPage>{
                 title: Text('Equipo')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.panorama), title: Text('Espacios')),
+
+
             BottomNavigationBarItem(
                 icon: Icon(Icons.camera_enhance), title: Text('Otros')),
           ],
