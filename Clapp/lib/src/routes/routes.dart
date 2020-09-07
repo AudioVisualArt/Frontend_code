@@ -46,6 +46,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'producto_compra': (BuildContext context) => ProductoCompraPage(),
     'details_project': (BuildContext context) => ProjectDetails(),
     'new_service': (BuildContext context) => NewService(),
-    'collaborators': (BuildContext context) => VerColaboradores(),
+    'collaborators':(BuildContext context) => VerColaboradores(),
   };
 }

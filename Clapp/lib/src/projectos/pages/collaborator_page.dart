@@ -2,6 +2,7 @@ import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
+import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:flutter/material.dart';
 
 class VerColaboradores extends StatefulWidget {
@@ -62,7 +63,9 @@ Widget _crearListado(projectId) {
         (BuildContext context, AsyncSnapshot<List<UserModel>> snapshot) {
       if (snapshot.hasData) {
         final projectos = snapshot.data;
-        return ListView.builder(
+        return GridView.builder(
+          gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
           itemCount: projectos.length,
           itemBuilder: (context, index) =>
               _crearProyecto(context, projectos[index]),
@@ -84,9 +87,11 @@ Widget _crearListado(projectId) {
                   title: Text('${user.name}',
                       style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
                   subtitle: Text(user.description,
-                      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
+                    style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
 
                 ),
+                _crearDatosWork(user.id)
+
                 /*Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
@@ -104,5 +109,18 @@ Widget _crearListado(projectId) {
             )
         );
   }
-
+ Widget _crearDatosWork(String userId){
+   return FutureBuilder(
+     future: proyectosProvider.cargarWorkerInfo(userId),
+     builder:
+         (BuildContext context, AsyncSnapshot<WorkerModel> snapshot) {
+       if (snapshot.hasData) {
+         final worker = snapshot.data;
+         return Text(worker.mainRol) ;
+       } else {
+         return Center(child: CircularProgressIndicator());
+       }
+     },
+   );
+ }
 }
