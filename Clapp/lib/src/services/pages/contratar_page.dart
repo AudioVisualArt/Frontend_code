@@ -14,8 +14,15 @@ class _ContratarPage extends State<ContratarPage>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Color.fromRGBO(89, 122, 121, 1.0),
-      body: ListView(
+
+      body: Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage("assets/img/background.jpg"),
+    fit: BoxFit.cover,
+    )
+    ),
+    child: ListView(
         children: <Widget>[
           SizedBox(height: 15.0,),
           Container(
@@ -37,7 +44,7 @@ class _ContratarPage extends State<ContratarPage>{
             ],),
           )
         ],
-      ),
+      ),),
     );
   }
 

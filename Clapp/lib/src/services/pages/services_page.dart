@@ -22,7 +22,14 @@ class _ServicesPages extends State<ServicesPages>{
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
 
-      body: Column(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/img/background.jpg"),
+            fit: BoxFit.cover,
+          )
+        ),
+    child: Column(
         children: <Widget> [
          Expanded(
             child: _MenuServicios(),
@@ -54,7 +61,7 @@ class _ServicesPages extends State<ServicesPages>{
             },
           ),),
         ],
-      ),
+      ),)
     );
   }
 
