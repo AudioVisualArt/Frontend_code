@@ -30,7 +30,7 @@ class _ContratarPage extends State<ContratarPage>{
             childAspectRatio: 0.69,
             children: <Widget>[
               _buildCard('James Franco', 'DP', "assets/img/perfiltest.PNG", true, context),
-              _buildCard('James Franco', '1st AC', "assets/img/perfiltest.PNG", true, context)
+              _buildCard('James Franco', '1st AC', "assets/img/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png", true, context)
 
             ],),
           )
