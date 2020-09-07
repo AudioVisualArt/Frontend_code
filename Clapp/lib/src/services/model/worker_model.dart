@@ -12,8 +12,8 @@ class WorkerModel {
   String mainRol;
   String description;
   List<String> briefcase;
-  String profesion;
-  String estudios;
+  //String profesion;
+  //String estudios;
 
 
   WorkerModel({
@@ -21,18 +21,18 @@ class WorkerModel {
     this.mainRol,
     this.description ,
     this.briefcase ,
-    this.profesion ,
-    this.estudios,
+    //this.profesion ,
+    //this.estudios,
 
   });
 
   factory WorkerModel.fromJson(Map<String, dynamic> json) => new WorkerModel(
-    userId: json["userIde"],
+    userId: json["userId"],
     mainRol: json["mainRol"],
     description: json["description"],
     briefcase: json["briefcase"],
-    profesion: json["profesion"],
-    estudios: json["estudios"],
+    //profesion: json["profesion"],
+    //estudios: json["estudios"],
 
   );
 
@@ -41,8 +41,8 @@ class WorkerModel {
     "mainRol": mainRol,
     "description": description,
     "briefcase": briefcase,
-    "profesion": profesion,
-    "estudios": estudios,
+    //"profesion": profesion,
+    //"estudios": estudios,
 
   };
 }

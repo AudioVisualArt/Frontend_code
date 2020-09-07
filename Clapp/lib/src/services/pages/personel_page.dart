@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:Clapp/src/services/pages/contratar_page.dart';
 
 class PersonelPage extends StatefulWidget {
   PersonelPage({Key key}) : super(key: key);
@@ -16,6 +17,17 @@ class _PersonelPage extends State<PersonelPage> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
-    );
+      body: Container(
+
+        height: MediaQuery.of(context).size.height -30,
+        width: double.infinity,
+
+        child: ContratarPage(),
+        )
+
+
+      );
+
+
   }
 }
