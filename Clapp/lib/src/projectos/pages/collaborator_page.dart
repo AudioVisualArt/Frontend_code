@@ -65,7 +65,8 @@ Widget _crearListado(projectId) {
         final projectos = snapshot.data;
         return GridView.builder(
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
+              crossAxisCount: 2,
+          childAspectRatio: 0.7),
           itemCount: projectos.length,
           itemBuilder: (context, index) =>
               _crearProyecto(context, projectos[index]),
@@ -83,9 +84,10 @@ Widget _crearListado(projectId) {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
             child: Column(
               children: <Widget>[
+                _crearPhoto(),
                 ListTile(
                   title: Text('${user.name}',
-                      style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                   subtitle: Text(user.description,
                     style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
 
@@ -123,4 +125,20 @@ Widget _crearListado(projectId) {
      },
    );
  }
+
+  Widget _crearPhoto() {
+    return Container(
+      height: 170.0,
+      width: 200.0,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+          image: DecorationImage(
+            image: AssetImage("assets/img/perfiltest.PNG"),
+            fit: BoxFit.contain,
+
+          )
+      ),
+
+    );
+  }
 }

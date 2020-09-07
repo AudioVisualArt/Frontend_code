@@ -95,6 +95,7 @@ flutter:
     - assets/img/CORPORATELOGO_whitebackgrounds-HEXA.png
     - assets/img/no-image.png
     - assets/img/jar-loading.gif
+    - assets/img/APP ICON.png
     - data/menu_Clapp.json
 
   fonts:

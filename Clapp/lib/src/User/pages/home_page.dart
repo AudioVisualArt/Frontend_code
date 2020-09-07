@@ -113,11 +113,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _mostrarFotoPerfil() {
-    return Image(
-      image: AssetImage('assets/img/no-image.png'),
-      height: 200.0,
-      width: 200.0,
-      fit: BoxFit.cover,
+    return Container(
+
+      child:Image(
+        image: AssetImage('assets/img/APP ICON.png'),
+        height: 200.0,
+        width: 200.0,
+        fit: BoxFit.cover,
+
+    )
     );
   }
 
