@@ -36,8 +36,8 @@ class _ContratarPage extends State<ContratarPage>{
             mainAxisSpacing: 15.0,
             childAspectRatio: 0.69,
             children: <Widget>[
-              _buildCard('James Franco', 'DP', "assets/img/perfiltest.PNG", true, context),
-              _buildCard('James Franco', '1st AC', "assets/img/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png", true, context),
+              _buildCard('James Franco', 'DP', "assets/img/perfiltest.PNG", context),
+              _buildCard('James Franco', '1st AC', "assets/img/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png", context),
 
 
 
@@ -48,14 +48,19 @@ class _ContratarPage extends State<ContratarPage>{
     );
   }
 
-  Widget _buildCard(String name, String rol, String imgPath, bool added, context){
+  Widget _buildCard(String name, String rol, String imgPath, context){
     return Padding(
-      padding: EdgeInsets.only(top: 1.5, bottom: 1.5, left:  0.0, right: 0.0),
+      padding: EdgeInsets.only(top: 1.5, bottom: 3.2, left:  0.0, right: 0.0),
     child: InkWell(
       onTap: (){},
       child:  Container(
         decoration: BoxDecoration(
-          borderRadius:  BorderRadius.circular(15.0),
+          borderRadius:  BorderRadius.only(
+            topLeft: Radius.circular(50),
+            topRight: Radius.circular(50),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20)
+          ),
           boxShadow: [
             BoxShadow(
               color:  Colors.grey.withOpacity(0.2),
