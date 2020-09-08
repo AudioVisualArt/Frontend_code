@@ -81,6 +81,9 @@ class _NewService extends State<NewService>{
 
                             _description(),
                             SizedBox(height: 10),
+                            _studies(),
+                            SizedBox(height: 10),
+
                             _mainRol(),
                             SizedBox(height: 10),
                             _profesion(),
@@ -118,19 +121,7 @@ class _NewService extends State<NewService>{
 
                   color: Color.fromRGBO(112, 252, 118, 0.8),
 
-                  onPressed: (){ if(
-                  //trabajador.profesion.isNotEmpty&&
-                  trabajador.mainRol.isNotEmpty&&
-                      trabajador.description.isNotEmpty
-                  //trabajador.estudios.isNotEmpty
-                  ) {
-
-
-                    Navigator.pop(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new ServicesPages()));}}
-                  ,
+                  onPressed: (_guardando) ? null : _submit  ,
 
 
 
@@ -159,16 +150,18 @@ class _NewService extends State<NewService>{
           //initialValue: trabajador.profesion,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            labelText: 'Categoria', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+            labelText: 'Categoria', labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+              fontWeight: FontWeight.bold, fontSize: 20.0),
             helperText: "Ejemplo: Arte audiovisual",
             border: OutlineInputBorder(
                borderRadius: BorderRadius.circular(16.0),
             ),
     enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+    borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
         borderRadius: BorderRadius.circular(16.0)),
           ),
-          //onChanged: (value) => trabajador.profesion = value,
+          onChanged: (value) => trabajador.profession = value,
           validator: (value) {
             if (value.length < 3) {
               return 'Ingrese el nombre de la profesion correctamente';
@@ -197,12 +190,12 @@ class _NewService extends State<NewService>{
       initialValue: trabajador.mainRol,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Rol Principal', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+        labelText: 'Rol Principal', labelStyle: TextStyle( fontWeight: FontWeight.bold, fontSize: 20.0),
           helperText: "Ejemplo: DP",
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0)),
           enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
           borderRadius: BorderRadius.circular(16.0))),
 
       onChanged: (value) => trabajador.mainRol = value,
@@ -232,12 +225,14 @@ class _NewService extends State<NewService>{
       initialValue: trabajador.description,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Perfil profesional', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+        labelText: 'Perfil profesional', labelStyle: TextStyle(
+          //color: Color.fromRGBO(0, 51, 51, 0.8),
+          fontWeight: FontWeight.bold, fontSize: 20.0),
     helperText: "Breve descripcion de su perfil",
     border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(16.0)),
           enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
           borderRadius: BorderRadius.circular(16.0))),
       onChanged: (value) => trabajador.description = value,
       validator: (value) {
@@ -252,23 +247,41 @@ class _NewService extends State<NewService>{
     );
   }
 
-  Widget _education() {
-    return TextFormField(
-     // initialValue: trabajador.estudios,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Estudios',
-      ),
-      //onChanged: (value) => trabajador.estudios = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese minimo 3 palabras';
-        } else {
-          return null;
-        }
-      },
+  Widget _studies() {
+    return Container(
 
-    );
+        padding: EdgeInsets.only(left: 0.5, right: 59.0),
+        child: Center(
+
+
+
+            child: TextFormField(
+              style: TextStyle(fontSize: 14.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold ),
+              cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+              maxLength: 50,
+              //initialValue: trabajador.description,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                  labelText: 'Estudios', labelStyle: TextStyle(
+                  //color: Color.fromRGBO(0, 51, 51, 0.8),
+                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                  helperText: "Cursos, talleres ",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                      borderRadius: BorderRadius.circular(16.0))),
+              onChanged: (value) => trabajador.studies = value,
+              validator: (value) {
+                if (value.length < 3) {
+                  return 'Ingrese minimo 5 palabras';
+                } else {
+                  return null;
+                }
+              },
+
+            )));
   }
 
   Widget _laboral() {
@@ -286,13 +299,15 @@ class _NewService extends State<NewService>{
       //initialValue: trabajador.description,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Experiencia laboral', labelStyle: TextStyle(color: Color.fromRGBO(0, 51, 51, 0.8), fontWeight: FontWeight.bold, fontSize: 20.0),
+        labelText: 'Experiencia laboral', labelStyle: TextStyle(
+          //color: Color.fromRGBO(0, 51, 51, 0.8),
+          fontWeight: FontWeight.bold, fontSize: 20.0),
           //helperText: "Ejemplo: ",
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
       ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+              borderSide: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
               borderRadius: BorderRadius.circular(16.0))),
       //onChanged: (value) => trabajador.description = value,
       validator: (value) {
@@ -310,8 +325,35 @@ class _NewService extends State<NewService>{
 
 Void _submit(){
 
-  trabajador.userId= workerProvider.crearWorker(trabajador).toString();
-  print("el id del servicio es: ${trabajador.userId}");
+  //trabajador.userId= workerProvider.crearWorker(trabajador).toString();
+  //print("el id del servicio es: ${trabajador.userId}");
+  if (!workerformkey.currentState.validate())
+
+  workerformkey.currentState.save();
+
+  print('Todo Ok');
+
+  setState(() {
+    _guardando = true;
+  });
+
+  if (trabajador.userId == null) {
+    workerProvider.crearWorker(trabajador);
+  } else {
+    workerProvider.editarTrabajador(trabajador);
+  }
+
+  // setState(() {
+  //   _guardando = false;
+  // });
+
+
+  Duration(milliseconds: 1500);
+  Navigator.pop(context, new MaterialPageRoute(
+      builder: (context) =>
+      new ServicesPages())
+
+  );
 
 
   }

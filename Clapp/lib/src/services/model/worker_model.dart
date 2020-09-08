@@ -12,8 +12,8 @@ class WorkerModel {
   String mainRol;
   String description;
   List<String> briefcase;
-  //String profesion;
-  //String estudios;
+  String profession;
+  String studies;
 
 
   WorkerModel({
@@ -21,8 +21,8 @@ class WorkerModel {
     this.mainRol,
     this.description ,
     this.briefcase ,
-    //this.profesion ,
-    //this.estudios,
+    this.profession ,
+    this.studies,
 
   });
 
@@ -31,8 +31,8 @@ class WorkerModel {
     mainRol: json["mainRol"],
     description: json["description"],
     briefcase: json["briefcase"],
-    //profesion: json["profesion"],
-    //estudios: json["estudios"],
+    profession: json["profession"],
+    studies: json["studies"],
 
   );
 
@@ -41,8 +41,8 @@ class WorkerModel {
     "mainRol": mainRol,
     "description": description,
     "briefcase": briefcase,
-    //"profesion": profesion,
-    //"estudios": estudios,
+    "profession": profession,
+    "studies": studies,
 
   };
 }

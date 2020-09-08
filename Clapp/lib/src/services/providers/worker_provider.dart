@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:flutter/cupertino.dart';
+import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:http/http.dart' as http;
 
 class WorkersProvider {
   final String _url = utils.url;
   static WorkersProvider _instancia;
+  final _prefs = new PreferenciasUsuario();
 
   factory WorkersProvider({Key key, Widget child}) {
 
@@ -17,7 +19,8 @@ class WorkersProvider {
   }
 
   WorkersProvider._internal({Key key, Widget child});
-  Future<String> crearWorker(WorkerModel trabajador) async {
+
+  Future<bool> crearWorker(WorkerModel trabajador) async {
     final url = '$_url/saveWorker';
 
     final resp = await http.post(url,
@@ -26,13 +29,13 @@ class WorkersProvider {
         },
         body: workerModelToJson(trabajador));
 
-    print(resp.body);
+    print(resp.statusCode);
 
-    return resp.body;
+    return true;
   }
 
   Future<bool> editarTrabajador(WorkerModel trabajador) async {
-    final url = '$_url/updateWorker/${trabajador.userId}.json';
+    final url = '$_url/updateWorker/${trabajador.userId}';
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},
