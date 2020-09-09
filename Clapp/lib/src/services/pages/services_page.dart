@@ -36,29 +36,32 @@ class _ServicesPages extends State<ServicesPages> {
                 child: _MenuServicios(),
               ),
               SizedBox(height: 10),
+
+
               Container(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: RaisedButton.icon(
+                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
+                child: RaisedButton(
+                  padding:
+                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
-                  label: Text('Nuevo Servicio',
+                  child: Text('Nuevo servicio',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          color: Color.fromRGBO(115, 115, 115, 1.0),
+                          fontWeight: FontWeight.bold)),
                   textColor: Colors.white,
-                  icon: Icon(
-                    Icons.create_new_folder,
-                    color: Colors.white,
-                  ),
-                  color: Color.fromRGBO(89, 122, 121, 1.0),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new NewService()));
-                  },
+                  color: Color.fromRGBO(112, 252, 118, 0.8),
+                  onPressed: (){Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new NewService()));},
                 ),
-              ),
+              )
+
             ],
           ),
         ));

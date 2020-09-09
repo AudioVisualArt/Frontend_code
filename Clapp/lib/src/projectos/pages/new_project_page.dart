@@ -56,131 +56,219 @@ class _NewProjectPage extends State<NewProjectPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           ),
-          body: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.only(
-                right: 15.0,
-                left: 15.0,
-                top: 50.0,
-              ),
-              child: Form(
-                //key: formKey,
+          body: Column(
+            children: [
+              Expanded(
+                  child: SingleChildScrollView(
                 child: Column(
-                  children: <Widget>[
-                    _projectname(),
-                    SizedBox(height: 25),
-                    _contacto(),
-                    SizedBox(height: 25),
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(top: 15.0),
+                        child: Text('Nuevo Proyecto',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 17.5, fontFamily: "Raleway"))),
+                    Container(
+                      padding: EdgeInsets.only(
+                          right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
+                      child: Form(
+                        //key: formKey,
 
-                    _projectTipo(),
-                    SizedBox(height: 25),
-                    _description(),
-                    // SizedBox(height: 25),
-                    //_locations(),
-                    SizedBox(height: 25),
-
-                    RaisedButton.icon(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        child: Column(
+                          children: <Widget>[
+                            _projectname(),
+                            SizedBox(height: 10),
+                            _contacto(),
+                            SizedBox(height: 10),
+                            _projectTipo(),
+                            SizedBox(height: 10),
+                            _description(),
+                            SizedBox(height: 10),
+                          ],
+                        ),
                       ),
-                      label: Text('Empezar proyecto',
-                          textAlign: TextAlign.center,
-                          style:
-                              TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                      textColor: Colors.white,
-                      icon: Icon(
-                        Icons.playlist_add_check,
-                        color: Colors.white,
-                      ),
-                      color: Color.fromRGBO(89, 122, 121, 1.0),
-                      onPressed: () {
-                        if(proyecto.description.isNotEmpty&&
-                        proyecto.contacto.isNotEmpty&&
-                        proyecto.projectType.isNotEmpty&&
-                        proyecto.proyectName.isNotEmpty) {
-                          _submit(usuario);
-                          Navigator.pushNamed(context, 'details_project',
-                              arguments: proyecto,  );
-                        }
-
-                      },
                     ),
                   ],
                 ),
-              ),
-            ),
+              )),
+              Container(
+                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
+                child: RaisedButton(
+                  padding:
+                      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Empezar Proyecto',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          color: Color.fromRGBO(115, 115, 115, 1.0),
+                          fontWeight: FontWeight.bold)),
+                  textColor: Colors.white,
+                  color: Color.fromRGBO(112, 252, 118, 0.8),
+                  onPressed: () {
+                    if (proyecto.description.isNotEmpty &&
+                        proyecto.contacto.isNotEmpty &&
+                        proyecto.projectType.isNotEmpty &&
+                        proyecto.proyectName.isNotEmpty) {
+                      _submit(usuario);
+                      Navigator.pushNamed(
+                        context,
+                        'details_project',
+                        arguments: proyecto,
+                      );
+                    }
+                  },
+                ),
+              )
+            ],
           ),
         ));
   }
-  void _submit(UserModel usuario, ){
 
+  void _submit(
+    UserModel usuario,
+  ) {
     //proyecto.idUser= usuario.id;
-    proyecto.id= proyectoProvider.crearProyecto(proyecto).toString();
+    proyecto.id = proyectoProvider.crearProyecto(proyecto).toString();
     print("el id del proyecto es: ${proyecto.id}");
-
-
   }
 
   Widget _projectname() {
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          initialValue: proyecto.proyectName,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 50,
+          maxLines: 1,
+          textAlign: TextAlign.left,
 
-      return TextFormField(
-      initialValue: proyecto.proyectName,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'nombre del proyecto',
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Nombre del proyecto',
+            labelStyle: TextStyle(
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => proyecto.proyectName = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese el nombre del proyecto correctamente';
+            } else {
+              return null;
+            }
+          },
+        ),
       ),
-
-      onChanged: (value) => proyecto.proyectName = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese el nombre del proyecto correctamente';
-        } else {
-          return null;
-        }
-
-        }
-     );
-
+    );
   }
 
   Widget _projectTipo() {
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          initialValue: proyecto.projectType,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 50,
+          maxLines: 1,
+          textAlign: TextAlign.left,
 
-    return TextFormField(
-      initialValue: proyecto.projectType,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Tipo de proyecto',
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Tipo de proyecto',
+            labelStyle: TextStyle(
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => proyecto.projectType = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese el tipo del proyecto correctamente';
+            } else {
+              return null;
+            }
+          },
+        ),
       ),
-        onChanged: (value) => proyecto.projectType = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese el tipo del proyecto correctamente';
-        } else {
-          return null;
-        }
-      }
     );
   }
 
   Widget _description() {
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          initialValue: proyecto.description,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 50,
+          maxLines: 1,
+          textAlign: TextAlign.left,
 
-    return TextFormField(
-
-      initialValue: proyecto.description,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Descripcion',
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Descripcion',
+            labelStyle: TextStyle(
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => proyecto.description = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese la descripcion del proyecto correctamente';
+            } else {
+              return null;
+            }
+          },
+        ),
       ),
-        onChanged: (value) => proyecto.description = value,
-      validator: (value) {
-          if (value.length < 3) {
-          return 'Ingrese la descripcion del proyecto correctamente';
-          } else {
-          return null;
-          }
-          }
-        );
-
+    );
   }
 
   Widget _locations() {
@@ -193,22 +281,47 @@ class _NewProjectPage extends State<NewProjectPage> {
   }
 
   Widget _contacto() {
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          initialValue: proyecto.contacto,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 50,
+          maxLines: 1,
+          textAlign: TextAlign.left,
 
-    return TextFormField(
-      initialValue: proyecto.contacto,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Contacto',
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Contacto',
+            labelStyle: TextStyle(
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => proyecto.contacto = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese el nombre correctamente';
+            } else {
+              return null;
+            }
+          },
+        ),
       ),
-        onChanged: (value) => proyecto.contacto = value,
-      validator: (value) {
-          if (value.length < 3) {
-          return 'Ingrese el nombre correctamente';
-          } else {
-          return null;
-          }
-          }
-        );
-
+    );
   }
 }
