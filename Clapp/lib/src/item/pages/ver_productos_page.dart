@@ -117,7 +117,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
       ),
       color: Color.fromRGBO(89, 122, 121, 1.0),
       padding: EdgeInsets.symmetric(horizontal: 42.0),
-      onPressed: () => Navigator.pushNamed(context, 'producto'),
+      onPressed: () => Navigator.pushNamed(context, 'equipment'),
     );
   }
 }

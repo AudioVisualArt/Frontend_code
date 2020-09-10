@@ -1,22 +1,25 @@
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 
-import 'package:Clapp/src/item/model/item_models.dart';
+import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-class ProductoPage extends StatefulWidget {
+class EquipmentPage extends StatefulWidget {
+  EquipmentPage({Key key}) : super(key: key);
+
   @override
-  _ProductoPageState createState() => _ProductoPageState();
+  _EquipmentPageState createState() => _EquipmentPageState();
 }
 
-class _ProductoPageState extends State<ProductoPage> {
+class _EquipmentPageState extends State<EquipmentPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  ItemModel producto = new ItemModel();
+  EquipmentModel producto = new EquipmentModel();
+  final productoProvider = new ProductosProvider();
 
   bool _guardando = false;
 
@@ -31,11 +34,11 @@ class _ProductoPageState extends State<ProductoPage> {
 
   File foto;
 
-  final productoProvider = new ProductosProvider();
+  final equipmentProvider = new EquipmentProvider();
 
   @override
   Widget build(BuildContext context) {
-    final ItemModel prodData = ModalRoute.of(context).settings.arguments;
+    final EquipmentModel prodData = ModalRoute.of(context).settings.arguments;
 
     if (prodData != null) {
       producto = prodData;
@@ -52,7 +55,7 @@ class _ProductoPageState extends State<ProductoPage> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            'Agrega un Item',
+            'Equipo',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
           ),
           actions: <Widget>[
@@ -192,9 +195,9 @@ class _ProductoPageState extends State<ProductoPage> {
     });
 
     if (producto.id == null) {
-      productoProvider.crearProducto(producto, foto);
+      equipmentProvider.crearEquipmente(producto);
     } else {
-      productoProvider.editarProducto(producto, foto);
+      equipmentProvider.editarEquipment(producto);
     }
 
     mostrarSnackbar('Registro Guardado');

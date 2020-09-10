@@ -1,4 +1,3 @@
-import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Contract/pages/new_contract.dart';
@@ -22,7 +21,9 @@ import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_compra.dart';
 import 'package:Clapp/src/item/pages/producto_compra.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
-
+import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
+import 'package:Clapp/src/Equipment/pages/equipment_page.dart';
+import 'package:Clapp/src/item/pages/menu_agregar.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -46,6 +47,8 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'producto_compra': (BuildContext context) => ProductoCompraPage(),
     'details_project': (BuildContext context) => ProjectDetails(),
     'new_service': (BuildContext context) => NewService(),
-    'collaborators':(BuildContext context) => VerColaboradores(),
+    'collaborators': (BuildContext context) => VerColaboradores(),
+    'equipment': (BuildContext context) => EquipmentPage(),
+    'menu_item': (BuildContext context) => MenuAgregarPage(),
   };
 }
