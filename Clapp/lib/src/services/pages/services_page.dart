@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import 'package:Clapp/src/User/widgets/menu_widget.dart';
+=======
+import 'package:Clapp/src/User/models/user_model.dart';
+>>>>>>> Stashed changes
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
 import 'package:Clapp/src/services/pages/equipment_page.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
@@ -11,6 +15,9 @@ import 'package:flutter/material.dart';
 
 
 class ServicesPages extends StatefulWidget {
+  final UserModel user;
+  ServicesPages({Key key, this.user}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,6 +26,7 @@ class ServicesPages extends StatefulWidget {
 }
 
 class _ServicesPages extends State<ServicesPages> {
+<<<<<<< Updated upstream
   nested(){
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
@@ -91,19 +99,45 @@ class _ServicesPages extends State<ServicesPages> {
     return Scaffold(
       body: nested(),
     );
+=======
+
+  @override
+  Widget build(BuildContext context) {
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
+
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Servicios',
+              style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/img/background.jpg"),
+            fit: BoxFit.cover,
+          )),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: _MenuServicios(usuario),
+              ),
+              SizedBox(height: 10),
+
+>>>>>>> Stashed changes
 
 
   }
 
-  Widget _MenuServicios() {
+  Widget _MenuServicios(UserModel usuario) {
     return Container(
       padding: EdgeInsets.only(right: 10.0, left: 10.0, top: 30),
       child: ListView(
         children: [
           opcionesMenu1(),
           opcionesMenu3(),
-          opcionesMenu2(),
           opcionesMenu4(),
+          opcionesMenu2(usuario),
         ],
       )
       /*child: GridView.count(crossAxisCount: 1,
@@ -121,17 +155,15 @@ class _ServicesPages extends State<ServicesPages> {
     );
   }
 
-  Widget opcionesMenu2() {
+  Widget opcionesMenu2(UserModel usuario) {
     return Card(
         margin: EdgeInsets.only(top: 15),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new OtherPage()));
+              Navigator.pushNamed(context, 'open_contracts',
+                  arguments: usuario);
             },
             child: Padding(
                 padding: EdgeInsets.only(top: 0, bottom: 0.0),
@@ -179,7 +211,10 @@ class _ServicesPages extends State<ServicesPages> {
                       ),
                     ],
                   ),
-                ))));
+                )
+            )
+        )
+    );
   }
 
   Widget opcionesMenu1() {

@@ -40,6 +40,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
+    proyecto.ownerId= usuario.id;
     print("id de usuario en new project: ${usuario.id}");
     //final bloc = ProyectosProvider.of(context);
 

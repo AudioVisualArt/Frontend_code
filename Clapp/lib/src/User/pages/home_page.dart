@@ -85,10 +85,8 @@ class _HomePageState extends State<HomePage> {
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 35.5),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new ServicesPages()));
+                  Navigator.pushNamed(context, 'services',
+                      arguments: usuario);
                 },
               ),
               SizedBox(height: 30.0),
