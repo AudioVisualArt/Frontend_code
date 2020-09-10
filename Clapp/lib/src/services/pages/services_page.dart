@@ -1,11 +1,14 @@
+import 'package:Clapp/src/User/widgets/menu_widget.dart';
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
 import 'package:Clapp/src/services/pages/equipment_page.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/services/pages/spaces_page.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 
 class ServicesPages extends StatefulWidget {
   @override
@@ -16,55 +19,80 @@ class ServicesPages extends StatefulWidget {
 }
 
 class _ServicesPages extends State<ServicesPages> {
+  nested(){
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
+        return <Widget>[
+          SliverAppBar(
+
+            backgroundColor: Color.fromRGBO(89, 122, 121, 1),
+            elevation: 3,
+            expandedHeight: 150.0,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text("Servicios",style: TextStyle(fontSize: 17.0, color: Colors.white70, fontWeight: FontWeight.bold,
+              ),),
+              // background: Image.asset("assets/img/appcolor.PNG", fit: BoxFit.cover,),
+
+            ),
+          )
+        ];
+      },
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/img/background.jpg"),
+              fit: BoxFit.cover,
+            )),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: _MenuServicios(),
+            ),
+           // SizedBox(height: 10),
+
+
+            Container(
+              padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
+              child: RaisedButton(
+                padding:
+                EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Text('Nuevo servicio',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: "Raleway",
+                        color: Color.fromRGBO(115, 115, 115, 1.0),
+                        fontWeight: FontWeight.bold)),
+                textColor: Colors.white,
+                color: Color.fromRGBO(112, 252, 118, 0.8),
+                onPressed: (){Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new NewService()));},
+              ),
+            )
+
+          ],
+        ),
+      ),
+
+    );
+  }
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Servicios',
-              style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage("assets/img/background.jpg"),
-            fit: BoxFit.cover,
-          )),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: _MenuServicios(),
-              ),
-              SizedBox(height: 10),
+      body: nested(),
+    );
 
 
-              Container(
-                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
-                child: RaisedButton(
-                  padding:
-                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Text('Nuevo servicio',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Raleway",
-                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                          fontWeight: FontWeight.bold)),
-                  textColor: Colors.white,
-                  color: Color.fromRGBO(112, 252, 118, 0.8),
-                  onPressed: (){Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new NewService()));},
-                ),
-              )
-
-            ],
-          ),
-        ));
   }
 
   Widget _MenuServicios() {
