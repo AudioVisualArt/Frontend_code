@@ -63,7 +63,7 @@ class _ServicesPages extends State<ServicesPages> {
                   textColor: Colors.white,
                   color: Color.fromRGBO(112, 252, 118, 0.8),
                   onPressed: (){
-                    Navigator.pushNamed(context, 'new_project',
+                    Navigator.pushNamed(context, 'new_service',
                         arguments: usuario);
                     },
                 ),
