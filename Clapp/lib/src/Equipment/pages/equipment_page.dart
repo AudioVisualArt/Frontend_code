@@ -44,7 +44,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            'Equipo ',
+            'Equipo',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
             textAlign: TextAlign.center,
           ),

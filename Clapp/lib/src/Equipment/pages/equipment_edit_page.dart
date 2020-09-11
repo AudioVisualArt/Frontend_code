@@ -258,7 +258,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
 
     equipmentProvider.editarEquipment(equipment, foto);
 
-    mostrarSnackbar('Registro Guardado ');
+    mostrarSnackbar('Registro Guardado');
 
     Navigator.pop(context);
   }

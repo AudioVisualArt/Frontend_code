@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Tienda',
+                label: Text('Tienda ',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
@@ -85,8 +85,7 @@ class _HomePageState extends State<HomePage> {
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 35.5),
                 onPressed: () {
-                  Navigator.pushNamed(context, 'services',
-                      arguments: usuario);
+                  Navigator.pushNamed(context, 'services', arguments: usuario);
                 },
               ),
               SizedBox(height: 30.0),

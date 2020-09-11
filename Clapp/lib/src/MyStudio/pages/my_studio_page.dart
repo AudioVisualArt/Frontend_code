@@ -32,7 +32,7 @@ class _MyStudioPageState extends State<MyStudioPage> {
       ManagePage()
     ];
 
-    print('IdUsuario: ' + usuario.id);
+    print('IdUsuario:' + usuario.id);
 
     return Scaffold(
         body: _screens[_currentIndex],

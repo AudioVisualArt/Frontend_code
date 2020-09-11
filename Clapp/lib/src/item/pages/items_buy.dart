@@ -39,7 +39,7 @@ class ItemsComprarPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(left: 20.0),
             child: Text(
-              'Equipos ',
+              'Equipos',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
           ),

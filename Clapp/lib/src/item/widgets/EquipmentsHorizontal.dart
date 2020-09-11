@@ -66,7 +66,7 @@ class EquipmentHorizontal extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                'Precio: ' + equipmentModel.valor.toString(),
+                'Precio:' + equipmentModel.valor.toString(),
                 style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
               )
             ],

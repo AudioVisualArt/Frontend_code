@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:Clapp/src/item/model/item_models.dart';
 
 EquipmentModel equipmentModelFromJson(String str) =>

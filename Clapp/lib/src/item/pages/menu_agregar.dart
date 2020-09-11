@@ -11,7 +11,7 @@ class MenuAgregarPage extends StatelessWidget {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('¿Que Vas a Agregar?',
+        title: Text('¿ Que Vas a Agregar ?',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       body: SingleChildScrollView(
