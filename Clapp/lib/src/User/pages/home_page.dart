@@ -62,15 +62,15 @@ class _HomePageState extends State<HomePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                label: Text('Tienda',
+                label: Text('Tienda ',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 textColor: Colors.white,
                 icon: Icon(Icons.store, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
-                onPressed: () =>
-                    Navigator.pushNamed(context, 'ver_productos_compra'),
+                onPressed: () => Navigator.pushNamed(context, 'items_buy',
+                    arguments: usuario),
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(
@@ -85,8 +85,7 @@ class _HomePageState extends State<HomePage> {
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 35.5),
                 onPressed: () {
-                  Navigator.pushNamed(context, 'services',
-                      arguments: usuario);
+                  Navigator.pushNamed(context, 'services', arguments: usuario);
                 },
               ),
               SizedBox(height: 30.0),
@@ -112,15 +111,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _mostrarFotoPerfil() {
     return Container(
-
-      child:Image(
-        image: AssetImage('assets/img/APP ICON.png'),
-        height: 200.0,
-        width: 200.0,
-        fit: BoxFit.cover,
-
-    )
-    );
+        child: Image(
+      image: AssetImage('assets/img/APP ICON.png'),
+      height: 200.0,
+      width: 200.0,
+      fit: BoxFit.cover,
+    ));
   }
 
   List<Widget> crear() {

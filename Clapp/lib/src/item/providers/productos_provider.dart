@@ -31,7 +31,7 @@ class ProductosProvider {
         body: itemModelToJson(producto));
 
     print(resp.statusCode);
-    //'
+
     return {'ok': true, 'fotoUrl': imageUrl};
   }
 

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final productoModel = productoModelFromJson(jsonString);
-
 import 'dart:convert';
 
 ItemModel productoModelFromJson(String str) =>
@@ -28,15 +24,14 @@ class ItemModel {
     this.itemDescription = '',
   });
 
-  factory ItemModel.fromJson(Map<String, dynamic> json) => new ItemModel(
-        disponible: json["disponible"],
-        titulo: json["titulo"],
-        valor: json["valor"],
-        id: json["id"],
-        fotoUrl: json["fotoUrl"],
-        itemDescription: json["itemDescription"],
-        idOwner: json["idOwner"],
-      );
+  ItemModel.fromJson(Map<String, dynamic> json)
+      : disponible = json["disponible"],
+        titulo = json["titulo"],
+        valor = json["valor"],
+        id = json["id"],
+        fotoUrl = json["fotoUrl"],
+        itemDescription = json["itemDescription"],
+        idOwner = json["idOwner"];
 
   Map<String, dynamic> toJson() => {
         "disponible": disponible,

@@ -92,7 +92,7 @@ class _MostrarProductosCompraPageState
               children: <Widget>[
                 FlatButton(
                   padding: EdgeInsets.all(1.0),
-                  child: Text('Details',
+                  child: Text('Details ',
                       style: TextStyle(
                           fontSize: 15.0,
                           fontFamily: "Raleway",

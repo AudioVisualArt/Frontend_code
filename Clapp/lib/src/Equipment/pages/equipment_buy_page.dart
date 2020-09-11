@@ -1,22 +1,28 @@
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 
-import 'package:Clapp/src/item/model/item_models.dart';
+import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-class ProductoPage extends StatefulWidget {
+class EquipmentCompraPage extends StatefulWidget {
+  final UserModel userModel;
+  final EquipmentModel equipmentModel;
+  EquipmentCompraPage({Key key, this.userModel, this.equipmentModel})
+      : super(key: key);
+
   @override
-  _ProductoPageState createState() => _ProductoPageState();
+  _EquipmentCompraPageState createState() => _EquipmentCompraPageState();
 }
 
-class _ProductoPageState extends State<ProductoPage> {
+class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  ItemModel producto = new ItemModel();
+  final equipmentProvider = new EquipmentProvider();
 
   bool _guardando = false;
 
@@ -24,16 +30,8 @@ class _ProductoPageState extends State<ProductoPage> {
 
   File foto;
 
-  final productoProvider = new ProductosProvider();
-
   @override
   Widget build(BuildContext context) {
-    final ItemModel prodData = ModalRoute.of(context).settings.arguments;
-
-    if (prodData != null) {
-      producto = prodData;
-    }
-
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -45,8 +43,9 @@ class _ProductoPageState extends State<ProductoPage> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            'Agrega un Item',
+            'Equipo',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
+            textAlign: TextAlign.center,
           ),
           actions: <Widget>[
             IconButton(
@@ -72,9 +71,13 @@ class _ProductoPageState extends State<ProductoPage> {
                   Divider(),
                   _crearDescripcion(),
                   Divider(),
-                  _crearPrecio(),
+                  _crearSpecs(),
                   Divider(),
-                  _crearDisponible(),
+                  _crearMarca(),
+                  Divider(),
+                  _crearModelo(),
+                  Divider(),
+                  _crearPrecio(),
                   Divider(),
                   _crearBoton(),
                 ],
@@ -88,72 +91,53 @@ class _ProductoPageState extends State<ProductoPage> {
 
   Widget _crearNombre() {
     return TextFormField(
-      initialValue: producto.titulo,
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: widget.equipmentModel.titulo,
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Nombre de tu Item',
-        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      ),
-      onSaved: (value) => producto.titulo = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese el nombre del item correctamente';
-        } else {
-          return null;
-        }
-      },
+      enabled: false,
     );
   }
 
   Widget _crearDescripcion() {
     return TextFormField(
-      initialValue: producto.itemDescription,
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: widget.equipmentModel.itemDescription,
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Descripción Simple',
-        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      ),
-      onSaved: (value) => producto.itemDescription = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingresa un pequeña descripción';
-        } else {
-          return null;
-        }
-      },
     );
   }
 
   Widget _crearPrecio() {
     return TextFormField(
-      initialValue: producto.valor.toString(),
+      initialValue: widget.equipmentModel.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(
-        labelText: 'Precio',
-        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      ),
-      onSaved: (value) => producto.valor = double.parse(value),
-      validator: (value) {
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
+      enabled: false,
     );
   }
 
-  Widget _crearDisponible() {
-    return SwitchListTile(
-      value: producto.disponible,
-      title: Text(
-        'Disponible',
-        style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      ),
-      activeColor: Color.fromRGBO(153, 255, 204, 1.0),
-      onChanged: (value) => setState(() {
-        producto.disponible = value;
-      }),
+  Widget _crearSpecs() {
+    return TextFormField(
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: widget.equipmentModel.specs,
+      textCapitalization: TextCapitalization.sentences,
+      enabled: false,
+    );
+  }
+
+  Widget _crearMarca() {
+    return TextFormField(
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: widget.equipmentModel.marca,
+      textCapitalization: TextCapitalization.sentences,
+      enabled: false,
+    );
+  }
+
+  Widget _crearModelo() {
+    return TextFormField(
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: widget.equipmentModel.modelo,
+      textCapitalization: TextCapitalization.sentences,
+      enabled: false,
     );
   }
 
@@ -165,10 +149,10 @@ class _ProductoPageState extends State<ProductoPage> {
       color: Color.fromRGBO(89, 122, 121, 1.0),
       textColor: Colors.white,
       label: Text(
-        'Guardar',
+        'Comprar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      icon: Icon(Icons.save),
+      icon: Icon(Icons.system_update_alt),
       onPressed: (_guardando) ? null : _submit,
     );
   }
@@ -184,13 +168,12 @@ class _ProductoPageState extends State<ProductoPage> {
       _guardando = true;
     });
 
-    if (producto.id == null) {
-      productoProvider.crearProducto(producto, foto);
-    } else {
-      productoProvider.editarProducto(producto, foto);
-    }
+    widget.equipmentModel.idOwner = widget.userModel.id;
+    widget.equipmentModel.disponible = false;
 
-    mostrarSnackbar('Registro Guardado');
+    equipmentProvider.editarEquipment(widget.equipmentModel, foto);
+
+    utils.mostrarAlerta(context, 'Compra Realizada');
 
     Navigator.pop(context);
   }
@@ -205,14 +188,16 @@ class _ProductoPageState extends State<ProductoPage> {
   }
 
   Widget _mostrarFoto() {
-    print('FotoURL: ' + producto.fotoUrl);
-    if (producto.fotoUrl.isEmpty || producto.fotoUrl == null) {
+    print('FotoURL: ' + widget.equipmentModel.fotoUrl);
+    if (widget.equipmentModel.fotoUrl.isEmpty ||
+        widget.equipmentModel.fotoUrl == null) {
       return Image(
         image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
         height: 300.0,
         fit: BoxFit.cover,
       );
-    } else if (producto.fotoUrl != null || producto.fotoUrl.isNotEmpty) {
+    } else if (widget.equipmentModel.fotoUrl != null ||
+        widget.equipmentModel.fotoUrl.isNotEmpty) {
       if (foto != null) {
         return Image(
           image: AssetImage(foto.path),
@@ -222,7 +207,7 @@ class _ProductoPageState extends State<ProductoPage> {
       } else {
         return FadeInImage(
           placeholder: AssetImage('assets/img/jar-loading.gif'),
-          image: NetworkImage(producto.fotoUrl),
+          image: NetworkImage(widget.equipmentModel.fotoUrl),
         );
       }
     }
