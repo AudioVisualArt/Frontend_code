@@ -81,4 +81,5 @@ class UsuarioProvider {
       return {'ok': false, 'mensaje': decodeData['error']['message']};
     }
   }
+
 }

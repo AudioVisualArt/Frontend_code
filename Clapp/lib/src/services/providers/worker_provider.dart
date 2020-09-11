@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:flutter/cupertino.dart';
@@ -63,6 +64,15 @@ class WorkersProvider {
     trabajadores = decodeData.map((model) => WorkerModel.fromJson(model)).toList();
 
     return trabajadores;
+  }
+
+  Future<UserModel> cargarUsuarioTrabajador(String userId) async {
+    print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getUser/$userId';
+    final rsp = await http.get(url);
+
+    UserModel user = UserModel.fromJson(json.decode(rsp.body));
+    return user;
   }
 
   Future<int> borrarTrabajador(String id) async {
