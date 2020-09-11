@@ -1,3 +1,4 @@
+import 'package:Clapp/src/User/pages/message_info_page.dart';
 import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'new_service': (BuildContext context) => NewService(),
     'collaborators':(BuildContext context) => VerColaboradores(),
     'open_contracts':(BuildContext context)=> OtherPage(),
-    
-
+    'messageInfo' : (BuildContext context) => MessageInfo(),
   };
 }
