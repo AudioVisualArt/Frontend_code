@@ -20,7 +20,7 @@ class EquipmentProvider {
 
     final imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
 
-    print('URL Image: ' + imageUrl);
+    print('URL Image : ' + imageUrl);
 
     equipmentModel.fotoUrl = imageUrl;
 
