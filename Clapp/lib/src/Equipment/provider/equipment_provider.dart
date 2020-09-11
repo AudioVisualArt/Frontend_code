@@ -59,7 +59,7 @@ class EquipmentProvider {
         headers: <String, String>{'Content-Type': 'application/json'},
         body: equipmentModelToJson(equipmentModel));
 
-    print('Edit 1: ${resp.body.trim()} ');
+    print('Edit 1: ${resp.body.trim()}');
 
     final decodeData = json.decode(resp.body);
 

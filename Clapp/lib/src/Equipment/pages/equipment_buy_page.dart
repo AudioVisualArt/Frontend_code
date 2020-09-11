@@ -173,7 +173,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
 
     equipmentProvider.editarEquipment(widget.equipmentModel, foto);
 
-    utils.mostrarAlerta(context, 'Compra Realizada');
+    utils.mostrarAlerta(context, 'Compra Realizada ');
 
     Navigator.pop(context);
   }

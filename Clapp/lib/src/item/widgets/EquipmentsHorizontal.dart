@@ -124,7 +124,7 @@ class EquipmentHorizontal extends StatelessWidget {
                   ),
                   color: Color.fromRGBO(112, 252, 118, 1.0),
                   label: Text(
-                    'Ver',
+                    'Ver ',
                     style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
                     textAlign: TextAlign.center,
                   ),

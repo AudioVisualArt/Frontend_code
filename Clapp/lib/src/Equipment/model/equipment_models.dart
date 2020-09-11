@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:Clapp/src/item/model/item_models.dart';
-import 'package:flutter/material.dart';
 
 EquipmentModel equipmentModelFromJson(String str) =>
     EquipmentModel.fromJson(json.decode(str));
