@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class MenuAgregarPage extends StatelessWidget {
@@ -7,18 +8,19 @@ class MenuAgregarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text('¿Que Vas a Agregar?',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       body: SingleChildScrollView(
-        child: _agregarBotones(context),
+        child: _agregarBotones(context, usuario),
       ),
     );
   }
 
-  Widget _agregarBotones(BuildContext context) {
+  Widget _agregarBotones(BuildContext context, UserModel userModel) {
     return Table(
       children: [
         TableRow(children: [
@@ -31,7 +33,8 @@ class MenuAgregarPage extends StatelessWidget {
                 width: 200.0,
               ),
               texto: 'Equipo',
-              ruta: 'equipment'),
+              ruta: 'equipment',
+              userModel: userModel),
           _crearBoton(
               context: context,
               image: Image(
@@ -41,7 +44,8 @@ class MenuAgregarPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               texto: 'Guiones',
-              ruta: 'guiones'),
+              ruta: 'guiones',
+              userModel: userModel),
         ]),
       ],
     );
@@ -51,7 +55,8 @@ class MenuAgregarPage extends StatelessWidget {
       {@required BuildContext context,
       @required Image image,
       @required String texto,
-      @required String ruta}) {
+      @required String ruta,
+      @required UserModel userModel}) {
     final boton = ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
@@ -85,7 +90,7 @@ class MenuAgregarPage extends StatelessWidget {
 
     return GestureDetector(
       child: boton,
-      onTap: () => Navigator.pushNamed(context, ruta),
+      onTap: () => Navigator.pushNamed(context, ruta, arguments: userModel),
     );
   }
 }

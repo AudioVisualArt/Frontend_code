@@ -24,6 +24,7 @@ import 'package:Clapp/src/services/pages/new_service.dart';
 import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_page.dart';
 import 'package:Clapp/src/item/pages/menu_agregar.dart';
+import 'package:Clapp/src/Equipment/pages/equipment_edit_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -50,5 +51,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'collaborators': (BuildContext context) => VerColaboradores(),
     'equipment': (BuildContext context) => EquipmentPage(),
     'menu_item': (BuildContext context) => MenuAgregarPage(),
+    'equipment_edit': (BuildContext context) => EquipmentEditPage(),
   };
 }

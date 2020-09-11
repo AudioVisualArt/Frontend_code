@@ -1,20 +1,25 @@
+import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/item/model/item_models.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
 class MostrarProductosPage extends StatefulWidget {
-  MostrarProductosPage();
+  final UserModel userModel;
+  MostrarProductosPage({this.userModel});
   @override
   _MostrarProductosPageState createState() => _MostrarProductosPageState();
 }
 
 class _MostrarProductosPageState extends State<MostrarProductosPage> {
   final productosProvider = new ProductosProvider();
+  final equipmentProvider = new EquipmentProvider();
 
   @override
   Widget build(BuildContext context) {
-    final idUsuario = ModalRoute.of(context).settings.arguments;
     final _screenSize = MediaQuery.of(context).size;
+    equipmentProvider.cargarEquipments();
 
     return Container(
         child: Scaffold(
@@ -47,14 +52,14 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
   Widget _crearListado(Size size) {
     return FutureBuilder(
-      future: productosProvider.cargarProductos(),
+      future: equipmentProvider.cargarEquipments(),
       builder: (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
         if (snapshot.hasData) {
-          final productos = snapshot.data;
+          final equipos = snapshot.data;
           return ListView.builder(
-            itemCount: productos.length,
+            itemCount: equipos.length,
             itemBuilder: (context, index) =>
-                _crearItem(context, productos[index]),
+                _crearItem(context, equipos[index]),
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -63,14 +68,14 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     );
   }
 
-  Widget _crearItem(BuildContext context, ItemModel producto) {
+  Widget _crearItem(BuildContext context, EquipmentModel equipmentModel) {
     return Dismissible(
         key: UniqueKey(),
         background: Container(
           color: Colors.red,
         ),
         onDismissed: (direction) {
-          productosProvider.borrarProducto(producto.id);
+          productosProvider.borrarProducto(equipmentModel.id);
         },
         child: Card(
           elevation: 20.0,
@@ -79,9 +84,10 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           child: Column(
             children: <Widget>[
               ListTile(
-                title: Text('${producto.titulo} - ${producto.valor}',
+                title: Text(
+                    '${equipmentModel.titulo} - ${equipmentModel.valor}',
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                subtitle: Text(producto.id,
+                subtitle: Text(equipmentModel.id,
                     style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
                 leading: Icon(Icons.arrow_forward_ios),
               ),
@@ -89,11 +95,12 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlatButton(
-                    child: Text('Details',
+                    child: Text('Detalle',
                         style:
                             TextStyle(fontSize: 13.0, fontFamily: "Raleway")),
-                    onPressed: () => Navigator.pushNamed(context, 'producto',
-                        arguments: producto),
+                    onPressed: () => Navigator.pushNamed(
+                        context, 'equipment_edit',
+                        arguments: equipmentModel),
                   ),
                 ],
               )
@@ -117,7 +124,9 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
       ),
       color: Color.fromRGBO(89, 122, 121, 1.0),
       padding: EdgeInsets.symmetric(horizontal: 42.0),
-      onPressed: () => Navigator.pushNamed(context, 'equipment'),
+      onPressed: () {
+        Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
+      },
     );
   }
 }

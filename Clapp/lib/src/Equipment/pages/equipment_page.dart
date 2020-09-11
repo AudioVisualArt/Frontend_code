@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class EquipmentPage extends StatefulWidget {
-  EquipmentPage({Key key}) : super(key: key);
+  UserModel userModel;
+  EquipmentPage({Key key, this.userModel}) : super(key: key);
 
   @override
   _EquipmentPageState createState() => _EquipmentPageState();
@@ -18,31 +20,18 @@ class _EquipmentPageState extends State<EquipmentPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  EquipmentModel producto = new EquipmentModel();
-  final productoProvider = new ProductosProvider();
+  EquipmentModel equipment = new EquipmentModel();
+  final equipmentProvider = new EquipmentProvider();
 
   bool _guardando = false;
 
   bool _equipo = false;
 
-  String _opcionSeleccionada = 'Item';
-
-  List<String> _tiposItems = [
-    'Item',
-    'Equipo',
-  ];
-
   File foto;
-
-  final equipmentProvider = new EquipmentProvider();
 
   @override
   Widget build(BuildContext context) {
-    final EquipmentModel prodData = ModalRoute.of(context).settings.arguments;
-
-    if (prodData != null) {
-      producto = prodData;
-    }
+    widget.userModel = ModalRoute.of(context).settings.arguments;
 
     return GestureDetector(
       onTap: () {
@@ -57,6 +46,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
           title: Text(
             'Equipo',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
+            textAlign: TextAlign.center,
           ),
           actions: <Widget>[
             IconButton(
@@ -82,6 +72,12 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   Divider(),
                   _crearDescripcion(),
                   Divider(),
+                  _crearSpecs(),
+                  Divider(),
+                  _crearMarca(),
+                  Divider(),
+                  _crearModelo(),
+                  Divider(),
                   _crearPrecio(),
                   Divider(),
                   _crearDisponible(),
@@ -98,16 +94,17 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   Widget _crearNombre() {
     return TextFormField(
-      initialValue: producto.titulo,
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: equipment.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Nombre de tu Item',
+        labelText: 'Nombre de tu Equipo',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => producto.titulo = value,
+      onSaved: (value) => equipment.titulo = value,
       validator: (value) {
         if (value.length < 3) {
-          return 'Ingrese el nombre del item correctamente';
+          return 'Ingrese el nombre del Equipo correctamente';
         } else {
           return null;
         }
@@ -117,13 +114,14 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   Widget _crearDescripcion() {
     return TextFormField(
-      initialValue: producto.itemDescription,
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: equipment.itemDescription,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Descripción Simple',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => producto.itemDescription = value,
+      onSaved: (value) => equipment.itemDescription = value,
       validator: (value) {
         if (value.length < 3) {
           return 'Ingresa un pequeña descripción';
@@ -136,13 +134,13 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   Widget _crearPrecio() {
     return TextFormField(
-      initialValue: producto.valor.toString(),
+      initialValue: equipment.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Precio',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => producto.valor = double.parse(value),
+      onSaved: (value) => equipment.valor = double.parse(value),
       validator: (value) {
         if (utils.isNumeric(value)) {
           return null;
@@ -153,16 +151,76 @@ class _EquipmentPageState extends State<EquipmentPage> {
     );
   }
 
+  Widget _crearSpecs() {
+    return TextFormField(
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: equipment.specs,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Especificaciones de tu Equipo',
+        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
+      onSaved: (value) => equipment.specs = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingresa una especificación';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  Widget _crearMarca() {
+    return TextFormField(
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: equipment.marca,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: '¿Marca de tu Equipo?',
+        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
+      onSaved: (value) => equipment.marca = value,
+      validator: (value) {
+        if (value.length < 3) {
+          return 'Ingresa una marca';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  Widget _crearModelo() {
+    return TextFormField(
+      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      initialValue: equipment.modelo,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: '¿Modelo de tu Equipo?',
+        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
+      onSaved: (value) => equipment.modelo = value,
+      validator: (value) {
+        if (value.length < 2) {
+          return 'Ingresa un modelo';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
   Widget _crearDisponible() {
     return SwitchListTile(
-      value: producto.disponible,
+      value: equipment.disponible,
       title: Text(
         'Disponible',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       activeColor: Color.fromRGBO(153, 255, 204, 1.0),
       onChanged: (value) => setState(() {
-        producto.disponible = value;
+        equipment.disponible = value;
       }),
     );
   }
@@ -194,10 +252,11 @@ class _EquipmentPageState extends State<EquipmentPage> {
       _guardando = true;
     });
 
-    if (producto.id == null) {
-      equipmentProvider.crearEquipmente(producto);
+    if (equipment.id == null) {
+      equipment.idOwner = widget.userModel.id;
+      equipmentProvider.crearEquipmente(equipment, foto);
     } else {
-      equipmentProvider.editarEquipment(producto);
+      equipmentProvider.editarEquipment(equipment, foto);
     }
 
     mostrarSnackbar('Registro Guardado');
@@ -215,14 +274,14 @@ class _EquipmentPageState extends State<EquipmentPage> {
   }
 
   Widget _mostrarFoto() {
-    print('FotoURL: ' + producto.fotoUrl);
-    if (producto.fotoUrl.isEmpty || producto.fotoUrl == null) {
+    print('FotoURL: ' + equipment.fotoUrl);
+    if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
       return Image(
         image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
         height: 300.0,
         fit: BoxFit.cover,
       );
-    } else if (producto.fotoUrl != null || producto.fotoUrl.isNotEmpty) {
+    } else if (equipment.fotoUrl != null || equipment.fotoUrl.isNotEmpty) {
       if (foto != null) {
         return Image(
           image: AssetImage(foto.path),
@@ -232,7 +291,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
       } else {
         return FadeInImage(
           placeholder: AssetImage('assets/img/jar-loading.gif'),
-          image: NetworkImage(producto.fotoUrl),
+          image: NetworkImage(equipment.fotoUrl),
         );
       }
     }
