@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 /**
 *La variable [url] sera utilizada para los provider (serivicios)
 *que lleguen desde el back, cuando cada uno tenga el front en su CPU,
@@ -9,7 +10,8 @@ import 'package:flutter/material.dart';
 
 //final url = 'http://192.168.0.16:8080'; //Camilo
 //final url = 'http://192.168.0.12:8080'; //Lemus
-final url = 'http://192.168.0.15:8080'; //Sebastian
+//final url = 'http://192.168.0.15:8080'; //Sebastian
+final url = 'http://192.168.0.3:8080'; //jonathan
 
 bool isNumeric(String s) {
   if (s.isEmpty) {

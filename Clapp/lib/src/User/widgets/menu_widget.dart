@@ -1,6 +1,7 @@
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
+
 class MenuWidget extends StatelessWidget {
   final UserModel userModel;
   const MenuWidget({Key key, this.userModel}) : super(key: key);
@@ -83,7 +84,7 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'message');
+              Navigator.pushNamed(context, 'message',arguments: userModel);
             },
           ),
           //Configuraciòn
