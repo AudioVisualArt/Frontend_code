@@ -57,150 +57,307 @@ class _NewContract extends State<NewContract>{
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           ),
-        body: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.only(
-                right: 15.0,
-                left: 15.0,
-                top: 50.0,
+          body: Column(
+            children: [
+              Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.only(top: 15.0),
+                            child: Text('Nuevo Proyecto',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 17.5, fontFamily: "Raleway"))),
+                        Container(
+                          padding: EdgeInsets.only(
+                              right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
+                          child: Form(
+                            key: contractformkey,
 
-              ),
-              child: Form(
-                key: contractformkey,
-                child: Column(
+                            child: Column(
+                              children: <Widget>[
+                                _city(),
+                                SizedBox(height: 10),
+                               _jobPosition(),
+                                SizedBox(height: 10),
+                                _workDays(),
+                                SizedBox(height: 10),
+                                _payment(),
+                                SizedBox(height: 10),
+                          //_desiredSkills(),
+                                SizedBox(height: 10),
 
-                  children: <Widget>[
-                    _city(),
-                    SizedBox(height: 25),
-                    _jobPosition(),
-                    SizedBox(height: 25),
-                    _workDays(),
-
-
-
-                    SizedBox(height: 25),
-                    _payment(),
-                    SizedBox(height: 25),
-                    _desiredSkills(),
-                    SizedBox(height: 45),
-                    _botoncrearcontrato(),
-
-                  ],
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Container(
+                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
+                child: RaisedButton(
+                  padding:
+                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Contrato abierto',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          color: Color.fromRGBO(115, 115, 115, 1.0),
+                          fontWeight: FontWeight.bold)),
+                  textColor: Colors.white,
+                  color: Color.fromRGBO(112, 252, 118, 0.8),
+                  onPressed: (_guardando) ? null : _submit,
                 ),
-              ),
-            ),
+              )
+            ],
           ),
+
+
+
 
 
         ));
   }
 
   Widget _city() {
-    return TextFormField(
-      initialValue: contrato.city,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Ciudad',
-      ),
-      onChanged: (value) => contrato.city = value,
-      validator: (value) {
-        if (value.length < 3) {
-          return 'Ingrese el nombre de la ciudad correctamente';
-        } else {
-          return null;
-        }
-      },
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          initialValue: contrato.city,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 15,
+          maxLines: 1,
+          textAlign: TextAlign.left,
 
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Ciudad',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+             helperText: "Ejemplo: Bogotá",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => contrato.city = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese el nombre de la ciudad correctamente';
+            } else {
+              return null;
+            }
+          },
+        ),
+      ),
     );
+
   }
   Widget _jobPosition(){
-    return TextFormField(
-      initialValue: contrato.jobPosition,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: 'Posicion de trabajo',
-      ),
-      onChanged: (value) => contrato.jobPosition = value,
-      validator: (value) {
-        if (value.length < 1) {
-          return 'Ingrese el nombre correctamente';
-        } else {
-          return null;
-        }
-      },
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          initialValue: contrato.jobPosition,
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 50,
+          maxLines: 1,
+          textAlign: TextAlign.left,
 
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Posicion de trabajo',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+             helperText: "Ejemplo: DP",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => contrato.jobPosition = value,
+          validator: (value) {
+            if (value.length < 3) {
+              return 'Ingrese el nombre correctamente';
+            } else {
+              return null;
+            }
+          },
+        ),
+      ),
     );
+
+
   }
 
   Widget _workDays(){
-    return TextFormField(
-      initialValue: contrato.workHours.toString(),
-      keyboardType: TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(
-        labelText: 'Horas de trabajo',
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+         // initialValue: contrato.workHours.toString(),
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 3,
+          maxLines: 1,
+          textAlign: TextAlign.left,
+
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Horas de trabajo',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => contrato.workHours = int.parse(value),
+          validator: (value) {
+            if (utils.isNumeric(value)) {
+              return null;
+            } else {
+              return 'Solo numeros';
+            }
+          },
+        ),
       ),
-      onChanged: (value) => contrato.workHours = int.parse(value),
-      validator: (value) {
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
     );
+
   }
 
 
 
   Widget _payment() {
-    return TextFormField(
-      initialValue: contrato.payment.toString(),
-      keyboardType: TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(
-        labelText: 'Pago',
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          //initialValue: contrato.payment.toString(),
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 10,
+          maxLines: 1,
+          textAlign: TextAlign.left,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Pago',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => contrato.payment = double.parse(value),
+          validator: (value) {
+            if (utils.isNumeric(value)) {
+              return null;
+            } else {
+              return 'Solo numeros';
+            }
+          },
+        ),
       ),
-      onChanged: (value) => contrato.payment = double.parse(value),
-      validator: (value) {
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
     );
+
   }
 
   Widget _desiredSkills(){
-    return DropdownButtonFormField(
-      value: _selectedValue,
-      items: _categoriesDesiredSkills,
-      hint: Text('habilidades requeridas'),
-      onChanged: (value){
-        setState(() {
-          _selectedValue = value;
-        });
-      },
+
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: DropdownButtonFormField(
+
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+
+          decoration: InputDecoration(
+            labelText: 'Hablidades requeridas',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value){
+            setState(() {
+              _selectedValue = value;
+            });
+          },
+          validator: (value) {
+            if (utils.isNumeric(value)) {
+              return null;
+            } else {
+              return 'Solo numeros';
+            }
+          }, items: [],
+        ),
+      ),
     );
+
   }
 
-  Widget _botoncrearcontrato(){
-    return RaisedButton.icon(
-      onPressed: (_guardando) ? null : _submit,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      label: Text('Contrato abierto',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-      textColor: Colors.white,
-      icon: Icon(Icons.playlist_add_check,
-        color: Colors.white,
-      ),
-      color: Color.fromRGBO(89, 122, 121, 1.0),
-
-
-    );
-  }
 
  void _submit() {
    if (!contractformkey.currentState.validate()) return;

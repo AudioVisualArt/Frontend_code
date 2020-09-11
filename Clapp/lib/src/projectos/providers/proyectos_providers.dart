@@ -78,6 +78,22 @@ class ProyectosProvider extends InheritedWidget{
   }
 
   Future<List<ProjectModel>> cargarProyectos(idUsuario) async {
+
+    final url = '$_url/getAllProjectsUser/$idUsuario';
+    print("la url que se trata de acceder es: $url");
+    final rsp = await http.get(url);
+    //print(rsp.body.toString());
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<ProjectModel> proyectos = new List();
+    if (decodeData == null) return [];
+
+    proyectos =
+        decodeData.map((model) => ProjectModel.fromJson(model)).toList();
+
+    return proyectos;
+  }
+  Future<List<ProjectModel>> cargarTodosProyectos() async {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllProjects';
     final rsp = await http.get(url);
@@ -92,6 +108,7 @@ class ProyectosProvider extends InheritedWidget{
 
     return proyectos;
   }
+
 
   Future<int> borrarProyectos(String id) async {
     print("se borrara el proyecto con id: $id");

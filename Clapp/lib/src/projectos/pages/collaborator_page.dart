@@ -72,8 +72,8 @@ Widget _crearListado(projectId) {
               _crearProyecto(context, projectos[index]),
         );
       } else {
-        return Center(child: CircularProgressIndicator());
-      }
+          return Center(child: CircularProgressIndicator());
+          }
     },
   );
 }

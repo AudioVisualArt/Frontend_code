@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import 'package:Clapp/src/User/pages/message_info_page.dart';
+import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
+import 'package:Clapp/src/services/pages/other_page.dart';
 import 'package:Clapp/src/Contract/pages/new_contract.dart';
 import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/projectos/pages/project_details.dart';
@@ -56,5 +60,9 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'equipment_edit': (BuildContext context) => EquipmentEditPage(),
     'equipment_comprar': (BuildContext context) => EquipmentCompraPage(),
     'items_buy': (BuildContext context) => ItemsComprarPage(),
+    'collaborators':(BuildContext context) => VerColaboradores(),
+    'open_contracts':(BuildContext context)=> OtherPage(),
+    'messageInfo' : (BuildContext context) => MessageInfo(),
+
   };
 }
