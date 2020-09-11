@@ -49,6 +49,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'new_service': (BuildContext context) => NewService(),
     'collaborators':(BuildContext context) => VerColaboradores(),
     'open_contracts':(BuildContext context)=> OtherPage(),
+    
 
   };
 }

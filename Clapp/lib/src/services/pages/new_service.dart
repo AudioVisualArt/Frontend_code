@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,9 @@ import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class NewService extends StatefulWidget {
   //final UserModel user;
+  final UserModel user;
+  NewService({Key key, this.user}) : super(key: key);
 
-  //const NewService({Key key, this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -28,12 +30,15 @@ class _NewService extends State<NewService> {
   final workerProvider = new WorkersProvider();
   final workerformkey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     // UserModel usuario = ModalRoute.of(context).settings.arguments;
     //print("id de usuario en new project: ${usuario.id}");
     // TODO: implement build
 
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
+    trabajador.userId=usuario.id;
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -318,11 +323,10 @@ class _NewService extends State<NewService> {
       _guardando = true;
     });
 
-    if (trabajador.userId == null) {
+
+
       workerProvider.crearWorker(trabajador);
-    } else {
-      workerProvider.editarTrabajador(trabajador);
-    }
+
 
     // setState(() {
     //   _guardando = false;

@@ -62,10 +62,10 @@ class _ServicesPages extends State<ServicesPages> {
                           fontWeight: FontWeight.bold)),
                   textColor: Colors.white,
                   color: Color.fromRGBO(112, 252, 118, 0.8),
-                  onPressed: (){Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new NewService()));},
+                  onPressed: (){
+                    Navigator.pushNamed(context, 'new_project',
+                        arguments: usuario);
+                    },
                 ),
               )
 
