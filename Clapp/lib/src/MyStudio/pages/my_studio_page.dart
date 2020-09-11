@@ -26,9 +26,7 @@ class _MyStudioPageState extends State<MyStudioPage> {
         user: usuario,
       ),
       StorePage(),
-      MostrarProductosPage(
-        userModel: usuario,
-      ),
+      MostrarProductosPage(),
       ManagePage()
     ];
 
