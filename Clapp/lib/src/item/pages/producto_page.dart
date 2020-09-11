@@ -20,6 +20,8 @@ class _ProductoPageState extends State<ProductoPage> {
 
   bool _guardando = false;
 
+  bool _equipo = false;
+
   File foto;
 
   final productoProvider = new ProductosProvider();
@@ -65,10 +67,15 @@ class _ProductoPageState extends State<ProductoPage> {
               child: Column(
                 children: <Widget>[
                   _mostrarFoto(),
+                  Divider(),
                   _crearNombre(),
+                  Divider(),
                   _crearDescripcion(),
+                  Divider(),
                   _crearPrecio(),
+                  Divider(),
                   _crearDisponible(),
+                  Divider(),
                   _crearBoton(),
                 ],
               ),

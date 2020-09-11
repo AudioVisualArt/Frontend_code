@@ -69,8 +69,8 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.store, color: Colors.white),
                 color: Color.fromRGBO(89, 122, 121, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
-                onPressed: () =>
-                    Navigator.pushNamed(context, 'ver_productos_compra'),
+                onPressed: () => Navigator.pushNamed(context, 'items_buy',
+                    arguments: usuario),
               ),
               SizedBox(height: 30.0),
               RaisedButton.icon(
@@ -112,15 +112,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _mostrarFotoPerfil() {
     return Container(
-
-      child:Image(
-        image: AssetImage('assets/img/APP ICON.png'),
-        height: 200.0,
-        width: 200.0,
-        fit: BoxFit.cover,
-
-    )
-    );
+        child: Image(
+      image: AssetImage('assets/img/APP ICON.png'),
+      height: 200.0,
+      width: 200.0,
+      fit: BoxFit.cover,
+    ));
   }
 
   List<Widget> crear() {
