@@ -130,8 +130,8 @@ class _ContratarPage extends State<ContratarPage>{
             ),
             SizedBox(height: 4.0),
             _createname(worker),
-           Text(worker.mainRol,
-              style: TextStyle(fontSize: 17.0, fontFamily: "Raleway", color: Colors.grey, fontWeight: FontWeight.bold),),
+           Expanded(child: Text(worker.mainRol,
+              style: TextStyle(fontSize: 17.0, fontFamily: "Raleway", color: Colors.grey, fontWeight: FontWeight.bold),),),
             SizedBox(height: 4.0),
             Padding(
               padding: EdgeInsets.only(
@@ -169,7 +169,10 @@ class _ContratarPage extends State<ContratarPage>{
                 },
               ),
 
-            ],),
+            ],)
+
+
+              ,
             )
 
 
