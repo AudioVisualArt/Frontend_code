@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "82796331130",
+    "firebase_url": "https://clappauth.firebaseio.com",
+    "project_id": "clappauth",
+    "storage_bucket": "clappauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82796331130:android:64efea2c09b7f64c483bc3",
+        "android_client_info": {
+          "package_name": "com.example.Clapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82796331130-65gprv17ck90t275vo8ej7cr3ok29a9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk4mI7ZlEFs1sDlG-4csqsVF_9A6ceKdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82796331130-65gprv17ck90t275vo8ej7cr3ok29a9u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "82796331130-4vbbd1uppn2glla3b36b1et0rl3a54bd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.morevenue.Clapp1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

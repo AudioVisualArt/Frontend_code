@@ -52,12 +52,21 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    dependencies {
+        // ...
+
+
+        // Getting a "Could not find" error? Make sure that you've added
+        // Google's Maven repository to your root-level build.gradle file
+    }
 }
+apply plugin: 'com.google.gms.google-services'
 
 flutter {
     source '../..'
 }
 
 dependencies {
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

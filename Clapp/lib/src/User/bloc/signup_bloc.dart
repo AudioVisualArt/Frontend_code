@@ -11,6 +11,7 @@ class SignUpBloc with Validator  {
   final _nameController = BehaviorSubject<String>();
   final _ageController = BehaviorSubject<String>();
   final _cityResidenceController = BehaviorSubject<String>();
+  final _photoUrlController = BehaviorSubject<String>();
 
   //Recuperar los datos del Stream
 
@@ -20,6 +21,7 @@ class SignUpBloc with Validator  {
   Stream<String> get nameStream => _nameController.stream.transform(validarName);
   Stream<String> get ageStream    => _ageController.stream.transform(validarAge);
   Stream<String> get cityStream => _cityResidenceController.stream.transform(validarCity);
+  Stream<String> get photoUrlStream => _photoUrlController.stream.transform(validarCity);
 
 
   Stream<bool> get formValidStream =>  Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
@@ -32,6 +34,7 @@ class SignUpBloc with Validator  {
   Function (String) get changeName => _nameController.sink.add;
   Function (String) get changeAge    => _ageController.sink.add;
   Function (String) get changeCity => _cityResidenceController.sink.add;
+  Function (String) get changePhotoUrl => _photoUrlController.sink.add;
 
   //Cerrar Streams
   dispose(){
@@ -41,6 +44,7 @@ class SignUpBloc with Validator  {
     _nameController?.close();
     _ageController?.close();
     _cityResidenceController?.close();
+    _photoUrlController?.close();
   }
 
   //Obtener el último valor ingresado a los streams
@@ -51,4 +55,6 @@ class SignUpBloc with Validator  {
   String get name => _nameController.value;
   String get age => _ageController.value;
   String get city => _cityResidenceController.value;
+  String get photo => _photoUrlController.value;
+
 }
