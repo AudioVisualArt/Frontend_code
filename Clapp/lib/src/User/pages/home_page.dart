@@ -16,7 +16,9 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu Principal',
+        // backgroundColor: Colors.white,
+        //shadowColor: Colors.grey,
+        title: Text('CLAPP',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       drawer: MenuWidget(
@@ -30,66 +32,88 @@ class _HomePageState extends State<HomePage> {
   Widget _crearBody(BuildContext context, UserModel usuario) {
     final size = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/img/home.jpg"),
+        fit: BoxFit.cover,
+      )),
       child: Container(
+        height: MediaQuery.of(context).size.height - 30.0,
         width: size.width,
         margin: EdgeInsets.symmetric(vertical: 10.0),
-        padding: EdgeInsets.symmetric(vertical: 50.0),
+        padding: EdgeInsets.symmetric(vertical: 25.0),
         child: Form(
           child: Column(
             children: <Widget>[
               _mostrarFotoPerfil(),
-              SizedBox(height: 50.0),
-              RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+              SizedBox(height: 70.0),
+              SizedBox(
+                width: 150,
+                height: 50,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Estudio',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold)),
+                  textColor: Color.fromRGBO(115, 115, 115, 1.0),
+                  color: Color.fromRGBO(227, 227, 227, 1),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  onPressed: () => Navigator.pushNamed(context, 'my_studio',
+                      arguments: usuario),
                 ),
-                label: Text('Estudio',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                textColor: Colors.white,
-                icon: Icon(
-                  Icons.streetview,
-                  color: Colors.white,
-                ),
-                color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 42.0),
-                onPressed: () => Navigator.pushNamed(context, 'my_studio',
-                    arguments: usuario),
               ),
               SizedBox(height: 30.0),
-              RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+              SizedBox(
+                width: 150,
+                height: 50,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Mercado',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold)),
+                  textColor: Color.fromRGBO(115, 115, 115, 1.0),
+                  color: Color.fromRGBO(227, 227, 227, 1),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  onPressed: () => Navigator.pushNamed(context, 'items_buy',
+                      arguments: usuario),
                 ),
-                label: Text('Tienda ',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                textColor: Colors.white,
-                icon: Icon(Icons.store, color: Colors.white),
-                color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 45.0),
-                onPressed: () => Navigator.pushNamed(context, 'items_buy',
-                    arguments: usuario),
               ),
               SizedBox(height: 30.0),
-              RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+              SizedBox(
+                width: 150,
+                height: 50,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Servicios',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold)),
+                  textColor: Color.fromRGBO(115, 115, 115, 1.0),
+                  color: Color.fromRGBO(227, 227, 227, 1),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'services',
+                        arguments: usuario);
+                  },
                 ),
-                label: Text('Servicios',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                textColor: Colors.white,
-                icon: Icon(Icons.storage, color: Colors.white),
-                color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 35.5),
-                onPressed: () {
-                  Navigator.pushNamed(context, 'services', arguments: usuario);
-                },
               ),
-              SizedBox(height: 30.0),
-              RaisedButton.icon(
+
+              /*  RaisedButton.icon(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
@@ -102,6 +126,9 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 50.0),
                 onPressed: () {},
               ),
+
+
+             */
             ],
           ),
         ),
@@ -111,12 +138,15 @@ class _HomePageState extends State<HomePage> {
 
   Widget _mostrarFotoPerfil() {
     return Container(
-        child: Image(
-      image: AssetImage('assets/img/APP ICON.png'),
-      height: 200.0,
-      width: 200.0,
-      fit: BoxFit.cover,
-    ));
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+          image: DecorationImage(
+            image: AssetImage('assets/img/APP ICON.png'),
+            fit: BoxFit.cover,
+          )),
+      height: 220.0,
+      width: 220.0,
+    );
   }
 
   List<Widget> crear() {

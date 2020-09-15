@@ -27,9 +27,9 @@ class PerfilPersonal extends StatelessWidget {
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/img/background.jpg"),
-                fit: BoxFit.cover,
-              )),
+            image: AssetImage("assets/img/perfil.jpg"),
+            fit: BoxFit.cover,
+          )),
           child: ListView(
             children: [
 
