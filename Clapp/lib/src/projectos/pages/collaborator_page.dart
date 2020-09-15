@@ -84,7 +84,7 @@ Widget _crearListado(projectId) {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
             child: Column(
               children: <Widget>[
-                _crearPhoto(),
+                _crearPhoto(user.photoUrl),
                 ListTile(
                   title: Text('${user.name}',
                       style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
@@ -126,19 +126,35 @@ Widget _crearListado(projectId) {
    );
  }
 
-  Widget _crearPhoto() {
+  Widget _crearPhoto(String photoUrl) {
+    if(photoUrl==null){
     return Container(
       height: 170.0,
       width: 200.0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(60.0)),
           image: DecorationImage(
-            image: AssetImage("assets/img/perfiltest.PNG"),
+            image: AssetImage("assets/img/no-image.png"),
             fit: BoxFit.contain,
 
           )
       ),
 
     );
+    }else{
+      return Container(
+        height: 170.0,
+        width: 200.0,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(60.0)),
+            image: DecorationImage(
+              image: NetworkImage(photoUrl),
+              fit: BoxFit.contain,
+
+            )
+        ),
+
+      );
+    }
   }
 }

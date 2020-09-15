@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             color: Colors.white,
             elevation: 0.0,
-              centerTitle: true,
               iconTheme: IconThemeData(
                   color: Color.fromRGBO(115, 115, 115, 1.0)
               ),
