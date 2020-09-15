@@ -47,16 +47,6 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
             textAlign: TextAlign.center,
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.photo_size_select_actual),
-              onPressed: _seleccionarFoto,
-            ),
-            IconButton(
-              icon: Icon(Icons.camera_alt),
-              onPressed: _tomarFoto,
-            ),
-          ],
         ),
         body: SingleChildScrollView(
           child: Container(

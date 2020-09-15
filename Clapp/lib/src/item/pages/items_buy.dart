@@ -28,40 +28,42 @@ class ItemsComprarPage extends StatelessWidget {
 
   Widget _footerEquipment(BuildContext context) {
     UserModel user = ModalRoute.of(context).settings.arguments;
-    return Container(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              'Equipos',
-              style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
+    return Center(
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 10.0,
             ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          FutureBuilder(
-              future: equipmentProvider.cargarEquipments(),
-              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-                if (snapshot.hasData) {
-                  return EquipmentHorizontal(
-                      equipos: snapshot.data, userModel: user);
-                } else {
-                  return Container(
-                    height: 500,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              }),
-        ],
+            Container(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Equipos',
+                style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            FutureBuilder(
+                future: equipmentProvider.cargarEquipments(),
+                builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+                  if (snapshot.hasData) {
+                    return EquipmentHorizontal(
+                        equipos: snapshot.data, userModel: user);
+                  } else {
+                    return Container(
+                      height: 500,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }
