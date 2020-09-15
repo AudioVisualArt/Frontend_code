@@ -62,7 +62,7 @@ class _ContratarPage extends State<ContratarPage>{
                                   primary: false,
                                   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      crossAxisSpacing: 10.0,
+                                      crossAxisSpacing: 11.0,
                                       mainAxisSpacing: 15.0,
                                       childAspectRatio: 0.69),
                                   itemCount: worker.length,
@@ -105,7 +105,7 @@ class _ContratarPage extends State<ContratarPage>{
 
                 var ciudad = user.cityResidence;
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad)
+                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad,user.photoUrl)
                 ),);
               },
               child:  Container(
@@ -132,19 +132,7 @@ class _ContratarPage extends State<ContratarPage>{
                     ) ,
                     Hero(
                       tag: worker.userId,
-                      child: Container(
-                        height: 170.0,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                            image: DecorationImage(
-                              image: AssetImage("assets/img/perfiltest.PNG"),
-                              fit: BoxFit.contain,
-
-                            )
-                        ),
-
-                      ),
+                      child:  _crearImage(worker),
                     ),
                     SizedBox(height: 4.0),
 
@@ -212,6 +200,56 @@ class _ContratarPage extends State<ContratarPage>{
   }
 
 
+
+
+   Widget _crearImage(WorkerModel worker) {
+
+    return FutureBuilder(
+      future: workerProvider.cargarUsuarioTrabajador(worker.userId),
+      builder:
+          (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data;
+         return _constructorImagen(user);
+
+
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      }
+    );
+
+  }
+
+  Widget _constructorImagen(UserModel user) {
+
+
+    if (user.photoUrl == null) {
+      return Image(
+        image: AssetImage('assets/img/no-image.png'),
+
+      );
+    } else {
+      if (user.photoUrl == null) {
+        return Image(
+          image: AssetImage('assets/img/no-image.png'),
+
+          fit: BoxFit.cover,
+        );
+      } else if (user.photoUrl != null || user.photoUrl.isNotEmpty) {
+        return FadeInImage(
+          placeholder: AssetImage('assets/img/jar-loading.gif'),
+          image: NetworkImage(
+            user.photoUrl,
+          ),
+            height: 150,
+            width: 150,
+            fit: BoxFit.cover
+
+        );
+      }
+    }
+  }
 
 
 }
