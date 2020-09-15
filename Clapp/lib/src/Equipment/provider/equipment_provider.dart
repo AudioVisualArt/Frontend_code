@@ -13,7 +13,7 @@ class EquipmentProvider {
     final url = '$_url/saveEquipment';
 
     final StorageReference postImageRef =
-        FirebaseStorage.instance.ref().child('Producto');
+        FirebaseStorage.instance.ref().child('Equipment');
 
     final StorageUploadTask uploadTask =
         postImageRef.child(equipmentModel.titulo).putFile(foto);
@@ -36,7 +36,7 @@ class EquipmentProvider {
   }
 
   Future<bool> editarEquipment(EquipmentModel equipmentModel, File foto) async {
-    final url = '$_url/updateEquipment${equipmentModel.id}.json';
+    final url = '$_url/updateEquipment/${equipmentModel.id}';
 
     if (foto != null) {
       if (equipmentModel.fotoUrl.isNotEmpty) {
@@ -45,7 +45,7 @@ class EquipmentProvider {
             .then((value) => value.delete()));
       }
       final StorageReference postImageRef =
-          FirebaseStorage.instance.ref().child('Producto');
+          FirebaseStorage.instance.ref().child('Equipment');
 
       final StorageUploadTask uploadTask =
           postImageRef.child(equipmentModel.titulo).putFile(foto);
