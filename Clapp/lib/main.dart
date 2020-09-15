@@ -20,7 +20,28 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: 'login',
       routes: getApplicationRoutes(),
-      theme: ThemeData(primaryColor: Color.fromRGBO(0, 51, 51, 1.0)),
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+            elevation: 0.0,
+              centerTitle: true,
+              iconTheme: IconThemeData(
+                  color: Color.fromRGBO(115, 115, 115, 1.0)
+              ),
+              textTheme: TextTheme(
+                  headline6: TextStyle(
+                      fontSize: 25.0, fontFamily: "Raleway",
+                      color: Color.fromRGBO(115, 115, 115, 1.0)
+                  )
+
+
+              )
+
+          ),
+
+          primaryColor: Color.fromRGBO(0, 51, 51, 1.0),),
+
     ));
   }
 }
+
