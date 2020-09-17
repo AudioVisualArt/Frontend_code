@@ -60,7 +60,7 @@ class _ServicesPages extends State<ServicesPages> {
             opcionesMenu4(),
             opcionesMenu2(usuario),
             SizedBox(height: 20,),
-            Container(
+           /* Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only( bottom: 35.0),
               child: RaisedButton(
@@ -84,6 +84,9 @@ class _ServicesPages extends State<ServicesPages> {
                 },
               ),
             )
+
+            */
+
           ],
         )
       );
@@ -162,16 +165,7 @@ class _ServicesPages extends State<ServicesPages> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-             /* Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new PersonelPage()));
-
-              */
-
-             Navigator.pushNamed(context, 'personal',
-                        arguments: usuario);
-
+              Navigator.pushNamed(context,'contratos',arguments: usuario );
 
             },
             child: Padding(
