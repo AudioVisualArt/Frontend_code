@@ -1,3 +1,5 @@
+import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/bloc/login_bloc.dart';
@@ -59,6 +61,8 @@ class LoginPage extends StatelessWidget {
           _crearBotonSingIn(bloc),
           SizedBox(height: 30.0),
           _crearBotonSignUp(bloc),
+          SizedBox(height: 30.0),
+          _loginGmail(context)
         ],
       ),
     );
@@ -161,6 +165,58 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  Widget _loginGmail(context){
+
+    return InkWell(
+      onTap: (){
+        onGoogleSignIn(context);
+      },
+      child: Container(
+        margin: EdgeInsets.only(
+            left: 20.0,
+            right: 20.0
+        ),
+        width: 260,
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(89, 122, 121, 1.0),//arriba
+                  Color.fromRGBO(112, 252, 118, 0.8)//bajo
+                ],
+                begin: FractionalOffset(0.2, 0.0),
+                end: FractionalOffset(1.0, 0.6),
+                stops: [0.0, 0.6],
+                tileMode: TileMode.clamp
+
+            )
+
+        ),
+
+        child: Center(
+          child: Text(
+            "Ingresa con Gmail",
+            style: TextStyle(
+                fontSize: 18.0,
+                fontFamily: "Raleway",
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+            ),
+
+          ),
+        ),
+
+      ),
+    );
+
+  }
+  void onGoogleSignIn(BuildContext context) async {
+    FirebaseUser userg = await usuarioProvider.loginGmail();
+    UserModel user = await usuarioProvider.getUserGoogle(userg);
+    Navigator.pushReplacementNamed(context, 'home', arguments: user);
+  }
+
   _login(BuildContext context, LoginBloc bloc) async {
     Map info = await usuarioProvider.login(bloc.email, bloc.passw);
 
@@ -173,5 +229,8 @@ class LoginPage extends StatelessWidget {
       utils.mostrarAlerta(
           context, 'Usuario o Contraseña Invalidos ${info['mensaje']}');
     }
+
+
+
   }
 }

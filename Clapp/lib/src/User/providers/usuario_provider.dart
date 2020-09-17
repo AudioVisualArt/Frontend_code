@@ -2,14 +2,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
+
 
 class UsuarioProvider {
   final String _firebaseToken = 'AIzaSyBR-7495abfXjSlaHQsfO1hCD5Q-q8XnUs';
   final _prefs = new PreferenciasUsuario();
   final String _url = utils.url;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final authData = {
@@ -97,6 +103,66 @@ class UsuarioProvider {
     } else {
       return {'ok': false, 'mensaje': decodeData['error']['message']};
     }
+  }
+
+  Future<FirebaseUser> loginGmail() async{
+    // hold the instance of the authenticated user
+    FirebaseUser user;
+    // flag to check whether we're signed in already
+    bool isSignedIn = await _googleSignIn.isSignedIn();
+    if (isSignedIn) {
+      // if so, return the current user
+      user = await _auth.currentUser();
+      return user;
+    }
+    else {
+      final GoogleSignInAccount googleUser =
+          await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      // get the credentials to (access / id token)
+      // to sign in via Firebase Authentication
+      final user = await _auth.signInWithCredential(
+          GoogleAuthProvider.getCredential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken));
+      return user;
+  }
+    return user;
+
+  }
+
+  Future<UserModel>getUserGoogle(FirebaseUser userg) async {
+
+    print("la url que se trata de acceder es: $_url");
+    print("con el id usuario: ${userg.email}");
+    final url = '$_url/getUserByEmail/${userg.email}';
+    final rsp = await http.get(url);
+
+
+    if(rsp.body.isEmpty){
+
+
+      UserModel newuser = new UserModel();
+      newuser.email=userg.email;
+      newuser.name=userg.displayName;
+      newuser.photoUrl= userg.photoUrl;
+
+      final url = '$_url/saveUser';
+      final resp = await http.post(url,
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+          },
+          body: userModelToJson(newuser));
+      newuser.id=resp.body;
+      return newuser;
+
+    }else{
+      UserModel userm = UserModel.fromJson(json.decode(rsp.body));
+      return userm;
+    }
+
+
+
+
   }
 
 }
