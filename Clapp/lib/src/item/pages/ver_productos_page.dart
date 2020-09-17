@@ -37,16 +37,25 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            child: _crearListado(_screenSize),
-            padding: EdgeInsets.all(4.0),
-            height: _screenSize.height * 0.7,
-          ),
-          _crearBotonAgregar(),
-        ],
-      ),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/img/mostraritems.jpg"),
+              fit: BoxFit.cover,
+            )),
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 20.0,),
+            Container(
+
+              child: _crearListado(_screenSize),
+              padding: EdgeInsets.all(4.0),
+              height: _screenSize.height * 0.7,
+            ),
+            _crearBotonAgregar(),
+          ],
+        ),
+      )
     ));
   }
 
@@ -78,34 +87,34 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           productosProvider.borrarProducto(equipmentModel.id);
         },
         child: Card(
-          elevation: 20.0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                    '${equipmentModel.titulo} - ${equipmentModel.valor}',
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                subtitle: Text(equipmentModel.id,
-                    style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
-                leading: Icon(Icons.arrow_forward_ios),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text('Detalle',
-                        style:
-                            TextStyle(fontSize: 13.0, fontFamily: "Raleway")),
-                    onPressed: () => Navigator.pushNamed(
-                        context, 'equipment_edit',
-                        arguments: equipmentModel),
-                  ),
-                ],
+          child: InkWell(
+            onTap: ()=> Navigator.pushNamed(
+                context, 'equipment_edit',
+                arguments: equipmentModel),
+              child: Container(
+                height: 80,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(
+                          '${equipmentModel.titulo} - ${equipmentModel.valor}',
+                          style: TextStyle(fontSize: 20.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
+                      subtitle: Text(equipmentModel.id,
+                          style: TextStyle(fontSize: 10.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
+                      leading: Icon(Icons.arrow_forward_ios),
+                    ),
+
+                  ],
+                ),
               )
-            ],
           ),
+
+
+          elevation: 20.0,
+         color: Color.fromRGBO(227, 227, 227, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+
         ));
   }
 

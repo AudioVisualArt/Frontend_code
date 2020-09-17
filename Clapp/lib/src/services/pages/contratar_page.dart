@@ -7,10 +7,12 @@ import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 
 import 'audiovisual_page.dart';
 
 class ContratarPage extends StatefulWidget{
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -24,6 +26,7 @@ class _ContratarPage extends State<ContratarPage>{
 
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return FutureBuilder(
         future: workerProvider.cargarTrabajadores(),
@@ -59,7 +62,7 @@ class _ContratarPage extends State<ContratarPage>{
                                   primary: false,
                                   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      crossAxisSpacing: 10.0,
+                                      crossAxisSpacing: 11.0,
                                       mainAxisSpacing: 15.0,
                                       childAspectRatio: 0.69),
                                   itemCount: worker.length,
@@ -86,117 +89,167 @@ class _ContratarPage extends State<ContratarPage>{
   }
 
   Widget _buildCard(context, WorkerModel worker){
-    return Padding(
-      padding: EdgeInsets.only(top: 1.5, bottom: 3.2, left:  0.0, right: 0.0),
-    child: InkWell(
-      onTap: (){},
-      child:  Container(
-        decoration: BoxDecoration(
-          borderRadius:  BorderRadius.only(
-            topLeft: Radius.circular(50),
-            topRight: Radius.circular(50),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20)
-          ),
-          boxShadow: [
-            BoxShadow(
-              color:  Colors.grey.withOpacity(0.2),
-              spreadRadius: 3.0,
-              blurRadius: 5.0
-            )
-          ],
-          color: Color.fromRGBO(227, 227, 227, 1.0)
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(2.5),
-            ) ,
-            Hero(
-              tag: worker.userId,
-              child: Container(
-                height: 170.0,
-                width: 200.0,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                  image: DecorationImage(
-                    image: AssetImage("assets/img/perfiltest.PNG"),
-                    fit: BoxFit.contain,
-
-                  )
-                ),
-
-              ),
-            ),
-            SizedBox(height: 4.0),
-            _createname(worker),
-           Expanded(child: Text(worker.mainRol,
-              style: TextStyle(fontSize: 17.0, fontFamily: "Raleway", color: Colors.grey, fontWeight: FontWeight.bold),),),
-            SizedBox(height: 4.0),
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: 0.5,
-                  left: 5.0,
-                  right: 5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            children: [
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                 child: Text('Perfil',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold)),
-                textColor: Colors.white,
-
-                color: Color.fromRGBO(112, 252, 118, 0.8),
-                onPressed: () {
-                              },
-              ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Text('Estudio',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold)),
-                textColor: Colors.white,
-
-                color: Color.fromRGBO(0, 51, 51, 0.8),
-                onPressed: () {
-                },
-              ),
-
-            ],)
 
 
-              ,
-            )
-
-
-          ],
-        ),
-      ),
-    ),);
-  }
-
-  Widget _createname(WorkerModel worker){
-    return FutureBuilder(
-        future: workerProvider.cargarUsuarioTrabajador(worker.userId),
+  return FutureBuilder(
+      future: workerProvider.cargarUsuarioTrabajador(worker.userId),
       builder:
-      (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
-    if (snapshot.hasData) {
-      final user = snapshot.data;
-          return  Text(user.name,
-          style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold ),);
+          (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data;
+          return Padding(
+            padding: EdgeInsets.only(top: 1.5, bottom: 3.2, left:  0.0, right: 0.0),
+            child: InkWell(
 
-    } else {
-      return Center(child: CircularProgressIndicator());
-    }
-    },
+              onTap: (){
+
+                var ciudad = user.cityResidence;
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad,user.photoUrl)
+                ),);
+              },
+              child:  Container(
+                decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color:  Colors.grey.withOpacity(0.2),
+                          spreadRadius: 3.0,
+                          blurRadius: 5.0
+                      )
+                    ],
+                    color: Color.fromRGBO(227, 227, 227, 1.0)
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(2.5),
+                    ) ,
+                    Hero(
+                      tag: worker.userId,
+                      child:  _crearImage(worker),
+                    ),
+                    SizedBox(height: 4.0),
+
+              Text(user.name,
+                style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),),
+                    Expanded(child: Text(worker.mainRol,
+                      style: TextStyle(fontSize: 17.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold),),),
+                    SizedBox(height: 4.0),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: 0.5,
+                          left: 5.0,
+                          right: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                        children: [
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Text('Perfil',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold)),
+                            textColor: Colors.white,
+
+                            color: Color.fromRGBO(112, 252, 118, 0.8),
+                            onPressed: () {
+                            },
+                          ),
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Text('Estudio',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Colors.grey, fontWeight: FontWeight.bold)),
+                            textColor: Colors.white,
+
+                            color: Color.fromRGBO(0, 51, 51, 0.8),
+                            onPressed: () {
+                            },
+                          ),
+
+                        ],)
+
+
+                      ,
+                    )
+
+
+                  ],
+                ),
+              ),
+            ),);
+
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
+
+
+
   }
+
+
+
+
+   Widget _crearImage(WorkerModel worker) {
+
+    return FutureBuilder(
+      future: workerProvider.cargarUsuarioTrabajador(worker.userId),
+      builder:
+          (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data;
+         return _constructorImagen(user);
+
+
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      }
+    );
+
+  }
+
+  Widget _constructorImagen(UserModel user) {
+
+
+    if (user.photoUrl == null) {
+      return Image(
+        image: AssetImage('assets/img/no-image.png'),
+
+      );
+    } else {
+      if (user.photoUrl == null) {
+        return Image(
+          image: AssetImage('assets/img/no-image.png'),
+
+          fit: BoxFit.cover,
+        );
+      } else if (user.photoUrl != null || user.photoUrl.isNotEmpty) {
+        return FadeInImage(
+          placeholder: AssetImage('assets/img/jar-loading.gif'),
+          image: NetworkImage(
+            user.photoUrl,
+          ),
+            height: 150,
+            width: 150,
+            fit: BoxFit.cover
+
+        );
+      }
+    }
+  }
+
 
 }

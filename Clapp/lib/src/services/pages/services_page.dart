@@ -42,32 +42,7 @@ class _ServicesPages extends State<ServicesPages> {
               Expanded(
                 child: _MenuServicios(usuario),
               ),
-              SizedBox(height: 10),
 
-
-              Container(
-                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
-                child: RaisedButton(
-                  padding:
-                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Text('Nuevo servicio',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Raleway",
-                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                          fontWeight: FontWeight.bold)),
-                  textColor: Colors.white,
-                  color: Color.fromRGBO(112, 252, 118, 0.8),
-                  onPressed: (){
-                    Navigator.pushNamed(context, 'new_service',
-                        arguments: usuario);
-                    },
-                ),
-              )
 
             ],
           ),
@@ -75,29 +50,46 @@ class _ServicesPages extends State<ServicesPages> {
   }
 
   Widget _MenuServicios(UserModel usuario) {
-    return Container(
-      padding: EdgeInsets.only(right: 10.0, left: 10.0, top: 30),
-      child: ListView(
-        children: [
-          opcionesMenu1(),
-          opcionesMenu3(),
-          opcionesMenu4(),
-          opcionesMenu2(usuario),
-        ],
-      )
-      /*child: GridView.count(crossAxisCount: 1,
-        children: <Widget>[
-          opcionesMenu1(),
-          opcionesMenu2(),
-          opcionesMenu3(),
-          opcionesMenu4(),
+    return  Padding(padding: EdgeInsets.only(right: 10.0, left: 10.0,),
+        child: ListView(
+          children: [
+            SizedBox(height: 20,),
+            opcionesMenu1(),
+            opcionesMenu3(),
+            opcionesMenu4(),
+            opcionesMenu2(usuario),
+            SizedBox(height: 20,),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only( bottom: 35.0),
+              child: RaisedButton(
+                padding:
+                EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Text('Nuevo servicio',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: "Raleway",
+                        color: Color.fromRGBO(115, 115, 115, 1.0),
+                        fontWeight: FontWeight.bold)),
+                textColor: Colors.white,
+                color: Color.fromRGBO(112, 252, 118, 0.8),
+                onPressed: (){
+                  Navigator.pushNamed(context, 'new_service',
+                      arguments: usuario);
+                },
+              ),
+            )
+          ],
+        )
+      );
 
-        ],)
 
-       */
 
-      ,
-    );
+
   }
 
   Widget opcionesMenu2(UserModel usuario) {
