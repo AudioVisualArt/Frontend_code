@@ -6,7 +6,6 @@ import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 
-
 class ProjectPage extends StatefulWidget {
   final UserModel user;
   ProjectPage({Key key, this.user}) : super(key: key);
@@ -48,19 +47,11 @@ class _ProjectPageState extends State<ProjectPage> {
         )),
         child: SingleChildScrollView(
             child: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width ,
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height - 30.0,
-
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - 30.0,
                 padding: EdgeInsets.only(
                   right: 1.0,
                   left: 1.0,
-
                 ),
                 child: Form(
                     //key: formKey,
@@ -70,27 +61,21 @@ class _ProjectPageState extends State<ProjectPage> {
                         padding: EdgeInsets.only(top: 15.0),
                         child: Text('Proyectos Disponibles',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
-                                fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
+                            style: TextStyle(
+                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                fontSize: 17.5,
+                                fontFamily: "Raleway",
+                                fontWeight: FontWeight.bold))),
                     SizedBox(height: 9),
-                    SizedBox(child: Container(
-
+                    SizedBox(
+                        child: Container(
                       child: _crearListado(userModel.id),
                       //padding: EdgeInsets.all(4.0),
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width - 10.0,
-                      height: MediaQuery
-                        .of(context)
-                        .size
-                        .height - 50.0,
-
-
-                    )
-                    ),
+                      width: MediaQuery.of(context).size.width - 10.0,
+                      height: MediaQuery.of(context).size.height - 50.0,
+                    )),
                     //SizedBox(height: 5),
-                  /*  RaisedButton.icon(
+                    /*  RaisedButton.icon(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -114,12 +99,11 @@ class _ProjectPageState extends State<ProjectPage> {
                   ],
                 )))));
   }
-  Widget _botonProyectoNuevo(UserModel userModel){
-    return RaisedButton(
 
+  Widget _botonProyectoNuevo(UserModel userModel) {
+    return RaisedButton(
       splashColor: Colors.green,
-      padding:
-      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -132,7 +116,7 @@ class _ProjectPageState extends State<ProjectPage> {
               fontWeight: FontWeight.bold)),
       textColor: Colors.white,
       color: Color.fromRGBO(112, 252, 118, 0.8),
-      onPressed: (){
+      onPressed: () {
         Navigator.pushNamed(context, 'new_project',
             arguments: userModel); //ver routes
       },
@@ -168,31 +152,35 @@ class _ProjectPageState extends State<ProjectPage> {
           proyectosProvider.borrarProyectos(proyecto.id);
         },
         child: Card(
-
             elevation: 0.0,
             color: Color.fromRGBO(227, 227, 227, 1),
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-    child: InkWell(
-      onTap: () => Navigator.pushNamed(
-        context, 'details_project',
-        arguments: proyecto),
-      child: Container(
-      height: 80,
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            title: Text('${proyecto.proyectName}',
-                style: TextStyle(fontSize: 20.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
-            subtitle: Text(proyecto.projectType,
-                style: TextStyle(fontSize: 10.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
-            leading: Icon(Icons.arrow_forward_ios),
-          ),
-
-        ],
-      ),),)
-
-
-        ));
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0)),
+            child: InkWell(
+              onTap: () => Navigator.pushNamed(context, 'details_project',
+                  arguments: proyecto),
+              child: Container(
+                height: 80,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('${proyecto.proyectName}',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: "Raleway",
+                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                              fontWeight: FontWeight.bold)),
+                      subtitle: Text(proyecto.projectType,
+                          style: TextStyle(
+                              fontSize: 10.0,
+                              fontFamily: "Raleway",
+                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                              fontWeight: FontWeight.bold)),
+                      leading: Icon(Icons.arrow_forward_ios),
+                    ),
+                  ],
+                ),
+              ),
+            )));
   }
 }

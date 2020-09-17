@@ -43,25 +43,34 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
               image: AssetImage("assets/img/mostraritems.jpg"),
               fit: BoxFit.cover,
             )),
-        child: Column(
-          children: <Widget>[
-            Container(
-                padding: EdgeInsets.only(top: 15.0),
-                child: Text('Productos Disponibles',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
-                        fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
-            //SizedBox(height: 20.0,),
-            SizedBox(child: Container(
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 30.0,
+            child: Column(
+
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: Text('Productos Disponibles',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
+                            fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
+                //SizedBox(height: 20.0,),
+                SizedBox(child: Container(
 
 
-              child: _crearListado(_screenSize),
-              padding: EdgeInsets.all(4.0),
-              height: _screenSize.height * 0.7,
-            ),)
+                  child: _crearListado(_screenSize),
+                  padding: EdgeInsets.all(4.0),
+                  width: MediaQuery.of(context).size.width - 5.0,
+                  height: MediaQuery.of(context).size.height - 50.0,
+                ),)
 
-          ],
-        ),
+              ],
+            ),
+          ),
+          ),
+
       ),
             floatingActionButton: _botonAgregar(),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
