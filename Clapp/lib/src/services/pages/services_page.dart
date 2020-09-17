@@ -1,5 +1,6 @@
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
+import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/equipment_page.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
@@ -161,7 +162,16 @@ class _ServicesPages extends State<ServicesPages> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context,'contratos',arguments: usuario );
+             /* Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new PersonelPage()));
+
+              */
+
+             Navigator.pushNamed(context, 'personal',
+                        arguments: usuario);
+
 
             },
             child: Padding(
