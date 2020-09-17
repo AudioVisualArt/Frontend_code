@@ -45,17 +45,26 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
             )),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 20.0,),
             Container(
+                padding: EdgeInsets.only(top: 15.0),
+                child: Text('Productos Disponibles',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
+                        fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
+            //SizedBox(height: 20.0,),
+            SizedBox(child: Container(
+
 
               child: _crearListado(_screenSize),
               padding: EdgeInsets.all(4.0),
               height: _screenSize.height * 0.7,
-            ),
-            _crearBotonAgregar(),
+            ),)
+
           ],
         ),
-      )
+      ),
+            floatingActionButton: _botonAgregar(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     ));
   }
 
@@ -110,7 +119,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           ),
 
 
-          elevation: 20.0,
+          elevation: 0.0,
          color: Color.fromRGBO(227, 227, 227, 1),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
@@ -118,7 +127,31 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
         ));
   }
 
-  Widget _crearBotonAgregar() {
+  Widget _botonAgregar(){
+    return RaisedButton(
+
+      splashColor: Colors.green,
+      padding:
+      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Text('Agregar Item',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: "Raleway",
+              color: Color.fromRGBO(115, 115, 115, 1.0),
+              fontWeight: FontWeight.bold)),
+      textColor: Colors.white,
+      color: Color.fromRGBO(112, 252, 118, 0.8),
+      onPressed: (){
+        Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
+      },
+    );
+  }
+
+  /*Widget _crearBotonAgregar() {
     return RaisedButton.icon(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
@@ -138,4 +171,6 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
       },
     );
   }
+
+   */
 }
