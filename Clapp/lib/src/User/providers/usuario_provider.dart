@@ -165,4 +165,24 @@ class UsuarioProvider {
 
   }
 
+  Future<Map>nuevoUsuarioGoogle(String city, String age, String description,String password ,UserModel user) async{
+
+    user.cityResidence= city;
+    user.age= int.parse(age);
+    user.description=description;
+
+
+    final url = '$_url/updateUser/${user.id}';
+    final resp = await http.put(url,
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: userModelToJson(user));
+
+    print('Edit 1: ${resp.body.trim()} ');
+
+    return {'ok': true, 'token': user};
+
+  }
+
+
+
 }

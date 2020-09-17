@@ -214,7 +214,12 @@ class LoginPage extends StatelessWidget {
   void onGoogleSignIn(BuildContext context) async {
     FirebaseUser userg = await usuarioProvider.loginGmail();
     UserModel user = await usuarioProvider.getUserGoogle(userg);
-    Navigator.pushReplacementNamed(context, 'home', arguments: user);
+
+    if(user.description==null){
+      Navigator.pushReplacementNamed(context, 'register_google', arguments: user);
+    }else {
+      Navigator.pushReplacementNamed(context, 'home', arguments: user);
+    }
   }
 
   _login(BuildContext context, LoginBloc bloc) async {
