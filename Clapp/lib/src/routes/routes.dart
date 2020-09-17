@@ -32,6 +32,7 @@ import 'package:Clapp/src/Equipment/pages/equipment_edit_page.dart';
 import 'package:Clapp/src/item/pages/items_buy.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
+import 'package:Clapp/src/services/pages/personel_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -66,5 +67,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'open_contracts': (BuildContext context) => OtherPage(),
     'messageInfo': (BuildContext context) => MessageInfo(),
     'register_google':(BuildContext context) =>SignUpGoogle(),
+    'personal': (BuildContext context) => PersonelPage(),
+
   };
 }

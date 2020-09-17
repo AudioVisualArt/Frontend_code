@@ -1,5 +1,6 @@
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
+import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/equipment_page.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
@@ -59,7 +60,7 @@ class _ServicesPages extends State<ServicesPages> {
             opcionesMenu4(),
             opcionesMenu2(usuario),
             SizedBox(height: 20,),
-            Container(
+           /* Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only( bottom: 35.0),
               child: RaisedButton(
@@ -83,6 +84,9 @@ class _ServicesPages extends State<ServicesPages> {
                 },
               ),
             )
+
+            */
+
           ],
         )
       );

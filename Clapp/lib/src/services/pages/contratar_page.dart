@@ -39,44 +39,55 @@ class _ContratarPage extends State<ContratarPage>{
             final worker = snapshot.data;
 
             return Scaffold(
+                appBar: AppBar(
+                title: Text('Personal',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+          ),
+          body: Container(
 
-                body: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/img/background.jpg"),
-                          fit: BoxFit.cover,
-                        )
-                    ),
-                    child: ListView(
-                        children: <Widget>[
-                          SizedBox(height: 15.0,),
-                          Container(
-                              padding: EdgeInsets.only(
-                                  right: 10.0, left: 10.0, top: 0.5),
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width - 30.0,
-                              height: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height - 50.0,
-                              child: GridView.builder(
-                                  primary: false,
-                                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 11.0,
-                                      mainAxisSpacing: 15.0,
-                                      childAspectRatio: 0.69),
-                                  itemCount: worker.length,
-                                  itemBuilder: (context, index) =>
-                                      _buildCard(context, worker[index])
-                              )
-                          )
-                        ]
+          height: MediaQuery.of(context).size.height -30,
+          width: double.infinity,
+            child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/img/background.jpg"),
+                      fit: BoxFit.cover,
                     )
                 ),
-              floatingActionButton: BotonCrear2(usuario),
+                child: ListView(
+                    children: <Widget>[
+                      SizedBox(height: 15.0,),
+                      Container(
+                          padding: EdgeInsets.only(
+                              right: 10.0, left: 10.0, top: 0.5),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 30.0,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height - 50.0,
+                          child: GridView.builder(
+                              primary: false,
+                              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 11.0,
+                                  mainAxisSpacing: 15.0,
+                                  childAspectRatio: 0.69),
+                              itemCount: worker.length,
+                              itemBuilder: (context, index) =>
+                                  _buildCard(context, worker[index])
+                          )
+                      )
+                    ]
+                )
+            ),
+          ),
+
+
+              floatingActionButton: _BotonCrear2(usuario),
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             );
           } else {
@@ -93,7 +104,7 @@ class _ContratarPage extends State<ContratarPage>{
 
   }
 
-  Widget BotonCrear2(UserModel usuario){
+  Widget _BotonCrear2(UserModel usuario){
     return RaisedButton(
 
       splashColor: Colors.green,
@@ -111,9 +122,9 @@ class _ContratarPage extends State<ContratarPage>{
               fontWeight: FontWeight.bold)),
       textColor: Colors.white,
       color: Color.fromRGBO(112, 252, 118, 0.8),
-      onPressed: (){Navigator.pushNamed(context, 'new_service',
-          arguments: usuario);
-
+      onPressed: (){
+        Navigator.pushNamed(context, 'new_service',
+            arguments: usuario);
       },
     );
   }

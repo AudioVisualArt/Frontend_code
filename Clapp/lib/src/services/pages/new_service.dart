@@ -36,7 +36,7 @@ class _NewService extends State<NewService> {
     //print("id de usuario en new project: ${usuario.id}");
     // TODO: implement build
 
-    UserModel usuario = widget.user;
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     trabajador.userId=usuario.id;
     return GestureDetector(
         onTap: () {
