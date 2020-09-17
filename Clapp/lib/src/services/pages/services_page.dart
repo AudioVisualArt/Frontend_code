@@ -161,8 +161,8 @@ class _ServicesPages extends State<ServicesPages> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, 'contratos',
-                  arguments: usuario);
+              Navigator.pushNamed(context,'contratos',arguments: usuario );
+
             },
             child: Padding(
                 padding: EdgeInsets.only(top: 0, bottom: 0.0),

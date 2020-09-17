@@ -15,7 +15,6 @@ class NewService extends StatefulWidget {
   final UserModel user;
   NewService({Key key, this.user}) : super(key: key);
 
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -37,7 +36,7 @@ class _NewService extends State<NewService> {
     //print("id de usuario en new project: ${usuario.id}");
     // TODO: implement build
 
-    UserModel usuario = ModalRoute.of(context).settings.arguments;
+    UserModel usuario = widget.user;
     trabajador.userId=usuario.id;
     return GestureDetector(
         onTap: () {
