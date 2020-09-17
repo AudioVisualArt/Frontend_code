@@ -57,13 +57,14 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                         style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
                             fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
                 //SizedBox(height: 20.0,),
+                SizedBox(height: 9),
                 SizedBox(child: Container(
 
 
                   child: _crearListado(_screenSize),
                   padding: EdgeInsets.all(4.0),
                   width: MediaQuery.of(context).size.width - 5.0,
-                  height: MediaQuery.of(context).size.height - 50.0,
+                  height: MediaQuery.of(context).size.height - 180.0,
                 ),)
 
               ],
