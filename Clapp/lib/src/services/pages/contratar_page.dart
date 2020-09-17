@@ -118,24 +118,7 @@ class _ContratarPage extends State<ContratarPage>{
     );
   }
 
-  Widget BotonCrearFloating(){
-    return RawMaterialButton(
-        fillColor: Colors.teal,
-        splashColor: Colors.green,
-        shape: StadiumBorder(),
-        onPressed: (){},
-      child: Padding(
-        padding:  EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 20,
 
-                  ),
-          child: Text('crear ',
-            style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),)
-
-      ),
-    );
-  }
 
   Widget _buildCard(context, WorkerModel worker){
 
