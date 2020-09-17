@@ -1,8 +1,10 @@
 import 'package:Clapp/src/User/bloc/provider.dart';
 import 'package:Clapp/src/User/bloc/signup_bloc.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:Clapp/src/User/widgets/background_login.dart';
 import 'package:flutter/material.dart';
+import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class SignUpGoogle extends StatefulWidget {
   UserModel userModel;
@@ -13,10 +15,14 @@ class SignUpGoogle extends StatefulWidget {
 }
 
 class _SignUpGoogle extends State<SignUpGoogle> {
+  final usuarioProvider = new UsuarioProvider();
 
   @override
   Widget build(BuildContext context) {
-    UserModel user= ModalRoute.of(context).settings.arguments;
+    UserModel user = ModalRoute
+        .of(context)
+        .settings
+        .arguments;
     return Scaffold(
       body: Stack(
         children: <Widget>[Background(text: "Registro"), _signUp(context)],
@@ -31,8 +37,12 @@ class _SignUpGoogle extends State<SignUpGoogle> {
       ),
     );
   }
+
   Widget _signUp(BuildContext context) {
-    UserModel user= ModalRoute.of(context).settings.arguments;
+    UserModel user = ModalRoute
+        .of(context)
+        .settings
+        .arguments;
     final bloc = Provider.ofSignUp(context);
     final size = MediaQuery
         .of(context)
@@ -58,14 +68,14 @@ class _SignUpGoogle extends State<SignUpGoogle> {
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
           SizedBox(height: 40.0),
           _registroAge(bloc),
-          SizedBox(height: 30.0),
-          _crearPassword(bloc),
+          //SizedBox(height: 30.0),
+         // _crearPassword(bloc),
           SizedBox(height: 30.0),
           _registroCity(bloc),
           SizedBox(height: 30.0),
           _registroDescription(bloc),
           SizedBox(height: 30.0),
-          _crearBotonRegistro(bloc,user),
+          _crearBotonRegistro(bloc, user),
 
         ],
       ),
@@ -90,6 +100,7 @@ class _SignUpGoogle extends State<SignUpGoogle> {
           )),
     );
   }
+
   Widget _registroCity(SignUpBloc bloc) {
     return StreamBuilder(
       stream: bloc.cityStream,
@@ -111,6 +122,7 @@ class _SignUpGoogle extends State<SignUpGoogle> {
       },
     );
   }
+
   Widget _registroAge(SignUpBloc bloc) {
     return StreamBuilder(
       stream: bloc.ageStream,
@@ -132,6 +144,7 @@ class _SignUpGoogle extends State<SignUpGoogle> {
       },
     );
   }
+
   Widget _registroDescription(SignUpBloc bloc) {
     return StreamBuilder(
       stream: bloc.descriptionStream,
@@ -153,6 +166,7 @@ class _SignUpGoogle extends State<SignUpGoogle> {
       },
     );
   }
+
   Widget _crearPassword(SignUpBloc bloc) {
     return StreamBuilder(
       stream: bloc.passwordStream,
@@ -175,9 +189,9 @@ class _SignUpGoogle extends State<SignUpGoogle> {
       },
     );
   }
+
   Widget _crearBotonRegistro(SignUpBloc bloc, UserModel user) {
     return StreamBuilder(
-      stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return RaisedButton(
           child: Container(
@@ -189,9 +203,22 @@ class _SignUpGoogle extends State<SignUpGoogle> {
           ),
           elevation: 0.0,
           color: Color.fromRGBO(227, 227, 227, 1.0),
-         // onPressed: snapshot.hasData ? () => _register(context, bloc) : null,
+          onPressed:
+            () => _register(context, bloc, user)
+              ,
         );
       },
     );
   }
+
+  _register(BuildContext context, SignUpBloc bloc, UserModel user) async {
+    Map info = await usuarioProvider.nuevoUsuarioGoogle(
+        bloc.city, bloc.age, bloc.description, bloc.passw, user);
+
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, 'home', arguments: info['token']);
+    } else {
+      utils.mostrarAlerta(context, 'Revisar Campos ${info['mensaje']}');
+    }
   }
+}

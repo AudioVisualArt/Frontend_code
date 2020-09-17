@@ -1,3 +1,4 @@
+import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/pages/message_info_page.dart';
@@ -65,6 +66,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'collaborators': (BuildContext context) => VerColaboradores(),
     'open_contracts': (BuildContext context) => OtherPage(),
     'messageInfo': (BuildContext context) => MessageInfo(),
+    'register_google':(BuildContext context) =>SignUpGoogle(),
     'personal': (BuildContext context) => PersonelPage(),
 
   };
