@@ -297,24 +297,7 @@ class PerfilPersonal extends StatelessWidget {
   }
 
   Widget _constructorImagen() {
-    if (photoUrl == null) {
-      return Container(
-          height: 150.0,
-          width: 150.0,
-          child: CircleAvatar(
-          radius: 100,
-          backgroundColor: Color(0xffFDCF09),
-    child: CircleAvatar(
 
-    radius: 100,
-        child: Image(
-        image: AssetImage('assets/img/no-image.png'),
-            fit: BoxFit.cover
-      ),
-    )
-          )
-    );
-    } else {
       if (photoUrl == null) {
         return Container(
             height: 150.0,
@@ -353,6 +336,6 @@ class PerfilPersonal extends StatelessWidget {
             )
         );
       }
-    }
+
   }
 }

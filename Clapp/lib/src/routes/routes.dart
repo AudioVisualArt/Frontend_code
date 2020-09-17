@@ -30,6 +30,7 @@ import 'package:Clapp/src/item/pages/menu_agregar.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_edit_page.dart';
 import 'package:Clapp/src/item/pages/items_buy.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
+import 'package:Clapp/src/services/pages/contratar_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -53,6 +54,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'producto_compra': (BuildContext context) => ProductoCompraPage(),
     'details_project': (BuildContext context) => ProjectDetails(),
     'new_service': (BuildContext context) => NewService(),
+    'contratos': (BuildContext context) => ContratarPage(),
     'collaborators': (BuildContext context) => VerColaboradores(),
     'equipment': (BuildContext context) => EquipmentPage(),
     'menu_item': (BuildContext context) => MenuAgregarPage(),

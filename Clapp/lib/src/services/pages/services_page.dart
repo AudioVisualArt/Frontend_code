@@ -54,7 +54,7 @@ class _ServicesPages extends State<ServicesPages> {
         child: ListView(
           children: [
             SizedBox(height: 20,),
-            opcionesMenu1(),
+            opcionesMenu1(context, usuario),
             opcionesMenu3(),
             opcionesMenu4(),
             opcionesMenu2(usuario),
@@ -154,17 +154,15 @@ class _ServicesPages extends State<ServicesPages> {
     );
   }
 
-  Widget opcionesMenu1() {
+  Widget opcionesMenu1(BuildContext context, UserModel usuario) {
     return Card(
         margin: EdgeInsets.only(top: 15),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new PersonelPage()));
+              Navigator.pushNamed(context, 'contratos',
+                  arguments: usuario);
             },
             child: Padding(
                 padding: EdgeInsets.only(top: 0, bottom: 0.0),

@@ -12,6 +12,8 @@ import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 import 'audiovisual_page.dart';
 
 class ContratarPage extends StatefulWidget{
+  final UserModel user;
+  ContratarPage({Key key, this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -26,6 +28,7 @@ class _ContratarPage extends State<ContratarPage>{
 
   @override
   Widget build(BuildContext context) {
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
 
     // TODO: implement build
     return FutureBuilder(
@@ -72,7 +75,9 @@ class _ContratarPage extends State<ContratarPage>{
                           )
                         ]
                     )
-                )
+                ),
+              floatingActionButton: BotonCrear2(usuario),
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             );
           } else {
             return Center(child: CircularProgressIndicator());
@@ -86,6 +91,50 @@ class _ContratarPage extends State<ContratarPage>{
             ]*/
         });
 
+  }
+
+  Widget BotonCrear2(UserModel usuario){
+    return RaisedButton(
+
+      splashColor: Colors.green,
+      padding:
+      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Text('Nuevo servicio',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: "Raleway",
+              color: Color.fromRGBO(115, 115, 115, 1.0),
+              fontWeight: FontWeight.bold)),
+      textColor: Colors.white,
+      color: Color.fromRGBO(112, 252, 118, 0.8),
+      onPressed: (){Navigator.pushNamed(context, 'new_service',
+          arguments: usuario);
+
+      },
+    );
+  }
+
+  Widget BotonCrearFloating(){
+    return RawMaterialButton(
+        fillColor: Colors.teal,
+        splashColor: Colors.green,
+        shape: StadiumBorder(),
+        onPressed: (){},
+      child: Padding(
+        padding:  EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 20,
+
+                  ),
+          child: Text('crear ',
+            style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),)
+
+      ),
+    );
   }
 
   Widget _buildCard(context, WorkerModel worker){
@@ -233,6 +282,7 @@ class _ContratarPage extends State<ContratarPage>{
       if (user.photoUrl == null) {
         return Image(
           image: AssetImage('assets/img/no-image.png'),
+
 
           fit: BoxFit.cover,
         );
