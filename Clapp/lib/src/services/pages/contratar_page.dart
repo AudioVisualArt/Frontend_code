@@ -78,7 +78,7 @@ class _ContratarPage extends State<ContratarPage>{
                                   childAspectRatio: 0.69),
                               itemCount: worker.length,
                               itemBuilder: (context, index) =>
-                                  _buildCard(context, worker[index])
+                                  _buildCard(context, worker[index],usuario)
                           )
                       )
                     ]
@@ -131,7 +131,7 @@ class _ContratarPage extends State<ContratarPage>{
 
 
 
-  Widget _buildCard(context, WorkerModel worker){
+  Widget _buildCard(context, WorkerModel worker, UserModel usuario){
 
 
   return FutureBuilder(
@@ -148,7 +148,7 @@ class _ContratarPage extends State<ContratarPage>{
 
                 var ciudad = user.cityResidence;
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad,user.photoUrl)
+                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad,user.photoUrl, usuario)
                 ),);
               },
               child:  Container(
