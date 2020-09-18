@@ -1,19 +1,19 @@
-import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
-import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/StockPhoto/pages/stockphoto_buy_page.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 
-class EquipmentHorizontal extends StatelessWidget {
-  final List<EquipmentModel> equipos;
+class StockPhotoHorizontal extends StatelessWidget {
+  final List<StockPhotoModel> stockphotos;
   final UserModel userModel;
-  const EquipmentHorizontal({
-    @required this.equipos,
-    @required this.userModel,
-  });
+  const StockPhotoHorizontal(
+      {@required this.stockphotos, @required this.userModel});
 
   @override
   Widget build(BuildContext context) {
+    UsuarioProvider usuarioProvider = new UsuarioProvider();
     final _screenSize = MediaQuery.of(context).size;
     final _pageController = new PageController(
       initialPage: 0,
@@ -25,17 +25,17 @@ class EquipmentHorizontal extends StatelessWidget {
       child: PageView.builder(
         pageSnapping: false,
         controller: _pageController,
-        itemBuilder: (context, i) => _tarjetaEquipo(context, equipos[i]),
-        itemCount: equipos.length,
+        itemBuilder: (context, i) => _tarjetaPhoto(context, stockphotos[i]),
+        itemCount: stockphotos.length,
       ),
     );
   }
 
-  Widget _tarjetaEquipo(BuildContext context, EquipmentModel equipmentModel) {
-    final imagen = _imagenEquipo(equipmentModel);
+  Widget _tarjetaPhoto(BuildContext context, StockPhotoModel stockPhotoModel) {
+    final imagen = _imagenEquipo(stockPhotoModel);
     final _containerFoto = Container(
-        height: 200.0,
-        width: 165,
+        height: 150.0,
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.white70,
@@ -43,8 +43,8 @@ class EquipmentHorizontal extends StatelessWidget {
         child: ClipRRect(
             borderRadius: BorderRadius.circular(30.0), child: imagen));
     final _containerInfoUser = Container(
-      height: 200.0,
-      width: 120,
+      height: 50.0,
+      width: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
         color: Colors.white70,
@@ -59,16 +59,9 @@ class EquipmentHorizontal extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                'Marca: ' + equipmentModel.marca,
+                'Tipo de Foto:  ' + stockPhotoModel.photoType,
                 style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                'Precio:' + equipmentModel.valor.toString(),
-                style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-              )
             ],
           ),
         ),
@@ -82,33 +75,33 @@ class EquipmentHorizontal extends StatelessWidget {
           height: 8.0,
         ),
         Text(
-          equipmentModel.titulo,
+          stockPhotoModel.titulo,
           style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
         ),
         SizedBox(
           height: 8.0,
         ),
         Text(
-          equipmentModel.itemDescription ?? " ",
+          stockPhotoModel.itemDescription ?? " ",
           style: TextStyle(fontSize: 10.0, fontFamily: "Raleway"),
         ),
         SizedBox(
           height: 20.0,
         ),
-        Row(
+        Column(
           children: <Widget>[
             SizedBox(
               width: 5.0,
             ),
-            _containerInfoUser,
-            SizedBox(
-              width: 10.0,
-            ),
             _containerFoto,
+            SizedBox(
+              height: 20.0,
+            ),
+            _containerInfoUser,
           ],
         ),
         SizedBox(
-          height: 20.0,
+          height: 8.0,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -137,8 +130,8 @@ class EquipmentHorizontal extends StatelessWidget {
                     Navigator.push(
                         context,
                         new MaterialPageRoute(
-                            builder: (context) => new EquipmentCompraPage(
-                                  equipmentModel: equipmentModel,
+                            builder: (context) => new StockPhotoComprarPage(
+                                  stockPhotoModel: stockPhotoModel,
                                   userModel: userModel,
                                 )));
                   }),
@@ -147,8 +140,7 @@ class EquipmentHorizontal extends StatelessWidget {
         ),
       ],
     );
-
-    return Container(
+    final container = Container(
       margin: EdgeInsets.only(right: 15.0),
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -160,10 +152,12 @@ class EquipmentHorizontal extends StatelessWidget {
         child: _containerInfo,
       ),
     );
+
+    return container;
   }
 
-  Widget _imagenEquipo(EquipmentModel equipment) {
-    if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
+  Widget _imagenEquipo(StockPhotoModel stockPhotoModel) {
+    if (stockPhotoModel.fotoUrl.isEmpty || stockPhotoModel.fotoUrl == null) {
       return Image(
         image: AssetImage('assets/img/no-image.png'),
         height: 300.0,
@@ -172,7 +166,7 @@ class EquipmentHorizontal extends StatelessWidget {
     } else {
       return FadeInImage(
         placeholder: AssetImage('assets/img/jar-loading.gif'),
-        image: NetworkImage(equipment.fotoUrl),
+        image: NetworkImage(stockPhotoModel.fotoUrl),
         fit: BoxFit.cover,
       );
     }
