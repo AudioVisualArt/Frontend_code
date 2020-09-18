@@ -1,111 +1,58 @@
-import 'dart:convert';
-
-import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:Clapp/src/User/providers/chat_provider.dart';
-import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
-class ScreenArgument{
-    UserModel user;
-    ChatModel model;
-    String nameuser;
-    String id2;
-    bool nw;
-    ScreenArgument(this.user,this.model,this.nameuser,this.id2,this.nw);
-}
+class MensajePrueba{
+  int id;
+  NetworkImage img;
+  String nombre;
+  String asunto;
+  String contenido;
 
-class MessagePage extends StatelessWidget {
-  
-  final chatProvider=new ChatProvider();
-  final List<String> mensajes=new List();
-  @override
-  Widget build(BuildContext context) {
-
-    UserModel usuario=ModalRoute.of(context).settings.arguments;
-          return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  'Mensajes',
-                  style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
-                ),
-              ),
-              body: FutureBuilder(
-                future:  chatProvider.cargarChats(usuario.id),        
-                builder: (BuildContext context, AsyncSnapshot<List<ChatModel>>  snapshot) {
-                   if(snapshot.hasData){
-                    
-                    List<ChatModel> chats=snapshot.data;
-                    
-                    chats=_ordenarChats(chats);
-                    return ListView.builder(
-                    itemCount: chats.length,
-                    itemBuilder: (context,index){  
-                  
-                        return _tarjetaMensaje(chats[index],context,usuario);  
-                    
-                    },
-                    );
-                  }
-                  else{
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-                
-              ),
-            );
-     
-        
-      }
-
-  List<ChatModel> _ordenarChats(List<ChatModel> chats) {
-    ChatModel c;
-    DateTime fecha1;
-    DateTime fecha2;
-    for(int i=0;i<chats.length;i++){ 
-      for(int j=0;j<chats.length-1;j++){
-        if(chats[j].mensajes==null){
-          chats.removeAt(j);
-          print("entreMessageInfo");
-          j++;
-        }else{
-        fecha1 = DateTime.parse(chats[j].fecha);
-        fecha2 = DateTime.parse(chats[j+1].fecha);
-        if(fecha2.isAfter(fecha1)){
-          c=chats[j];
-          chats[j]=chats[j+1];
-          chats[j+1]=c;
-        }
-        }
-        
-      }
-    }
-    return chats;
-  }
+  MensajePrueba(int id, String nombre,String asunto,String cont ){
+    this.id=id;
+    this.img=NetworkImage('https://pickaface.net/gallery/avatar/unr_prueba_180322_2201_36rfx.png');
+    this.nombre=nombre;
+    this.asunto=asunto;
+    this.contenido=cont;
     
   }
+}
+class MessagePage extends StatefulWidget {
+  MessagePage({Key key}) : super(key: key);
 
-  Widget _tarjetaMensaje(ChatModel e,BuildContext context,UserModel usuario) {
-      String url,idaux,username,mens;
-      
-      if(e.usuarioD==usuario.id){
-        url=e.photoUrlO;
-        idaux=e.usuarioO;
-        username=e.nameO;
+  @override
+  _MessagePageState createState() => _MessagePageState();
+}
 
-      }else{
-        url=e.photoUrlD;
-        idaux=e.usuarioD;
-        username=e.nameD;
-      }
+class _MessagePageState extends State<MessagePage> {
+  List<MensajePrueba> mensajes=new List();
+  @override
+  Widget build(BuildContext context) {
+    mensajes.clear();
+    MensajePrueba msj=MensajePrueba(1,"Julio Diaz","informacion proyecto","Me comunico para pedir informacion acerca del nuevo proyecto que esta realizando");
+    MensajePrueba msj2=MensajePrueba(2,"Carlos Peña","Aclaracion lugar de grabacion","Hola, no encuentro la direccion que me enviaron en google maps para llegar al rodaje, me puede confirmar al direccion? gracias"); 
+    mensajes.add(msj);
+    msj2.img=NetworkImage('https://pickaface.net/gallery/avatar/29586148_170117_1910_2p3e16n.png');
+    mensajes.add(msj2); 
+    //usuario=ModalRoute.of(context).settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Mensajes',
+          style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
+        ),
+      ),
+      body: ListView.builder(
+        itemCount: mensajes.length,
+        itemBuilder: (context,index){      
+            return _tarjetaMensaje(mensajes[index],context);   
+        },
+        
+      ),
+    );
+  }
 
-      e.mensajes.sort((a,b)=>a.cont.compareTo(b.cont));   
-      final mensaje=e.mensajes[e.mensajes.length-1];
-      if(mensaje.usuario==usuario.name){
-        mens="Tu: ${mensaje.contenido}";
-      }else{
-        mens=mensaje.contenido;
-      }
-      return Container(
+  Widget _tarjetaMensaje(MensajePrueba e,BuildContext context) {
+    return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1.0),
         borderRadius: BorderRadius.circular(10.0)
@@ -117,11 +64,11 @@ class MessagePage extends StatelessWidget {
           Row(
             children: [
               Hero(
-                tag: e.chatId,
+                tag: e.id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
                   child: FadeInImage(
-                    image: NetworkImage(url),
+                    image: e.img,
                     placeholder: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png'),
                     height: 160.0,
                     width: 100.0,
@@ -133,9 +80,9 @@ class MessagePage extends StatelessWidget {
               Expanded(
                 child: Column(
                     children: [
-                      Text("$username",style: Theme.of(context).textTheme.headline6),
+                      Text("${e.nombre}",style: Theme.of(context).textTheme.headline6),
                       SizedBox(height: 10.0),
-                      Text("$mens",style: Theme.of(context).textTheme.subtitle1,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,),
+                      Text("${e.asunto}",style: Theme.of(context).textTheme.subtitle1,textAlign: TextAlign.center,)
                     ],
                   ),
               ),
@@ -152,15 +99,7 @@ class MessagePage extends StatelessWidget {
                 color: Colors.grey,
                 child: Text('ABRIR'),
                 onPressed: (){
-
-                    Navigator.pushNamed(context, 'messageInfo',arguments: ScreenArgument(
-                    usuario,
-                    e,
-                    username,
-                    idaux,
-                    null
-                  ));
-
+                  Navigator.pushNamed(context, 'messageInfo',arguments: e);
                 },
               ),
               SizedBox(width: 70.0),
@@ -177,9 +116,5 @@ class MessagePage extends StatelessWidget {
         ],
       )
     );
-
-    
-    
-
-  
   }
+}
