@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 
+import 'package:Clapp/src/services/pages/contratar_page.dart';
+import 'package:Clapp/src/User/pages/sign_up_google.dart';
+import 'package:flutter/material.dart';
 import 'package:Clapp/src/User/pages/message_info_page.dart';
 import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
@@ -68,6 +70,8 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'open_contracts': (BuildContext context) => OtherPage(),
     'messageInfo': (BuildContext context) => MessageInfo(),
     'register_google': (BuildContext context) => SignUpGoogle(),
+    'contratar_page':(BuildContext context)=> ContratarPage(),
+    'register_google':(BuildContext context) =>SignUpGoogle(),
     'personal': (BuildContext context) => PersonelPage(),
     'photos': (BuildContext context) => StockPhotoPage(),
   };

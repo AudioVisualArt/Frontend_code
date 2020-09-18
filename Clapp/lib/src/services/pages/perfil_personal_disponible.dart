@@ -1,3 +1,6 @@
+import 'package:Clapp/src/User/models/chat_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:Clapp/src/services/pages/send_contract_page.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
@@ -11,11 +14,11 @@ class PerfilPersonal extends StatelessWidget {
   PerfilPersonal(this.tag,
       this.rol,
       this.name, this.description, this.profesion, this.ciudad, this.photoUrl, this.usuarioOferta);
-
+  ChatProvider chat=new ChatProvider();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     var assetpath = "assets/img/perfiltest.PNG";
     return Scaffold(
         appBar: AppBar(
@@ -28,7 +31,7 @@ class PerfilPersonal extends StatelessWidget {
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage("assets/img/perfil.jpg"),
+            image: AssetImage("assets/img/background.jpg"),
             fit: BoxFit.cover,
           )),
           child: ListView(
@@ -44,13 +47,13 @@ class PerfilPersonal extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         color: Color.fromRGBO(227, 227, 227, 1),),
-                      margin: EdgeInsets.only(
-                          left: 15.0,
-                          right: 15.0
-                      ),
+                    margin: EdgeInsets.only(
+              left: 15.0,
+                  right: 15.0
+              ),
                       padding: EdgeInsets.only(
-                        left: 7.0,
-                        right: 10.0,
+                          left: 7.0,
+                          right: 10.0,
 
                       ),
 
@@ -67,36 +70,41 @@ class PerfilPersonal extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(top: 7.0),
                             child:
-                            Hero(
-                              //tag: worker.userId,
-                              tag: tag,
-                              child: _constructorImagen(),
-                            ),),
+                          Hero(
+                            //tag: worker.userId,
+                            tag: tag,
+                            child: Container(
+                                height: 150.0,
+                                width: 150.0,
+                                child: CircleAvatar(
+                                  radius: 100,
+                                  backgroundColor: Color(0xffFDCF09),
+                                  child: CircleAvatar(
+                                    radius: 100,
+                                    backgroundImage:
+                                    AssetImage('assets/img/perfiltest.PNG'),
+                                  ),
+                                )),
+                          ),),
 
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
                               Padding(
                                 padding: EdgeInsets.only(top: 30.0, left: 35.0),
                                 child: Text(name,
-                                  style: TextStyle(fontSize: 18.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                                      fontWeight: FontWeight.bold),),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),),
                               ),
                               SizedBox(height: 7.0,),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 35.0
+                                  left: 35.0
                                 ),
-                                child: Text(rol,
-                                  style: TextStyle(fontSize: 18.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                                      fontWeight: FontWeight.bold),
+                                  child: Text(rol,
+                                    style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
-                                ),
+                                  ),
 
                               ),
                               SizedBox(height: 20.0,),
@@ -105,10 +113,7 @@ class PerfilPersonal extends StatelessWidget {
                                     left: 35.0
                                 ),
                                 child: Text(profesion,
-                                  style: TextStyle(fontSize: 18.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                                 ),
 
@@ -119,14 +124,12 @@ class PerfilPersonal extends StatelessWidget {
                                     left: 35.0
                                 ),
                                 child: Text(ciudad,
-                                  style: TextStyle(fontSize: 18.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                                 ),
 
                               ),
+
 
 
                             ],
@@ -156,16 +159,13 @@ class PerfilPersonal extends StatelessWidget {
 
                     ),
                     child: Text(description,
-                      style: TextStyle(fontSize: 17.0,
-                          fontFamily: "Raleway",
-                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                     ),
 
 
                   ),
-                  ),
+                    ),
 
                   SizedBox(height: 20.0),
                   Container(
@@ -175,13 +175,10 @@ class PerfilPersonal extends StatelessWidget {
                           Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.only(top: 70.0,
-                                    right: 7.0,
-                                    left: 7.0),
+                                padding: EdgeInsets.only(top: 70.0, right: 7.0, left: 7.0),
                                 child: RaisedButton(
                                   padding:
-                                  EdgeInsets.only(
-                                      top: 13, bottom: 13, left: 52, right: 51),
+                                  EdgeInsets.only(top: 13, bottom: 13, left: 52, right: 51),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
@@ -190,24 +187,20 @@ class PerfilPersonal extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
+                                          color: Color.fromRGBO(115, 115, 115, 1.0),
                                           fontWeight: FontWeight.bold)),
                                   textColor: Colors.white,
                                   color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: () {
+                                  onPressed: (){
 
                                   },
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.only(top: 10.0,
-                                    right: 7.0,
-                                    left: 7.0),
+                                padding: EdgeInsets.only(top: 10.0, right: 7.0, left: 7.0),
                                 child: RaisedButton(
                                   padding:
-                                  EdgeInsets.only(
-                                      top: 13, bottom: 13, left: 10, right: 10),
+                                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
@@ -216,8 +209,7 @@ class PerfilPersonal extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
+                                          color: Color.fromRGBO(115, 115, 115, 1.0),
                                           fontWeight: FontWeight.bold)),
                                   textColor: Colors.white,
                                   color: Color.fromRGBO(227, 227, 227, 1),
@@ -232,13 +224,10 @@ class PerfilPersonal extends StatelessWidget {
                           Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.only(top: 70.0,
-                                    right: 7.0,
-                                    left: 7.0),
+                                padding: EdgeInsets.only(top: 70.0, right: 7.0, left: 7.0),
                                 child: RaisedButton(
                                   padding:
-                                  EdgeInsets.only(
-                                      top: 13, bottom: 13, left: 40, right: 40),
+                                 EdgeInsets.only(top: 13, bottom: 13, left: 40, right: 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
@@ -247,24 +236,22 @@ class PerfilPersonal extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
+                                          color: Color.fromRGBO(115, 115, 115, 1.0),
                                           fontWeight: FontWeight.bold)),
                                   textColor: Colors.white,
                                   color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: () {
-
+                                  onPressed: ()async{
+                                    ChatModel chat=await _conseguirChat(tag,name,photoUrl,usuarioOferta);
+                                    ScreenArgument sc=ScreenArgument(usuarioOferta, chat, name, tag,null);
+                                    Navigator.pushNamed(context, 'messageInfo',arguments: sc);
                                   },
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.only(top: 10.0,
-                                    right: 7.0,
-                                    left: 7.0),
+                                padding: EdgeInsets.only(top: 10.0, right: 7.0, left: 7.0),
                                 child: RaisedButton(
                                   padding:
-                                  EdgeInsets.only(
-                                      top: 13, bottom: 13, left: 40, right: 40),
+                                  EdgeInsets.only(top: 13, bottom: 13, left: 40, right: 40),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
@@ -273,12 +260,11 @@ class PerfilPersonal extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
+                                          color: Color.fromRGBO(115, 115, 115, 1.0),
                                           fontWeight: FontWeight.bold)),
                                   textColor: Colors.white,
                                   color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: () {
+                                  onPressed: (){
 
                                   },
                                 ),
@@ -289,6 +275,7 @@ class PerfilPersonal extends StatelessWidget {
                         ],
                       )
                   )
+
 
 
                 ],
@@ -338,5 +325,46 @@ class PerfilPersonal extends StatelessWidget {
     }
 
 
+  }
+
+  Future<ChatModel> _conseguirChat(String tag,String name,String photo, UserModel usuarioOferta) async {
+    bool existe=false;
+    ChatModel ct;
+    photo='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png';
+    List<ChatModel> chats=await chat.cargarChats(usuarioOferta.id);
+    if(chats!=null){
+      chats.forEach((element) {
+        if(element.usuarioD==usuarioOferta.id || element.usuarioD==tag){
+          if(element.usuarioO==usuarioOferta.id || element.usuarioO==tag){
+            existe=true;
+            ct=element;
+          }
+        }
+      });
+    }
+
+    if(existe==false){
+
+      ct=ChatModel(
+        chatId: "dddd",
+        fecha: DateTime.now().toString(),
+        nameD: name,
+        nameO: usuarioOferta.name,
+        photoUrlD: photo,
+        photoUrlO: usuarioOferta.photoUrl,
+        usuarioD: tag,
+        usuarioO: usuarioOferta.id
+      );
+      bool resp=await chat.crearChat(ct);
+      chats= await chat.cargarChats(usuarioOferta.id);
+      chats.forEach((element) {
+        if(element.usuarioD==usuarioOferta.id || element.usuarioD==tag){
+          if(element.usuarioO==usuarioOferta.id || element.usuarioO==tag){
+            ct=element;
+          }
+        }
+      });
+    }
+    return ct;
   }
 }
