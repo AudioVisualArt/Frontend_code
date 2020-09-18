@@ -38,12 +38,33 @@ class MenuAgregarPage extends StatelessWidget {
           _crearBoton(
               context: context,
               image: Image(
+                image: AssetImage('assets/img/Performing-Arts-512.png'),
+                height: 800.0,
+                fit: BoxFit.fill,
+              ),
+              texto: 'Guiones',
+              ruta: 'guiones',
+              userModel: userModel),
+        ]),
+        TableRow(children: [
+          _crearBoton(
+              context: context,
+              image: Image(
+                image: AssetImage('assets/img/modelinggicon.png'),
+                fit: BoxFit.fitWidth,
+              ),
+              texto: 'Fotos',
+              ruta: 'photos',
+              userModel: userModel),
+          _crearBoton(
+              context: context,
+              image: Image(
                 image: AssetImage(
                     'assets/img/headphone-clipart-student-centers-9.png'),
                 height: 800.0,
                 fit: BoxFit.cover,
               ),
-              texto: 'Guiones',
+              texto: 'Sonidos',
               ruta: 'guiones',
               userModel: userModel),
         ]),
@@ -71,9 +92,10 @@ class MenuAgregarPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
-                  radius: 45.0,
-                  backgroundColor: Color.fromRGBO(112, 252, 118, 0.6),
-                  child: image),
+                radius: 50.0,
+                backgroundColor: Color.fromRGBO(112, 252, 118, 0.6),
+                child: image,
+              ),
               SizedBox(
                 height: 10.0,
               ),
