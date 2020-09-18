@@ -10,7 +10,8 @@ class ScreenArgument{
     ChatModel model;
     String nameuser;
     String id2;
-    ScreenArgument(this.user,this.model,this.nameuser,this.id2);
+    bool nw;
+    ScreenArgument(this.user,this.model,this.nameuser,this.id2,this.nw);
 }
 
 class MessagePage extends StatelessWidget {
@@ -34,6 +35,7 @@ class MessagePage extends StatelessWidget {
                    if(snapshot.hasData){
                     
                     List<ChatModel> chats=snapshot.data;
+                    
                     chats=_ordenarChats(chats);
                     return ListView.builder(
                     itemCount: chats.length,
@@ -61,6 +63,11 @@ class MessagePage extends StatelessWidget {
     DateTime fecha2;
     for(int i=0;i<chats.length;i++){ 
       for(int j=0;j<chats.length-1;j++){
+        if(chats[j].mensajes==null){
+          chats.removeAt(j);
+          print("entreMessageInfo");
+          j++;
+        }else{
         fecha1 = DateTime.parse(chats[j].fecha);
         fecha2 = DateTime.parse(chats[j+1].fecha);
         if(fecha2.isAfter(fecha1)){
@@ -68,6 +75,8 @@ class MessagePage extends StatelessWidget {
           chats[j]=chats[j+1];
           chats[j+1]=c;
         }
+        }
+        
       }
     }
     return chats;
@@ -82,12 +91,14 @@ class MessagePage extends StatelessWidget {
         url=e.photoUrlO;
         idaux=e.usuarioO;
         username=e.nameO;
+
       }else{
         url=e.photoUrlD;
         idaux=e.usuarioD;
         username=e.nameD;
       }
-      e.mensajes.sort((a,b)=>a.cont.compareTo(b.cont));
+
+      e.mensajes.sort((a,b)=>a.cont.compareTo(b.cont));   
       final mensaje=e.mensajes[e.mensajes.length-1];
       if(mensaje.usuario==usuario.name){
         mens="Tu: ${mensaje.contenido}";
@@ -145,12 +156,11 @@ class MessagePage extends StatelessWidget {
                     Navigator.pushNamed(context, 'messageInfo',arguments: ScreenArgument(
                     usuario,
                     e,
-                    mensaje.usuario,
-                    idaux
+                    username,
+                    idaux,
+                    null
                   ));
-                  setState(){
 
-                  }               
                 },
               ),
               SizedBox(width: 70.0),

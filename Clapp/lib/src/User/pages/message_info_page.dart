@@ -21,11 +21,16 @@ class _MessageInfoState extends State<MessageInfo> {
   Widget build(BuildContext context) {
    
    final ScreenArgument args=ModalRoute.of(context).settings.arguments;
+   int contador=0;
    if(cambio==true){
      args.model=aux;
    }
-
+  
    args.model.mensajes=_ordenarMensajes(args.model.mensajes);
+   if(args.model.mensajes!=null){
+     contador=args.model.mensajes[args.model.mensajes.length-1].cont;
+   }
+   args.nw=true;
    return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,7 +39,7 @@ class _MessageInfoState extends State<MessageInfo> {
         ),
       ),
       body: _mensajeInfo(args.model,context,args.user,args.nameuser),
-      bottomSheet: _bottom(context,args.user,args.model.chatId,args.id2,args.model.mensajes[args.model.mensajes.length-1].cont),
+      bottomSheet: _bottom(context,args.user,args.model.chatId,args.id2,contador),
         
       );
   }
@@ -79,6 +84,11 @@ class _MessageInfoState extends State<MessageInfo> {
   Widget _mensajes(ChatModel chat,BuildContext context,UserModel user) {
     tarjetas.clear();
     int i=0;
+    if(chat.mensajes==null){
+      return Container(
+
+      );
+    }
     chat.mensajes.forEach((element) {
        if(element.usuario==user.name){
         tarjetas.add(crearCardContact(element, context));
@@ -202,6 +212,10 @@ class _MessageInfoState extends State<MessageInfo> {
   }
 
   List<MensajeModel> _ordenarMensajes(List<MensajeModel> mensajes) {
+    if(mensajes==null){
+      print("entre2");
+      return null;
+    }
     mensajes.sort((a,b)=>a.cont.compareTo(b.cont));
     return mensajes;
   }

@@ -44,14 +44,19 @@ class ChatProvider {
     final Iterable decodeData = json.decode(rsp.body);
     
     List<ChatModel> chatModels = new List();
-    if (decodeData == null) return [];
+    if (decodeData == null) return null;
 
     chatModels =
         decodeData.map((model) {
           Iterable decodeMessage = model["mensajes"];
-          List<MensajeModel> msgs=decodeMessage.map((e) => MensajeModel.fromJson(e)).toList();
-          ChatModel aux= ChatModel.fromJson(model);
-          aux.mensajes=msgs;
+          ChatModel aux;
+          if(decodeMessage!=null){
+            List<MensajeModel> msgs=decodeMessage.map((e) => MensajeModel.fromJson(e)).toList();
+            aux= ChatModel.fromJson(model);
+            aux.mensajes=msgs;
+            return aux;
+          }
+          aux= ChatModel.fromJson(model);
           return aux;
           }).toList();
     
