@@ -25,7 +25,7 @@ class SendContract extends StatefulWidget{
 class _SendContract extends State<SendContract> {
 
   final contractformkey = GlobalKey<FormState>();
-  ProjectModel _selectedProject;
+  ProjectModel _selectedProject ;
   ContractModel contrato = new ContractModel();
   bool _guardando = false;
   var _selectedValue;
@@ -384,18 +384,24 @@ class _SendContract extends State<SendContract> {
               if (!snapshot.hasData){
                 return CircularProgressIndicator();
               }else{
+
                 return DropdownButton<ProjectModel>(
                   hint: Text("selecione el proyecto de este contrato"),
-                  items: snapshot.data.map((project) =>
-                      DropdownMenuItem<ProjectModel>(
-                    child: Text(project.proyectName),
-                    value: project,
-                  )).toList(),
+                  //value: _selectedProject,
                   onChanged: (ProjectModel project){
                     setState(() {
                       _selectedProject = project;
-                    });
+                    },
+                    );
                   },
+                  items: snapshot.data.map((project) =>
+                      DropdownMenuItem<ProjectModel>(
+                        child: Text(project.proyectName),
+                        value: project,
+                      )).toList(),
+
+
+
                 );
               }
             },

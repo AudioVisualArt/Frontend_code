@@ -31,7 +31,7 @@ class _ProjectPageState extends State<ProjectPage> {
       ),
       body: _createproject(context, widget.user),
       floatingActionButton: _botonProyectoNuevo(widget.user),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 

@@ -72,7 +72,7 @@ class _VerContratos extends State<VerContratos> {
                       )))
           )),
       floatingActionButton: _crearContrato(project),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     ));
   }
 

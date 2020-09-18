@@ -74,7 +74,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
       ),
             floatingActionButton: _botonAgregar(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     ));
   }
 
