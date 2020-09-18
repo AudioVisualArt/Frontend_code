@@ -1,3 +1,4 @@
+import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/pages/message_info_page.dart';
@@ -62,5 +63,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'collaborators': (BuildContext context) => VerColaboradores(),
     'open_contracts': (BuildContext context) => OtherPage(),
     'messageInfo': (BuildContext context) => MessageInfo(),
+    'contratar_page':(BuildContext context)=> ContratarPage(),
   };
 }
