@@ -29,7 +29,6 @@ class _ContratarPage extends State<ContratarPage>{
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
-
     // TODO: implement build
     return FutureBuilder(
         future: workerProvider.cargarTrabajadores(),
@@ -37,7 +36,7 @@ class _ContratarPage extends State<ContratarPage>{
         (BuildContext context, AsyncSnapshot<List<WorkerModel>> snapshot) {
           if (snapshot.hasData) {
             final worker = snapshot.data;
-
+            
             return Scaffold(
                 appBar: AppBar(
                 title: Text('Personal',
@@ -45,7 +44,6 @@ class _ContratarPage extends State<ContratarPage>{
                 style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           ),
           body: Container(
-
           height: MediaQuery.of(context).size.height -30,
           width: double.infinity,
             child: Container(
@@ -145,7 +143,7 @@ class _ContratarPage extends State<ContratarPage>{
             child: InkWell(
 
               onTap: (){
-
+                
                 var ciudad = user.cityResidence;
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad,user.photoUrl, usuario)
@@ -175,7 +173,19 @@ class _ContratarPage extends State<ContratarPage>{
                     ) ,
                     Hero(
                       tag: worker.userId,
-                      child:  _crearImage(worker),
+                      child: Container(
+                        height: 170.0,
+                        width: 200.0,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                            image: DecorationImage(
+                              image: AssetImage("assets/img/perfiltest.PNG"),
+                              fit: BoxFit.contain,
+
+                            )
+                        ),
+
+                      ),
                     ),
                     SizedBox(height: 4.0),
 

@@ -1,3 +1,4 @@
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 
@@ -11,6 +12,7 @@ class PersonelPage extends StatefulWidget {
 class _PersonelPage extends State<PersonelPage> {
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Personal',
