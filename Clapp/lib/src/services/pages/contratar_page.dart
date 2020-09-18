@@ -268,32 +268,31 @@ class _ContratarPage extends State<ContratarPage>{
 
 
     if (user.photoUrl == null) {
-      return Image(
-        image: AssetImage('assets/img/no-image.png'),
-
-      );
-    } else {
-      if (user.photoUrl == null) {
-        return Image(
-          image: AssetImage('assets/img/no-image.png'),
-
-
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(40.0),
+        child: Image(
+          image:
+          AssetImage('assets/img/no-image.png'),
           fit: BoxFit.cover,
-        );
-      } else if (user.photoUrl != null || user.photoUrl.isNotEmpty) {
-        return FadeInImage(
-          placeholder: AssetImage('assets/img/jar-loading.gif'),
-          image: NetworkImage(
-            user.photoUrl,
-          ),
-            height: 150,
-            width: 150,
-            fit: BoxFit.cover
-
-        );
-      }
+          width: 160.0,
+          height: 160.0,
+        ),
+      );
+    } else if (user.photoUrl != null ||
+        user.photoUrl.isNotEmpty) {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(40.0),
+          child: FadeInImage(
+              placeholder: AssetImage(
+                  'assets/img/loader3.gif'),
+              image: NetworkImage(
+                user.photoUrl,
+              ),
+              width: 160.0,
+              height: 160.0,
+              fit: BoxFit.cover));
     }
-  }
 
 
-}
+
+  } }
