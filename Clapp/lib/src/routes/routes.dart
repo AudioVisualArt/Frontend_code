@@ -1,5 +1,3 @@
-import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
-import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/pages/message_info_page.dart';
@@ -34,6 +32,8 @@ import 'package:Clapp/src/item/pages/items_buy.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
+import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
+import 'package:Clapp/src/User/pages/sign_up_google.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{

@@ -16,7 +16,7 @@ class EquipmentHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     final _pageController = new PageController(
-      initialPage: 1,
+      initialPage: 0,
       viewportFraction: 0.9,
     );
     return Container(

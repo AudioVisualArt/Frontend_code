@@ -1,8 +1,9 @@
-import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/StockPhoto/pages/stockphoto_buy_page.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 
 class StockPhotoHorizontal extends StatelessWidget {
   final List<StockPhotoModel> stockphotos;
@@ -15,7 +16,7 @@ class StockPhotoHorizontal extends StatelessWidget {
     UsuarioProvider usuarioProvider = new UsuarioProvider();
     final _screenSize = MediaQuery.of(context).size;
     final _pageController = new PageController(
-      initialPage: 1,
+      initialPage: 0,
       viewportFraction: 0.9,
     );
     return Container(
@@ -126,13 +127,13 @@ class StockPhotoHorizontal extends StatelessWidget {
                     Icons.description,
                   ),
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     new MaterialPageRoute(
-                    //         builder: (context) => new EquipmentCompraPage(
-                    //               equipmentModel: equipmentModel,
-                    //               userModel: userModel,
-                    //             )));
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new StockPhotoComprarPage(
+                                  stockPhotoModel: stockPhotoModel,
+                                  userModel: userModel,
+                                )));
                   }),
             ),
           ],
