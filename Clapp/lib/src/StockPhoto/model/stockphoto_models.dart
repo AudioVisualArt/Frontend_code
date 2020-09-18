@@ -23,8 +23,8 @@ class StockPhotoModel extends ItemModel {
 
   StockPhotoModel.fromJson(Map<String, dynamic> json)
       : photoType = json["photoType"],
-        width = json["width"].toDouble(),
-        height = json["height"].toDouble(),
+        width = json["width"],
+        height = json["height"],
         super.fromJson(json);
 
   Map<String, dynamic> toJson() => {

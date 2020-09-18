@@ -77,6 +77,8 @@ class StockPhotoProvider {
     stockPhotosModels =
         decodeData.map((model) => StockPhotoModel.fromJson(model)).toList();
 
+    print('Photos: $decodeData');
+
     return stockPhotosModels;
   }
 
