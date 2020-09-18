@@ -1,26 +1,26 @@
 import 'dart:io';
 
-import 'package:Clapp/src/Equipment/model/equipment_models.dart';
-import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
+import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-class EquipmentPage extends StatefulWidget {
+class StockPhotoPage extends StatefulWidget {
   UserModel userModel;
-  EquipmentPage({Key key, this.userModel}) : super(key: key);
+  StockPhotoPage({Key key, this.userModel}) : super(key: key);
 
   @override
-  _EquipmentPageState createState() => _EquipmentPageState();
+  _StockPhotoPageState createState() => _StockPhotoPageState();
 }
 
-class _EquipmentPageState extends State<EquipmentPage> {
+class _StockPhotoPageState extends State<StockPhotoPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  EquipmentModel equipment = new EquipmentModel();
-  final equipmentProvider = new EquipmentProvider();
+  StockPhotoModel stockPhoto = new StockPhotoModel();
+  final stockphotoProvider = new StockPhotoProvider();
 
   bool _guardando = false;
 
@@ -71,11 +71,11 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   Divider(),
                   _crearDescripcion(),
                   Divider(),
-                  _crearSpecs(),
+                  _crearPhotoType(),
                   Divider(),
-                  _crearMarca(),
+                  _crearWidth(),
                   Divider(),
-                  _crearModelo(),
+                  _crearHeight(),
                   Divider(),
                   _crearPrecio(),
                   Divider(),
@@ -94,16 +94,16 @@ class _EquipmentPageState extends State<EquipmentPage> {
   Widget _crearNombre() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: equipment.titulo,
+      initialValue: stockPhoto.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Nombre de tu Equipo',
+        labelText: 'Nombre de tu Foto',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => equipment.titulo = value,
+      onSaved: (value) => stockPhoto.titulo = value,
       validator: (value) {
         if (value.length < 3) {
-          return 'Ingrese el nombre del Equipo correctamente';
+          return 'Ingrese el nombre del Foto con mas 3 letras';
         } else {
           return null;
         }
@@ -114,13 +114,13 @@ class _EquipmentPageState extends State<EquipmentPage> {
   Widget _crearDescripcion() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: equipment.itemDescription,
+      initialValue: stockPhoto.itemDescription,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Descripción Simple',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => equipment.itemDescription = value,
+      onSaved: (value) => stockPhoto.itemDescription = value,
       validator: (value) {
         if (value.length < 3) {
           return 'Ingresa un pequeña descripción';
@@ -133,33 +133,33 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   Widget _crearPrecio() {
     return TextFormField(
-      initialValue: equipment.valor.toString(),
+      initialValue: stockPhoto.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Precio',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => equipment.valor = double.parse(value),
+      onSaved: (value) => stockPhoto.valor = double.parse(value),
       validator: (value) {
         if (utils.isNumeric(value)) {
           return null;
         } else {
-          return 'Solo numeros';
+          return 'Solo números';
         }
       },
     );
   }
 
-  Widget _crearSpecs() {
+  Widget _crearPhotoType() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: equipment.specs,
+      initialValue: stockPhoto.photoType,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Especificaciones de tu Equipo',
+        labelText: 'Tipo de Foto',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => equipment.specs = value,
+      onSaved: (value) => stockPhoto.photoType = value,
       validator: (value) {
         if (value.length < 3) {
           return 'Ingresa una especificación';
@@ -170,41 +170,41 @@ class _EquipmentPageState extends State<EquipmentPage> {
     );
   }
 
-  Widget _crearMarca() {
+  Widget _crearWidth() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: equipment.marca,
+      initialValue: stockPhoto.width.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: '¿Marca de tu Equipo?',
+        labelText: '¿Ancho de tu Foto?',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => equipment.marca = value,
+      onSaved: (value) => stockPhoto.width = double.parse(value),
       validator: (value) {
-        if (value.length < 3) {
-          return 'Ingresa una marca';
-        } else {
+        if (utils.isNumeric(value)) {
           return null;
+        } else {
+          return 'Solo números';
         }
       },
     );
   }
 
-  Widget _crearModelo() {
+  Widget _crearHeight() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: equipment.modelo,
+      initialValue: stockPhoto.height.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: '¿Modelo de tu Equipo?',
+        labelText: '¿Alto de Foto?',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => equipment.modelo = value,
+      onSaved: (value) => stockPhoto.height = double.parse(value),
       validator: (value) {
-        if (value.length < 2) {
-          return 'Ingresa un modelo';
-        } else {
+        if (utils.isNumeric(value)) {
           return null;
+        } else {
+          return 'Solo números';
         }
       },
     );
@@ -212,14 +212,14 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   Widget _crearDisponible() {
     return SwitchListTile(
-      value: equipment.disponible,
+      value: stockPhoto.disponible,
       title: Text(
         'Disponible',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       activeColor: Color.fromRGBO(153, 255, 204, 1.0),
       onChanged: (value) => setState(() {
-        equipment.disponible = value;
+        stockPhoto.disponible = value;
       }),
     );
   }
@@ -251,11 +251,11 @@ class _EquipmentPageState extends State<EquipmentPage> {
       _guardando = true;
     });
 
-    if (equipment.id == null) {
-      equipment.idOwner = widget.userModel.id;
-      equipmentProvider.crearEquipmente(equipment, foto);
+    if (stockPhoto.id == null) {
+      stockPhoto.idOwner = widget.userModel.id;
+      stockphotoProvider.crearPhoto(stockPhoto, foto);
     } else {
-      equipmentProvider.editarEquipment(equipment, foto);
+      stockphotoProvider.editarPhoto(stockPhoto, foto);
     }
 
     mostrarSnackbar('Registro Guardado');
@@ -273,14 +273,14 @@ class _EquipmentPageState extends State<EquipmentPage> {
   }
 
   Widget _mostrarFoto() {
-    print('FotoURL: ' + equipment.fotoUrl);
-    if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
+    print('FotoURL: ' + stockPhoto.fotoUrl);
+    if (stockPhoto.fotoUrl.isEmpty || stockPhoto.fotoUrl == null) {
       return Image(
         image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
         height: 300.0,
         fit: BoxFit.cover,
       );
-    } else if (equipment.fotoUrl != null || equipment.fotoUrl.isNotEmpty) {
+    } else if (stockPhoto.fotoUrl != null || stockPhoto.fotoUrl.isNotEmpty) {
       if (foto != null) {
         return Image(
           image: AssetImage(foto.path),
@@ -290,7 +290,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
       } else {
         return FadeInImage(
           placeholder: AssetImage('assets/img/jar-loading.gif'),
-          image: NetworkImage(equipment.fotoUrl),
+          image: NetworkImage(stockPhoto.fotoUrl),
         );
       }
     }

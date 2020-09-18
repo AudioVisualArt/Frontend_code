@@ -13,13 +13,13 @@ String stockPhotoModelToJson(StockPhotoModel data) =>
 class StockPhotoModel extends ItemModel {
   StockPhotoModel({
     this.photoType,
-    this.width,
-    this.height,
+    this.width = 0.0,
+    this.height = 0.0,
   }) : super();
 
   String photoType;
-  Float width;
-  Float height;
+  double width;
+  double height;
 
   StockPhotoModel.fromJson(Map<String, dynamic> json)
       : photoType = json["photoType"],
