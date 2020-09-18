@@ -1,47 +1,43 @@
-import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:Clapp/src/projectos/model/project_model.dart';
-import 'package:flutter/material.dart';
-
 import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
+import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-class NewContract extends StatefulWidget{
-  final UserModel user;
-  NewContract({Key key, this.user}) : super(key: key);
+
+class SendContract extends StatefulWidget{
+  String tag;
+  UserModel usuarioOferta;
+
+  SendContract(this.tag, this.usuarioOferta);
+  //final description;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _NewContract();
+    return _SendContract(this.usuarioOferta, this.tag );
   }
 
 
 }
 
-class _NewContract extends State<NewContract>{
+class _SendContract extends State<SendContract> {
 
   final contractformkey = GlobalKey<FormState>();
-
- ContractModel contrato = new ContractModel();
+  ProjectModel _selectedProject;
+  ContractModel contrato = new ContractModel();
   bool _guardando = false;
   var _selectedValue;
-  var _categoriesJobPosition = List<DropdownMenuItem>();
-
-  var _categoriesWorkDays = List<DropdownMenuItem>();
-
-  var _categoriesPlace = List<DropdownMenuItem>();
-
-  var _categoriesDesiredSkills = List<DropdownMenuItem>();
-
   final contratoProvider = new ContratosProvider();
+  final projectProvider = new ProyectosProvider();
+
+  _SendContract(UserModel usuarioOferta, String tag);
+
   @override
   Widget build(BuildContext context) {
 
 
-    ProjectModel project = ModalRoute.of(context).settings.arguments;
-    print("id de proyecto en new contract: ${project.id}");
-
-    contrato.projectId= project.id;
     // TODO: implement build
     return GestureDetector(
         onTap: () {
@@ -63,12 +59,7 @@ class _NewContract extends State<NewContract>{
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Container(
-                            padding: EdgeInsets.only(top: 15.0),
-                            child: Text('Nuevo Contrato',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 17.5, fontFamily: "Raleway"))),
+
                         Container(
                           padding: EdgeInsets.only(
                               right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
@@ -77,15 +68,17 @@ class _NewContract extends State<NewContract>{
 
                             child: Column(
                               children: <Widget>[
+                                _dropProject(widget.usuarioOferta.id),
+                                SizedBox(height: 10),
                                 _city(),
                                 SizedBox(height: 10),
-                               _jobPosition(),
+                                _jobPosition(),
                                 SizedBox(height: 10),
                                 _workDays(),
                                 SizedBox(height: 10),
                                 _payment(),
                                 SizedBox(height: 10),
-                          //_desiredSkills(),
+                                //_desiredSkills(),
                                 SizedBox(height: 10),
 
                               ],
@@ -103,7 +96,7 @@ class _NewContract extends State<NewContract>{
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: Text('Abrir Contrato',
+                  child: Text('Contrato abierto',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20.0,
@@ -117,9 +110,6 @@ class _NewContract extends State<NewContract>{
               )
             ],
           ),
-
-
-
 
 
         ));
@@ -148,7 +138,7 @@ class _NewContract extends State<NewContract>{
               //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
-             helperText: "Ejemplo: Bogotá",
+            helperText: "Ejemplo: Bogotá",
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
             ),
@@ -168,9 +158,9 @@ class _NewContract extends State<NewContract>{
         ),
       ),
     );
-
   }
-  Widget _jobPosition(){
+
+  Widget _jobPosition() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
       child: Center(
@@ -193,7 +183,7 @@ class _NewContract extends State<NewContract>{
               //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
-             helperText: "Ejemplo: DP",
+            helperText: "Ejemplo: DP",
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
             ),
@@ -213,16 +203,14 @@ class _NewContract extends State<NewContract>{
         ),
       ),
     );
-
-
   }
 
-  Widget _workDays(){
+  Widget _workDays() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
       child: Center(
         child: TextFormField(
-         // initialValue: contrato.workHours.toString(),
+          // initialValue: contrato.workHours.toString(),
           keyboardType: TextInputType.numberWithOptions(decimal: true),
           style: TextStyle(
               fontSize: 14.0,
@@ -261,9 +249,7 @@ class _NewContract extends State<NewContract>{
         ),
       ),
     );
-
   }
-
 
 
   Widget _payment() {
@@ -309,11 +295,9 @@ class _NewContract extends State<NewContract>{
         ),
       ),
     );
-
   }
 
-  Widget _desiredSkills(){
-
+  Widget _desiredSkills() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
       child: Center(
@@ -340,7 +324,7 @@ class _NewContract extends State<NewContract>{
                     color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                 borderRadius: BorderRadius.circular(16.0)),
           ),
-          onChanged: (value){
+          onChanged: (value) {
             setState(() {
               _selectedValue = value;
             });
@@ -351,43 +335,75 @@ class _NewContract extends State<NewContract>{
             } else {
               return 'Solo numeros';
             }
-          }, items: [],
+          },
+          items: [],
         ),
       ),
     );
+  }
+  void _submit() {
+    if (!contractformkey.currentState.validate()) return;
+
+    contractformkey.currentState.save();
+    contrato.userBidderId=widget.usuarioOferta.id;
+    contrato.userApplicantId=widget.tag;
+    contrato.projectId=_selectedProject.id;
+    print('Todo Ok');
+
+    setState(() {
+      _guardando = true;
+    });
+
+    if (contrato.id == null) {
+      contratoProvider.crearContrato(contrato);
+    } else {
+      contratoProvider.editarContrato(contrato);
+    }
+    Duration(milliseconds: 1500);
+    /*Navigator.pop(context, new MaterialPageRoute(
+        builder: (context) =>
+        new NewContract())*/
+
 
   }
 
-
- void _submit() {
-   if (!contractformkey.currentState.validate()) return;
-
-   contractformkey.currentState.save();
-
-   print('Todo Ok');
-
-   setState(() {
-     _guardando = true;
-   });
-
-   if (contrato.id == null) {
-     contratoProvider.crearContrato(contrato);
-   } else {
-     contratoProvider.editarContrato(contrato);
-   }
-
-   // setState(() {
-   //   _guardando = false;
-   // });
+ Widget _dropProject(String userid) {
 
 
-   Duration(milliseconds: 1500);
-   Navigator.pop(context, new MaterialPageRoute(
-       builder: (context) =>
-       new NewContract())
+    return Container(
+   padding: EdgeInsets.only(left: 0.5, right: 59.0),
+   child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          FutureBuilder<List<ProjectModel>>(
+            future: projectProvider.cargarProyectos(userid),
+            builder: (BuildContext context,
+            AsyncSnapshot<List<ProjectModel>> snapshot) {
+              if (!snapshot.hasData){
+                return CircularProgressIndicator();
+              }else{
+                return DropdownButton<ProjectModel>(
+                  hint: Text("selecione el proyecto de este contrato"),
+                  items: snapshot.data.map((project) =>
+                      DropdownMenuItem<ProjectModel>(
+                    child: Text(project.proyectName),
+                    value: project,
+                  )).toList(),
+                  onChanged: (ProjectModel project){
+                    setState(() {
+                      _selectedProject = project;
+                    });
+                  },
+                );
+              }
+            },
+          ),
 
-   );
-   //Navigator.pushReplacementNamed(context, 'contrato');
- }
+          ]
+      )
+   ),
+    );
   }
-
+}

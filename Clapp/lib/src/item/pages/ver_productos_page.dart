@@ -37,16 +37,44 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            child: _crearListado(_screenSize),
-            padding: EdgeInsets.all(4.0),
-            height: _screenSize.height * 0.7,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/img/mostraritems.jpg"),
+              fit: BoxFit.cover,
+            )),
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 30.0,
+            child: Column(
+
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: Text('Productos Disponibles',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
+                            fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
+                //SizedBox(height: 20.0,),
+                SizedBox(height: 9),
+                SizedBox(child: Container(
+
+
+                  child: _crearListado(_screenSize),
+                  padding: EdgeInsets.all(4.0),
+                  width: MediaQuery.of(context).size.width - 5.0,
+                  height: MediaQuery.of(context).size.height - 180.0,
+                ),)
+
+              ],
+            ),
           ),
-          _crearBotonAgregar(),
-        ],
+          ),
+
       ),
+            floatingActionButton: _botonAgregar(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     ));
   }
 
@@ -78,38 +106,62 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           productosProvider.borrarProducto(equipmentModel.id);
         },
         child: Card(
-          elevation: 20.0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                    '${equipmentModel.titulo} - ${equipmentModel.valor}',
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                subtitle: Text(equipmentModel.id,
-                    style: TextStyle(fontSize: 10.0, fontFamily: "Raleway")),
-                leading: Icon(Icons.arrow_forward_ios),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text('Detalle',
-                        style:
-                            TextStyle(fontSize: 13.0, fontFamily: "Raleway")),
-                    onPressed: () => Navigator.pushNamed(
-                        context, 'equipment_edit',
-                        arguments: equipmentModel),
-                  ),
-                ],
+          child: InkWell(
+            onTap: ()=> Navigator.pushNamed(
+                context, 'equipment_edit',
+                arguments: equipmentModel),
+              child: Container(
+                height: 80,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(
+                          '${equipmentModel.titulo} - ${equipmentModel.valor}',
+                          style: TextStyle(fontSize: 20.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
+                      subtitle: Text(equipmentModel.id,
+                          style: TextStyle(fontSize: 10.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold)),
+                      leading: Icon(Icons.arrow_forward_ios),
+                    ),
+
+                  ],
+                ),
               )
-            ],
           ),
+
+
+          elevation: 0.0,
+         color: Color.fromRGBO(227, 227, 227, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+
         ));
   }
 
-  Widget _crearBotonAgregar() {
+  Widget _botonAgregar(){
+    return RaisedButton(
+
+      splashColor: Colors.green,
+      padding:
+      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Text('Agregar Item',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: "Raleway",
+              color: Color.fromRGBO(115, 115, 115, 1.0),
+              fontWeight: FontWeight.bold)),
+      textColor: Colors.white,
+      color: Color.fromRGBO(112, 252, 118, 0.8),
+      onPressed: (){
+        Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
+      },
+    );
+  }
+
+  /*Widget _crearBotonAgregar() {
     return RaisedButton.icon(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
@@ -129,4 +181,6 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
       },
     );
   }
+
+   */
 }

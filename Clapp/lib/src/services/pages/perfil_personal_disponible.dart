@@ -1,16 +1,16 @@
+import 'package:Clapp/src/services/pages/send_contract_page.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 
 class PerfilPersonal extends StatelessWidget {
-   String tag, rol;
- String name, description, ciudad, profesion;
-     //final description;
-  PerfilPersonal(
-    this.tag,
-    this.rol,
-    this.name, this.description, this.profesion, this.ciudad
-   );
+  String tag, rol;
+  String name, description, ciudad, profesion, photoUrl;
+  UserModel usuarioOferta;
+  //final description;
+  PerfilPersonal(this.tag,
+      this.rol,
+      this.name, this.description, this.profesion, this.ciudad, this.photoUrl, this.usuarioOferta);
 
   @override
   Widget build(BuildContext context) {
@@ -210,8 +210,9 @@ class PerfilPersonal extends StatelessWidget {
                                           fontWeight: FontWeight.bold)),
                                   textColor: Colors.white,
                                   color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: (){
-
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context)=> SendContract(tag, usuarioOferta)));
                                   },
                                 ),
                               )
@@ -277,5 +278,47 @@ class PerfilPersonal extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  Widget _constructorImagen() {
+
+    if (photoUrl == null) {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(100.0),
+
+          child: CircleAvatar(
+
+              radius: 75,
+              child: Image(
+                image: AssetImage('assets/img/no-image.png'),
+                height: 150.0,
+                width: 150.0,
+                fit: BoxFit.cover,
+              )
+          )
+
+      );
+    } else if (photoUrl != null || photoUrl.isNotEmpty) {
+      return Container(
+          height: 150.0,
+          width: 150.0,
+          child: CircleAvatar(
+              radius: 100,
+              backgroundColor: Color(0xffFDCF09),
+              child: CircleAvatar(
+
+                radius: 100,
+                backgroundImage: NetworkImage(
+                  photoUrl,
+
+                ),
+
+
+              )
+          )
+      );
+    }
+
+
   }
 }

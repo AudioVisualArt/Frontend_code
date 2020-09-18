@@ -20,7 +20,7 @@ class EquipmentHorizontal extends StatelessWidget {
       viewportFraction: 0.9,
     );
     return Container(
-      height: _screenSize.height * 0.43,
+      height: _screenSize.height * 0.45,
       width: double.infinity,
       child: PageView.builder(
         pageSnapping: false,

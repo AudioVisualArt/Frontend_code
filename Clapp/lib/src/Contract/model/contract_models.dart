@@ -13,7 +13,7 @@ class ContractModel {
   String jobPosition;
   double payment;
   int workHours;
-  //String userApplicantId;
+  String userApplicantId;
   String userBidderId;
   String id;
   String projectId;
@@ -27,7 +27,7 @@ class ContractModel {
     this.jobPosition = '',
     //this.desiredSkills,
     this.workHours = 0,
-    //this.userApplicantId,
+    this.userApplicantId,
     this.userBidderId,
     this.projectId,
     this.accepted
@@ -40,7 +40,7 @@ class ContractModel {
         jobPosition: json["jobPosition"],
         payment: json["payment"],
         workHours: json["workHours"],
-        //userApplicantId: json["userApplicantId"],
+        userApplicantId: json["userApplicantId"],
         userBidderId: json["userBidderId"],
         id: json["id"],
         projectId: json["projectId"],
@@ -54,7 +54,7 @@ class ContractModel {
     "jobPosition": jobPosition,
     "payment": payment,
     "workHours": workHours,
-   // "userApplicantId": userApplicantId,
+    "userApplicantId": userApplicantId,
     "userBidderId": userBidderId,
     "id": id,
     "projectId": projectId,

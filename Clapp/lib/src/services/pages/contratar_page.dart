@@ -12,6 +12,8 @@ import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 import 'audiovisual_page.dart';
 
 class ContratarPage extends StatefulWidget{
+  final UserModel user;
+  ContratarPage({Key key, this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -36,43 +38,55 @@ class _ContratarPage extends State<ContratarPage>{
             final worker = snapshot.data;
             
             return Scaffold(
-
-                body: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/img/background.jpg"),
-                          fit: BoxFit.cover,
-                        )
-                    ),
-                    child: ListView(
-                        children: <Widget>[
-                          SizedBox(height: 15.0,),
-                          Container(
-                              padding: EdgeInsets.only(
-                                  right: 10.0, left: 10.0, top: 0.5),
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width - 30.0,
-                              height: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height - 50.0,
-                              child: GridView.builder(
-                                  primary: false,
-                                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 10.0,
-                                      mainAxisSpacing: 15.0,
-                                      childAspectRatio: 0.69),
-                                  itemCount: worker.length,
-                                  itemBuilder: (context, index) =>
-                                      _buildCard(context, worker[index])
-                              )
-                          )
-                        ]
+                appBar: AppBar(
+                title: Text('Personal',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+          ),
+          body: Container(
+          height: MediaQuery.of(context).size.height -30,
+          width: double.infinity,
+            child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/img/background.jpg"),
+                      fit: BoxFit.cover,
                     )
+                ),
+                child: ListView(
+                    children: <Widget>[
+                      SizedBox(height: 15.0,),
+                      Container(
+                          padding: EdgeInsets.only(
+                              right: 10.0, left: 10.0, top: 0.5),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 30.0,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height - 50.0,
+                          child: GridView.builder(
+                              primary: false,
+                              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 11.0,
+                                  mainAxisSpacing: 15.0,
+                                  childAspectRatio: 0.69),
+                              itemCount: worker.length,
+                              itemBuilder: (context, index) =>
+                                  _buildCard(context, worker[index],usuario)
+                          )
+                      )
+                    ]
                 )
+            ),
+          ),
+
+
+              floatingActionButton: _BotonCrear2(usuario),
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             );
           } else {
             return Center(child: CircularProgressIndicator());
@@ -88,8 +102,35 @@ class _ContratarPage extends State<ContratarPage>{
 
   }
 
-  Widget _buildCard(context, WorkerModel worker){
-  
+  Widget _BotonCrear2(UserModel usuario){
+    return RaisedButton(
+
+      splashColor: Colors.green,
+      padding:
+      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Text('Nuevo servicio',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: "Raleway",
+              color: Color.fromRGBO(115, 115, 115, 1.0),
+              fontWeight: FontWeight.bold)),
+      textColor: Colors.white,
+      color: Color.fromRGBO(112, 252, 118, 0.8),
+      onPressed: (){
+        Navigator.pushNamed(context, 'new_service',
+            arguments: usuario);
+      },
+    );
+  }
+
+
+
+  Widget _buildCard(context, WorkerModel worker, UserModel usuario){
+
 
   return FutureBuilder(
       future: workerProvider.cargarUsuarioTrabajador(worker.userId),
@@ -105,7 +146,7 @@ class _ContratarPage extends State<ContratarPage>{
                 
                 var ciudad = user.cityResidence;
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad)
+                    builder: (context)=> PerfilPersonal(worker.userId, worker.mainRol, user.name, worker.description, worker.profession, ciudad,user.photoUrl, usuario)
                 ),);
               },
               child:  Container(
@@ -214,4 +255,54 @@ class _ContratarPage extends State<ContratarPage>{
 
 
 
-}
+   Widget _crearImage(WorkerModel worker) {
+
+    return FutureBuilder(
+      future: workerProvider.cargarUsuarioTrabajador(worker.userId),
+      builder:
+          (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data;
+         return _constructorImagen(user);
+
+
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      }
+    );
+
+  }
+
+  Widget _constructorImagen(UserModel user) {
+
+
+    if (user.photoUrl == null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(40.0),
+        child: Image(
+          image:
+          AssetImage('assets/img/no-image.png'),
+          fit: BoxFit.cover,
+          width: 160.0,
+          height: 160.0,
+        ),
+      );
+    } else if (user.photoUrl != null ||
+        user.photoUrl.isNotEmpty) {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(40.0),
+          child: FadeInImage(
+              placeholder: AssetImage(
+                  'assets/img/loader3.gif'),
+              image: NetworkImage(
+                user.photoUrl,
+              ),
+              width: 160.0,
+              height: 160.0,
+              fit: BoxFit.cover));
+    }
+
+
+
+  } }

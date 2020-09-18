@@ -15,7 +15,6 @@ class NewService extends StatefulWidget {
   final UserModel user;
   NewService({Key key, this.user}) : super(key: key);
 
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
