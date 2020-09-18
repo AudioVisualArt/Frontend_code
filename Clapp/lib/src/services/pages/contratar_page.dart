@@ -173,19 +173,7 @@ class _ContratarPage extends State<ContratarPage>{
                     ) ,
                     Hero(
                       tag: worker.userId,
-                      child: Container(
-                        height: 170.0,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                            image: DecorationImage(
-                              image: AssetImage("assets/img/perfiltest.PNG"),
-                              fit: BoxFit.contain,
-
-                            )
-                        ),
-
-                      ),
+                      child: _crearImage(worker),
                     ),
                     SizedBox(height: 4.0),
 
