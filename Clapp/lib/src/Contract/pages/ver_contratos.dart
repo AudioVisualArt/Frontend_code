@@ -21,81 +21,95 @@ class _VerContratos extends State<VerContratos> {
     ProjectModel project = ModalRoute.of(context).settings.arguments;
     return Container(
         child: Scaffold(
-          appBar: AppBar(
-            title: Text('Ver contratos',
-                style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.autorenew),
-                onPressed: () {
-                  setState(() {
-                    _crearListado(project.id);
-                  });
-                },
-              ),
-            ],
+      appBar: AppBar(
+        title: Text('Ver contratos',
+            style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.autorenew),
+            onPressed: () {
+              setState(() {
+                _crearListado(project.id);
+              });
+            },
           ),
-            body:
-            SingleChildScrollView(
-                child: Container(
-                    padding: EdgeInsets.only(
-                      right: 15.0,
-                      left: 15.0,
-                      top: 15.0,
-                    ),
-                    child: Form(
-                      //key: formKey,
-                        child: Column(
-                          children: <Widget>[
-                            TitleBar('Contratos'),
-
-                            SizedBox(height: 9),
-                            SizedBox(
-                              height: 450,
-                              child: _crearListado(project.id),
-                            ),
-
-                            SizedBox(height: 20),
-                            RaisedButton.icon(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              label: Text('Create New Contract',
+        ],
+      ),
+      body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/img/mostraritems.jpg"),
+            fit: BoxFit.cover,
+          )),
+          child: SingleChildScrollView(
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height - 30.0,
+                  padding: EdgeInsets.only(
+                    right: 1.0,
+                    left: 1.0,
+                  ),
+                  child: Form(
+                    //key: formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                              padding: EdgeInsets.only(top: 15.0),
+                              child: Text('Contratos Disponibles',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 20.0, fontFamily: "Raleway")),
-                              textColor: Colors.white,
-                              icon: Icon(
-                                Icons.work,
-                                color: Colors.white,
-                              ),
-                              color: Color.fromRGBO(89, 122, 121, 1.0),
-                              onPressed: () {
-                               Navigator.pushNamed(context, 'new_contract', arguments: project);
-                              },
-                            ),
-                          ],
-                        ))))
+                                      color: Color.fromRGBO(115, 115, 115, 1.0),
+                                      fontSize: 17.5,
+                                      fontFamily: "Raleway",
+                                      fontWeight: FontWeight.bold))),
+                          SizedBox(height: 9),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 10.0,
+                            height: MediaQuery.of(context).size.height - 135.0,
+                            child: _crearListado(project.id),
+                          ),
+                        ],
+                      )))
+          )),
+      floatingActionButton: _crearContrato(project),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+    ));
+  }
 
-
-        )
-        );
-
+  Widget _crearContrato(ProjectModel project) {
+    return RaisedButton(
+      splashColor: Colors.green,
+      padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Text('Contrato nuevo',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: "Raleway",
+              color: Color.fromRGBO(115, 115, 115, 1.0),
+              fontWeight: FontWeight.bold)),
+      textColor: Colors.white,
+      color: Color.fromRGBO(112, 252, 118, 0.8),
+      onPressed: () {
+        Navigator.pushNamed(context, 'new_contract', arguments: project);
+      },
+    );
   }
 
   Widget _crearListado(String idUsuario) {
     return FutureBuilder(
       future: contratosProvider.cargarContratosProoyecto(idUsuario),
-      builder: (BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
         if (snapshot.hasData) {
           final contratos = snapshot.data;
           return ListView.builder(
-
-           // padding: const EdgeInsets.all(8.0),
+            // padding: const EdgeInsets.all(8.0),
             itemCount: contratos.length,
             itemBuilder: (context, index) =>
                 _crearcontrato(context, contratos[index]),
-
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -118,12 +132,13 @@ class _VerContratos extends State<VerContratos> {
 
           elevation: 10.0,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-         // color: Color.fromRGBO(227, 227, 227, 1.0),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          // color: Color.fromRGBO(227, 227, 227, 1.0),
           child: Column(
             children: <Widget>[
               ListTile(
-                title: Text('${contrato.jobPosition} - ${contrato.workHours} horas',
+                title: Text(
+                    '${contrato.jobPosition} - ${contrato.workHours} horas',
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 subtitle: Text(contrato.city,
                     style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
@@ -146,8 +161,6 @@ class _VerContratos extends State<VerContratos> {
               )
 
                */
-
-
             ],
           ),
         ));

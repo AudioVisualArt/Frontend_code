@@ -65,7 +65,7 @@ class _NewContract extends State<NewContract>{
                       children: [
                         Container(
                             padding: EdgeInsets.only(top: 15.0),
-                            child: Text('Nuevo Proyecto',
+                            child: Text('Nuevo Contrato',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 17.5, fontFamily: "Raleway"))),
@@ -103,7 +103,7 @@ class _NewContract extends State<NewContract>{
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: Text('Contrato abierto',
+                  child: Text('Abrir Contrato',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20.0,
