@@ -24,17 +24,11 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     return Container(
         child: Scaffold(
       appBar: AppBar(
+        elevation: 10,
         title: Text('Productos',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.autorenew),
-            onPressed: () {
-              setState(() {
-                _crearListado(_screenSize);
-              });
-            },
-          ),
+          _botonAgregar(),
         ],
       ),
       body: Container(
@@ -52,12 +46,28 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
               children: <Widget>[
                 Container(
                     padding: EdgeInsets.only(top: 15.0),
-                    child: Text('Productos Disponibles',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Color.fromRGBO(115, 115, 115, 1.0),
-                            fontSize: 17.5, fontFamily: "Raleway", fontWeight: FontWeight.bold))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Todo',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                fontSize: 17.5,
+                                fontFamily: "Raleway",
+                                fontWeight: FontWeight.bold)),
+                        IconButton(iconSize: 22,
+                          icon: Icon(Icons.autorenew),
+                          onPressed: () {
+                            setState(() {
+                              _crearListado(_screenSize);
+                            });
+                          },
+                        ),
+                      ],
+                    )),
                 //SizedBox(height: 20.0,),
-                SizedBox(height: 9),
+                //SizedBox(height: 9),
                 SizedBox(child: Container(
 
 
@@ -73,8 +83,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           ),
 
       ),
-            floatingActionButton: _botonAgregar(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
     ));
   }
 
@@ -139,48 +148,35 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
   Widget _botonAgregar(){
     return RaisedButton(
-
-      splashColor: Colors.green,
-      padding:
-      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      splashColor: Colors.grey,
+      padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Text('Agregar Item',
+        side: BorderSide(
+            color: Colors.grey, width: 1.2),
+
+        borderRadius:  BorderRadius.only(
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0)
+        ),),
+
+      child: Text(' Nuevo  ',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 20.0,
-              fontFamily: "Raleway",
-              color: Color.fromRGBO(115, 115, 115, 1.0),
-              fontWeight: FontWeight.bold)),
-      textColor: Colors.white,
-      color: Color.fromRGBO(112, 252, 118, 0.8),
-      onPressed: (){
-        Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
-      },
-    );
-  }
+            fontSize: 21.0,
+            fontFamily: "Raleway",
+            color: Color.fromRGBO(115, 115, 115, 1.0),
+          )),
+      //textColor: Colors.white,
+      color: Colors.white,
 
-  /*Widget _crearBotonAgregar() {
-    return RaisedButton.icon(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      label: Text('Agregar Item',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-      textColor: Colors.white,
-      icon: Icon(
-        Icons.add_to_photos,
-        color: Colors.white,
-      ),
-      color: Color.fromRGBO(89, 122, 121, 1.0),
-      padding: EdgeInsets.symmetric(horizontal: 42.0),
       onPressed: () {
         Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
       },
     );
+
   }
 
-   */
+
 }

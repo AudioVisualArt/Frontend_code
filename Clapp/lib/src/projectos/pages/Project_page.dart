@@ -64,20 +64,34 @@ class _ProjectPageState extends State<ProjectPage> {
                   children: <Widget>[
                     Container(
                         padding: EdgeInsets.only(top: 15.0),
-                        child: Text('Tus Proyectos',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Color.fromRGBO(115, 115, 115, 1.0),
-                                fontSize: 17.5,
-                                fontFamily: "Raleway",
-                                fontWeight: FontWeight.bold))),
-                    SizedBox(height: 9),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Todo',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                                    fontSize: 17.5,
+                                    fontFamily: "Raleway",
+                                    fontWeight: FontWeight.bold)),
+                            IconButton(iconSize: 22,
+                              icon: Icon(Icons.autorenew),
+                              onPressed: () {
+                                setState(() {
+                                  _crearListado(userModel.id);
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                        ),
+                    //SizedBox(height: 9),
                     SizedBox(
                         child: Container(
                       child: _crearListado(userModel.id),
                       //padding: EdgeInsets.all(4.0),
                       width: MediaQuery.of(context).size.width - 10.0,
-                      height: MediaQuery.of(context).size.height - 180.0,
+                      height: MediaQuery.of(context).size.height - 190.0,
                     )),
                     //SizedBox(height: 5),
                     /*  RaisedButton.icon(
