@@ -25,13 +25,18 @@ class _ProjectPageState extends State<ProjectPage> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
+
         title: Text('Proyectos',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+        actions: <Widget>[
+          _botonProyectoNuevo(widget.user),
+        ],
       ),
       body: _createproject(context, widget.user),
-      floatingActionButton: _botonProyectoNuevo(widget.user),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      //floatingActionButton: _botonProyectoNuevo(widget.user),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -59,7 +64,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   children: <Widget>[
                     Container(
                         padding: EdgeInsets.only(top: 15.0),
-                        child: Text('Proyectos Disponibles',
+                        child: Text('Tus Proyectos',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Color.fromRGBO(115, 115, 115, 1.0),
@@ -102,20 +107,29 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Widget _botonProyectoNuevo(UserModel userModel) {
     return RaisedButton(
-      splashColor: Colors.green,
+      splashColor: Colors.grey,
       padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Text('Proyecto nuevo',
+        side: BorderSide(
+            color: Colors.grey, width: 1.2),
+
+        borderRadius:  BorderRadius.only(
+          topLeft: Radius.circular(0),
+          topRight: Radius.circular(0),
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(0)
+      ),),
+
+      child: Text(' Nuevo  ',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 21.0,
               fontFamily: "Raleway",
               color: Color.fromRGBO(115, 115, 115, 1.0),
-              fontWeight: FontWeight.bold)),
-      textColor: Colors.white,
-      color: Color.fromRGBO(112, 252, 118, 0.8),
+              )),
+      //textColor: Colors.white,
+      color: Colors.white,
+
       onPressed: () {
         Navigator.pushNamed(context, 'new_project',
             arguments: userModel); //ver routes

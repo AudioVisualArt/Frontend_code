@@ -47,20 +47,25 @@ class _NewService extends State<NewService> {
         },
         child: Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
-            title: Text('Servicio',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                  child: SingleChildScrollView(
-                child: Column(
-                  children: [
+
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                expandedHeight: 100.0,
+                floating: false, //This is not needed since it's default
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text('Nuevo Servicio', textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 25.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0),)),
+                  //background:
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  <Widget>[
                     Container(
                         padding: EdgeInsets.only(top: 15.0),
-                        child: Text('Nuevo Servicio',
+                        child: Text('Complete sus datos',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 17.5, fontFamily: "Raleway"))),
@@ -85,31 +90,35 @@ class _NewService extends State<NewService> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-              )),
-              Container(
-                padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
-                child: RaisedButton(
-                  padding:
-                      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Text('Nuevo servicio',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Raleway",
-                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                          fontWeight: FontWeight.bold)),
-                  textColor: Colors.white,
-                  color: Color.fromRGBO(112, 252, 118, 0.8),
-                  onPressed: (_guardando) ? null : _submit,
+                    Container(
+                      padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
+                      child: RaisedButton(
+                        padding:
+                        EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Text('Nuevo servicio',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                fontWeight: FontWeight.bold)),
+                        textColor: Colors.white,
+                        color: Color.fromRGBO(112, 252, 118, 0.8),
+                        onPressed: (_guardando) ? null : _submit,
+                      ),
+                    )
+                  ]
                 ),
               )
+
+
+
             ],
           ),
+
         ));
   }
 
