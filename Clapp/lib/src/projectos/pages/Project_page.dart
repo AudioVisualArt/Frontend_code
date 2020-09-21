@@ -24,19 +24,9 @@ class _ProjectPageState extends State<ProjectPage> {
     //print('id User ' + widget.user.id);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 10,
 
-        title: Text('Proyectos',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-        actions: <Widget>[
-          _botonProyectoNuevo(widget.user),
-        ],
-      ),
       body: _createproject(context, widget.user),
-      //floatingActionButton: _botonProyectoNuevo(widget.user),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
     );
   }
 
@@ -50,7 +40,7 @@ class _ProjectPageState extends State<ProjectPage> {
           image: AssetImage("assets/img/mostraritems.jpg"),
           fit: BoxFit.cover,
         )),
-        child: SingleChildScrollView(
+
             child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height - 30.0,
@@ -58,41 +48,23 @@ class _ProjectPageState extends State<ProjectPage> {
                   right: 1.0,
                   left: 1.0,
                 ),
-                child: Form(
+
                     //key: formKey,
                     child: Column(
                   children: <Widget>[
-                    Container(
-                        padding: EdgeInsets.only(top: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Todo',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(115, 115, 115, 1.0),
-                                    fontSize: 17.5,
-                                    fontFamily: "Raleway",
-                                    fontWeight: FontWeight.bold)),
-                            IconButton(iconSize: 22,
-                              icon: Icon(Icons.autorenew),
-                              onPressed: () {
-                                setState(() {
-                                  _crearListado(userModel.id);
-                                });
-                              },
-                            ),
-                          ],
-                        )
-                        ),
+                    newappbar(widget.user),
+
                     //SizedBox(height: 9),
-                    SizedBox(
-                        child: Container(
-                      child: _crearListado(userModel.id),
-                      //padding: EdgeInsets.all(4.0),
-                      width: MediaQuery.of(context).size.width - 10.0,
-                      height: MediaQuery.of(context).size.height - 190.0,
-                    )),
+
+                       Expanded(
+                          child: Container(
+                            child: _crearListado(userModel.id),
+                            //padding: EdgeInsets.all(4.0),
+                            width: MediaQuery.of(context).size.width - 10.0,
+                            height: MediaQuery.of(context).size.height -210 ,
+                          )
+                      )
+                        ,
                     //SizedBox(height: 5),
                     /*  RaisedButton.icon(
                       shape: RoundedRectangleBorder(
@@ -116,7 +88,87 @@ class _ProjectPageState extends State<ProjectPage> {
 
                    */
                   ],
-                )))));
+                )));
+  }
+
+  Widget newappbar (UserModel userModel){
+    return Container(
+        height: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.0),
+            gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(252, 252, 252,1 ),
+
+                Color.fromRGBO(252, 252, 252,1 ),
+
+                ],
+                begin: FractionalOffset(0.2, 0.0),
+                end: FractionalOffset(1.0, 0.6),
+                stops: [0.0, 0.6],
+                tileMode: TileMode.clamp
+            )
+        ),
+
+
+      child: Column(
+        children: [
+         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(child: Padding(
+                padding: const EdgeInsets.only(left:7.0, right: 20, top: 37),
+
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back), color: Color.fromRGBO(115, 115, 115, 1.0),
+onPressed: () => Navigator.pop(context, false),                ),
+              ),),
+
+              Container(child: Padding(
+                padding: const EdgeInsets.only(left:16.0, right: 20, top: 37),
+                child: Text('Proyectos',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 25.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0))),
+
+              ),),
+              Padding(
+                padding: EdgeInsets.only(left:10.0, right: 7, top: 37),
+                child: _botonProyectoNuevo(widget.user),
+              )
+
+
+
+            ],
+          ),
+          Container(
+
+              padding: EdgeInsets.only(top: 1.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Todo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(115, 115, 115, 1.0),
+                          fontSize: 17.5,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold)),
+                  IconButton(iconSize: 22,
+                    icon: Icon(Icons.autorenew),
+                    onPressed: () {
+                      setState(() {
+                        _crearListado(userModel.id);
+                      });
+                    },
+                  ),
+                ],
+              )
+          ),
+        ],
+      )
+
+    );
+
   }
 
   Widget _botonProyectoNuevo(UserModel userModel) {
@@ -125,13 +177,13 @@ class _ProjectPageState extends State<ProjectPage> {
       padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
       shape: RoundedRectangleBorder(
         side: BorderSide(
-            color: Colors.grey, width: 1.2),
+            color: Color.fromRGBO(0, 51, 51, 1), width: 1.2),
 
         borderRadius:  BorderRadius.only(
-          topLeft: Radius.circular(0),
-          topRight: Radius.circular(0),
-          bottomLeft: Radius.circular(0),
-          bottomRight: Radius.circular(0)
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10)
       ),),
 
       child: Text(' Nuevo  ',
@@ -139,7 +191,8 @@ class _ProjectPageState extends State<ProjectPage> {
           style: TextStyle(
               fontSize: 21.0,
               fontFamily: "Raleway",
-              color: Color.fromRGBO(115, 115, 115, 1.0),
+              color: Color.fromRGBO(0, 51, 51, 1),
+              fontWeight: FontWeight.bold
               )),
       //textColor: Colors.white,
       color: Colors.white,
