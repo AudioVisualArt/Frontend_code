@@ -5,6 +5,8 @@ import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class SendContract extends StatefulWidget{
@@ -78,6 +80,7 @@ class _SendContract extends State<SendContract> {
                                 SizedBox(height: 10),
                                 _payment(),
                                 SizedBox(height: 10),
+                                _googleMap(),
                                 //_desiredSkills(),
                                 SizedBox(height: 10),
 
@@ -411,5 +414,17 @@ class _SendContract extends State<SendContract> {
       )
    ),
     );
+  }
+
+  Widget _googleMap() {
+    return GoogleMap(
+      initialCameraPosition: CameraPosition(
+      ),
+    );
+  }
+  Future<Position> getLocation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position;
   }
 }

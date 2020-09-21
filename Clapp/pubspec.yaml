@@ -38,6 +38,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   #generic_bloc_provider: ^1.0.8
   firebase_auth:
+  google_maps_flutter: ^0.5.21+2
+  geolocator: ^4.0.3
 
   #google_sign_in:
   #firebase_storage: ^2.1.0
