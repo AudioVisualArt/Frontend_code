@@ -3,10 +3,14 @@ import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
+import 'package:address_search_text_field/address_search_text_field.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:http/http.dart';
 
 
@@ -28,19 +32,20 @@ class SendContract extends StatefulWidget{
 class _SendContract extends State<SendContract> {
 
   final contractformkey = GlobalKey<FormState>();
-  ProjectModel _selectedProject ;
+  ProjectModel _selectedProject;
+
   ContractModel contrato = new ContractModel();
   bool _guardando = false;
   var _selectedValue;
   final contratoProvider = new ContratosProvider();
   final projectProvider = new ProyectosProvider();
+  List<Marker> _markers = [];
+  String _currentAddress;
 
   _SendContract(UserModel usuarioOferta, String tag);
 
   @override
   Widget build(BuildContext context) {
-
-
     // TODO: implement build
     return GestureDetector(
         onTap: () {
@@ -73,13 +78,13 @@ class _SendContract extends State<SendContract> {
                               children: <Widget>[
                                 _dropProject(widget.usuarioOferta.id),
                                 SizedBox(height: 10),
-                                _city(),
+                                _payment(),
                                 SizedBox(height: 10),
                                 _jobPosition(),
                                 SizedBox(height: 10),
                                 _workDays(),
                                 SizedBox(height: 10),
-                                _payment(),
+                                _city(),
                                 SizedBox(height: 10),
                                 _googleMap(),
                                 //_desiredSkills(),
@@ -345,13 +350,14 @@ class _SendContract extends State<SendContract> {
       ),
     );
   }
+
   void _submit() {
     if (!contractformkey.currentState.validate()) return;
 
     contractformkey.currentState.save();
-    contrato.userBidderId=widget.usuarioOferta.id;
-    contrato.userApplicantId=widget.tag;
-    contrato.projectId=_selectedProject.id;
+    contrato.userBidderId = widget.usuarioOferta.id;
+    contrato.userApplicantId = widget.tag;
+    contrato.projectId = _selectedProject.id;
     print('Todo Ok');
 
     setState(() {
@@ -371,73 +377,105 @@ class _SendContract extends State<SendContract> {
 
   }
 
- Widget _dropProject(String userid) {
-
-
+  Widget _dropProject(String userid) {
     return Container(
-   padding: EdgeInsets.only(left: 0.5, right: 59.0),
-   child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          FutureBuilder<List<ProjectModel>>(
-            future: projectProvider.cargarProyectos(userid),
-            builder: (BuildContext context,
-            AsyncSnapshot<List<ProjectModel>> snapshot) {
-              if (!snapshot.hasData){
-                return CircularProgressIndicator();
-              }else{
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                FutureBuilder<List<ProjectModel>>(
+                  future: projectProvider.cargarProyectos(userid),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ProjectModel>> snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
+                    } else {
+                      return DropdownButton<ProjectModel>(
+                        hint: Text("selecione el proyecto de este contrato"),
+                        //value: _selectedProject,
+                        onChanged: (ProjectModel project) {
+                          setState(() {
+                            _selectedProject = project;
+                          },
+                          );
+                        },
+                        items: snapshot.data.map((project) =>
+                            DropdownMenuItem<ProjectModel>(
+                              child: Text(project.proyectName),
+                              value: project,
+                            )).toList(),
 
-                return DropdownButton<ProjectModel>(
-                  hint: Text("selecione el proyecto de este contrato"),
-                  //value: _selectedProject,
-                  onChanged: (ProjectModel project){
-                    setState(() {
-                      _selectedProject = project;
-                    },
-                    );
+
+                      );
+                    }
                   },
-                  items: snapshot.data.map((project) =>
-                      DropdownMenuItem<ProjectModel>(
-                        child: Text(project.proyectName),
-                        value: project,
-                      )).toList(),
+                ),
 
-
-
-                );
-              }
-            },
-          ),
-
-          ]
-      )
-   ),
+              ]
+          )
+      ),
     );
   }
 
   Widget _googleMap() {
-    return FutureBuilder<Position>(
-        future: getLocation(),
-        builder: (BuildContext context,
-            AsyncSnapshot<Position> snapshot) {
-          if (!snapshot.hasData){
-            return CircularProgressIndicator();
-          }else{
-          return GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(snapshot.data.latitude,snapshot.data.longitude),
-                zoom: 16,
-              )
-          );
-        }
-        }
-        );
+    return SizedBox(
+        height: 300,
+        width: 400,
+        child: FutureBuilder<Position>(
+            future: getLocation(),
+            builder: (BuildContext context,
+                AsyncSnapshot<Position> snapshot) {
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              } else {
+                return GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                        snapshot.data.latitude, snapshot.data.longitude),
+                    zoom: 16,
+                  ),
+                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                    new Factory<OneSequenceGestureRecognizer>(
+                          () => new EagerGestureRecognizer(),
+                    ),
+                  ].toSet(),
+                  onTap: _handleTap,
+                  markers: Set.from(_markers),
+                );
+              }
+            }
+        )
+    );
   }
+
   Future<Position> getLocation() async {
     Position position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     return position;
+  }
+
+  _handleTap(LatLng point) {
+    setState(() {
+      _markers = [];
+      _markers.add(Marker(
+        markerId: MarkerId(point.toString()),
+        position: point,
+      ));
+    });
+    _getAddress(_markers.first.position);
+  }
+
+  Future<Address> _getAddress(LatLng myLocation) async {
+    final coordinates = new Coordinates(
+        myLocation.latitude, myLocation.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(
+        coordinates);
+    var first = addresses.first;
+    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
+        .subAdminArea},${first.addressLine}, ${first.featureName},${first
+        .thoroughfare}, ${first.subThoroughfare}');
+    return first;
   }
 }
