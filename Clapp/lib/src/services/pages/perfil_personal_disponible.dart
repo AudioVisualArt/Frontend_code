@@ -76,15 +76,7 @@ class PerfilPersonal extends StatelessWidget {
                             child: Container(
                                 height: 150.0,
                                 width: 150.0,
-                                child: CircleAvatar(
-                                  radius: 100,
-                                  backgroundColor: Color(0xffFDCF09),
-                                  child: CircleAvatar(
-                                    radius: 100,
-                                    backgroundImage:
-                                    AssetImage('assets/img/perfiltest.PNG'),
-                                  ),
-                                )),
+                                child: _constructorImagen()),
                           ),),
 
                           Column(

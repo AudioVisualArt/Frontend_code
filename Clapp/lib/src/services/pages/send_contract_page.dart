@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart';
 
 
 class SendContract extends StatefulWidget{
@@ -417,10 +418,22 @@ class _SendContract extends State<SendContract> {
   }
 
   Widget _googleMap() {
-    return GoogleMap(
-      initialCameraPosition: CameraPosition(
-      ),
-    );
+    return FutureBuilder<Position>(
+        future: getLocation(),
+        builder: (BuildContext context,
+            AsyncSnapshot<Position> snapshot) {
+          if (!snapshot.hasData){
+            return CircularProgressIndicator();
+          }else{
+          return GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(snapshot.data.latitude,snapshot.data.longitude),
+                zoom: 16,
+              )
+          );
+        }
+        }
+        );
   }
   Future<Position> getLocation() async {
     Position position = await Geolocator()
