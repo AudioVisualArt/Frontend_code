@@ -18,6 +18,8 @@ class ContractModel {
   String id;
   String projectId;
   bool accepted =false;
+  double latitud;
+  double longitud;
 
 
   ContractModel({
@@ -30,7 +32,10 @@ class ContractModel {
     this.userApplicantId,
     this.userBidderId,
     this.projectId,
-    this.accepted
+    this.accepted,
+    this.latitud,
+    this.longitud
+
   });
 
   factory ContractModel.fromJson(Map<String, dynamic> json) =>
@@ -44,7 +49,9 @@ class ContractModel {
         userBidderId: json["userBidderId"],
         id: json["id"],
         projectId: json["projectId"],
-        accepted: json["accepted"]
+        accepted: json["accepted"],
+        latitud: json["latitud"],
+        longitud:json["longitud"],
 
       );
 
@@ -58,6 +65,8 @@ class ContractModel {
     "userBidderId": userBidderId,
     "id": id,
     "projectId": projectId,
-    "accepted": accepted
+    "accepted": accepted,
+    "latitud": latitud,
+    "longitud" : longitud
   };
 }

@@ -1,4 +1,5 @@
 
+import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'register_google':(BuildContext context) =>SignUpGoogle(),
     'personal': (BuildContext context) => PersonelPage(),
     'photos': (BuildContext context) => StockPhotoPage(),
-
+    'ver_contratos_recibidos':(BuildContext context) => VerContratosRecibidos()
   };
 }

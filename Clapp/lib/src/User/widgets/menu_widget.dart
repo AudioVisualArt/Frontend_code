@@ -115,7 +115,10 @@ class MenuWidget extends StatelessWidget {
               'Contratos',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, 'ver_contratos_recibidos',arguments: userModel);
+            },
           ),
           //Terminar Sesión
           ListTile(

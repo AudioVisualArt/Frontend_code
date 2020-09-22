@@ -83,8 +83,8 @@ class _SendContract extends State<SendContract> {
                                 _jobPosition(),
                                 SizedBox(height: 10),
                                 _workDays(),
-                                SizedBox(height: 10),
-                                _city(),
+                                //SizedBox(height: 10),
+                                //_city(),
                                 SizedBox(height: 10),
                                 _googleMap(),
                                 //_desiredSkills(),
@@ -463,6 +463,8 @@ class _SendContract extends State<SendContract> {
         markerId: MarkerId(point.toString()),
         position: point,
       ));
+     contrato.longitud = point.longitude;
+      contrato.latitud = point.latitude;
     });
     _getAddress(_markers.first.position);
   }
@@ -476,6 +478,7 @@ class _SendContract extends State<SendContract> {
     print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
         .subAdminArea},${first.addressLine}, ${first.featureName},${first
         .thoroughfare}, ${first.subThoroughfare}');
+    contrato.city=first.locality;
     return first;
   }
 }
