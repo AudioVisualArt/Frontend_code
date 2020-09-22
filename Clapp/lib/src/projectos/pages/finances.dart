@@ -18,23 +18,22 @@ class _Finances extends State<Finances> {
   String state = 'Animation start';
   @override
   Widget build(BuildContext context) {
-
     ProjectModel project = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/img/home.jpg"),
-              fit: BoxFit.cover,
-            )),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              appbar(project),
+        body: Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/img/home.jpg"),
+        fit: BoxFit.cover,
+      )),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            appbar(project),
 
-              /*Padding(
+            /*Padding(
                 padding: EdgeInsets.all(15.0),
                 child: LinearPercentIndicator(
                   animation: true,
@@ -57,12 +56,27 @@ class _Finances extends State<Finances> {
 
                */
 
-              crowdfunding("CrowdFunding", "2.145.018 COP","Objetivo 2818 US", 0.2, "20.0%", Color.fromRGBO(112,252,118, 1),),
-              crowdfunding("Inversores", "2.681.272 COP","Objetivo 2818 US", 0.25, "25.0%", Color.fromRGBO(112,252,118, 1), ),
-              crowdfunding("Total", "4.826.290 COP","Objetivo 2818 US", 0.45, "45.0%",Colors.blueAccent ),
-              Padding(
-                padding: EdgeInsets.only( top: 20),
-                child:Container(
+            crowdfunding(
+              "CrowdFunding",
+              "2.145.018 COP",
+              "Objetivo 2818 US",
+              0.2,
+              "20.0%",
+              Color.fromRGBO(112, 252, 118, 1),
+            ),
+            crowdfunding(
+              "Inversores",
+              "2.681.272 COP",
+              "Objetivo 2818 US",
+              0.25,
+              "25.0%",
+              Color.fromRGBO(112, 252, 118, 1),
+            ),
+            crowdfunding("Total", "4.826.290 COP", "Objetivo 2818 US", 0.45,
+                "45.0%", Colors.blueAccent),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Container(
 
                   /* decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
@@ -73,30 +87,33 @@ class _Finances extends State<Finances> {
                 ),
 
                 */
-                    width: MediaQuery.of(context).size.width - 10,
-                    //color: Color.fromRGBO(112,252,118, 1),
-                    child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 4),
-                        child: Center(
-                            child: Text(
-                              "Nómina",
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(115, 115, 115, 1.0),
-                                  fontWeight: FontWeight.bold
-                              ),
-                            )
-                        ))
+                  width: MediaQuery.of(context).size.width - 10,
+                  //color: Color.fromRGBO(112,252,118, 1),
+                  child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 4),
+                      child: Center(
+                          child: Text(
+                        "Nómina",
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: "Raleway",
+                            color: Color.fromRGBO(115, 115, 115, 1.0),
+                            fontWeight: FontWeight.bold),
+                      )))),
+            ),
+            crowdfunding(
+              "Preproducción",
+              "7000000 COP",
+              "",
+              0.72,
+              "72.0%",
+              Color.fromRGBO(112, 252, 118, 1),
+            ),
+            crowdfunding(
+                "Total", "7000000 COP", "", 0.72, "72.0%", Colors.blueAccent),
 
-                ),
-              ),
-              crowdfunding("Preproducción", "7000000 COP","", 0.72, "72.0%", Color.fromRGBO(112,252,118, 1), ),
-              crowdfunding("Total", "7000000 COP","", 0.72, "72.0%", Colors.blueAccent ),
-
-
-
-              /*Padding(
+            /*Padding(
               padding: EdgeInsets.all(15),
               child: LinearPercentIndicator(
                 lineHeight: 20,
@@ -112,34 +129,31 @@ class _Finances extends State<Finances> {
             Text(state),
 
              */
-            ],
-          ),
+          ],
         ),
-      )
-    );
+      ),
+    ));
   }
 
-
-  Widget crowdfunding(String nombre, String cantidad, String objetivo, double porcenbarra, String textbarra, final colorBarra) {
+  Widget crowdfunding(String nombre, String cantidad, String objetivo,
+      double porcenbarra, String textbarra, final colorBarra) {
     return Column(
       children: [
         Align(
             alignment: Alignment.topLeft,
-          child: Container(
-            //color: Color.fromRGBO(112,252,118, 1),
-              child: Padding(
-                  padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0, bottom: 15),
-                  child: Text(
-                    nombre,
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: "Raleway",
-                        color: Color.fromRGBO(0, 51, 51, 0.8),
-                        fontWeight: FontWeight.bold),
-                  ))
-
-    )
-           ),
+            child: Container(
+                //color: Color.fromRGBO(112,252,118, 1),
+                child: Padding(
+                    padding: EdgeInsets.only(
+                        left: 15.0, right: 15.0, top: 5.0, bottom: 15),
+                    child: Text(
+                      nombre,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          color: Color.fromRGBO(0, 51, 51, 0.8),
+                          fontWeight: FontWeight.bold),
+                    )))),
         Container(
             decoration: ConcaveDecoration(
                 shape: ContinuousRectangleBorder(
@@ -166,16 +180,15 @@ class _Finances extends State<Finances> {
                     child: Text(cantidad,
                         style: TextStyle(
                             fontSize: 18.0,
-                           // fontFamily: "Raleway",
+                            // fontFamily: "Raleway",
                             color: Color.fromRGBO(0, 51, 51, 0.8),
                             fontWeight: FontWeight.bold))),
-
                 Padding(
                   padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
                   child: LinearPercentIndicator(
                     width: MediaQuery.of(context).size.width - 45,
                     animation: true,
-                   // restartAnimation: true,
+                    // restartAnimation: true,
                     lineHeight: 22.0,
                     animationDuration: 1200,
                     percent: porcenbarra,
@@ -247,12 +260,14 @@ class _Finances extends State<Finances> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 37.0, right: 5, ),
+                  padding: EdgeInsets.only(
+                    left: 37.0,
+                    right: 5,
+                  ),
                   child: Container(
-
                     child: Padding(
                       padding:
-                      const EdgeInsets.only(left: 10.0, right: 10, top: 37),
+                          const EdgeInsets.only(left: 10.0, right: 10, top: 37),
                       child: Text('Finanzas',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -268,7 +283,7 @@ class _Finances extends State<Finances> {
                 )
               ],
             ),
-           Container(
+            Container(
               padding: EdgeInsets.only(top: 1.0),
 
               //mainAxisAlignment: MainAxisAlignment.center,
@@ -281,10 +296,6 @@ class _Finances extends State<Finances> {
                       fontFamily: "Raleway",
                       fontWeight: FontWeight.bold)),
             ),
-
-
-
-
           ],
         ));
   }
