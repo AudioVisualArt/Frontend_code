@@ -131,7 +131,10 @@ class _ProjectDetails extends State<ProjectDetails> {
                             fontWeight: FontWeight.bold)),
                     textColor: Color.fromRGBO(0, 51, 51, 0.8),
                     color: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'finances', arguments: proyecto
+                      );
+                    },
                   ),
                 ),
               ),
