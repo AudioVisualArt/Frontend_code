@@ -18,7 +18,6 @@ class _ProjectDetails extends State<ProjectDetails> {
     final List<Widget> _screens = [];
     return Container(
       child: Scaffold(
-
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height - 30.0,
@@ -131,12 +130,15 @@ class _ProjectDetails extends State<ProjectDetails> {
                             fontWeight: FontWeight.bold)),
                     textColor: Color.fromRGBO(0, 51, 51, 0.8),
                     color: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'finances',
+                          arguments: proyecto);
+                    },
                   ),
                 ),
               ),
 
-             SizedBox(
+              SizedBox(
                 width: 200,
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -192,7 +194,6 @@ class _ProjectDetails extends State<ProjectDetails> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 0.0, right: 20, top: 37),
@@ -203,22 +204,21 @@ class _ProjectDetails extends State<ProjectDetails> {
                     ),
                   ),
                 ),
-                Padding (
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-
-                  child: Padding(
-                    padding:
-                    const EdgeInsets.only(left: 20.0, right: 20, top: 37),
-                    child: Text('Proyecto',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontFamily: "Raleway",
-                            color: Color.fromRGBO(115, 115, 115, 1.0))),
+                  child: Container(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20.0, right: 20, top: 37),
+                      child: Text('Proyecto',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              fontFamily: "Raleway",
+                              color: Color.fromRGBO(115, 115, 115, 1.0))),
+                    ),
                   ),
-                ),),
-
+                ),
               ],
             ),
             Container(

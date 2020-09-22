@@ -249,7 +249,7 @@ class _NewProjectPage extends State<NewProjectPage> {
               color: Colors.grey,
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
-          maxLength: 100,
+          maxLength: 80,
           maxLines: 3,
           textAlign: TextAlign.left,
           textCapitalization: TextCapitalization.sentences,

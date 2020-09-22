@@ -76,4 +76,20 @@ class ContratosProvider {
 
     return contratos;
   }
+
+  Future<List<ContractModel>> cargarContratosOfrecidos(String idUsuario)async {
+    print("la url que se trata de acceder es: $_url");
+    print("con el id usuario: $idUsuario");
+    final url = '$_url/getAllContractsRecibed/$idUsuario';
+    final rsp = await http.get(url);
+    print(rsp.body);
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<ContractModel> contratos = new List();
+    if (decodeData == null) return [];
+
+    contratos = decodeData.map((model) => ContractModel.fromJson(model)).toList();
+
+    return contratos;
+  }
 }
