@@ -25,7 +25,7 @@ class _MessageInfoState extends State<MessageInfo> {
    if(cambio==true){
      args.model=aux;
    }
-  
+
    args.model.mensajes=_ordenarMensajes(args.model.mensajes);
    if(args.model.mensajes!=null){
      contador=args.model.mensajes[args.model.mensajes.length-1].cont;
@@ -61,12 +61,13 @@ class _MessageInfoState extends State<MessageInfo> {
               child: Hero(
                 tag: user.id,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(35.0),
                   child: FadeInImage(
                     image: NetworkImage(url),
                     placeholder: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png'),
                     height: 100.0,
                     width: 100.0,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -212,8 +213,7 @@ class _MessageInfoState extends State<MessageInfo> {
   }
 
   List<MensajeModel> _ordenarMensajes(List<MensajeModel> mensajes) {
-    if(mensajes==null){
-      print("entre2");
+    if(mensajes.length==0){
       return null;
     }
     mensajes.sort((a,b)=>a.cont.compareTo(b.cont));

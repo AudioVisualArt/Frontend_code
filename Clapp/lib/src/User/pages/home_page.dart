@@ -1,3 +1,5 @@
+import 'package:Clapp/src/User/models/mensaje_model.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ChatProvider chatprovider=new ChatProvider();
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
-
+   
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.white,
@@ -25,7 +28,8 @@ class _HomePageState extends State<HomePage> {
         userModel: usuario,
       ),
       //Rest backend Springboot
-      body: _crearBody(context, usuario),
+      body: _crearBody(context, usuario)
+      ,
     );
   }
 
@@ -36,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
           image: DecorationImage(
         image: AssetImage("assets/img/home.jpg"),
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       )),
       child: Container(
         height: MediaQuery.of(context).size.height - 30.0,

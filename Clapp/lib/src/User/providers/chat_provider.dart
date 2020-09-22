@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/mensaje_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ChatProvider {
@@ -22,8 +23,8 @@ class ChatProvider {
     return true;
   }
   Future<bool> crearMensaje(MensajeModel mensajeModel,String fecha) async {
+
     final url = '$_url/saveMessage/$fecha';
-    print("bandera 1");
     final resp = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -40,27 +41,26 @@ class ChatProvider {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllChats/$id';
     final rsp = await http.get(url);
-   
+    
     final Iterable decodeData = json.decode(rsp.body);
     
     List<ChatModel> chatModels = new List();
+    List<MensajeModel> msgs=new List();
     if (decodeData == null) return null;
-
-    chatModels =
-        decodeData.map((model) {
-          Iterable decodeMessage = model["mensajes"];
-          ChatModel aux;
-          if(decodeMessage!=null){
-            List<MensajeModel> msgs=decodeMessage.map((e) => MensajeModel.fromJson(e)).toList();
-            aux= ChatModel.fromJson(model);
-            aux.mensajes=msgs;
-            return aux;
-          }
-          aux= ChatModel.fromJson(model);
-          return aux;
-          }).toList();
-    
+    Chats chats=new Chats.fromJsonList(decodeData);
+    for (var item in chats.items) {
+      item.mensajes= await cargarMess(item.chatId);
+      chatModels.add(item);
+    }
     return chatModels;
+  }
+  Future<List<MensajeModel>> cargarMess(String chatid) async {
+    final url = '$_url/getAllMess/$chatid';
+    final rsp = await http.get(url);
+    final Iterable decodeData = json.decode(rsp.body);
+    if (decodeData == null) return null;
+    final mensajes = decodeData.map((model) => MensajeModel.fromJson(model)).toList();
+    return mensajes;
   }
 
 }

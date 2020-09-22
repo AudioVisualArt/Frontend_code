@@ -2,12 +2,28 @@
 import 'dart:convert';
 
 import 'package:Clapp/src/User/models/mensaje_model.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 
 ChatModel equipmentModelFromJson(String str) =>
     ChatModel.fromJson(json.decode(str));
 
 String chatModelToJson(ChatModel data)=> json.encode(data.toJson());
+class Chats{
+  List<ChatModel> items=new List();
+  ChatProvider ch=new ChatProvider();
+  Chats();
 
+  Chats.fromJsonList(List<dynamic> jsonList) {
+    if(jsonList == null) return;
+
+    for (var item in jsonList) {
+      final chat = new ChatModel.fromJson(item);
+      
+      items.add(chat);
+    }
+    
+  }
+}
 class ChatModel{
   String chatId;
   String usuarioO;

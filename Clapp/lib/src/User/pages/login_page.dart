@@ -1,4 +1,6 @@
+import 'package:Clapp/src/User/models/mensaje_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +27,7 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             Background(text: "Bienvenido a Clapp"),
             _loginForm(context),
+            
           ],
         ),
       ),

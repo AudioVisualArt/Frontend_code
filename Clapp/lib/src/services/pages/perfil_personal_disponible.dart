@@ -19,6 +19,9 @@ class PerfilPersonal extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     UserModel usuario = ModalRoute.of(context).settings.arguments;
+    if(this.photoUrl==null){
+      this.photoUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png";
+    }
     var assetpath = "assets/img/perfiltest.PNG";
     return Scaffold(
         appBar: AppBar(
@@ -82,7 +85,7 @@ class PerfilPersonal extends StatelessWidget {
                                   child: CircleAvatar(
                                     radius: 100,
                                     backgroundImage:
-                                    AssetImage('assets/img/perfiltest.PNG'),
+                                    NetworkImage(this.photoUrl),
                                   ),
                                 )),
                           ),),

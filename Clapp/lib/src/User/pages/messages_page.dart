@@ -29,28 +29,39 @@ class MessagePage extends StatelessWidget {
                   style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
                 ),
               ),
-              body: FutureBuilder(
-                future:  chatProvider.cargarChats(usuario.id),        
-                builder: (BuildContext context, AsyncSnapshot<List<ChatModel>>  snapshot) {
-                   if(snapshot.hasData){
-                    
-                    List<ChatModel> chats=snapshot.data;
-                    
-                    chats=_ordenarChats(chats);
-                    return ListView.builder(
-                    itemCount: chats.length,
-                    itemBuilder: (context,index){  
+              body: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage("assets/img/background.jpg"),
+                  fit: BoxFit.cover,
+                )),
+                child: FutureBuilder(
+                  future:  chatProvider.cargarChats(usuario.id),        
+                  builder: (BuildContext context, AsyncSnapshot<List<ChatModel>>  snapshot) {
+                     if(snapshot.hasData){
+                      
+                      List<ChatModel> chats=snapshot.data;
+                      chats=_ordenarChats(chats);
+                      return ListView.builder(
+                      itemCount: chats.length,
+                      itemBuilder: (context,index){  
+                          if(chats[index].mensajes.length!=0){
+                            return _tarjetaMensaje(chats[index],context,usuario); 
+                          }else{
+                            return Container(
+                              width: 0,
+                              height: 0,
+                            );
+                          }                   
+                      },
+                      );
+                    }
+                    else{
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
                   
-                        return _tarjetaMensaje(chats[index],context,usuario);  
-                    
-                    },
-                    );
-                  }
-                  else{
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-                
+                ),
               ),
             );
      
@@ -65,7 +76,6 @@ class MessagePage extends StatelessWidget {
       for(int j=0;j<chats.length-1;j++){
         if(chats[j].mensajes==null){
           chats.removeAt(j);
-          print("entreMessageInfo");
           j++;
         }else{
         fecha1 = DateTime.parse(chats[j].fecha);
@@ -98,6 +108,7 @@ class MessagePage extends StatelessWidget {
         username=e.nameD;
       }
 
+
       e.mensajes.sort((a,b)=>a.cont.compareTo(b.cont));   
       final mensaje=e.mensajes[e.mensajes.length-1];
       if(mensaje.usuario==usuario.name){
@@ -106,80 +117,52 @@ class MessagePage extends StatelessWidget {
         mens=mensaje.contenido;
       }
       return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 1.0),
-        borderRadius: BorderRadius.circular(10.0)
-      ),
-      padding: EdgeInsets.all(10.0),
-      margin: EdgeInsets.only(left:20.0, top: 20.0,right: 20.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Hero(
-                tag: e.chatId,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: FadeInImage(
+      padding: EdgeInsets.all(0.0),
+      margin: EdgeInsets.only(left:10.0, top: 5.0,right: 10.0),
+      child: Stack(
+        children:[
+          
+          Container(
+            height: 83,
+            child: Card(
+            margin: EdgeInsets.only(top: 20.0,left: 30.0),
+            color: Color.fromRGBO(246,246,246,1),
+            elevation: 10.0,
+            shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30.0)),
+            child:ListTile(
+                  leading: SizedBox(width: 10),
+                title: Text("$username",style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.left,),
+                subtitle: Text("$mens",style: Theme.of(context).textTheme.subtitle1,overflow: TextOverflow.ellipsis),
+                onTap: (){
+                  Navigator.pushNamed(context, 'messageInfo',arguments: ScreenArgument(
+                          usuario,
+                          e,
+                          username,
+                          idaux,
+                          null
+                  ));
+                },
+              ),
+
+         
+        ),
+          ),
+        Container(
+          margin: EdgeInsets.only(top:10.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(40.0),                   
+            child: FadeInImage(
                     image: NetworkImage(url),
                     placeholder: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png'),
-                    height: 160.0,
-                    width: 100.0,
+                    height: 80.0,
+                    width: 80.0,
                     fit: BoxFit.fill,
                   ),
-                ),
-              ), 
-              SizedBox(width: 10.0),
-              Expanded(
-                child: Column(
-                    children: [
-                      Text("$username",style: Theme.of(context).textTheme.headline6),
-                      SizedBox(height: 10.0),
-                      Text("$mens",style: Theme.of(context).textTheme.subtitle1,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,),
-                    ],
-                  ),
-              ),
-              
-            ],
-          ),
-          SizedBox(height: 20.0),
-          Row(
-            children: [
-              SizedBox(width: 60.0),
-              RaisedButton(
-                textColor: Colors.white,
-                padding: EdgeInsets.all(10.0),
-                color: Colors.grey,
-                child: Text('ABRIR'),
-                onPressed: (){
-
-                    Navigator.pushNamed(context, 'messageInfo',arguments: ScreenArgument(
-                    usuario,
-                    e,
-                    username,
-                    idaux,
-                    null
-                  ));
-
-                },
-              ),
-              SizedBox(width: 70.0),
-              RaisedButton(
-                textColor: Colors.white,
-                padding: EdgeInsets.all(10.0),
-                color: Colors.redAccent,
-                child: Text('BORRAR'),
-                onPressed: (){
-                },
-              ),
-            ],
-          )
-        ],
+            ),
+        ),
+        ]
       )
     );
-
     
-    
-
   
   }
