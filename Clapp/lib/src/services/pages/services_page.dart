@@ -28,17 +28,44 @@ class _ServicesPages extends State<ServicesPages> {
 
     // TODO: implement build
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Servicios',
-              style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-        ),
+
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage("assets/img/background.jpg"),
-            fit: BoxFit.cover,
-          )),
-          child: Column(
+                image: AssetImage("assets/img/background.jpg"),
+                fit: BoxFit.cover,
+              )),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                expandedHeight: 120.0,
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text('Menu Servicios',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        fontFamily: "Raleway",
+                        color: Color.fromRGBO(115, 115, 115, 1.0),
+                      )),
+                  //background:
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(<Widget>[
+                  opcionesMenu1(context, usuario),
+                  opcionesMenu3(),
+                  opcionesMenu4(),
+                  opcionesMenu2(usuario),
+
+
+                ]),
+              )
+            ],
+          )
+
+           /* Column(
             children: <Widget>[
               Expanded(
                 child: _MenuServicios(usuario),
@@ -46,10 +73,12 @@ class _ServicesPages extends State<ServicesPages> {
               SizedBox(height: 10),
 
 
-              
+
             ],
           ),
-        ));
+
+            */
+        ),);
   }
 
   Widget _MenuServicios(UserModel usuario) {

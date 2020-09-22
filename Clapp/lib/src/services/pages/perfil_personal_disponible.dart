@@ -34,246 +34,252 @@ class PerfilPersonal extends StatelessWidget {
             image: AssetImage("assets/img/background.jpg"),
             fit: BoxFit.cover,
           )),
-          child: ListView(
-            children: [
 
 
-              SizedBox(
-                height: 20.0,
-              ),
-              Column(
+
+
+              child: ListView(
                 children: [
-                  Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        color: Color.fromRGBO(227, 227, 227, 1),),
-                    margin: EdgeInsets.only(
-              left: 15.0,
-                  right: 15.0
-              ),
-                      padding: EdgeInsets.only(
-                          left: 7.0,
-                          right: 10.0,
+                 Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only (top: 20),
+                  child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            color: Color.fromRGBO(227, 227, 227, 1),),
+                          margin: EdgeInsets.only(
+                              left: 15.0,
+                              right: 15.0
+                          ),
+                          padding: EdgeInsets.only(
+                            left: 7.0,
+                            right: 10.0,
 
-                      ),
+                          ),
 
-                      height: 190,
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width - 30.0,
+                          height: 190,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 30.0,
 
 
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 7.0),
-                            child:
-                          Hero(
-                            //tag: worker.userId,
-                            tag: tag,
-                            child: Container(
-                                height: 150.0,
-                                width: 150.0,
-                                child: _constructorImagen()),
-                          ),),
-
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 7.0),
+                                child:
+                                Hero(
+                                  //tag: worker.userId,
+                                  tag: tag,
+                                  child: Container(
+                                      height: 150.0,
+                                      width: 150.0,
+                                      child: _constructorImagen()),
+                                ),),
 
-                              Padding(
-                                padding: EdgeInsets.only(top: 30.0, left: 35.0),
-                                child: Text(name,
-                                  style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),),
-                              ),
-                              SizedBox(height: 7.0,),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 35.0
-                                ),
-                                  child: Text(rol,
-                                    style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 30.0, left: 35.0),
+                                    child: Text(name,
+                                      style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),),
+                                  ),
+                                  SizedBox(height: 7.0,),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 35.0
+                                    ),
+                                    child: Text(rol,
+                                      style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
+
+                                    ),
+
+                                  ),
+                                  SizedBox(height: 20.0,),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 35.0
+                                    ),
+                                    child: Text(profesion,
+                                      style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
+
+                                    ),
+
+                                  ),
+                                  SizedBox(height: 7.0,),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 35.0
+                                    ),
+                                    child: Text(ciudad,
+                                      style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
+
+                                    ),
 
                                   ),
 
+
+
+                                ],
+                              )
+                            ],
+                          )),
+                      ),
+
+                      SizedBox(height: 20.0),
+                      SizedBox(child: Container(
+
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          color: Color.fromRGBO(227, 227, 227, 1),),
+                        height: 85,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 30.0,
+
+                        margin: EdgeInsets.only(
+                            left: 15.0,
+                            right: 15.0
+                        ),
+                        padding: EdgeInsets.only(
+                          top: 10.0,
+                          left: 10.0,
+                          right: 10.0,
+
+                        ),
+                        child: Text(description,
+                          style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
+
+                        ),
+
+
+                      ),
+                      ),
+
+                      SizedBox(height: 20.0),
+                     Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(top: 110.0, right: 7.0, left: 7.0),
+                                    child: RaisedButton(
+                                      padding:
+                                      EdgeInsets.only(top: 13, bottom: 13, left: 52, right: 51),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                      ),
+                                      child: Text('Estudio',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontFamily: "Raleway",
+                                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                                              fontWeight: FontWeight.bold)),
+                                      textColor: Colors.white,
+                                      color: Color.fromRGBO(227, 227, 227, 1),
+                                      onPressed: (){
+
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10.0, right: 7.0, left: 7.0),
+                                    child: RaisedButton(
+                                      padding:
+                                      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                      ),
+                                      child: Text('Mandar Contrato',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontFamily: "Raleway",
+                                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                                              fontWeight: FontWeight.bold)),
+                                      textColor: Colors.white,
+                                      color: Color.fromRGBO(227, 227, 227, 1),
+                                      onPressed: () {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context)=> SendContract(tag, usuarioOferta)));
+                                      },
+                                    ),
+                                  )
+                                ],
                               ),
-                              SizedBox(height: 20.0,),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 35.0
-                                ),
-                                child: Text(profesion,
-                                  style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
+                              Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(top: 110.0, right: 7.0, left: 7.0),
+                                    child: RaisedButton(
+                                      padding:
+                                      EdgeInsets.only(top: 13, bottom: 13, left: 40, right: 40),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                      ),
+                                      child: Text('Contactar',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontFamily: "Raleway",
+                                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                                              fontWeight: FontWeight.bold)),
+                                      textColor: Colors.white,
+                                      color: Color.fromRGBO(227, 227, 227, 1),
+                                      onPressed: ()async{
+                                        ChatModel chat=await _conseguirChat(tag,name,photoUrl,usuarioOferta);
+                                        ScreenArgument sc=ScreenArgument(usuarioOferta, chat, name, tag,null);
+                                        Navigator.pushNamed(context, 'messageInfo',arguments: sc);
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10.0, right: 7.0, left: 7.0),
+                                    child: RaisedButton(
+                                      padding:
+                                      EdgeInsets.only(top: 13, bottom: 13, left: 40, right: 40),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                      ),
+                                      child: Text('Compartir',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontFamily: "Raleway",
+                                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                                              fontWeight: FontWeight.bold)),
+                                      textColor: Colors.white,
+                                      color: Color.fromRGBO(227, 227, 227, 1),
+                                      onPressed: (){
 
-                                ),
-
+                                      },
+                                    ),
+                                  )
+                                ],
                               ),
-                              SizedBox(height: 7.0,),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 35.0
-                                ),
-                                child: Text(ciudad,
-                                  style: TextStyle(fontSize: 18.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
-
-                                ),
-
-                              ),
-
-
 
                             ],
                           )
-                        ],
-                      )),
-                  SizedBox(height: 20.0),
-                  SizedBox(child: Container(
-
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Color.fromRGBO(227, 227, 227, 1),),
-                    height: 85,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width - 30.0,
-
-                    margin: EdgeInsets.only(
-                        left: 15.0,
-                        right: 15.0
-                    ),
-                    padding: EdgeInsets.only(
-                      top: 10.0,
-                      left: 10.0,
-                      right: 10.0,
-
-                    ),
-                    child: Text(description,
-                      style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
-
-                    ),
+                      ),
 
 
-                  ),
-                    ),
 
-                  SizedBox(height: 20.0),
-                  Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(top: 70.0, right: 7.0, left: 7.0),
-                                child: RaisedButton(
-                                  padding:
-                                  EdgeInsets.only(top: 13, bottom: 13, left: 52, right: 51),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Text('Estudio',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold)),
-                                  textColor: Colors.white,
-                                  color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: (){
-
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10.0, right: 7.0, left: 7.0),
-                                child: RaisedButton(
-                                  padding:
-                                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Text('Mandar Contrato',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold)),
-                                  textColor: Colors.white,
-                                  color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context)=> SendContract(tag, usuarioOferta)));
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(top: 70.0, right: 7.0, left: 7.0),
-                                child: RaisedButton(
-                                  padding:
-                                 EdgeInsets.only(top: 13, bottom: 13, left: 40, right: 40),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Text('Contactar',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold)),
-                                  textColor: Colors.white,
-                                  color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: ()async{
-                                    ChatModel chat=await _conseguirChat(tag,name,photoUrl,usuarioOferta);
-                                    ScreenArgument sc=ScreenArgument(usuarioOferta, chat, name, tag,null);
-                                    Navigator.pushNamed(context, 'messageInfo',arguments: sc);
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10.0, right: 7.0, left: 7.0),
-                                child: RaisedButton(
-                                  padding:
-                                  EdgeInsets.only(top: 13, bottom: 13, left: 40, right: 40),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Text('Compartir',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold)),
-                                  textColor: Colors.white,
-                                  color: Color.fromRGBO(227, 227, 227, 1),
-                                  onPressed: (){
-
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-
-                        ],
-                      )
+                    ],
                   )
-
-
-
                 ],
               )
-            ],
-          ),
+
+
+
         ));
   }
 

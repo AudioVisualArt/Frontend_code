@@ -161,7 +161,7 @@ class _NewProjectPage extends State<NewProjectPage> {
               color: Colors.grey,
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
-          maxLength: 50,
+          maxLength: 20,
           maxLines: 1,
           textAlign: TextAlign.left,
           textCapitalization: TextCapitalization.sentences,

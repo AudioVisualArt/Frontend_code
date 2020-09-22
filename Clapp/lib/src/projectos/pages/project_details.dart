@@ -18,11 +18,7 @@ class _ProjectDetails extends State<ProjectDetails> {
     final List<Widget> _screens = [];
     return Container(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('Proyectos',
-              style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-        ),
+
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height - 30.0,
@@ -33,16 +29,8 @@ class _ProjectDetails extends State<ProjectDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  padding: EdgeInsets.only(top: 5.0),
-                  child: Center(
-                      child: Text('Proyecto - ${proyecto.proyectName}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Color.fromRGBO(115, 115, 115, 1.0),
-                              fontSize: 17.5,
-                              fontFamily: "Raleway",
-                              fontWeight: FontWeight.bold)))),
+              newappbar(proyecto),
+
               SizedBox(
                 height: 18,
               ),
@@ -148,7 +136,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                 ),
               ),
 
-              SizedBox(
+             SizedBox(
                 width: 200,
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -181,6 +169,73 @@ class _ProjectDetails extends State<ProjectDetails> {
         ),
       ),
     );
+  }
+
+  Widget newappbar(ProjectModel proyecto) {
+    return Container(
+        height: 150,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.0),
+            gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(252, 252, 252, 1),
+                  Color.fromRGBO(252, 252, 252, 1),
+                ],
+                begin: FractionalOffset(0.2, 0.0),
+                end: FractionalOffset(1.0, 0.6),
+                stops: [0.0, 0.6],
+                tileMode: TileMode.clamp)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 0.0, right: 20, top: 37),
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      color: Color.fromRGBO(115, 115, 115, 1.0),
+                      onPressed: () => Navigator.pop(context, false),
+                    ),
+                  ),
+                ),
+                Padding (
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                    child: Container(
+
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.only(left: 20.0, right: 20, top: 37),
+                    child: Text('Proyecto',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontFamily: "Raleway",
+                            color: Color.fromRGBO(115, 115, 115, 1.0))),
+                  ),
+                ),),
+
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 1.0),
+
+              //mainAxisAlignment: MainAxisAlignment.center,
+
+              child: Text('${proyecto.proyectName}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Color.fromRGBO(115, 115, 115, 1.0),
+                      fontSize: 30,
+                      fontFamily: "Raleway",
+                      fontWeight: FontWeight.bold)),
+            ),
+          ],
+        ));
   }
 
   Widget _descriptionCard(String description) {
