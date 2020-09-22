@@ -104,14 +104,14 @@ class _Finances extends State<Finances> {
             ),
             crowdfunding(
               "Preproducción",
-              "7000000 COP",
+              "7.000.000 COP",
               "",
               0.72,
               "72.0%",
               Color.fromRGBO(112, 252, 118, 1),
             ),
             crowdfunding(
-                "Total", "7000000 COP", "", 0.72, "72.0%", Colors.blueAccent),
+                "Total", "7.000.000 COP", "", 0.72, "72.0%", Colors.blueAccent),
 
             /*Padding(
               padding: EdgeInsets.all(15),
@@ -323,7 +323,10 @@ class _Finances extends State<Finances> {
       //textColor: Colors.white,
       color: Colors.white,
 
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, 'newgoal',
+            ); //ver routes
+      },
     );
   }
 }
