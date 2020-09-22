@@ -48,76 +48,77 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.symmetric(vertical: 25.0),
         child: Form(
-          child: Column(
-            children: <Widget>[
-              _mostrarFotoPerfil(),
-              SizedBox(height: 70.0),
-              SizedBox(
-                width: 150,
-                height: 50,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _mostrarFotoPerfil(),
+                SizedBox(height: 70.0),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Text('Estudio',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold)),
+                    textColor: Color.fromRGBO(115, 115, 115, 1.0),
+                    color: Color.fromRGBO(227, 227, 227, 1),
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    onPressed: () => Navigator.pushNamed(context, 'my_studio',
+                        arguments: usuario),
                   ),
-                  child: Text('Estudio',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Raleway",
-                          fontWeight: FontWeight.bold)),
-                  textColor: Color.fromRGBO(115, 115, 115, 1.0),
-                  color: Color.fromRGBO(227, 227, 227, 1),
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  onPressed: () => Navigator.pushNamed(context, 'my_studio',
-                      arguments: usuario),
                 ),
-              ),
-              SizedBox(height: 30.0),
-              SizedBox(
-                width: 150,
-                height: 50,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                SizedBox(height: 30.0),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Text('Mercado',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold)),
+                    textColor: Color.fromRGBO(115, 115, 115, 1.0),
+                    color: Color.fromRGBO(227, 227, 227, 1),
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    onPressed: () => Navigator.pushNamed(context, 'items_buy',
+                        arguments: usuario),
                   ),
-                  child: Text('Mercado',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Raleway",
-                          fontWeight: FontWeight.bold)),
-                  textColor: Color.fromRGBO(115, 115, 115, 1.0),
-                  color: Color.fromRGBO(227, 227, 227, 1),
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  onPressed: () => Navigator.pushNamed(context, 'items_buy',
-                      arguments: usuario),
                 ),
-              ),
-              SizedBox(height: 30.0),
-              SizedBox(
-                width: 150,
-                height: 50,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                SizedBox(height: 30.0),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Text('Servicios',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold)),
+                    textColor: Color.fromRGBO(115, 115, 115, 1.0),
+                    color: Color.fromRGBO(227, 227, 227, 1),
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'services',
+                          arguments: usuario);
+                    },
                   ),
-                  child: Text('Servicios',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Raleway",
-                          fontWeight: FontWeight.bold)),
-                  textColor: Color.fromRGBO(115, 115, 115, 1.0),
-                  color: Color.fromRGBO(227, 227, 227, 1),
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'services',
-                        arguments: usuario);
-                  },
                 ),
-              ),
 
-              /*  RaisedButton.icon(
+                /*  RaisedButton.icon(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),
@@ -133,8 +134,10 @@ class _HomePageState extends State<HomePage> {
 
 
              */
-            ],
+              ],
+            ),
           ),
+
         ),
       ),
     );
