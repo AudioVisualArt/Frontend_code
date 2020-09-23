@@ -2,7 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+
+
+
+<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
 <!-- Google Sign-in Section -->
 <key>CFBundleURLTypes</key>
 <array>
@@ -18,6 +21,19 @@
 	</dict>
 </array>
 <!-- End of the Google Sign-in Section -->
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Permiso para Acceso a tu Localización</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Necesitamos Acceso a tu Localización</string>
+
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Necesitamos acceso a tu Localización cuando no estes en Clapp</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Necesitamos acceso a tu localización durante y cuando no estes en Clapp</string>
+
 
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Se Necesita acceso al carrete</string>
