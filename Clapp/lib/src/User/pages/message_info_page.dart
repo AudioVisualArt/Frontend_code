@@ -25,11 +25,11 @@ class _MessageInfoState extends State<MessageInfo> {
    if(cambio==true){
      args.model=aux;
    }
-
-   args.model.mensajes=_ordenarMensajes(args.model.mensajes);
-   if(args.model.mensajes!=null){
+   if(args.model.mensajes.length!=0 && args.model.mensajes.length!=null){
+     args.model.mensajes=_ordenarMensajes(args.model.mensajes);
      contador=args.model.mensajes[args.model.mensajes.length-1].cont;
    }
+
    args.nw=true;
    return Scaffold(
       appBar: AppBar(
@@ -213,7 +213,7 @@ class _MessageInfoState extends State<MessageInfo> {
   }
 
   List<MensajeModel> _ordenarMensajes(List<MensajeModel> mensajes) {
-    if(mensajes.length==0){
+    if(mensajes.length==0 || mensajes.length==null){
       return null;
     }
     mensajes.sort((a,b)=>a.cont.compareTo(b.cont));
