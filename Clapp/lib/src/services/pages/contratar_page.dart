@@ -289,6 +289,11 @@ class _ContratarPage extends State<ContratarPage>{
               width: 160.0,
               height: 160.0,
               fit: BoxFit.cover));
+    }else{
+      return Container(
+        width: 0,
+        height: 0,
+      );
     }
 
 

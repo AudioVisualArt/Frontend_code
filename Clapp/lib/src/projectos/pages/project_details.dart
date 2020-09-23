@@ -18,6 +18,11 @@ class _ProjectDetails extends State<ProjectDetails> {
     final List<Widget> _screens = [];
     return Container(
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('Proyectos',
+              style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+        ),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height - 30.0,
@@ -28,8 +33,16 @@ class _ProjectDetails extends State<ProjectDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              newappbar(proyecto),
-
+              Container(
+                  padding: EdgeInsets.only(top: 5.0),
+                  child: Center(
+                      child: Text('Proyecto - ${proyecto.proyectName}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Color.fromRGBO(115, 115, 115, 1.0),
+                              fontSize: 17.5,
+                              fontFamily: "Raleway",
+                              fontWeight: FontWeight.bold)))),
               SizedBox(
                 height: 18,
               ),

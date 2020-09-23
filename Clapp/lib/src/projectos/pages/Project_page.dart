@@ -163,7 +163,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Widget _botonProyectoNuevo(UserModel userModel) {
     return RaisedButton(
-      splashColor: Colors.grey,
+      splashColor: Colors.green,
       padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
       shape: RoundedRectangleBorder(
         side: BorderSide(color: Color.fromRGBO(0, 51, 51, 1), width: 1.2),
@@ -177,7 +177,7 @@ class _ProjectPageState extends State<ProjectPage> {
       child: Text(' Nuevo  ',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 21.0,
+              fontSize: 20.0,
               fontFamily: "Raleway",
               color: Color.fromRGBO(0, 51, 51, 1),
               fontWeight: FontWeight.bold)),
