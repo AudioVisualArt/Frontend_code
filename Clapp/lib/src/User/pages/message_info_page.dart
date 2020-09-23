@@ -25,11 +25,8 @@ class _MessageInfoState extends State<MessageInfo> {
    if(cambio==true){
      args.model=aux;
    }
-   if(args.model.mensajes!=0){
-     args.model.mensajes=_ordenarMensajes(args.model.mensajes);
-   }
 
-   
+   args.model.mensajes=_ordenarMensajes(args.model.mensajes);
    if(args.model.mensajes!=null){
      contador=args.model.mensajes[args.model.mensajes.length-1].cont;
    }

@@ -21,27 +21,14 @@ class _VerContratos extends State<VerContratos> {
     ProjectModel project = ModalRoute.of(context).settings.arguments;
     return Container(
         child: Scaffold(
-      appBar: AppBar(
-        title: Text('Ver contratos',
-            style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.autorenew),
-            onPressed: () {
-              setState(() {
-                _crearListado(project.id);
-              });
-            },
-          ),
-        ],
-      ),
+
       body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
             image: AssetImage("assets/img/mostraritems.jpg"),
             fit: BoxFit.cover,
           )),
-          child: SingleChildScrollView(
+
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height - 30.0,
@@ -49,49 +36,128 @@ class _VerContratos extends State<VerContratos> {
                     right: 1.0,
                     left: 1.0,
                   ),
-                  child: Form(
+
                     //key: formKey,
                       child: Column(
                         children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.only(top: 15.0),
-                              child: Text('Contratos Disponibles',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                                      fontSize: 17.5,
-                                      fontFamily: "Raleway",
-                                      fontWeight: FontWeight.bold))),
-                          SizedBox(height: 9),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width - 10.0,
-                            height: MediaQuery.of(context).size.height - 135.0,
-                            child: _crearListado(project.id),
-                          ),
+                          newappbar(project),
+
+                          //SizedBox(height: 9),
+                         Expanded(
+                           child: Container(
+                             width: MediaQuery.of(context).size.width - 10.0,
+                             height: MediaQuery.of(context).size.height -210 ,
+                             child: _crearListado(project.id),
+                           ),
+                         )
                         ],
-                      )))
-          )),
-      floatingActionButton: _crearContrato(project),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+                      ))
+          ),
+      //floatingActionButton: _crearContrato(project),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     ));
+  }
+
+  Widget newappbar (ProjectModel project){
+    return Container(
+        height: 150,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.0),
+            gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(252, 252, 252,1 ),
+
+                  Color.fromRGBO(252, 252, 252,1 ),
+
+                ],
+                begin: FractionalOffset(0.2, 0.0),
+                end: FractionalOffset(1.0, 0.6),
+                stops: [0.0, 0.6],
+                tileMode: TileMode.clamp
+            )
+        ),
+
+
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(child: Padding(
+                  padding: const EdgeInsets.only(left:7.0, right: 20, top: 37),
+
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back), color: Color.fromRGBO(115, 115, 115, 1.0),
+                    onPressed: () => Navigator.pop(context, false),                ),
+                ),),
+
+                Container(child: Padding(
+                  padding: const EdgeInsets.only(left:16.0, right: 20, top: 37),
+                  child: Text('Contratos',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 25.0, fontFamily: "Raleway", color: Color.fromRGBO(115, 115, 115, 1.0))),
+
+                ),),
+                Padding(
+                  padding: EdgeInsets.only(left:10.0, right: 7, top: 37),
+                  child: _crearContrato(project),
+                )
+
+
+
+              ],
+            ),
+            Container(
+
+                padding: EdgeInsets.only(top: 1.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Todo',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Color.fromRGBO(115, 115, 115, 1.0),
+                            fontSize: 17.5,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold)),
+                    IconButton(iconSize: 22,
+                      icon: Icon(Icons.autorenew),
+                      onPressed: () {
+                        setState(() {
+                          _crearListado(project.id);
+                        });
+                      },
+                    ),
+                  ],
+                )
+            ),
+          ],
+        )
+
+    );
+
   }
 
   Widget _crearContrato(ProjectModel project) {
     return RaisedButton(
-      splashColor: Colors.green,
+      splashColor: Colors.grey,
       padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        side: BorderSide(
+            color: Color.fromRGBO(0, 51, 51, 1), width: 1.2),
+        borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Text('Contrato nuevo',
+      child: Text(' Nuevo  ',
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 20.0,
-              fontFamily: "Raleway",
-              color: Color.fromRGBO(115, 115, 115, 1.0),
-              fontWeight: FontWeight.bold)),
+            fontSize: 21.0,
+            fontFamily: "Raleway",
+            color: Color.fromRGBO(0, 51, 51, 1),
+            fontWeight: FontWeight.bold
+          )),
       textColor: Colors.white,
-      color: Color.fromRGBO(112, 252, 118, 0.8),
+      color: Colors.white,
+
       onPressed: () {
         Navigator.pushNamed(context, 'new_contract', arguments: project);
       },
