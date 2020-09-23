@@ -1,5 +1,4 @@
 import 'package:Clapp/src/projectos/pages/Project_page.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/MyStudio/pages/manage_page.dart';

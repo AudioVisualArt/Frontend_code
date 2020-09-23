@@ -37,7 +37,6 @@ import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 
-
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     'login': (BuildContext context) => LoginPage(),
@@ -75,6 +74,5 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'register_google':(BuildContext context) =>SignUpGoogle(),
     'personal': (BuildContext context) => PersonelPage(),
     'photos': (BuildContext context) => StockPhotoPage(),
-
   };
 }
