@@ -2,48 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-
-
-
-<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
-<!-- Google Sign-in Section -->
-<key>CFBundleURLTypes</key>
-<array>
-	<dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-			<!-- TODO Replace this value: -->
-			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-			<string>com.googleusercontent.apps.82796331130-4vbbd1uppn2glla3b36b1et0rl3a54bd</string>
-		</array>
-	</dict>
-</array>
-<!-- End of the Google Sign-in Section -->
-
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Permiso para Acceso a tu Localización</string>
-
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Necesitamos Acceso a tu Localización</string>
-
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Necesitamos acceso a tu Localización cuando no estes en Clapp</string>
-
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Necesitamos acceso a tu localización durante y cuando no estes en Clapp</string>
-
-
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Se Necesita acceso al carrete</string>
-
-	<key>NSCameraUsageDescription</key>
-	<string>Se Necesita acceso a la camara</string>
-
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Quiero Escucharte</string>
-
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -60,10 +18,33 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.82796331130-4vbbd1uppn2glla3b36b1et0rl3a54bd</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Se Necesita acceso a la camara</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Necesitamos acceso a tu localización durante y cuando no estes en Clapp</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Necesitamos acceso a tu Localización cuando no estes en Clapp</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Necesitamos Acceso a tu Localización</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Quiero Escucharte</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Se Necesita acceso al carrete</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
