@@ -43,7 +43,7 @@ class MenuAgregarPage extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               texto: 'Guiones',
-              ruta: 'guiones',
+              ruta: 'screenplay',
               userModel: userModel),
         ]),
         TableRow(children: [
