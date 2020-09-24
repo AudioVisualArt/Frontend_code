@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/img/home.jpg"),
-        fit: BoxFit.fill,
+        image: AssetImage("assets/img/Home2.jpg"),
+        fit: BoxFit.cover,
       )),
       child: Container(
         height: MediaQuery.of(context).size.height - 30.0,

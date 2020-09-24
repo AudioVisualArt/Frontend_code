@@ -38,6 +38,7 @@ import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:Clapp/src/projectos/pages/finances.dart';
 import 'package:Clapp/src/projectos/pages/new_goal.dart';
+import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -79,5 +80,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'finances': (BuildContext context) => Finances(),
     'ver_contratos_recibidos': (BuildContext context) => VerContratosRecibidos(),
     'newgoal': (BuildContext context) => NewGoal(),
+    'mycontract': (BuildContext context) => MyContractRequest(),
   };
 }

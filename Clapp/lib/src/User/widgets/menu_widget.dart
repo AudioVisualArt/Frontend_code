@@ -117,7 +117,7 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'ver_contratos_recibidos',arguments: userModel);
+              Navigator.pushNamed(context, 'mycontract',arguments: userModel);
             },
           ),
           //Terminar Sesión
