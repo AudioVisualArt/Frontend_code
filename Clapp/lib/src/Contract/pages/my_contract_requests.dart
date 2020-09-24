@@ -1,6 +1,13 @@
+import 'package:Clapp/src/Contract/model/contract_models.dart';
+import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
+import 'package:address_search_text_field/address_search_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoder/geocoder.dart';
 
 class MyContractRequest extends StatefulWidget {
   final UserModel user;
@@ -13,6 +20,8 @@ class MyContractRequest extends StatefulWidget {
 }
 
 class _MyContractRequest extends State<MyContractRequest> {
+  ContratosProvider contratosProvider = new ContratosProvider();
+  ProyectosProvider proyectosProvider = new ProyectosProvider();
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
@@ -36,10 +45,10 @@ class _MyContractRequest extends State<MyContractRequest> {
             //key: formKey,
             child: Column(
               children: <Widget>[
-                newappbar(),
+                newappbar(usuario.id),
                 Expanded(
                     child: Container(
-                      child: _crearListado(),
+                      child: _crearListado(usuario.id),
                       //padding: EdgeInsets.all(4.0),
                       width: MediaQuery.of(context).size.width - 0.0,
                       height: MediaQuery.of(context).size.height - 210,
@@ -50,17 +59,27 @@ class _MyContractRequest extends State<MyContractRequest> {
       ),
     );
   }
-  Widget _crearListado() {
-    return ListView(
-      children: [
-        solicitud_Contrato(),
-        solicitud_Contrato(),
-        solicitud_Contrato()
-      ],
+  Widget _crearListado(String idUsuario) {
+    return FutureBuilder(
+      future: contratosProvider.cargarContratosOfrecidos(idUsuario),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
+        if (snapshot.hasData) {
+          final contratos = snapshot.data;
+          return ListView.builder(
+            // padding: const EdgeInsets.all(8.0),
+            itemCount: contratos.length,
+            itemBuilder: (context, index) =>
+                solicitud_Contrato(context, contratos[index],idUsuario),
+          );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
-  Widget solicitud_Contrato() {
+  Widget solicitud_Contrato(BuildContext context, ContractModel contrato, String idUduario) {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 15, bottom: 15),
         child: Container(
@@ -71,7 +90,7 @@ class _MyContractRequest extends State<MyContractRequest> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     child: Text(
-                      'Sonidista para el Viejo y el bar',
+                      'Contrato como ${contrato.jobPosition}',
                       style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: "Raleway",
@@ -127,12 +146,11 @@ class _MyContractRequest extends State<MyContractRequest> {
                           child: Column(
                             children: [
                               SizedBox(height: 6,),
-                              row_info_contrato("Proyecto:", "El viejo y el bar"),
-                              row_info_contrato("Cargo :", "Sonidista"),
-                              row_info_contrato("Dias:", "3"),
-                              row_info_contrato("Horas:", "24"),
-                              row_info_contrato("Locacion:", "Bogota"),
-                              row_info_contrato("Pago:", "500.000-600.000"),
+                              _crearNombreProjecto(contrato),
+                              row_info_contrato("Cargo :", contrato.jobPosition),
+                              row_info_contrato("Horas:", contrato.workHours.toString()),
+                              _crearCiudad(contrato),
+                              row_info_contrato("Pago:", contrato.payment.toString()),
 
 
                             ],
@@ -186,7 +204,9 @@ class _MyContractRequest extends State<MyContractRequest> {
                                 textColor: Colors.black87,
                                 color: Colors.redAccent,
                                 padding: EdgeInsets.symmetric(horizontal: 30.0),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _borrarContrato(contrato);
+                                },
                               ),
                             ),
                           ),
@@ -210,7 +230,9 @@ class _MyContractRequest extends State<MyContractRequest> {
                                 textColor: Colors.black87,
                                 color: Color.fromRGBO(112, 252, 118, 1),
                                 padding: EdgeInsets.symmetric(horizontal: 30.0),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _confirmarContrato(contrato,idUduario);
+                                },
                               ),
                             ),
                           ),
@@ -271,7 +293,7 @@ class _MyContractRequest extends State<MyContractRequest> {
     );
   }
 
-  Widget newappbar() {
+  Widget newappbar(String idUsuario) {
     return Container(
         height: 150,
         decoration: BoxDecoration(
@@ -334,12 +356,67 @@ class _MyContractRequest extends State<MyContractRequest> {
                       iconSize: 22,
                       icon: Icon(Icons.autorenew),
                       onPressed: () {
-                        setState(() {});
+                        setState(() {_crearListado(idUsuario);  });
                       },
                     ),
                   ],
                 )),
           ],
+
         ));
+  }
+  Future<Address> _getAddress(LatLng myLocation) async {
+    final coordinates = new Coordinates(
+        myLocation.latitude, myLocation.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(
+        coordinates);
+    var first = addresses.first;
+    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
+        .subAdminArea},${first.addressLine}, ${first.featureName},${first
+        .thoroughfare}, ${first.subThoroughfare}');
+
+    return first;
+  }
+
+ Widget _crearCiudad(ContractModel contrato) {
+    LatLng lt = new LatLng(contrato.latitud, contrato.longitud);
+    return FutureBuilder(
+      future: _getAddress(lt),
+      builder:
+          (BuildContext context, AsyncSnapshot<Address> snapshot) {
+        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+          return row_info_contrato("Locacion:", snapshot.data.locality);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+
+  }
+
+  _crearNombreProjecto(ContractModel contrato) {
+
+    return FutureBuilder(
+      future: proyectosProvider.cargarProyecto(contrato.projectId),
+      builder:
+      (BuildContext context, AsyncSnapshot<ProjectModel> snapshot) {
+    if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+        return row_info_contrato("Proyecto:", snapshot.data.proyectName);
+    } else {
+        return Center(child: CircularProgressIndicator());
+    }
+    },
+    );
+  }
+
+  void _confirmarContrato(ContractModel contrato,String idUsuario) {
+
+    contrato.accepted = true;
+    contratosProvider.editarContrato(contrato);
+    _crearListado(idUsuario);
+  }
+
+  void _borrarContrato(ContractModel contrato) {
+    contratosProvider.borrarContrato(contrato.id);
   }
 }

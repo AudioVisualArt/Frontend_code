@@ -39,6 +39,14 @@ class ProyectosProvider extends InheritedWidget{
     return resp.body;
   }
 
+  Future<ProjectModel> cargarProyecto(String Idproyecto) async {
+    final url = '$_url/getProject/$Idproyecto';
+    final rsp = await http.get(url);
+
+    ProjectModel project = ProjectModel.fromJson(json.decode(rsp.body));
+    return project;
+  }
+
   Future<bool> editarProyecto(ProjectModel proyecto) async {
     final url = '$_url/updateProject/${proyecto.id}';
 
