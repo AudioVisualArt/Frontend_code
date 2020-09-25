@@ -62,13 +62,13 @@ class _MessageInfoState extends State<MessageInfo> {
                 tag: user.id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(35.0),
-                 /* child: FadeInImage(
+                  child: FadeInImage(
                     image: NetworkImage(url),
                     placeholder: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png'),
                     height: 100.0,
                     width: 100.0,
                     fit: BoxFit.cover,
-                  ),*/
+                  ),
                 ),
               ),
             ),
