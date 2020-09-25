@@ -373,7 +373,7 @@ class _SendContract extends State<SendContract> {
     /*Navigator.pop(context, new MaterialPageRoute(
         builder: (context) =>
         new NewContract())*/
-
+    Navigator.pop(context);
 
   }
 

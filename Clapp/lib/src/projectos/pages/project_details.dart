@@ -166,6 +166,36 @@ class _ProjectDetails extends State<ProjectDetails> {
                   ),
                 ),
               ),
+              SizedBox(
+                width: 200,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 19,
+                  ),
+                  child: RaisedButton(
+                    //splashColor: Colors.green,
+                    padding: EdgeInsets.only(
+                        top: 13, bottom: 13, left: 10, right: 10),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                          color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Text('Presupuesto',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: "Raleway",
+                            color: Color.fromRGBO(0, 51, 51, 0.8),
+                            fontWeight: FontWeight.bold)),
+                    textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'presupuesto');
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),

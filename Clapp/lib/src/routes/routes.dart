@@ -1,5 +1,6 @@
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
+import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:Clapp/src/projectos/pages/finances.dart';
 import 'package:Clapp/src/projectos/pages/new_goal.dart';
+import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -79,6 +81,11 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'ver_contratos_recibidos': (BuildContext context) =>
         VerContratosRecibidos(),
     'newgoal': (BuildContext context) => NewGoal(),
+
     'screenplay': (BuildContext context) => ScreenPlayPage(),
+
+    'mycontract': (BuildContext context) => MyContractRequest(),
+    'presupuesto':(BuildContext context) => PresupuestoPage()
+
   };
 }

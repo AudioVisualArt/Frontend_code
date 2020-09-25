@@ -1,10 +1,15 @@
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoder/geocoder.dart';
 
 class NewContract extends StatefulWidget{
   final UserModel user;
@@ -21,6 +26,7 @@ class NewContract extends StatefulWidget{
 class _NewContract extends State<NewContract>{
 
   final contractformkey = GlobalKey<FormState>();
+  List<Marker> _markers = [];
 
  ContractModel contrato = new ContractModel();
   bool _guardando = false;
@@ -92,7 +98,7 @@ class _NewContract extends State<NewContract>{
                           SizedBox(height: 10),
                           _payment(),
                           SizedBox(height: 10),
-                          //_desiredSkills(),
+                          _googleMap(),
                           SizedBox(height: 10),
 
                         ],
@@ -397,5 +403,67 @@ class _NewContract extends State<NewContract>{
    );
    //Navigator.pushReplacementNamed(context, 'contrato');
  }
+  Widget _googleMap() {
+    return SizedBox(
+        height: 300,
+        width: 400,
+        child: FutureBuilder<Position>(
+            future: getLocation(),
+            builder: (BuildContext context,
+                AsyncSnapshot<Position> snapshot) {
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              } else {
+                return GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                        snapshot.data.latitude, snapshot.data.longitude),
+                    zoom: 16,
+                  ),
+                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                    new Factory<OneSequenceGestureRecognizer>(
+                          () => new EagerGestureRecognizer(),
+                    ),
+                  ].toSet(),
+                  onTap: _handleTap,
+                  markers: Set.from(_markers),
+                );
+              }
+            }
+        )
+    );
+  }
+
+  Future<Position> getLocation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position;
+  }
+
+  _handleTap(LatLng point) {
+    setState(() {
+      _markers = [];
+      _markers.add(Marker(
+        markerId: MarkerId(point.toString()),
+        position: point,
+      ));
+      contrato.longitud = point.longitude;
+      contrato.latitud = point.latitude;
+    });
+    _getAddress(_markers.first.position);
+  }
+
+  Future<Address> _getAddress(LatLng myLocation) async {
+    final coordinates = new Coordinates(
+        myLocation.latitude, myLocation.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(
+        coordinates);
+    var first = addresses.first;
+    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
+        .subAdminArea},${first.addressLine}, ${first.featureName},${first
+        .thoroughfare}, ${first.subThoroughfare}');
+    contrato.city=first.locality;
+    return first;
+  }
   }
 
