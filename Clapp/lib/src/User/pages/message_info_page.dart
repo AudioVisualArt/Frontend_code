@@ -16,7 +16,7 @@ class _MessageInfoState extends State<MessageInfo> {
   ChatProvider chatProvider=new ChatProvider();
   ChatModel aux;
   bool cambio=false;
-  final tarjetas=new List<Card>();
+  final tarjetas=new List<Widget>();
   @override
   Widget build(BuildContext context) {
    
@@ -47,8 +47,10 @@ class _MessageInfoState extends State<MessageInfo> {
   Widget _mensajeInfo(ChatModel chat,BuildContext context, UserModel user,String name) {
     String url;
       if(chat.usuarioD==user.id){
+        print(url);
         url=chat.photoUrlO;
       }else{
+        print(url);
         url=chat.photoUrlD;
       }
     return Wrap(
@@ -143,19 +145,20 @@ class _MessageInfoState extends State<MessageInfo> {
   }
   Widget crearCardContact(MensajeModel msj,BuildContext context){
     return Card(
-      margin: EdgeInsets.only(top: 10.0),
+      color: Color.fromRGBO(169, 196, 230, 0.5),
+      margin: EdgeInsets.only(top: 10.0,left: 35.0),
       elevation: 10.0,
       shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: <Widget>[
           ListTile(
-            trailing: Icon(Icons.message,color: Colors.green),
-            title: Text(msj.contenido),
+            
+            title: SizedBox(width: 15.0,child: Text(msj.contenido)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(width: 70.0),
+              SizedBox(width: 30.0),
               Text(msj.fecha,style: Theme.of(context).textTheme.subtitle2)
             ],
           )
@@ -165,13 +168,14 @@ class _MessageInfoState extends State<MessageInfo> {
   }
   Widget crearCard(MensajeModel msj,BuildContext context){
     return Card(
-      margin: EdgeInsets.only(top: 10.0),
+    
+      margin: EdgeInsets.only(top: 10.0,right: 35.0),
       elevation: 10.0,
       shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.message,color: Colors.green),
+            
             title: Text(msj.contenido),
           ),
           Row(

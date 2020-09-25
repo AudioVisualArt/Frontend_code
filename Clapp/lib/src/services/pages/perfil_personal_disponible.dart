@@ -19,6 +19,7 @@ class PerfilPersonal extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     UserModel usuario = ModalRoute.of(context).settings.arguments;
+    print('URL DE LA PHOTO ${this.photoUrl}');
     if(this.photoUrl==null){
       this.photoUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png";
     }
@@ -237,9 +238,12 @@ class PerfilPersonal extends StatelessWidget {
                                       textColor: Colors.white,
                                       color: Color.fromRGBO(227, 227, 227, 1),
                                       onPressed: ()async{
-                                        ChatModel chat=await _conseguirChat(tag,name,photoUrl,usuarioOferta);
-                                        ScreenArgument sc=ScreenArgument(usuarioOferta, chat, name, tag,null);
-                                        Navigator.pushNamed(context, 'messageInfo',arguments: sc);
+                                        if(tag!=usuarioOferta.id){
+                                           ChatModel chat=await _conseguirChat(tag,name,photoUrl,usuarioOferta);
+                                          ScreenArgument sc=ScreenArgument(usuarioOferta, chat, name, tag,null);
+                                          Navigator.pushNamed(context, 'messageInfo',arguments: sc);
+                                        }
+                                        
                                       },
                                     ),
                                   ),
@@ -329,7 +333,6 @@ class PerfilPersonal extends StatelessWidget {
   Future<ChatModel> _conseguirChat(String tag,String name,String photo, UserModel usuarioOferta) async {
     bool existe=false;
     ChatModel ct;
-    photo='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png';
     List<ChatModel> chats=await chat.cargarChats(usuarioOferta.id);
     if(chats!=null){
       chats.forEach((element) {
