@@ -28,6 +28,7 @@ void mostrarAlerta(BuildContext context, String msg) {
     context: context,
     builder: (context) {
       return AlertDialog(
+        titleTextStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
         title: Text('Información Incorrecta',
             style: TextStyle(
                 color: Colors.white,

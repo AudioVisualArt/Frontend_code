@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:Clapp/src/utils/utils.dart' as utils;
@@ -9,15 +11,28 @@ import 'package:firebase_storage/firebase_storage.dart';
 class ScreenPlayProvider {
   final String _url = utils.url;
 
-  Future<bool> crearScreenPlay(
-      ScreenPlayModel screenplayModel, File screenplay) async {
+  Future<StorageUploadTask> crearScreenPlay(
+      ScreenPlayModel screenplayModel, PlatformFile screenplay) async {
     final url = '$_url/saveScreen';
+
+    String fileName;
+    String filePath;
+    String extensionFile;
+
+    fileName = screenplay.path.split('/').last;
+    filePath = screenplay.path;
+    extensionFile = fileName.split('.').last;
 
     final StorageReference postImageRef =
         FirebaseStorage.instance.ref().child('ScreenPlay');
 
     final StorageUploadTask uploadTask =
-        postImageRef.child(screenplayModel.titulo).putFile(screenplay);
+        postImageRef.child(screenplayModel.titulo).putFile(
+              File(filePath),
+              StorageMetadata(
+                contentType: '${FileType.any}/$extensionFile',
+              ),
+            );
 
     final screenplayUrl =
         await (await uploadTask.onComplete).ref.getDownloadURL();
@@ -34,7 +49,7 @@ class ScreenPlayProvider {
 
     print(resp.statusCode);
 
-    return true;
+    return uploadTask;
   }
 
   Future<bool> editarScreenPlay(
