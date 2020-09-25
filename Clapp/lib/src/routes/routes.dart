@@ -1,3 +1,4 @@
+import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
@@ -70,18 +71,21 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'equipment_edit': (BuildContext context) => EquipmentEditPage(),
     'equipment_comprar': (BuildContext context) => EquipmentCompraPage(),
     'items_buy': (BuildContext context) => ItemsComprarPage(),
-    'collaborators': (BuildContext context) => VerColaboradores(),
     'open_contracts': (BuildContext context) => OtherPage(),
     'messageInfo': (BuildContext context) => MessageInfo(),
     'register_google': (BuildContext context) => SignUpGoogle(),
     'contratar_page': (BuildContext context) => ContratarPage(),
-    'register_google': (BuildContext context) => SignUpGoogle(),
     'personal': (BuildContext context) => PersonelPage(),
     'photos': (BuildContext context) => StockPhotoPage(),
     'finances': (BuildContext context) => Finances(),
-    'ver_contratos_recibidos': (BuildContext context) => VerContratosRecibidos(),
+    'ver_contratos_recibidos': (BuildContext context) =>
+        VerContratosRecibidos(),
     'newgoal': (BuildContext context) => NewGoal(),
+
+    'screenplay': (BuildContext context) => ScreenPlayPage(),
+
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto':(BuildContext context) => PresupuestoPage()
+
   };
 }

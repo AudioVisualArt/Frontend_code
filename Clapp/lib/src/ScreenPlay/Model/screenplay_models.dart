@@ -11,7 +11,7 @@ String screenPlayModelToJson(ScreenPlayModel data) =>
 class ScreenPlayModel extends ItemModel {
   ScreenPlayModel({
     this.topic,
-    this.pages,
+    this.pages = 0,
     this.sinopsis,
   }) : super();
 

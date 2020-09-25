@@ -25,6 +25,7 @@ class ItemsComprarPage extends StatelessWidget {
             _footerEquipment(context),
             SizedBox(height: 10.0),
             _footerStockPhotos(context),
+            SizedBox(height: 10.0),
           ],
         ),
       ),
