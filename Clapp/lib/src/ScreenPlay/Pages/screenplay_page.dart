@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
+import 'package:Clapp/src/ScreenPlay/Pages/showPDF.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:Clapp/src/ScreenPlay/widgets/uploadtasklisttitle.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -80,7 +81,16 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
                   Divider(),
                   _crearDisponible(),
                   Divider(),
-                  _crearBoton(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _crearBoton(),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      _mostrarPDF(),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -260,9 +270,10 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
         setState(() {
           _tasks.add(t);
           _saved = true;
+          _savedFile = true;
         });
       }
-      Navigator.pop(context);
+      // Navigator.pop(context);
       utils.mostrarAlerta(context, 'Guion en  Clapp !!!');
     } else {
       setState(() {
@@ -270,6 +281,34 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
       });
       utils.mostrarAlerta(context, 'No Has Subido Ningún Guion');
     }
+  }
+
+  Widget _mostrarPDF() {
+    return RaisedButton.icon(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      color: Color.fromRGBO(89, 122, 121, 1.0),
+      textColor: Colors.white,
+      label: Text(
+        'Ver Documento',
+        style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+      ),
+      icon: Icon(Icons.dehaze),
+      onPressed: (!_savedFile) ? null : _showPDF,
+    );
+  }
+
+  _showPDF() async {
+    //File file = await screenPlayProvider.createFileOfPdfUrl(screenPlayModel);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ShowPDF(
+                screenPlayModel: screenPlayModel,
+              )),
+    );
   }
 
   openFileExplorer() async {
@@ -282,7 +321,6 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
         print('File Name ${file.path}');
 
         setState(() {
-          _savedFile = true;
           guion = file;
         });
       }

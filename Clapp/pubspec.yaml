@@ -21,12 +21,18 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  pdf_flutter:
+  native_pdf_view: ^3.8.0
+  pdf_platform_view: ^0.5.0+2
+  path_provider: ^1.6.5
   google_sign_in:
   flutter:
     sdk: flutter
   http: ^0.12.2
   firebase_core: ^0.3.0
   percent_indicator: "^2.1.6"
+  
+
   
 
   # The following adds the Cupertino Icons font to your application.
