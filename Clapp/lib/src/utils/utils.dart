@@ -8,14 +8,12 @@ import 'package:flutter/material.dart';
 */
 
 
-
-final url = 'http://192.168.0.12:8080'; //Lemus
-//final url = 'http://192.168.0.21:8080'; //Sebastian
+//final url = 'http://192.168.0.12:8080'; //Lemus
+final url = 'http://192.168.0.21:8080'; //Sebastian
 
 
 //final url = 'http://192.168.0.3:8080'; //jonathan
 //final url = 'http://192.168.0.16:8080'; //Camilo
-
 
 bool isNumeric(String s) {
   if (s.isEmpty) {
@@ -32,7 +30,6 @@ void mostrarAlerta(BuildContext context, String msg) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        titleTextStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
         title: Text('Información Incorrecta',
             style: TextStyle(
                 color: Colors.white,

@@ -324,11 +324,11 @@ class _MyContractRequest extends State<MyContractRequest> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 35.0, right: 16),
+                  padding: EdgeInsets.only(left: 35.0, right: 16, top: 37),
                   child: Container(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 16.0, right: 20, top: 37),
+                          const EdgeInsets.symmetric(horizontal: 30, ),
                       child: Text('Contratos',
                           textAlign: TextAlign.center,
                           style: TextStyle(
