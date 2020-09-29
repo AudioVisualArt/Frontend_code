@@ -1,7 +1,8 @@
-import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
+
 import 'package:Clapp/src/services/pages/space_details.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+
 
 class SpacesPage extends StatefulWidget {
   SpacesPage({Key key}) : super(key: key);
@@ -49,6 +50,7 @@ class _SpacesPage extends State<SpacesPage> {
   Widget _crearListado() {
     return ListView(
       children: [
+
         locaciones(),
 
       ],
@@ -75,8 +77,8 @@ class _SpacesPage extends State<SpacesPage> {
                         tag: 'assets/img/espacios.PNG',
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0)),
                           child: Image(
@@ -85,7 +87,7 @@ class _SpacesPage extends State<SpacesPage> {
                           ),
                         ),
                       ) ,
-                      height: MediaQuery.of(context).size.height - 425,
+                      height: MediaQuery.of(context).size.height - 495,
                       width: MediaQuery.of(context).size.width - 35,
                     ),
                     Stack(
