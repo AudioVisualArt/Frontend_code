@@ -56,23 +56,6 @@ class _HomePageState extends State<HomePage> {
               _carruselMarket(usuario),
               SizedBox(height: 25.0),
               _carruselServicio(usuario),
-
-              /*  RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                label: Text('Foros',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                textColor: Colors.white,
-                icon: Icon(Icons.forum, color: Colors.white),
-                color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 50.0),
-                onPressed: () {},
-              ),
-
-
-             */
             ],
           ),
         ),
@@ -136,7 +119,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(),
             child: Container(
               color: Color.fromRGBO(227, 227, 227, 1),
-              height: MediaQuery.of(context).size.height - 570,
+              height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 scrollDirection: Axis.horizontal,
@@ -161,8 +144,8 @@ class _HomePageState extends State<HomePage> {
                   clipper: ClippCarrusel(),
                   child: Container(
                       color: Color.fromRGBO(112, 252, 118, 1),
-                      height: MediaQuery.of(context).size.height - 570,
-                      width: MediaQuery.of(context).size.width - 280,
+                      height: 115, //MediaQuery.of(context).size.height - 570,
+                      width: 131, //MediaQuery.of(context).size.width - 280,
                       child: InkWell(
                         onTap: () => Navigator.pushNamed(context, 'my_studio',
                             arguments: usuario),
@@ -176,9 +159,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                               child: Container(
                                   height:
-                                      MediaQuery.of(context).size.height - 610,
+                                      73, //MediaQuery.of(context).size.height - 610,
                                   width:
-                                      MediaQuery.of(context).size.width - 335,
+                                      77, //                                      MediaQuery.of(context).size.width - 335,
                                   /*decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
                                   border: Border.all(
@@ -230,7 +213,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(),
             child: Container(
               color: Color.fromRGBO(227, 227, 227, 1),
-              height: MediaQuery.of(context).size.height - 570,
+              height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 scrollDirection: Axis.horizontal,
@@ -256,8 +239,8 @@ class _HomePageState extends State<HomePage> {
                   clipper: ClippCarrusel(),
                   child: Container(
                       color: Color.fromRGBO(112, 252, 118, 1),
-                      height: MediaQuery.of(context).size.height - 570,
-                      width: MediaQuery.of(context).size.width - 280,
+                      height: 115, //MediaQuery.of(context).size.height - 570,
+                      width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
                         onTap: () => Navigator.pushNamed(context, 'items_buy',
                             arguments: usuario),
@@ -271,9 +254,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                               child: Container(
                                   height:
-                                      MediaQuery.of(context).size.height - 610,
+                                      73, //MediaQuery.of(context).size.height - 610,
                                   width:
-                                      MediaQuery.of(context).size.width - 335,
+                                      77, //                                         MediaQuery.of(context).size.width - 335,
                                   /* decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
                                   border: Border.all(
@@ -317,7 +300,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(),
             child: Container(
               color: Color.fromRGBO(227, 227, 227, 1),
-              height: MediaQuery.of(context).size.height - 570,
+              height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 scrollDirection: Axis.horizontal,
@@ -343,8 +326,8 @@ class _HomePageState extends State<HomePage> {
                   clipper: ClippCarrusel(),
                   child: Container(
                       color: Color.fromRGBO(112, 252, 118, 1),
-                      height: MediaQuery.of(context).size.height - 570,
-                      width: MediaQuery.of(context).size.width - 280,
+                      height: 115, //MediaQuery.of(context).size.height - 570,
+                      width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
                         onTap: () => Navigator.pushNamed(context, 'services',
                             arguments: usuario),
@@ -358,9 +341,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                               child: Container(
                                   height:
-                                      MediaQuery.of(context).size.height - 610,
+                                      73, //                                     MediaQuery.of(context).size.height - 610,
                                   width:
-                                      MediaQuery.of(context).size.width - 335,
+                                      77, //                                     MediaQuery.of(context).size.width - 335,
                                   /* decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
                                   border: Border.all(
@@ -404,9 +387,10 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               //color: Colors.amber,
               constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height - 570,
-                  maxWidth: MediaQuery.of(context).size.width - 250,
-                  minWidth: MediaQuery.of(context).size.width - 310),
+                  maxHeight: 115, //MediaQuery.of(context).size.height - 570,
+                  maxWidth: 115,//MediaQuery.of(context).size.width - 250,
+                  minWidth: 101,//MediaQuery.of(context).size.width - 310
+              ),
 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -414,8 +398,8 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Container(
-                      height: MediaQuery.of(context).size.height - 615,
-                      width: MediaQuery.of(context).size.width - 340,
+                      height: 68, //MediaQuery.of(context).size.height - 615,
+                      width: 68, // MediaQuery.of(context).size.width - 340,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         border: Border.all(
