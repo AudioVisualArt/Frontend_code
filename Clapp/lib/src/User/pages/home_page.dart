@@ -12,11 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ChatProvider chatprovider=new ChatProvider();
+  ChatProvider chatprovider = new ChatProvider();
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
-   
+
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.white,
@@ -28,8 +28,7 @@ class _HomePageState extends State<HomePage> {
         userModel: usuario,
       ),
       //Rest backend Springboot
-      body: _crearBody(context, usuario)
-      ,
+      body: _crearBody(context, usuario),
     );
   }
 
@@ -117,27 +116,26 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-
-                /*  RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+                SizedBox(height: 30.0),
+                RaisedButton.icon(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  label: Text('Encuentra Rapido',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
+                  textColor: Colors.white,
+                  icon: Icon(Icons.filter_b_and_w, color: Colors.white),
+                  color: Color.fromRGBO(89, 122, 121, 1.0),
+                  padding: EdgeInsets.symmetric(horizontal: 50.0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'find_photo',
+                        arguments: usuario);
+                  },
                 ),
-                label: Text('Foros',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                textColor: Colors.white,
-                icon: Icon(Icons.forum, color: Colors.white),
-                color: Color.fromRGBO(89, 122, 121, 1.0),
-                padding: EdgeInsets.symmetric(horizontal: 50.0),
-                onPressed: () {},
-              ),
-
-
-             */
               ],
             ),
           ),
-
         ),
       ),
     );
