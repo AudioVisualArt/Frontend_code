@@ -19,7 +19,7 @@ class SpacesProvider {
 
   SpacesProvider._internal({Key key, Widget child});
 
-  Future<List<SpaceModel>> cargarTrabajadores() async {
+  Future<List<SpaceModel>> cargarEspacios() async {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllSpaces';
     final rsp = await http.get(url);
