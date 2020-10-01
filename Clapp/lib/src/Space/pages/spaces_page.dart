@@ -1,5 +1,5 @@
 
-import 'file:///E:/Tesis_FronEnd/Code/Clapp/lib/src/Space/pages/space_details.dart';
+
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
 import 'package:flutter/material.dart';

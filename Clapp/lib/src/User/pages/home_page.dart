@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage> {
               image: AssetImage('assets/img/APP ICON.png'),
               fit: BoxFit.cover,
             )),
-        height: 155.0,
-        width: 155.0,
+        height: 150.0,
+        width: 150.0,
       ),
     );
   }
