@@ -1,12 +1,12 @@
 import 'package:Clapp/src/services/pages/other_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
-import 'package:Clapp/src/services/pages/spaces_page.dart';
+import 'file:///E:/Tesis_FronEnd/Code/Clapp/lib/src/Space/pages/spaces_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/services/pages/equipment_page.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
-import 'package:Clapp/src/services/pages/spaces_page.dart';
+import 'file:///E:/Tesis_FronEnd/Code/Clapp/lib/src/Space/pages/spaces_page.dart';
 
 class AudiovisualPage extends StatefulWidget{
   AudiovisualPage({Key key}) : super(key: key);

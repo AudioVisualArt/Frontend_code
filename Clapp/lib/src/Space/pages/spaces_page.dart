@@ -1,5 +1,5 @@
 
-import 'package:Clapp/src/services/pages/space_details.dart';
+import 'file:///E:/Tesis_FronEnd/Code/Clapp/lib/src/Space/pages/space_details.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
