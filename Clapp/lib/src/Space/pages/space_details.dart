@@ -1,3 +1,8 @@
+import 'package:Clapp/src/Space/model/SpaceModel.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
+import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
+import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -17,9 +22,13 @@ class SpaceDetails extends StatefulWidget {
 }
 
 class _SpaceDetails extends State<SpaceDetails> {
+
+  UsuarioProvider usuarioProvider = new UsuarioProvider();
+  WorkersProvider workersProvider = new WorkersProvider();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    SpaceModel espacio = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text('Detalles',
@@ -39,7 +48,7 @@ class _SpaceDetails extends State<SpaceDetails> {
           child: ListView(
             children: [
               _listimages(),
-              infospace('Horario', "Lunes a sabados", '9:00 am -9:00 pm'),
+              infospace('Horario', espacio.scheduleDays, espacio.scheduleHours),
               Column(
                 children: [
                   Padding(
@@ -81,7 +90,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                                                    minHeight: 22),
 
                                                child: Text(
-                                                 'Desert Land Space',
+                                                 espacio.name,
                                                  style: TextStyle(
                                                      fontSize: 20.0,
                                                      fontFamily: "Raleway",
@@ -101,7 +110,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                                                  maxHeight: 22,
                                                ),
                                                child: Text(
-                                                 "Bogota | Usaquen",
+                                                 espacio.location,
                                                  style: TextStyle(
                                                    fontSize: 18.0,
                                                    fontFamily: "Raleway",
@@ -138,7 +147,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                                                    maxHeight: 82,
                                                    minHeight: 22),
                                                child: Text(
-                                                   'Descripcion We wear disposable gloves and masks to clean and disinfect.',
+                                                   espacio.description,
                                                    style: TextStyle(
                                                      fontSize: 18.0,
                                                      fontFamily: "Raleway",
@@ -150,78 +159,7 @@ class _SpaceDetails extends State<SpaceDetails> {
 
                                        ],
                                      ),
-                                     Column(
-                                       children: [
-                                         Align(
-                                           alignment: Alignment.topRight,
-                                           child: Padding(
-                                             padding: EdgeInsets.only(
-                                                 top: 16.0, left: 5, right: 15),
-                                             child: Container(
-                                                 height: 100.0,
-                                                 width: 100.0,
-                                                 child: ClipRRect(
-                                                     borderRadius:
-                                                     BorderRadius.circular(100.0),
-                                                     child: CircleAvatar(
-                                                         radius: 75,
-                                                         child: Image(
-                                                           image: AssetImage(
-                                                               'assets/img/no-image.png'),
-                                                           height: 100.0,
-                                                           width: 100.0,
-                                                           fit: BoxFit.cover,
-                                                         )))),
-                                           ),
-                                         ),
-                                         Padding(
-                                             padding: EdgeInsets.only(
-                                                 left: 7.0, right: 15, top: 4),
-                                             child: Container(
-                                               constraints: BoxConstraints(
-                                                   minWidth: 100,
-                                                   maxWidth: 130,
-                                                   maxHeight: 42,
-                                                   minHeight: 22),
-                                               child: Text(
-                                                 'Antonio Lemus',
-                                                 style: TextStyle(
-                                                   fontSize: 18.0,
-                                                   fontFamily: "Raleway",
-                                                   color: Color.fromRGBO(
-                                                       115, 115, 115, 1.0),
-                                                 ),
-                                               ),
-                                             )),
-                                         Padding(
-                                           padding:
-                                           EdgeInsets.only( top: 5,
-                                               right: 15.0,
-                                               left: 7.0,
-                                               bottom: 5),
-
-
-                                           child: RaisedButton(
-                                             shape: RoundedRectangleBorder(
-                                               borderRadius: BorderRadius.circular(5.0),
-                                             ),
-                                             child: Text('Contactar',
-                                                 textAlign: TextAlign.center,
-                                                 style: TextStyle(
-                                                     fontSize: 17.0,
-                                                     fontFamily: "Raleway",
-                                                     color: Colors.grey,
-                                                     fontWeight: FontWeight.bold)),
-                                             textColor: Colors.white,
-                                             color: Color.fromRGBO(0, 51, 51, 0.8),
-                                             onPressed: () {},
-                                           ),
-
-
-                                         )
-
-                                       ],
-                                     )
+                                     _uderInfo(espacio)
                                    ],
                                  )
                              ),
@@ -230,7 +168,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                           )),
 
 
-                  infospace('Tarifa', "3 horas min", '500.000 COP/hora'),
+                  infospace('Tarifa', "${espacio.minimumHours} horas min", '${espacio.priceHour} COP/hora'),
 
 
                 ],
@@ -383,5 +321,95 @@ class _SpaceDetails extends State<SpaceDetails> {
 
 
     );
+  }
+
+  _uderInfo(SpaceModel espacio) {
+    final Future<UserModel> userModel =  workersProvider.cargarUsuarioTrabajador(espacio.userOwner);
+    return FutureBuilder<UserModel>(
+      future: userModel,
+        builder: (BuildContext context,
+        AsyncSnapshot<UserModel> snapshot)
+    {
+      if (!snapshot.hasData) {
+        return CircularProgressIndicator();
+      } else {
+        UserModel user = snapshot.data;
+        return Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: 16.0, left: 5, right: 15),
+                child: Container(
+                    height: 100.0,
+                    width: 100.0,
+                    child: ClipRRect(
+                        borderRadius:
+                        BorderRadius.circular(100.0),
+                        child: CircleAvatar(
+                            radius: 75,
+                            child: Image(
+                              image: NetworkImage(
+                                  user.photoUrl),
+                              height: 100.0,
+                              width: 100.0,
+                              fit: BoxFit.cover,
+                            )))),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(
+                    left: 7.0, right: 15, top: 4),
+                child: Container(
+                  constraints: BoxConstraints(
+                      minWidth: 100,
+                      maxWidth: 130,
+                      maxHeight: 42,
+                      minHeight: 22),
+                  child: Text(
+                    user.name,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: "Raleway",
+                      color: Color.fromRGBO(
+                          115, 115, 115, 1.0),
+                    ),
+                  ),
+                )),
+            Padding(
+              padding:
+              EdgeInsets.only(top: 5,
+                  right: 15.0,
+                  left: 7.0,
+                  ),
+
+
+              child: RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Text('Contactar',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 17.0,
+                        fontFamily: "Raleway",
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold)),
+                textColor: Colors.white,
+                color: Color.fromRGBO(0, 51, 51, 0.8),
+                onPressed: () {},
+              ),
+
+
+            )
+
+          ],
+
+        );
+      }
+    }
+    );
+
   }
 }

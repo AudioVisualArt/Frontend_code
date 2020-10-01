@@ -73,11 +73,8 @@ class _SpacesPage extends State<SpacesPage> {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 5),
         child: InkWell(
-          onTap: () {Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => SpaceDetails(
-                    )),
-          );},
+          onTap: () { Navigator.pushNamed(context, 'space_details',
+              arguments: espacio);},
             child: Container(
                 margin: EdgeInsets.only(left: 6, right: 6),
                 //margin: EdgeInsets.only(top: 10, left: 15,right: 15),
