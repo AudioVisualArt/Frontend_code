@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        label: Text('Ver Inventario'),
+        label: Text('Ver Inventario '),
         textColor: Colors.white,
         icon: Icon(Icons.art_track, color: Colors.white),
         color: Color.fromRGBO(89, 122, 121, 1.0),
