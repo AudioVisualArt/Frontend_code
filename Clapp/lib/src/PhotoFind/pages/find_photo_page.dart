@@ -54,6 +54,7 @@ class _FindPhotoPageState extends State<FindPhotoPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
         onPressed: scanner,
         child: Icon(Icons.check),
       ),

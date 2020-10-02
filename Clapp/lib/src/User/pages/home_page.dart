@@ -29,6 +29,14 @@ class _HomePageState extends State<HomePage> {
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
+      //Recognize Image
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.camera_enhance),
+        onPressed: () {
+          Navigator.pushNamed(context, 'find_photo', arguments: usuario);
+        },
+        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
+      ),
     );
   }
 
@@ -115,23 +123,6 @@ class _HomePageState extends State<HomePage> {
                           arguments: usuario);
                     },
                   ),
-                ),
-                SizedBox(height: 30.0),
-                RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  label: Text('Encuentra Rapido',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-                  textColor: Colors.white,
-                  icon: Icon(Icons.filter_b_and_w, color: Colors.white),
-                  color: Color.fromRGBO(89, 122, 121, 1.0),
-                  padding: EdgeInsets.symmetric(horizontal: 50.0),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'find_photo',
-                        arguments: usuario);
-                  },
                 ),
               ],
             ),
