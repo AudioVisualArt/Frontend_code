@@ -1,9 +1,3 @@
-import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
-import 'package:Clapp/src/Space/pages/space_details.dart';
-import 'package:Clapp/src/User/pages/contracts_page.dart';
-import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
-import 'package:Clapp/src/services/pages/contratar_page.dart';
-import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/pages/message_info_page.dart';
@@ -86,9 +80,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'newgoal': (BuildContext context) => NewGoal(),
     'screenplay': (BuildContext context) => ScreenPlayPage(),
     'mycontract': (BuildContext context) => MyContractRequest(),
-    'find_photo': (BuildContext context) => FindPhotoPage(),
     'presupuesto': (BuildContext context) => PresupuestoPage(),
-    'space_details': (BuildContext context) => SpaceDetails(),
-    'recomendado': (BuildContext context) => RecomendadosPage()
+    'find_photo': (BuildContext context) => FindPhotoPage(),
   };
 }
