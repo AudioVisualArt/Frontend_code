@@ -325,7 +325,7 @@ class _HomePageState extends State<HomePage> {
               child: ClipPath(
                   clipper: ClippCarrusel(),
                   child: Container(
-                      color: Color.fromRGBO(112, 252, 118, 1),
+                      color: Color.fromRGBO(112, 252, 118, 2),
                       height: 115, //MediaQuery.of(context).size.height - 570,
                       width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
@@ -387,9 +387,9 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               //color: Colors.amber,
               constraints: BoxConstraints(
-                  maxHeight: 115, //MediaQuery.of(context).size.height - 570,
-                  maxWidth: 115,//MediaQuery.of(context).size.width - 250,
-                  minWidth: 101,//MediaQuery.of(context).size.width - 310
+                maxHeight: 115, //MediaQuery.of(context).size.height - 570,
+                maxWidth: 115, //MediaQuery.of(context).size.width - 250,
+                minWidth: 101, //MediaQuery.of(context).size.width - 310
               ),
 
               child: Column(
@@ -413,7 +413,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(top: 5),
                     child: Text(name,
                         style: TextStyle(
-                            color: Color.fromRGBO(0, 51, 51, 0.8),
+                            color: Color.fromRGBO(0, 51, 51, 0.9),
                             fontSize: 18,
                             fontFamily: "Raleway",
                             fontWeight: FontWeight.bold)),
