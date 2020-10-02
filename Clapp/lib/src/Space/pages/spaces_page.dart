@@ -1,7 +1,10 @@
-import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
-import 'package:Clapp/src/services/pages/space_details.dart';
+
+
+import 'package:Clapp/src/Space/model/SpaceModel.dart';
+import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+
 
 class SpacesPage extends StatefulWidget {
   SpacesPage({Key key}) : super(key: key);
@@ -11,6 +14,7 @@ class SpacesPage extends StatefulWidget {
 }
 
 class _SpacesPage extends State<SpacesPage> {
+  final spacesProvider = new SpacesProvider ();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,23 +51,30 @@ class _SpacesPage extends State<SpacesPage> {
   }
 
   Widget _crearListado() {
-    return ListView(
-      children: [
-        locaciones(),
-
-      ],
+    return FutureBuilder(
+        future: spacesProvider.cargarEspacios(),
+    builder:
+    (BuildContext context, AsyncSnapshot<List<SpaceModel>> snapshot) {
+      if (snapshot.hasData) {
+        final espacios = snapshot.data;
+        return ListView.builder(
+          itemCount: espacios.length,
+          itemBuilder: (context, index) =>
+          locaciones(context, espacios[index]),
+        );
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
+    }
     );
   }
 
-  Widget locaciones() {
+  Widget locaciones(BuildContext context, SpaceModel espacio) {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 5),
         child: InkWell(
-          onTap: () {Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => SpaceDetails(
-                    )),
-          );},
+          onTap: () { Navigator.pushNamed(context, 'space_details',
+              arguments: espacio);},
             child: Container(
                 margin: EdgeInsets.only(left: 6, right: 6),
                 //margin: EdgeInsets.only(top: 10, left: 15,right: 15),
@@ -72,20 +83,20 @@ class _SpacesPage extends State<SpacesPage> {
                   children: [
                     Container(
                       child: Hero(
-                        tag: 'assets/img/espacios.PNG',
+                        tag: espacio.id,
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0)),
                           child: Image(
-                            image: AssetImage('assets/img/space1.JPG'),
+                            image: NetworkImage(espacio.imageUrl),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ) ,
-                      height: MediaQuery.of(context).size.height - 425,
+                      height: MediaQuery.of(context).size.height - 495,
                       width: MediaQuery.of(context).size.width - 35,
                     ),
                     Stack(
@@ -113,7 +124,7 @@ class _SpacesPage extends State<SpacesPage> {
                                 padding: EdgeInsets.only(top: 7, left: 2, right: 2),
                                 child: Container(
                                     child: Text(
-                                      "Desert Land Space ",
+                                      espacio.name,
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: "Raleway",
@@ -128,7 +139,7 @@ class _SpacesPage extends State<SpacesPage> {
                                 child: Container(
                                   //width:                              MediaQuery.of(context).size.width - 240,
                                   child: Text(
-                                    "500.000 COP/hora",
+                                    "${espacio.priceHour.toString()} COP/hora",
                                     style: TextStyle(
                                       fontSize: 19.0,
                                       fontFamily: "Raleway",
@@ -146,7 +157,7 @@ class _SpacesPage extends State<SpacesPage> {
                                     child: Container(
                                       //width:                                  MediaQuery.of(context).size.width - 255,
                                       child: Text(
-                                        "Bogota | Usaquen",
+                                        espacio.location,
                                         style: TextStyle(
                                           fontSize: 19.0,
                                           fontFamily: "Raleway",
