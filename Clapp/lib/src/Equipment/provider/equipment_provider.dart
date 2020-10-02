@@ -4,9 +4,7 @@ import 'dart:io';
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 class EquipmentProvider {
   final String _url = utils.url;
@@ -93,18 +91,5 @@ class EquipmentProvider {
     //print(json.decode(rsp.body));
 
     return 1;
-  }
-
-  Future<File> createFileOfPdfUrl(EquipmentModel equipmentModel) async {
-    final url = equipmentModel.fotoUrl;
-    print('url: ' + url);
-    final filename = url.substring(url.lastIndexOf("/") + 1);
-    var request = await HttpClient().getUrl(Uri.parse(url));
-    var response = await request.close();
-    var bytes = await consolidateHttpClientResponseBytes(response);
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = File('$dir/$filename');
-    await file.writeAsBytes(bytes);
-    return file;
   }
 }
