@@ -29,12 +29,14 @@ class _HomePageState extends State<HomePage> {
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
+        child: Icon(Icons.camera_enhance),
+        onPressed: () {
+          Navigator.pushNamed(context, 'find_photo', arguments: usuario);
+        },
+        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
+      ),
     );
-  }
-
   Widget _crearBody(BuildContext context, UserModel usuario) {
-    final size = MediaQuery.of(context).size;
-
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
