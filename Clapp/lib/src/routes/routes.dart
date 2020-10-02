@@ -2,6 +2,7 @@ import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/Space/pages/space_details.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
+import 'package:Clapp/src/projectos/pages/recomendados_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
@@ -82,12 +83,10 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'ver_contratos_recibidos': (BuildContext context) =>
         VerContratosRecibidos(),
     'newgoal': (BuildContext context) => NewGoal(),
-
     'screenplay': (BuildContext context) => ScreenPlayPage(),
-
     'mycontract': (BuildContext context) => MyContractRequest(),
-    'presupuesto':(BuildContext context) => PresupuestoPage(),
+    'presupuesto': (BuildContext context) => PresupuestoPage(),
     'space_details': (BuildContext context) => SpaceDetails(),
-    'recomendado':(BuildContext context) => RecomendadosPage()
+    'recomendado': (BuildContext context) => RecomendadosPage()
   };
 }
