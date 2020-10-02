@@ -30,6 +30,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Widget _createproject(BuildContext context, UserModel userModel) {
     print('Id del usuario: ${userModel.id}');
+
     final size = MediaQuery.of(context).size;
     final idUsuario = ModalRoute.of(context).settings.arguments;
     return Container(
