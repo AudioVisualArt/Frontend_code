@@ -27,7 +27,7 @@ class _FindPhotoPageState extends State<FindPhotoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Escanea o Sube tu Foto'),
+        title: Text('Escanea o Sube tu Foto '),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.photo_size_select_actual),
