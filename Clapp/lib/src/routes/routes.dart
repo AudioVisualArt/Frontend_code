@@ -87,6 +87,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
 
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto':(BuildContext context) => PresupuestoPage(),
-    'space_details': (BuildContext context) => SpaceDetails()
+    'space_details': (BuildContext context) => SpaceDetails(),
+    'recomendado':(BuildContext context) => RecomendadosPage()
   };
 }
