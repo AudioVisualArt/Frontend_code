@@ -29,6 +29,16 @@ class _HomePageState extends State<HomePage> {
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
+
+      //Recognize Image
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.camera_enhance),
+        onPressed: () {
+          Navigator.pushNamed(context, 'find_photo', arguments: usuario);
+        },
+        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
+      ),
+
     );
   }
 
@@ -109,6 +119,7 @@ class _HomePageState extends State<HomePage> {
       ),
     ];
   }
+
 
 
    */
@@ -446,4 +457,5 @@ class ClippCarrusel extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     return false;
   }
+
 }

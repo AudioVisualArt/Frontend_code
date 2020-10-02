@@ -6,6 +6,7 @@ import 'package:Clapp/src/projectos/pages/recomendados_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:flutter/material.dart';
+
 import 'package:Clapp/src/User/pages/message_info_page.dart';
 import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
@@ -20,8 +21,6 @@ import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:Clapp/src/MyStudio/pages/my_studio_page.dart';
 import 'package:Clapp/src/MyStudio/pages/store_page.dart';
 import 'package:Clapp/src/projectos/pages/new_project_page.dart';
-import 'package:Clapp/src/Contract/pages/new_contract.dart';
-import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/User/pages/settings_page.dart';
 import 'package:Clapp/src/User/pages/favourites_page.dart';
 import 'package:Clapp/src/User/pages/profile_page.dart';
@@ -30,19 +29,22 @@ import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_compra.dart';
 import 'package:Clapp/src/item/pages/producto_compra.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
-import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_page.dart';
 import 'package:Clapp/src/item/pages/menu_agregar.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_edit_page.dart';
 import 'package:Clapp/src/item/pages/items_buy.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
-import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
-import 'package:Clapp/src/User/pages/sign_up_google.dart';
 import 'package:Clapp/src/projectos/pages/finances.dart';
 import 'package:Clapp/src/projectos/pages/new_goal.dart';
 import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
+import 'package:Clapp/src/PhotoFind/pages/find_photo_page.dart';
+import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
+import 'package:Clapp/src/User/pages/contracts_page.dart';
+import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
+import 'package:Clapp/src/services/pages/contratar_page.dart';
+import 'package:Clapp/src/User/pages/sign_up_google.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -86,7 +88,11 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'screenplay': (BuildContext context) => ScreenPlayPage(),
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto': (BuildContext context) => PresupuestoPage(),
+
+    'find_photo': (BuildContext context) => FindPhotoPage(),
+
     'space_details': (BuildContext context) => SpaceDetails(),
     'recomendado': (BuildContext context) => RecomendadosPage()
+
   };
 }
