@@ -118,7 +118,6 @@ flutter:
     - assets/img/jar-loading.gif
     - assets/img/APP ICON.png
     - data/menu_Clapp.json
-    - assets/img/iconodecontratos.png
 
   fonts:
     - family: Raleway

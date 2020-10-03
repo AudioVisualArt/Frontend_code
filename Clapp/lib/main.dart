@@ -17,9 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
         child: MaterialApp(
-          /*
 
-        builder: (context, widget) => ResponsiveWrapper.builder(
+        /* builder: (context, widget) => ResponsiveWrapper.builder(
 
               BouncingScrollWrapper.builder(context, widget),
               maxWidth: 1200,
@@ -35,7 +34,9 @@ class MyApp extends StatelessWidget {
               //background: Container(color: Color(0xFFF5F5F5))
           ),
 
-           */
+         */
+
+
 
 
 
