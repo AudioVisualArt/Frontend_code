@@ -45,6 +45,7 @@ import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
+import 'package:Clapp/src/projectos/pages/Project_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -52,6 +53,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home': (BuildContext context) => HomePage(),
     'signUp': (BuildContext context) => SignUp(),
     'producto': (BuildContext context) => ProductoPage(),
+    'proyectos': (BuildContext context) => ProjectPage(),
     'ver_producto': (BuildContext context) => MostrarProductosPage(),
     'my_studio': (BuildContext context) => MyStudioPage(),
     'store': (BuildContext context) => StorePage(),
