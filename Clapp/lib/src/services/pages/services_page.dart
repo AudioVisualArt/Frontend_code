@@ -1,4 +1,3 @@
-import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/pages/audiovisual_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
@@ -6,7 +5,7 @@ import 'package:Clapp/src/services/pages/equipment_page.dart';
 import 'package:Clapp/src/services/pages/new_service.dart';
 import 'package:Clapp/src/services/pages/other_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
-
+import 'package:Clapp/src/services/pages/spaces_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
