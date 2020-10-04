@@ -17,7 +17,8 @@ class ContractModel {
   String userBidderId;
   String id;
   String projectId;
-  bool accepted =false;
+  bool acceptedBidder =false;
+  bool acceptedApplicant =false;
   double latitud;
   double longitud;
 
@@ -32,7 +33,8 @@ class ContractModel {
     this.userApplicantId,
     this.userBidderId,
     this.projectId,
-    this.accepted,
+    this.acceptedBidder,
+    this.acceptedApplicant,
     this.latitud,
     this.longitud
 
@@ -49,7 +51,8 @@ class ContractModel {
         userBidderId: json["userBidderId"],
         id: json["id"],
         projectId: json["projectId"],
-        accepted: json["accepted"],
+        acceptedBidder: json["acceptedBidder"],
+        acceptedApplicant: json["acceptedApplicant"],
         latitud: json["latitud"],
         longitud:json["longitud"],
 
@@ -65,7 +68,8 @@ class ContractModel {
     "userBidderId": userBidderId,
     "id": id,
     "projectId": projectId,
-    "accepted": accepted,
+    "acceptedBidder": acceptedBidder,
+    "acceptedApplicant": acceptedApplicant,
     "latitud": latitud,
     "longitud" : longitud
   };

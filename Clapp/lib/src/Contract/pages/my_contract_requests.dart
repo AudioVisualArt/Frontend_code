@@ -411,7 +411,7 @@ class _MyContractRequest extends State<MyContractRequest> {
 
   void _confirmarContrato(ContractModel contrato,String idUsuario) {
 
-    contrato.accepted = true;
+    contrato.acceptedApplicant= true;
     contratosProvider.editarContrato(contrato);
     _crearListado(idUsuario);
   }
