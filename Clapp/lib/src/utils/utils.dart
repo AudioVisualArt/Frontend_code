@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 /**
 *La variable [url] sera utilizada para los provider (serivicios)
@@ -11,11 +7,13 @@ import 'package:path_provider/path_provider.dart';
 *NO en Producción
 */
 
+
 //final url = 'http://192.168.0.12:8080'; //Lemus
-//final url = 'http://192.168.0.21:8080'; //Sebastian
+final url = 'http://192.168.0.21:8080'; //Sebastian
+
 
 //final url = 'http://192.168.0.3:8080'; //jonathan
-final url = 'http://192.168.0.16:8080'; //Camilo
+//final url = 'http://192.168.0.16:8080'; //Camilo
 
 bool isNumeric(String s) {
   if (s.isEmpty) {

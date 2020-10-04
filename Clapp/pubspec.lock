@@ -162,6 +162,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.4"
+<<<<<<< HEAD
   firebase_ml_vision:
     dependency: "direct main"
     description:
@@ -169,6 +170,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7"
+=======
+>>>>>>> parent of 322c00e... Merge pull request #20 from AudioVisualArt/Recognize_Photo
   firebase_storage:
     dependency: "direct main"
     description:
