@@ -29,6 +29,19 @@ class _HomePageState extends State<HomePage> {
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
+<<<<<<< HEAD
+=======
+
+      //Recognize Image
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.camera_enhance),
+        onPressed: () {
+          Navigator.pushNamed(context, 'find_photo', arguments: usuario);
+        },
+        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
+      ),
+
+>>>>>>> parent of 7bcd6d7... Revert "Merge branch 'master' into Recognize_Photo"
     );
   }
 
@@ -38,86 +51,25 @@ class _HomePageState extends State<HomePage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/img/Home2.jpg"),
+        image: AssetImage("assets/img/homeback2.jpg"),
         fit: BoxFit.cover,
       )),
       child: Container(
         height: MediaQuery.of(context).size.height - 30.0,
         width: size.width,
-        margin: EdgeInsets.symmetric(vertical: 10.0),
-        padding: EdgeInsets.symmetric(vertical: 25.0),
-        child: Form(
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _mostrarFotoPerfil(),
-                SizedBox(height: 70.0),
-                SizedBox(
-                  width: 150,
-                  height: 50,
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Text('Estudio',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.bold)),
-                    textColor: Color.fromRGBO(115, 115, 115, 1.0),
-                    color: Color.fromRGBO(227, 227, 227, 1),
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    onPressed: () => Navigator.pushNamed(context, 'my_studio',
-                        arguments: usuario),
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                SizedBox(
-                  width: 150,
-                  height: 50,
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Text('Mercado',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.bold)),
-                    textColor: Color.fromRGBO(115, 115, 115, 1.0),
-                    color: Color.fromRGBO(227, 227, 227, 1),
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    onPressed: () => Navigator.pushNamed(context, 'items_buy',
-                        arguments: usuario),
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                SizedBox(
-                  width: 150,
-                  height: 50,
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Text('Servicios',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.bold)),
-                    textColor: Color.fromRGBO(115, 115, 115, 1.0),
-                    color: Color.fromRGBO(227, 227, 227, 1),
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'services',
-                          arguments: usuario);
-                    },
-                  ),
-                ),
-              ],
-            ),
+        margin: EdgeInsets.symmetric(vertical: 5.0),
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              _mostrarFotoPerfil(),
+              SizedBox(height: 20.0),
+              _carruselStudio(usuario),
+              SizedBox(height: 25.0),
+              _carruselMarket(usuario),
+              SizedBox(height: 25.0),
+              _carruselServicio(usuario),
+            ],
           ),
         ),
       ),
@@ -125,19 +77,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _mostrarFotoPerfil() {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-          image: DecorationImage(
-            image: AssetImage('assets/img/APP ICON.png'),
-            fit: BoxFit.cover,
-          )),
-      height: 220.0,
-      width: 220.0,
+    return Padding(
+      padding: EdgeInsets.all(0.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            image: DecorationImage(
+              image: AssetImage('assets/img/APP ICON.png'),
+              fit: BoxFit.cover,
+            )),
+        height: 150.0,
+        width: 150.0,
+      ),
     );
   }
 
-  List<Widget> crear() {
+  /*List<Widget> crear() {
     return [
       RaisedButton.icon(
         shape: RoundedRectangleBorder(
@@ -159,7 +114,7 @@ class _HomePageState extends State<HomePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        label: Text('Ver Inventario '),
+        label: Text('Ver Inventario'),
         textColor: Colors.white,
         icon: Icon(Icons.art_track, color: Colors.white),
         color: Color.fromRGBO(89, 122, 121, 1.0),
@@ -168,6 +123,12 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
+<<<<<<< HEAD
+=======
+
+
+   */
+>>>>>>> parent of 7bcd6d7... Revert "Merge branch 'master' into Recognize_Photo"
   Widget _carruselStudio(UserModel usuario) {
     return Stack(
       children: [
@@ -502,4 +463,8 @@ class ClippCarrusel extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     return false;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 7bcd6d7... Revert "Merge branch 'master' into Recognize_Photo"
 }
