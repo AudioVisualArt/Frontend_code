@@ -1,3 +1,7 @@
+import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
+import 'package:Clapp/src/User/pages/contracts_page.dart';
+import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
+import 'package:Clapp/src/services/pages/space_details.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/User/pages/message_info_page.dart';
 import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
@@ -79,11 +83,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'screenplay': (BuildContext context) => ScreenPlayPage(),
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto': (BuildContext context) => PresupuestoPage(),
-<<<<<<< HEAD
-    'find_photo': (BuildContext context) => FindPhotoPage(),
-=======
     'space_details': (BuildContext context) => SpaceDetails(),
-    'recomendado': (BuildContext context) => RecomendadosPage()
->>>>>>> parent of 322c00e... Merge pull request #20 from AudioVisualArt/Recognize_Photo
   };
 }

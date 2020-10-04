@@ -29,17 +29,6 @@ class _HomePageState extends State<HomePage> {
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
-<<<<<<< HEAD
-      //Recognize Image
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_enhance),
-        onPressed: () {
-          Navigator.pushNamed(context, 'find_photo', arguments: usuario);
-        },
-        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
-      ),
-=======
->>>>>>> parent of 322c00e... Merge pull request #20 from AudioVisualArt/Recognize_Photo
     );
   }
 
@@ -179,8 +168,6 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-
-   
   Widget _carruselStudio(UserModel usuario) {
     return Stack(
       children: [
