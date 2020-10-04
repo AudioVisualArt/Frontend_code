@@ -29,19 +29,6 @@ class _HomePageState extends State<HomePage> {
       ),
       //Rest backend Springboot
       body: _crearBody(context, usuario),
-<<<<<<< HEAD
-=======
-
-      //Recognize Image
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_enhance),
-        onPressed: () {
-          Navigator.pushNamed(context, 'find_photo', arguments: usuario);
-        },
-        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
-      ),
-
->>>>>>> parent of 7bcd6d7... Revert "Merge branch 'master' into Recognize_Photo"
     );
   }
 
@@ -123,12 +110,9 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-<<<<<<< HEAD
-=======
 
 
    */
->>>>>>> parent of 7bcd6d7... Revert "Merge branch 'master' into Recognize_Photo"
   Widget _carruselStudio(UserModel usuario) {
     return Stack(
       children: [
@@ -463,8 +447,4 @@ class ClippCarrusel extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     return false;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 7bcd6d7... Revert "Merge branch 'master' into Recognize_Photo"
 }
