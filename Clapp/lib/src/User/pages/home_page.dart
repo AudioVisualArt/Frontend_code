@@ -178,11 +178,9 @@ class _HomePageState extends State<HomePage> {
       ),
     ];
   }
-<<<<<<< HEAD
-=======
 
 
-   */
+   
   Widget _carruselStudio(UserModel usuario) {
     return Stack(
       children: [
@@ -517,5 +515,4 @@ class ClippCarrusel extends CustomClipper<Path> {
     // TODO: implement shouldReclip
     return false;
   }
->>>>>>> parent of 322c00e... Merge pull request #20 from AudioVisualArt/Recognize_Photo
 }
