@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Contract/model/contract_models.dart';
+import 'package:Clapp/src/Contract/pages/contract_details.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -47,7 +48,7 @@ class _OtherPage extends State<OtherPage> {
                       SizedBox(height: 9),
                       SizedBox(
                         height: 1000,
-                        child: _crearListado(usuario.id),
+                        child: _crearListado(usuario.id, usuario),
                       ),
 
 
@@ -57,7 +58,7 @@ class _OtherPage extends State<OtherPage> {
     );
   }
 
-  Widget _crearListado(String idUsuario) {
+  Widget _crearListado(String idUsuario, UserModel usuario) {
     return FutureBuilder(
       future: proyectosProvider.cargarTodosProyectos(),
       builder: (BuildContext context,
@@ -69,7 +70,7 @@ class _OtherPage extends State<OtherPage> {
             // padding: const EdgeInsets.all(8.0),
             itemCount: proyectos.length,
             itemBuilder: (context, index) =>
-                _crearproyectos(context, proyectos[index]),
+                _crearproyectos(context, proyectos[index], usuario),
 
           );
         } else {
@@ -79,7 +80,7 @@ class _OtherPage extends State<OtherPage> {
     );
   }
 
-  Widget _crearproyectos(BuildContext context, ProjectModel project) {
+  Widget _crearproyectos(BuildContext context, ProjectModel project, UserModel usuario) {
     return Card(
           //margin: EdgeInsets.all(10),
 
@@ -102,7 +103,7 @@ class _OtherPage extends State<OtherPage> {
                   shrinkWrap: true,
                 itemCount: contratos.length,
                 itemBuilder: (context, index) =>
-                    _crearcontrato(context, contratos[index]),
+                    _crearcontrato(context, contratos[index],usuario),
 
               );
               } else {
@@ -116,7 +117,7 @@ class _OtherPage extends State<OtherPage> {
           ),
         );
   }
-  Widget _crearcontrato(BuildContext context, ContractModel contrato) {
+  Widget _crearcontrato(BuildContext context, ContractModel contrato, UserModel usuario) {
     return  Card(
           //margin: EdgeInsets.all(10),
 
@@ -125,6 +126,14 @@ class _OtherPage extends State<OtherPage> {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           // color: Color.fromRGBO(227, 227, 227, 1.0),
           child:ListTile(
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => ContractDetails(
+                        contrato,
+                        usuario)),
+              );
+            },
                 title: Text('${contrato.jobPosition} - ${contrato.workHours} horas',
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
                 subtitle: Text(contrato.city,

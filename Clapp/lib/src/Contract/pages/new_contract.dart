@@ -377,7 +377,7 @@ class _NewContract extends State<NewContract>{
    if (!contractformkey.currentState.validate()) return;
 
    contractformkey.currentState.save();
-
+   contrato.acceptedBidder = false;
    print('Todo Ok');
 
    setState(() {

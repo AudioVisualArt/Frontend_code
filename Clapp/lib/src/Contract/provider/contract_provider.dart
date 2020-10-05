@@ -12,7 +12,7 @@ class EquipmentProvider {
 
     final resp = await http.post(url,
         headers: <String, String>{
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
         },
         body: ContractModelToJson(contractModel));
 
