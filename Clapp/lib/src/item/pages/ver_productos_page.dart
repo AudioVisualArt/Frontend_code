@@ -25,6 +25,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
         child: Scaffold(
 
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/img/mostraritems.jpg"),

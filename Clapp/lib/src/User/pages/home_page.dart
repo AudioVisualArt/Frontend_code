@@ -1,8 +1,7 @@
-import 'package:Clapp/src/User/models/mensaje_model.dart';
+import 'package:Clapp/src/Space/pages/spaces_page.dart';
+import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:Clapp/src/User/providers/chat_provider.dart';
-import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/widgets/menu_widget.dart';
 
@@ -63,6 +62,99 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget elementoMenu(String name, int onPressed, UserModel usuario,
+      String imagenIcono, _colorfondo) {
+    return Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: InkWell(
+          onTap: () {
+            switch (onPressed) {
+              case 0:
+                Navigator.pushNamed(context, 'proyectos', arguments: usuario);
+
+                break;
+              case 1:
+                Navigator.pushNamed(context, 'ver_producto',
+                    arguments: usuario);
+                break;
+              case 2:
+                Navigator.pushNamed(context, 'open_contracts',
+                    arguments: usuario);
+                break;
+              case 3:
+                Navigator.pushNamed(context, 'contratos', arguments: usuario);
+                break;
+              case 4:
+                Navigator.pushNamed(context, 'open_contracts',
+                    arguments: usuario);
+                break;
+              case 5:
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new SpacesPage()));
+                break;
+              case 6:
+                print('Sin ruta');
+                //Navigator.pushNamed(context, 'find_photo', arguments: usuario);
+                break;
+              case 7:
+                Navigator.pushNamed(context, 'items_buy', arguments: usuario);
+                break;
+              case 8:
+                Navigator.pushNamed(context, 'mycontract',arguments: usuario);
+                break;
+            }
+            ;
+          },
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: 115, //MediaQuery.of(context).size.height - 570,
+              maxWidth: 115, //MediaQuery.of(context).size.width - 250,
+              minWidth: 101, //MediaQuery.of(context).size.width - 310
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100.0),
+                      child: Image(
+                        image: AssetImage(imagenIcono),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    height: 68, //MediaQuery.of(context).size.height - 615,
+                    width: 68, // MediaQuery.of(context).size.width - 340,
+                    decoration: BoxDecoration(
+                      color: _colorfondo,
+                      borderRadius: BorderRadius.circular(12.0),
+                      /* border: Border.all(
+                        width: 1.3,
+                        color: Color.fromRGBO(0, 51, 51, 0.8),
+                      ),
+                      */
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 5),
+                  child: Text(name,
+                      style: TextStyle(
+                          color: Color.fromRGBO(0, 51, 51, 0.9),
+                          fontSize: 18,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold)),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+
   Widget _mostrarFotoPerfil() {
     return Padding(
       padding: EdgeInsets.all(0.0),
@@ -79,47 +171,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /*List<Widget> crear() {
-    return [
-      RaisedButton.icon(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        label: Text('Ingresar Producto'),
-        textColor: Colors.white,
-        icon: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        color: Color.fromRGBO(89, 122, 121, 1.0),
-        onPressed: () => Navigator.pushNamed(
-          context,
-          'producto',
-        ),
-      ),
-      RaisedButton.icon(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        label: Text('Ver Inventario'),
-        textColor: Colors.white,
-        icon: Icon(Icons.art_track, color: Colors.white),
-        color: Color.fromRGBO(89, 122, 121, 1.0),
-        onPressed: () => Navigator.pushNamed(context, 'ver_producto'),
-      ),
-    ];
-  }
-
-
-
-   */
   Widget _carruselStudio(UserModel usuario) {
     return Stack(
       children: [
         Padding(
             padding: EdgeInsets.only(),
             child: Container(
-              color: Color.fromRGBO(227, 227, 227, 1),
+              decoration: ConcaveDecoration(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  colors: [
+                    Color.fromRGBO(230, 230, 230, 0.5),
+                    Color.fromRGBO(247, 245, 245, 0.5),
+                  ],
+                  depression: 15),
+              //color: Color.fromRGBO(227, 227, 227, 1),
               height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
               child: ListView(
@@ -128,9 +195,27 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 125,
                   ),
-                  elementoMenu('Proyectos'),
-                  elementoMenu('Tienda'),
-                  elementoMenu('Contratos'),
+                  elementoMenu(
+                    'Proyectos',
+                    0,
+                    usuario,
+                    "assets/img/proyectosIcon2.jpg",
+                    Color.fromRGBO(236, 149, 156, 1.0),
+                  ),
+                  elementoMenu(
+                    'Tienda',
+                    1,
+                    usuario,
+                    "assets/img/tiendaIcon2.jpg",
+                    Color.fromRGBO(255, 199, 86, 1),
+                  ),
+                  elementoMenu(
+                    'Contratos',
+                    8,
+                    usuario,
+                    "assets/img/iconodecontratos.png",
+                    Color.fromRGBO(255, 105, 76, 1.0),
+                  ),
                   SizedBox(
                     width: 15,
                   ),
@@ -144,7 +229,7 @@ class _HomePageState extends State<HomePage> {
               child: ClipPath(
                   clipper: ClippCarrusel(),
                   child: Container(
-                      color: Color.fromRGBO(112, 252, 118, 1),
+                      color: Color.fromRGBO(112, 252, 118, 0.8),
                       height: 115, //MediaQuery.of(context).size.height - 570,
                       width: 131, //MediaQuery.of(context).size.width - 280,
                       child: InkWell(
@@ -163,29 +248,12 @@ class _HomePageState extends State<HomePage> {
                                       73, //MediaQuery.of(context).size.height - 610,
                                   width:
                                       77, //                                      MediaQuery.of(context).size.width - 335,
-                                  /*decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  border: Border.all(
-                                    width: 1.3,
-                                    color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  ),
-                                ),
 
-                                 */
                                   child: Icon(
                                     Icons.local_convenience_store,
                                     color: Colors.black,
                                     size: 75,
-                                  )
-                                  /* ImageIcon(
-                                  AssetImage("assets/img/studioIcon.png"),
-                                  color: Colors.black,
-                                  size: 5,
-                                ),
-
-                                */
-
-                                  ),
+                                  )),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -213,7 +281,16 @@ class _HomePageState extends State<HomePage> {
         Padding(
             padding: EdgeInsets.only(),
             child: Container(
-              color: Color.fromRGBO(227, 227, 227, 1),
+              decoration: ConcaveDecoration(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  colors: [
+                    Color.fromRGBO(230, 230, 230, 0.5),
+                    Color.fromRGBO(247, 245, 245, 0.5),
+                  ],
+                  depression: 15),
+              //color: Color.fromRGBO(227, 227, 227, 1),
               height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
               child: ListView(
@@ -222,10 +299,35 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 125,
                   ),
-                  elementoMenu('Props'),
-                  elementoMenu('Guiones'),
-                  elementoMenu('Equipo'),
-                  elementoMenu('Accesorios'),
+                  elementoMenu(
+                    'Imagenes',
+                    6,
+                    usuario,
+                    "assets/img/imagesIcon.png",
+                    Color.fromRGBO(255, 105, 76, 1.0),
+                  ),
+                  elementoMenu(
+                    'Equipo',
+                    7,
+                    usuario,
+                    "assets/img/equipoIcon.png",
+                    Color.fromRGBO(253, 132, 105, 1.0),
+                  ),
+                  elementoMenu(
+                    'Guiones',
+                    7,
+                    usuario,
+                    "assets/img/guionIcon.jpg",
+                    Color.fromRGBO(253, 196, 18, 1.0),
+                  ),
+                  elementoMenu(
+                    'Props',
+                    7,
+                    usuario,
+                    "assets/img/propsIcon.png",
+                    Color.fromRGBO(190, 214, 48, 1.0),
+                  ),
+                  //elementoMenu('Accesorios', 6, usuario, "assets/img/imagesIcon.png", Color.fromRGBO(255, 105, 76, 1.0),),
                   SizedBox(
                     width: 15,
                   ),
@@ -239,7 +341,7 @@ class _HomePageState extends State<HomePage> {
               child: ClipPath(
                   clipper: ClippCarrusel(),
                   child: Container(
-                      color: Color.fromRGBO(112, 252, 118, 1),
+                      color: Color.fromRGBO(112, 252, 118, 0.8),
                       height: 115, //MediaQuery.of(context).size.height - 570,
                       width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
@@ -258,16 +360,7 @@ class _HomePageState extends State<HomePage> {
                                       73, //MediaQuery.of(context).size.height - 610,
                                   width:
                                       77, //                                         MediaQuery.of(context).size.width - 335,
-                                  /* decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  border: Border.all(
-                                    width: 1.3,
-                                    color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  ),
 
-                                ),
-
-                                */
                                   child: Icon(
                                     Icons.store_mall_directory,
                                     color: Colors.black,
@@ -300,7 +393,16 @@ class _HomePageState extends State<HomePage> {
         Padding(
             padding: EdgeInsets.only(),
             child: Container(
-              color: Color.fromRGBO(227, 227, 227, 1),
+              decoration: ConcaveDecoration(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  colors: [
+                    Color.fromRGBO(230, 230, 230, 0.5),
+                    Color.fromRGBO(247, 245, 245, 0.5),
+                  ],
+                  depression: 15),
+              //color: Color.fromRGBO(227, 227, 227, 1),
               height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
               child: ListView(
@@ -309,10 +411,29 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 125,
                   ),
-                  elementoMenu('Personal'),
-                  elementoMenu('Contratos'),
-                  elementoMenu('Espacios'),
-                  elementoMenu('Catering'),
+                  elementoMenu(
+                    'Personal',
+                    3,
+                    usuario,
+                    "assets/img/personalIcon.png",
+                    Color.fromRGBO(27, 155, 170, 1.0),
+                  ),
+                  elementoMenu(
+                    'Espacios',
+                    5,
+                    usuario,
+                    "assets/img/locationIcon.png",
+                    Color.fromRGBO(204, 190, 176, 1.0),
+                  ),
+                  elementoMenu(
+                    'Contratos',
+                    4,
+                    usuario,
+                    "assets/img/contractIcon.png",
+                    Color.fromRGBO(255, 211, 78, 1.0),
+                  ),
+
+                  //elementoMenu(usuario,'Catering'),
                   SizedBox(
                     width: 15,
                   ),
@@ -326,7 +447,7 @@ class _HomePageState extends State<HomePage> {
               child: ClipPath(
                   clipper: ClippCarrusel(),
                   child: Container(
-                      color: Color.fromRGBO(112, 252, 118, 2),
+                      color: Color.fromRGBO(112, 252, 118, 0.8),
                       height: 115, //MediaQuery.of(context).size.height - 570,
                       width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
@@ -345,15 +466,7 @@ class _HomePageState extends State<HomePage> {
                                       73, //                                     MediaQuery.of(context).size.height - 610,
                                   width:
                                       77, //                                     MediaQuery.of(context).size.width - 335,
-                                  /* decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  border: Border.all(
-                                    width: 1.3,
-                                    color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  ),
-                                ),
 
-                                */
                                   child: Icon(
                                     Icons.work,
                                     color: Colors.black,
@@ -379,50 +492,6 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-
-  Widget elementoMenu(String name) {
-    return Padding(
-        padding: EdgeInsets.only(left: 5),
-        child: InkWell(
-            onTap: () {},
-            child: Container(
-              //color: Colors.amber,
-              constraints: BoxConstraints(
-                maxHeight: 115, //MediaQuery.of(context).size.height - 570,
-                maxWidth: 115, //MediaQuery.of(context).size.width - 250,
-                minWidth: 101, //MediaQuery.of(context).size.width - 310
-              ),
-
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Container(
-                      height: 68, //MediaQuery.of(context).size.height - 615,
-                      width: 68, // MediaQuery.of(context).size.width - 340,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(
-                          width: 1.3,
-                          color: Color.fromRGBO(0, 51, 51, 0.8),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5),
-                    child: Text(name,
-                        style: TextStyle(
-                            color: Color.fromRGBO(0, 51, 51, 0.9),
-                            fontSize: 18,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.bold)),
-                  )
-                ],
-              ),
-            )));
-  }
 }
 
 class ClippCarrusel extends CustomClipper<Path> {
@@ -432,8 +501,6 @@ class ClippCarrusel extends CustomClipper<Path> {
     // TODO: implement getClip
     path.lineTo(size.width, 0.0);
     path.lineTo((size.width / 4) * 3, size.height);
-
-    //path.lineTo(0, 0);
     path.lineTo(0.0, size.height);
     //path.moveTo((size.width/3)*2,size.width);
     //path.lineTo(size.width, size.height);
