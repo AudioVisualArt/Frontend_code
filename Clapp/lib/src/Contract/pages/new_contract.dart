@@ -90,7 +90,7 @@ class _NewContract extends State<NewContract>{
 
                       child: Column(
                         children: <Widget>[
-                          _city(),
+                          //_city(),
                           SizedBox(height: 10),
                           _jobPosition(),
                           SizedBox(height: 10),
@@ -125,7 +125,7 @@ class _NewContract extends State<NewContract>{
                                 fontWeight: FontWeight.bold)),
                         textColor: Colors.white,
                         color: Color.fromRGBO(112, 252, 118, 0.8),
-                        onPressed: (_guardando) ? null : _submit,
+                        onPressed:() {(_guardando) ? null : _submit(project);},
                       ),
                     )
                   )
@@ -373,11 +373,13 @@ class _NewContract extends State<NewContract>{
   }
 
 
- void _submit() {
+ void _submit(ProjectModel project) {
    if (!contractformkey.currentState.validate()) return;
 
+   contrato.userBidderId= project.ownerId;
+
    contractformkey.currentState.save();
-   contrato.acceptedBidder = false;
+   contrato.acceptedBidder = true;
    print('Todo Ok');
 
    setState(() {
