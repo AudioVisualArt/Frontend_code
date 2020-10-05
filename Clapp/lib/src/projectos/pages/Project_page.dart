@@ -52,7 +52,7 @@ class _ProjectPageState extends State<ProjectPage> {
             //key: formKey,
             child: Column(
               children: <Widget>[
-                newappbar(widget.user),
+                newappbar(userModel),
 
                 //SizedBox(height: 9),
 
@@ -133,7 +133,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
-                  child: _botonProyectoNuevo(widget.user),
+                  child: _botonProyectoNuevo(userModel),
                 )
               ],
             ),
