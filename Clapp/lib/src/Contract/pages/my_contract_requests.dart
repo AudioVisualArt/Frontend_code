@@ -5,6 +5,8 @@ import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:address_search_text_field/address_search_text_field.dart';
+import 'package:clay_containers/constants.dart';
+import 'package:clay_containers/widgets/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
@@ -28,7 +30,7 @@ class _MyContractRequest extends State<MyContractRequest> {
     // TODO: implement build
     return Scaffold(
       body: Container(
-          height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
           image: AssetImage("assets/img/mostraritems.jpg"),
@@ -48,17 +50,17 @@ class _MyContractRequest extends State<MyContractRequest> {
                 newappbar(usuario.id),
                 Expanded(
                     child: Container(
-                      child: _crearListado(usuario.id),
-                      //padding: EdgeInsets.all(4.0),
-                      width: MediaQuery.of(context).size.width - 0.0,
-                      height: MediaQuery.of(context).size.height - 210,
-                    )),
-
-                ],
+                  child: _crearListado(usuario.id),
+                  //padding: EdgeInsets.all(4.0),
+                  width: MediaQuery.of(context).size.width - 0.0,
+                  height: MediaQuery.of(context).size.height - 210,
+                )),
+              ],
             )),
       ),
     );
   }
+
   Widget _crearListado(String idUsuario) {
     return FutureBuilder(
       future: contratosProvider.cargarContratosOfrecidos(idUsuario),
@@ -70,7 +72,7 @@ class _MyContractRequest extends State<MyContractRequest> {
             // padding: const EdgeInsets.all(8.0),
             itemCount: contratos.length,
             itemBuilder: (context, index) =>
-                solicitud_Contrato(context, contratos[index],idUsuario),
+                solicitud_Contrato(context, contratos[index], idUsuario),
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -79,7 +81,8 @@ class _MyContractRequest extends State<MyContractRequest> {
     );
   }
 
-  Widget solicitud_Contrato(BuildContext context, ContractModel contrato, String idUduario) {
+  Widget solicitud_Contrato(
+      BuildContext context, ContractModel contrato, String idUduario) {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 15, bottom: 15),
         child: Container(
@@ -125,16 +128,14 @@ class _MyContractRequest extends State<MyContractRequest> {
                         padding:
                             EdgeInsets.only(left: 12.0, right: 10, top: 12),
                         child: Container(
-                          decoration: ConcaveDecoration(
-                              shape: ContinuousRectangleBorder(
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                              colors: [
-                                Color.fromRGBO(176, 176, 176, 0.8),
-                                Color.fromRGBO(199, 199, 199, 1),
-                              ],
-                              depression: 15),
-                          /*decoration: BoxDecoration(
+                          child: Center(
+                            child: ClayContainer(
+                              borderRadius: 10,
+                              curveType: CurveType.none,
+                              color: Color.fromRGBO(227, 227, 227, 1),
+                              depth: 35,
+                              spread: 5,
+                              /*decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(20),
                                     topRight: Radius.circular(20),
@@ -143,17 +144,22 @@ class _MyContractRequest extends State<MyContractRequest> {
                                 color: Color.fromRGBO(246, 246, 246, 1.0)),
 
                              */
-                          child: Column(
-                            children: [
-                              SizedBox(height: 6,),
-                              _crearNombreProjecto(contrato),
-                              row_info_contrato("Cargo :", contrato.jobPosition),
-                              row_info_contrato("Horas:", contrato.workHours.toString()),
-                              _crearCiudad(contrato),
-                              row_info_contrato("Pago:", contrato.payment.toString()),
-
-
-                            ],
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  _crearNombreProjecto(contrato),
+                                  row_info_contrato(
+                                      "Cargo :", contrato.jobPosition),
+                                  row_info_contrato(
+                                      "Horas:", contrato.workHours.toString()),
+                                  _crearCiudad(contrato),
+                                  row_info_contrato(
+                                      "Pago:", contrato.payment.toString()),
+                                ],
+                              ),
+                            ),
                           ),
                           width: MediaQuery.of(context).size.width - 80,
                           height: 175,
@@ -231,7 +237,7 @@ class _MyContractRequest extends State<MyContractRequest> {
                                 color: Color.fromRGBO(112, 252, 118, 1),
                                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                                 onPressed: () {
-                                  _confirmarContrato(contrato,idUduario);
+                                  _confirmarContrato(contrato, idUduario);
                                 },
                               ),
                             ),
@@ -247,7 +253,7 @@ class _MyContractRequest extends State<MyContractRequest> {
         ));
   }
 
-  Widget row_info_contrato(String name, String info){
+  Widget row_info_contrato(String name, String info) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -257,16 +263,13 @@ class _MyContractRequest extends State<MyContractRequest> {
               left: 12,
             ),
             child: Container(
-              width:
-              MediaQuery.of(context).size.width -
-                  310,
+              width: MediaQuery.of(context).size.width - 310,
               child: Text(
                 name,
                 style: TextStyle(
                     fontSize: 20.0,
                     fontFamily: "Raleway",
-                    color: Color.fromRGBO(
-                        115, 115, 115, 1.0),
+                    color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),
               ),
             )),
@@ -276,16 +279,13 @@ class _MyContractRequest extends State<MyContractRequest> {
               left: 12,
             ),
             child: Container(
-              width:
-              MediaQuery.of(context).size.width -
-                  210,
+              width: MediaQuery.of(context).size.width - 210,
               child: Text(
                 info,
                 style: TextStyle(
                     fontSize: 20.0,
                     fontFamily: "Raleway",
-                    color: Color.fromRGBO(
-                        115, 115, 115, 1.0),
+                    color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),
               ),
             )),
@@ -327,8 +327,9 @@ class _MyContractRequest extends State<MyContractRequest> {
                   padding: EdgeInsets.only(left: 35.0, right: 16, top: 37),
                   child: Container(
                     child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 30, ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                      ),
                       child: Text('Contratos',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -356,62 +357,60 @@ class _MyContractRequest extends State<MyContractRequest> {
                       iconSize: 22,
                       icon: Icon(Icons.autorenew),
                       onPressed: () {
-                        setState(() {_crearListado(idUsuario);  });
+                        setState(() {
+                          _crearListado(idUsuario);
+                        });
                       },
                     ),
                   ],
                 )),
           ],
-
         ));
   }
+
   Future<Address> _getAddress(LatLng myLocation) async {
-    final coordinates = new Coordinates(
-        myLocation.latitude, myLocation.longitude);
-    var addresses = await Geocoder.local.findAddressesFromCoordinates(
-        coordinates);
+    final coordinates =
+        new Coordinates(myLocation.latitude, myLocation.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
-    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
-        .subAdminArea},${first.addressLine}, ${first.featureName},${first
-        .thoroughfare}, ${first.subThoroughfare}');
+    print(
+        ' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first.subAdminArea},${first.addressLine}, ${first.featureName},${first.thoroughfare}, ${first.subThoroughfare}');
 
     return first;
   }
 
- Widget _crearCiudad(ContractModel contrato) {
+  Widget _crearCiudad(ContractModel contrato) {
     LatLng lt = new LatLng(contrato.latitud, contrato.longitud);
     return FutureBuilder(
       future: _getAddress(lt),
-      builder:
-          (BuildContext context, AsyncSnapshot<Address> snapshot) {
-        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+      builder: (BuildContext context, AsyncSnapshot<Address> snapshot) {
+        if (snapshot.hasData &&
+            snapshot.connectionState == ConnectionState.done) {
           return row_info_contrato("Locacion:", snapshot.data.locality);
         } else {
           return Center(child: CircularProgressIndicator());
         }
       },
     );
-
   }
 
   _crearNombreProjecto(ContractModel contrato) {
-
     return FutureBuilder(
       future: proyectosProvider.cargarProyecto(contrato.projectId),
-      builder:
-      (BuildContext context, AsyncSnapshot<ProjectModel> snapshot) {
-    if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-        return row_info_contrato("Proyecto:", snapshot.data.proyectName);
-    } else {
-        return Center(child: CircularProgressIndicator());
-    }
-    },
+      builder: (BuildContext context, AsyncSnapshot<ProjectModel> snapshot) {
+        if (snapshot.hasData &&
+            snapshot.connectionState == ConnectionState.done) {
+          return row_info_contrato("Proyecto:", snapshot.data.proyectName);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
-  void _confirmarContrato(ContractModel contrato,String idUsuario) {
-
-    contrato.acceptedApplicant= true;
+  void _confirmarContrato(ContractModel contrato, String idUsuario) {
+    contrato.acceptedApplicant = true;
     contratosProvider.editarContrato(contrato);
     _crearListado(idUsuario);
   }

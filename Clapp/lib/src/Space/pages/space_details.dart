@@ -171,6 +171,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                   infospace('Tarifa', "${espacio.minimumHours} horas min", '${espacio.priceHour} COP/hora'),
 
 
+
                 ],
               )
             ],
@@ -231,7 +232,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                         children: [
                           Padding(
                               padding: EdgeInsets.only(
-                                  left: 10.0, right: 15, top: 12),
+                                  left: 10.0, right: 5, top: 12),
                               child: Container(
                                 constraints: BoxConstraints(
                                     minWidth: 100,
@@ -252,11 +253,11 @@ class _SpaceDetails extends State<SpaceDetails> {
                               )),
                           Padding(
                               padding: EdgeInsets.only(
-                                  left: 10.0, right: 15, top: 12),
+                                  left: 5.0, right: 15, top: 12),
                               child: Container(
                                 constraints: BoxConstraints(
                                     minWidth: 100,
-                                    maxWidth: 162,
+                                    maxWidth: 180,
                                     maxHeight: 42,
                                     minHeight: 22),
                                 child: Text(
@@ -364,11 +365,11 @@ class _SpaceDetails extends State<SpaceDetails> {
                 child: Container(
                   constraints: BoxConstraints(
                       minWidth: 100,
-                      maxWidth: 130,
+                      maxWidth: 145,
                       maxHeight: 42,
                       minHeight: 22),
                   child: Text(
-                    user.name,
+                    user.name,textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18.0,
                       fontFamily: "Raleway",

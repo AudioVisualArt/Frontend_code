@@ -15,6 +15,9 @@ class WorkerModel {
   String profession;
   String studies;
   String hvUrl;
+  double minPayment;
+  double maxPayment;
+
 
 
   WorkerModel({
@@ -24,7 +27,9 @@ class WorkerModel {
     this.briefcase ,
     this.profession ,
     this.studies,
-    this.hvUrl
+    this.hvUrl,
+    this.maxPayment,
+    this.minPayment
 
   });
 
@@ -35,7 +40,9 @@ class WorkerModel {
     briefcase: json["briefcase"],
     profession: json["profession"],
     studies: json["studies"],
-      hvUrl: json["hvUrl"]
+      hvUrl: json["hvUrl"],
+      maxPayment: json["maxPayment"],
+      minPayment: json["minPayment"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -45,7 +52,9 @@ class WorkerModel {
     "briefcase": briefcase,
     "profession": profession,
     "studies": studies,
-    "hvUrl": hvUrl
+    "hvUrl": hvUrl,
+    "minPayment":minPayment,
+    "maxPayment":maxPayment
 
   };
 }
