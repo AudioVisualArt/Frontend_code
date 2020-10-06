@@ -7,9 +7,11 @@ import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
+import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 import 'package:flutter/material.dart';
 class RecomendadosPage extends StatefulWidget {
-  RecomendadosPage({Key key}) : super(key: key);
+  final UserModel userF;
+  RecomendadosPage({Key key, this.userF}) : super(key: key);
 
   @override
   _RecomendadosPageState createState() => _RecomendadosPageState();
@@ -30,6 +32,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   SpacesProvider sp=new SpacesProvider();
   int selectedIndex=0;
   List<double> _valores=new List();
+ 
   @override
   Widget build(BuildContext context) {
     _valores=ModalRoute.of(context).settings.arguments;
@@ -73,6 +76,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     
         ]
         ),
+      bottomSheet: _presupuesto()
       ),
     );
   }
@@ -122,7 +126,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     this.tecnico=await wk.cargarTrabajadores();
     this.photos=await ph.cargarPhotos();
     this.equipos=await eq.cargarEquipments();
-    this.espacios=await sp.cargarEspacios();
+    //this.espacios=await sp.cargarEspacios();
 
     return true;
 
@@ -134,49 +138,67 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     if(user.photoUrl==null){
       user.photoUrl=('https://britz.mcmaster.ca/images/nouserimage.gif/image');
     }
-    return Container(
-              padding: EdgeInsets.all(20.0),
-              height: 300,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(181, 189, 185 , 1.0),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(user.name, 
-                    style: TextStyle(
-                       color: Color.fromRGBO(0, 51, 51, 0.8),
-                        fontSize: 15.5,
-                        fontFamily: "Raleway",
-                        fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center
-                    ),
-                    SizedBox(height: 5.0,),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Image(
-                        image: NetworkImage(user.photoUrl),
-                        width: 140,
-                        height: 120,
-                        fit: BoxFit.cover,
-                        ),
-                    ),
-                    SizedBox(height: 10.0,),
-                    Text('Profesion: ',style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    ),),
-                    Text(wker.profession,textAlign: TextAlign.center,),
-                    SizedBox(height: 5.0,),                    
-                    Text('Descripcion: ',style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    )),
-                    Text(wker.description, textAlign: TextAlign.center,),  
-
-                  ],
+    return InkWell(
+      child: Container(
+                
+                padding: EdgeInsets.all(20.0),
+                height: 300,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(181, 189, 185 , 1.0),
+                  borderRadius: BorderRadius.circular(16)
                 ),
-              ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(user.name, 
+                      style: TextStyle(
+                         color: Color.fromRGBO(0, 51, 51, 0.8),
+                          fontSize: 15.5,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center
+                      ),
+                      SizedBox(height: 5.0,),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image(
+                          image: NetworkImage(user.photoUrl),
+                          width: 140,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          ),
+                      ),
+                      SizedBox(height: 10.0,),
+                      Text('Profesion: ',style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),),
+                      Text(wker.profession,textAlign: TextAlign.center,),
+                      SizedBox(height: 5.0,),                    
+                      Text('Descripcion: ',style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      )),
+                      Text(wker.description, textAlign: TextAlign.center,),  
+
+                    ],
+                  ),
+                ),
+      ),
+      onTap: (){
+        Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => PerfilPersonal(
+                          wker.userId,
+                          wker.mainRol,
+                          user.name,
+                          wker.description,
+                          wker.profession,
+                          user.cityResidence,
+                          user.photoUrl,
+                          widget.userF)
+                    ),
+        );
+      },
     );
   }
   Widget _tarjetasTecnico(index)  {
@@ -236,51 +258,56 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     if(equip.fotoUrl==null || equip.fotoUrl==""){
       equip.fotoUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
     }
-    return Container(
-              padding: EdgeInsets.all(20.0),
-              height: 300,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(181, 189, 185 , 1.0),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(equip.titulo,
-                    style: TextStyle(
-                       color: Color.fromRGBO(0, 51, 51, 0.8),
-                        fontSize: 15.5,
-                        fontFamily: "Raleway",
-                        fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center
-                    ),
-                    SizedBox(height: 5.0,),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image(
-                        image: NetworkImage(equip.fotoUrl),
-                         width: 140,
-                        height: 120,
-                        fit: BoxFit.cover,
-                        ),
-                    ),
-                    SizedBox(height: 10.0,),
-                    Text("Marca: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(equip.marca, textAlign: TextAlign.center),
-                    SizedBox(height: 5.0,),
-                    Text("Modelo: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(equip.modelo, textAlign: TextAlign.center),
-                    SizedBox(height: 5.0,),
-                    Text("Valor: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(equip.valor.toString(), textAlign: TextAlign.center),
-
-                  ],
+    return InkWell(
+          onTap: ()=> Navigator.pushNamed(
+                context, 'equipment_edit',
+                arguments: equip),
+          child: Container(
+                padding: EdgeInsets.all(20.0),
+                height: 300,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(181, 189, 185 , 1.0),
+                  borderRadius: BorderRadius.circular(16)
                 ),
-              ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(equip.titulo,
+                      style: TextStyle(
+                         color: Color.fromRGBO(0, 51, 51, 0.8),
+                          fontSize: 15.5,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center
+                      ),
+                      SizedBox(height: 5.0,),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image(
+                          image: NetworkImage(equip.fotoUrl),
+                           width: 140,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          ),
+                      ),
+                      SizedBox(height: 10.0,),
+                      Text("Marca: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(equip.marca, textAlign: TextAlign.center),
+                      SizedBox(height: 5.0,),
+                      Text("Modelo: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(equip.modelo, textAlign: TextAlign.center),
+                      SizedBox(height: 5.0,),
+                      Text("Valor: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(equip.valor.toString(), textAlign: TextAlign.center),
+
+                    ],
+                  ),
+                ),
+      ),
     );
   }
 
@@ -504,5 +531,91 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
       break;
     }
 
+  }
+
+  Widget _presupuesto() {
+    switch (selectedIndex) {
+      case 0: return Card(
+        
+              child: ListTile(
+          
+                title: Row(children: [
+                  SizedBox(width: 100,),
+                  Icon(Icons.monetization_on_outlined,color: Colors.green,),
+                  SizedBox(width: 50,),
+                  Text("${_valores[0]}"),
+                ],),
+              ),
+            );
+        
+        break;
+      case 1:  return Card(
+        
+              child: ListTile(
+          
+                title: Row(children: [
+                  SizedBox(width: 100,),
+                  Icon(Icons.monetization_on_outlined,color: Colors.green,),
+                  SizedBox(width: 50,),
+                  Text("${_valores[1]}"),
+                ],),
+              ),
+            );
+        
+        break;
+      case 2:  return Card(
+        
+              child: ListTile(
+          
+                title: Row(children: [
+                  SizedBox(width: 100,),
+                  Icon(Icons.monetization_on_outlined,color: Colors.green,),
+                  SizedBox(width: 50,),
+                  Text("${_valores[2]}"),
+                ],),
+              ),
+            );
+        
+        break;
+      case 3:  return Card(
+        
+              child: ListTile(
+          
+                title: Row(children: [
+                  SizedBox(width: 100,),
+                  Icon(Icons.monetization_on_outlined,color: Colors.green,),
+                  SizedBox(width: 50,),
+                  Text("${_valores[3]}"),
+                ],),
+              ),
+            );
+        
+        break;
+      case 4:  return Card(       
+              child: ListTile(
+                title: Row(children: [
+                  SizedBox(width: 100,),
+                  Icon(Icons.monetization_on_outlined,color: Colors.green,),
+                  SizedBox(width: 50,),
+                  Text("${_valores[4]}"),
+                ],),
+              ),
+            );
+        break;
+      default:  return Card(
+        
+              child: ListTile(
+          
+                title: Row(children: [
+                  SizedBox(width: 100,),
+                  Icon(Icons.monetization_on_outlined,color: Colors.green,),
+                  SizedBox(width: 50,),
+                  Text("0"),
+                ],),
+              ),
+            );
+        
+        break;
+    }
   }
 }
