@@ -14,6 +14,7 @@ class WorkerModel {
   List<String> briefcase;
   String profession;
   String studies;
+  String hvUrl;
 
 
   WorkerModel({
@@ -23,6 +24,7 @@ class WorkerModel {
     this.briefcase ,
     this.profession ,
     this.studies,
+    this.hvUrl
 
   });
 
@@ -33,7 +35,7 @@ class WorkerModel {
     briefcase: json["briefcase"],
     profession: json["profession"],
     studies: json["studies"],
-
+      hvUrl: json["hvUrl"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +45,7 @@ class WorkerModel {
     "briefcase": briefcase,
     "profession": profession,
     "studies": studies,
+    "hvUrl": hvUrl
 
   };
 }

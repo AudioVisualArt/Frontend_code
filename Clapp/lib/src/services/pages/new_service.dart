@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
@@ -9,6 +11,7 @@ import 'package:Clapp/src/services/model/worker_model.dart';
 //import 'package:Clapp/src/User/models/user_model.dart';
 
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:flutter/services.dart';
 
 class NewService extends StatefulWidget {
   //final UserModel user;
@@ -25,10 +28,13 @@ class NewService extends StatefulWidget {
 class _NewService extends State<NewService> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _guardando = false;
+  bool _saved = false;
+  bool _savedFile = false;
   WorkerModel trabajador = new WorkerModel();
   final workerProvider = new WorkersProvider();
   final workerformkey = GlobalKey<FormState>();
-
+  PlatformFile guion;
+  List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   @override
   Widget build(BuildContext context) {
     // UserModel usuario = ModalRoute.of(context).settings.arguments;
@@ -49,6 +55,15 @@ class _NewService extends State<NewService> {
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.file_upload,
+                      color: Colors.black,
+                    ),
+                    onPressed: openFileExplorer,
+                  ),
+                ],
                 expandedHeight: 100.0,
                 floating: false,
                 pinned: true,
@@ -319,7 +334,7 @@ class _NewService extends State<NewService> {
         )));
   }
 
-  Void _submit() {
+  Future<Void> _submit() async {
     //trabajador.userId= workerProvider.crearWorker(trabajador).toString();
     //print("el id del servicio es: ${trabajador.userId}");
     if (!workerformkey.currentState.validate())
@@ -330,8 +345,28 @@ class _NewService extends State<NewService> {
     setState(() {
       _guardando = true;
     });
+    if (guion != null) {
+      print(guion.path.toString());
 
-    workerProvider.crearWorker(trabajador);
+      StorageUploadTask t;
+      //t = await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
+      t = await workerProvider.crearWorker(trabajador, guion);
+      if (t.isComplete) {
+        setState(() {
+          _tasks.add(t);
+          _saved = true;
+          _savedFile = true;
+        });
+      }
+      // Navigator.pop(context);
+      utils.mostrarAlerta(context, 'HV en  Clapp !!!');
+    } else {
+      setState(() {
+        _saved = false;
+      });
+      utils.mostrarAlerta(context, 'No Has Subido Ningún hoja de vida');
+    }
+
 
     // setState(() {
     //   _guardando = false;
@@ -340,5 +375,22 @@ class _NewService extends State<NewService> {
     Duration(milliseconds: 1500);
     Navigator.pop(context,
         new MaterialPageRoute(builder: (context) => new ServicesPages()));
+  }
+  openFileExplorer() async {
+    try {
+      FilePickerResult picker = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: ['pdf', 'doc']);
+
+      if (picker != null) {
+        PlatformFile file = picker.files.first;
+        print('File Name ${file.path}');
+
+        setState(() {
+          guion = file;
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Operación no Permitida ' + e.toString());
+    }
   }
 }
