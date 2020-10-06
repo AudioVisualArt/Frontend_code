@@ -21,12 +21,14 @@ class TitleBar extends StatelessWidget {
           tileMode: TileMode.clamp),
 
       //border: Border.all(color: Color.fromRGBO(89, 122, 121, 1.0), width: 1.7),
-      borderRadius: BorderRadius.all(Radius.circular(5)),
+      borderRadius: BorderRadius.all(Radius.circular(15)),
     );
   }
 
   Widget actores() {
     return Container(
+
+     height: 45,
       margin: const EdgeInsets.all(0.5),
       padding: const EdgeInsets.all(3.0),
       alignment: Alignment(1, 1),
@@ -38,7 +40,8 @@ class TitleBar extends StatelessWidget {
           style: TextStyle(
               fontSize: 20.0,
               fontFamily: "Raleway",
-              color: Color.fromRGBO(89, 122, 121, 1.0)),
+              color: Color.fromRGBO(89, 122, 121, 1.0),
+          fontWeight: FontWeight.bold),
         ),
       ),
     );
