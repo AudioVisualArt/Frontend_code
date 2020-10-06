@@ -1,8 +1,10 @@
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
+import 'package:Clapp/src/StockPhoto/pages/stockphoto_buy_page.dart';
 import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
@@ -73,8 +75,9 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
               }
             },
           ),
-    
+         SizedBox(height: 65.0),
         ]
+        
         ),
       bottomSheet: _presupuesto()
       ),
@@ -117,7 +120,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
 
   Future<bool> _llenarR() async {
   
-    
+    int i=0;
     this.actores=await wk.cargarTrabajadores();
     this.actores.forEach((element) async{
       UserModel user= await wk.cargarUsuarioTrabajador(element.userId);
@@ -125,8 +128,11 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     });
     this.tecnico=await wk.cargarTrabajadores();
     this.photos=await ph.cargarPhotos();
+    this.photos.removeWhere((element) => element.valor>_valores[4]);
     this.equipos=await eq.cargarEquipments();
-    //this.espacios=await sp.cargarEspacios();
+    this.equipos.removeWhere((element) => element.valor>_valores[2]);
+    this.espacios=await sp.cargarEspacios();
+    this.espacios.removeWhere((element) => element.priceHour>_valores[3]);
 
     return true;
 
@@ -195,7 +201,8 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                           wker.profession,
                           user.cityResidence,
                           user.photoUrl,
-                          widget.userF)
+                          widget.userF,
+                          wker.hvUrl)
                     ),
         );
       },
@@ -207,61 +214,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     if(user.photoUrl==null){
       user.photoUrl=('https://britz.mcmaster.ca/images/nouserimage.gif/image');
     }
-    return Container(
-              padding: EdgeInsets.all(20.0),
-              height: 300,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(181, 189, 185 , 1.0),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(user.name,
-                    style: TextStyle(
-                       color: Color.fromRGBO(0, 51, 51, 0.8),
-                        fontSize: 15.5,
-                        fontFamily: "Raleway",
-                        fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center
-                    ),
-                    SizedBox(height: 5.0,),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image(
-                        image: NetworkImage(user.photoUrl),
-                         width: 140,
-                        height: 120,
-                        fit:BoxFit.cover
-                        ),
-                    ),
-                   SizedBox(height: 10.0,),
-                    Text('Profesion: ',style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    ),),
-                    Text(wker.profession,textAlign: TextAlign.center,),
-                    SizedBox(height: 5.0,),                    
-                    Text('Descripcion: ',style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    )),
-                    Text(wker.description, textAlign: TextAlign.center,),  
-
-
-                  ],
-                ),
-              ),
-    );
-  }
-  Widget _tarjetasEquipos(index)  {
-    EquipmentModel equip=this.equipos[index];
-    if(equip.fotoUrl==null || equip.fotoUrl==""){
-      equip.fotoUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
-    }
     return InkWell(
-          onTap: ()=> Navigator.pushNamed(
-                context, 'equipment_edit',
-                arguments: equip),
           child: Container(
                 padding: EdgeInsets.all(20.0),
                 height: 300,
@@ -273,7 +226,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Text(equip.titulo,
+                      Text(user.name,
                       style: TextStyle(
                          color: Color.fromRGBO(0, 51, 51, 0.8),
                           fontSize: 15.5,
@@ -285,30 +238,106 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image(
-                          image: NetworkImage(equip.fotoUrl),
+                          image: NetworkImage(user.photoUrl),
                            width: 140,
                           height: 120,
-                          fit: BoxFit.cover,
+                          fit:BoxFit.cover
                           ),
                       ),
-                      SizedBox(height: 10.0,),
-                      Text("Marca: " , style: TextStyle(
-                        fontWeight: FontWeight.bold)),
-                      Text(equip.marca, textAlign: TextAlign.center),
-                      SizedBox(height: 5.0,),
-                      Text("Modelo: " , style: TextStyle(
-                        fontWeight: FontWeight.bold)),
-                      Text(equip.modelo, textAlign: TextAlign.center),
-                      SizedBox(height: 5.0,),
-                      Text("Valor: " , style: TextStyle(
-                        fontWeight: FontWeight.bold)),
-                      Text(equip.valor.toString(), textAlign: TextAlign.center),
+                     SizedBox(height: 10.0,),
+                      Text('Profesion: ',style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),),
+                      Text(wker.profession,textAlign: TextAlign.center,),
+                      SizedBox(height: 5.0,),                    
+                      Text('Descripcion: ',style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      )),
+                      Text(wker.description, textAlign: TextAlign.center,),  
+
 
                     ],
                   ),
                 ),
       ),
+      onTap: (){
+       Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => PerfilPersonal(
+                          wker.userId,
+                          wker.mainRol,
+                          user.name,
+                          wker.description,
+                          wker.profession,
+                          user.cityResidence,
+                          user.photoUrl,
+                          widget.userF,
+                          wker.hvUrl)
+                    ),
+        );
+      }
     );
+  }
+  Widget _tarjetasEquipos(index)  {
+    EquipmentModel equip=this.equipos[index];
+    if(equip.fotoUrl==null || equip.fotoUrl==""){
+      equip.fotoUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
+    }
+      return InkWell(
+            onTap: ()=> Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                      builder: (context) => new EquipmentCompraPage(
+                      equipmentModel: equip,
+                      userModel: widget.userF,
+                  ))),
+            child: Container(
+                  padding: EdgeInsets.all(20.0),
+                  height: 300,
+                  width: 160,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(181, 189, 185 , 1.0),
+                    borderRadius: BorderRadius.circular(16)
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text(equip.titulo,
+                        style: TextStyle(
+                          color: Color.fromRGBO(0, 51, 51, 0.8),
+                            fontSize: 15.5,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center
+                        ),
+                        SizedBox(height: 5.0,),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image(
+                            image: NetworkImage(equip.fotoUrl),
+                            width: 140,
+                            height: 120,
+                            fit: BoxFit.cover,
+                            ),
+                        ),
+                        SizedBox(height: 10.0,),
+                        Text("Marca: " , style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                        Text(equip.marca, textAlign: TextAlign.center),
+                        SizedBox(height: 5.0,),
+                        Text("Modelo: " , style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                        Text(equip.modelo, textAlign: TextAlign.center),
+                        SizedBox(height: 5.0,),
+                        Text("Valor: " , style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                        Text(equip.valor.toString(), textAlign: TextAlign.center),
+
+                      ],
+                    ),
+                  ),
+        ),
+      );
   }
 
   Widget _tarjetasEspacios(index)  {
@@ -316,53 +345,60 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     if(space.imageUrl==null || space.imageUrl==""){
       space.imageUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
     }
-  
-    return Container(
-              padding: EdgeInsets.all(20.0),
-              height: 300,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(181, 189, 185 , 1.0),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(space.name,
-                    style: TextStyle(
-                       color: Color.fromRGBO(0, 51, 51, 0.8),
-                        fontSize: 15.5,
-                        fontFamily: "Raleway",
-                        fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center
-                    ),
-                    SizedBox(height: 5.0,),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image(
-                        image: NetworkImage(space.imageUrl),
-                         width: 140,
-                        height: 120,
-                        fit: BoxFit.cover,
+
+    return InkWell(
+            child: Container(
+                  padding: EdgeInsets.all(20.0),
+                  height: 300,
+                  width: 160,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(181, 189, 185 , 1.0),
+                    borderRadius: BorderRadius.circular(16)
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text(space.name,
+                        style: TextStyle(
+                          color: Color.fromRGBO(0, 51, 51, 0.8),
+                            fontSize: 15.5,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center
                         ),
+                        SizedBox(height: 5.0,),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image(
+                            image: NetworkImage(space.imageUrl),
+                            width: 140,
+                            height: 120,
+                            fit: BoxFit.cover,
+                            ),
+                        ),
+                        SizedBox(height: 10.0,),
+                        Text("Locacion: " , style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                        Text(space.location,textAlign: TextAlign.center,),
+                        SizedBox(height: 5.0,),
+                        Text("Descripcion: " , style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                        Text(space.description,textAlign: TextAlign.center),
+                        SizedBox(height: 5.0,),
+                        Text("Precio hora: " , style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                        Text(space.priceHour.toString(),textAlign: TextAlign.center),
+                      
+                      ],
                     ),
-                    SizedBox(height: 10.0,),
-                    Text("Locacion: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(space.location,textAlign: TextAlign.center,),
-                    SizedBox(height: 5.0,),
-                    Text("Descripcion: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(space.description,textAlign: TextAlign.center),
-                    SizedBox(height: 5.0,),
-                    Text("Precio hora: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(space.priceHour.toString(),textAlign: TextAlign.center),
-                  
-                  ],
-                ),
-              ),
-    );
+                  ),
+        ),
+        onTap: (){
+          Navigator.pushNamed(context, 'space_details',
+                arguments: space);
+        },
+      );
+    
   }
 
   Widget _tarjetasArte(index)  {
@@ -370,57 +406,69 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     if(ph.fotoUrl==null || ph.fotoUrl==""){
       ph.fotoUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
     }
-  
-    return Container(
-              padding: EdgeInsets.all(20.0),
-              height: 300,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(181, 189, 185 , 1.0),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(ph.titulo,
-                    style: TextStyle(
-                       color: Color.fromRGBO(0, 51, 51, 0.8),
-                        fontSize: 15.5,
-                        fontFamily: "Raleway",
-                        fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center
-                    ),
-                    SizedBox(height: 5.0,),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image(
-                        image: NetworkImage(ph.fotoUrl),
-                         width: 140,
-                        height: 120,
-                        fit: BoxFit.cover,
-                        ),
-                    ),
-                    SizedBox(height: 10.0,),
-                    Text("Typo: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(ph.photoType,textAlign: TextAlign.center,),
-                    SizedBox(height: 5.0,),
-                    Text("Alto: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(ph.height.toString(),textAlign: TextAlign.center),
-                    SizedBox(height: 5.0,),
-                    Text("Ancho: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(ph.width.toString(),textAlign: TextAlign.center),
-                    SizedBox(height: 5.0,),
-                    Text("Valor: " , style: TextStyle(
-                      fontWeight: FontWeight.bold)),
-                    Text(ph.valor.toString(),textAlign: TextAlign.center),
-
-                  ],
+      return InkWell(
+          child: Container(
+                padding: EdgeInsets.all(20.0),
+                height: 300,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(181, 189, 185 , 1.0),
+                  borderRadius: BorderRadius.circular(16)
                 ),
-              ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text(ph.titulo,
+                      style: TextStyle(
+                         color: Color.fromRGBO(0, 51, 51, 0.8),
+                          fontSize: 15.5,
+                          fontFamily: "Raleway",
+                          fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center
+                      ),
+                      SizedBox(height: 5.0,),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image(
+                          image: NetworkImage(ph.fotoUrl),
+                           width: 140,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          ),
+                      ),
+                      SizedBox(height: 10.0,),
+                      Text("Typo: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(ph.photoType,textAlign: TextAlign.center,),
+                      SizedBox(height: 5.0,),
+                      Text("Alto: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(ph.height.toString(),textAlign: TextAlign.center),
+                      SizedBox(height: 5.0,),
+                      Text("Ancho: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(ph.width.toString(),textAlign: TextAlign.center),
+                      SizedBox(height: 5.0,),
+                      Text("Valor: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(ph.valor.toString(),textAlign: TextAlign.center),
+
+                    ],
+                  ),
+                ),
+      ),
+      onTap: (){
+        Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new StockPhotoComprarPage(
+                                  stockPhotoModel: ph,
+                                  userModel: widget.userF,
+                                )));
+      },
     );
+  
+    
   }
 
   Widget _tarjetas(int selectedIndex) {
@@ -472,7 +520,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   crossAxisSpacing: 20,
                   childAspectRatio: 0.70,
                 ), 
-                itemBuilder: (context,index) => _tarjetasEquipos(index),
+                itemBuilder: (context,index) =>  _tarjetasEquipos(index),
                 ),
             ),
           );
