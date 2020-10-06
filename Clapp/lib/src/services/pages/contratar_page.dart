@@ -132,7 +132,8 @@ class _ContratarPage extends State<ContratarPage> {
                           worker.profession,
                           ciudad,
                           user.photoUrl,
-                          usuario)),
+                          usuario,
+                          worker.hvUrl)),
                 );
               },
               child: Container(
