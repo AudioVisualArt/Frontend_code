@@ -2,9 +2,6 @@ import 'package:Clapp/src/projectos/pages/Project_page.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:Clapp/src/MyStudio/pages/manage_page.dart';
-import 'package:Clapp/src/MyStudio/pages/show_page.dart';
-import 'package:Clapp/src/MyStudio/pages/store_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 
@@ -26,11 +23,9 @@ class _MyStudioPageState extends State<MyStudioPage> {
       ProjectPage(
         user: usuario,
       ),
-      StorePage(),
       MostrarProductosPage(
         userModel: usuario,
       ),
-      ManagePage()
     ];
 
     print('IdUsuario:' + usuario.id);
@@ -51,14 +46,7 @@ class _MyStudioPageState extends State<MyStudioPage> {
               title: Text('Proyectos'),
             ),
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.store_mall_directory,
-                ),
-                title: Text('Tienda')),
-            BottomNavigationBarItem(
                 icon: Icon(Icons.slideshow), title: Text('Items')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.work), title: Text('Administrar')),
           ],
         ));
   }
