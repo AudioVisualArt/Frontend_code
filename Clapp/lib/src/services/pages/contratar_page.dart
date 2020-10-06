@@ -63,8 +63,8 @@ class _ContratarPage extends State<ContratarPage> {
                               gridDelegate:
                                   new SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      crossAxisSpacing: 11.0,
-                                      mainAxisSpacing: 15.0,
+                                      crossAxisSpacing: 13.0,
+                                      mainAxisSpacing: 16.0,
                                       childAspectRatio: 0.69),
                               itemCount: worker.length,
                               itemBuilder: (context, index) =>
