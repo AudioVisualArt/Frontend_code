@@ -12,6 +12,7 @@ import 'package:Clapp/src/services/model/worker_model.dart';
 
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:flutter/services.dart';
+import 'package:material_tag_editor/tag_editor.dart';
 
 class NewService extends StatefulWidget {
   //final UserModel user;
@@ -35,6 +36,8 @@ class _NewService extends State<NewService> {
   final workerformkey = GlobalKey<FormState>();
   PlatformFile guion;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
+  List<String> values = [];
+
   @override
   Widget build(BuildContext context) {
     // UserModel usuario = ModalRoute.of(context).settings.arguments;
@@ -105,7 +108,9 @@ class _NewService extends State<NewService> {
                           SizedBox(height: 10),
                           _minPayment(),
                           SizedBox(height: 10),
-                          _maxPayment()
+                          _maxPayment(),
+                          SizedBox(height: 10),
+                          _tags()
                         ],
                       ),
                     ),
@@ -139,6 +144,40 @@ class _NewService extends State<NewService> {
           ),
         ));
   }
+  Widget _tags (){
+    return TagEditor(
+      length: values.length,
+      delimeters: [',', ' '],
+      hasAddButton: true,
+      resetTextOnSubmitted: true,
+      onSubmitted: (outstandingValue) {
+        setState(() {
+          values.add(outstandingValue);
+        });
+      },
+      inputDecoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Añade tags relacionados!',
+      ),
+      onTagChanged: (newValue) {
+        setState(() {
+          values.add(newValue);
+          print(values);
+        });
+      },
+      tagBuilder: (context, index) => _Chip(
+        index: index,
+        label: values[index],
+        onDeleted: onDelete,
+      ),
+    );
+  }
+  onDelete(index) {
+    setState(() {
+      values.removeAt(index);
+    });
+  }
+
   Widget _minPayment() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
@@ -429,6 +468,8 @@ class _NewService extends State<NewService> {
   Future<Void> _submit() async {
     //trabajador.userId= workerProvider.crearWorker(trabajador).toString();
     //print("el id del servicio es: ${trabajador.userId}");
+
+    trabajador.briefcase= values;
     if (!workerformkey.currentState.validate())
       workerformkey.currentState.save();
 
@@ -485,5 +526,31 @@ class _NewService extends State<NewService> {
     } on PlatformException catch (e) {
       print('Operación no Permitida ' + e.toString());
     }
+  }
+}
+class _Chip extends StatelessWidget {
+  const _Chip({
+    @required this.label,
+    @required this.onDeleted,
+    @required this.index,
+  });
+
+  final String label;
+  final ValueChanged<int> onDeleted;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      labelPadding: const EdgeInsets.only(left: 8.0),
+      label: Text(label),
+      deleteIcon: Icon(
+        Icons.close,
+        size: 18,
+      ),
+      onDeleted: () {
+        onDeleted(index);
+      },
+    );
   }
 }
