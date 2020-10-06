@@ -25,9 +25,9 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
   final productoProvider = new ProductosProvider();
 
   bool _guardando = false;
+  bool _rentSell = true;
 
-  bool _equipo = false;
-
+  final _picker = ImagePicker();
   File foto;
 
   final equipmentProvider = new EquipmentProvider();
@@ -229,6 +229,42 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
     );
   }
 
+  Widget _crearRent() {
+    return RadioListTile(
+        value: equipment.rent ?? false,
+        title: Text(
+          'Renta',
+          style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+        ),
+        activeColor: Color.fromRGBO(0, 51, 51, 1.0),
+        groupValue: _rentSell,
+        onChanged: (value) {
+          setState(() {
+            _rentSell = value;
+            equipment.rent = true;
+            equipment.sell = false;
+          });
+        });
+  }
+
+  Widget _crearSell() {
+    return RadioListTile(
+        value: equipment.sell ?? true,
+        title: Text(
+          'Venta',
+          style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+        ),
+        activeColor: Color.fromRGBO(0, 51, 51, 1.0),
+        groupValue: _rentSell,
+        onChanged: (value) {
+          setState(() {
+            _rentSell = value;
+            equipment.sell = true;
+            equipment.rent = false;
+          });
+        });
+  }
+
   Widget _crearBoton() {
     return RaisedButton.icon(
       shape: RoundedRectangleBorder(
@@ -297,21 +333,22 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
   }
 
   _seleccionarFoto() async {
-    foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    foto = File(image.path);
 
     if (foto != null) {
       //limpiar
-
     }
     setState(() {});
   }
 
   _tomarFoto() async {
-    foto = await ImagePicker.pickImage(source: ImageSource.camera);
+    PickedFile image = await _picker.getImage(source: ImageSource.camera);
+    foto = File(image.path);
 
     if (foto == null) {
       //limpiar
-      setState(() {});
     }
+    setState(() {});
   }
 }

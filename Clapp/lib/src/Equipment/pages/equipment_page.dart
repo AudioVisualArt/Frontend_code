@@ -23,10 +23,10 @@ class _EquipmentPageState extends State<EquipmentPage> {
   final equipmentProvider = new EquipmentProvider();
 
   bool _guardando = false;
-
-  bool _equipo = false;
+  bool _rentSell = true;
 
   File foto;
+  final _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +80,10 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   _crearPrecio(),
                   Divider(),
                   _crearDisponible(),
+                  Divider(),
+                  _crearRent(),
+                  Divider(),
+                  _crearSell(),
                   Divider(),
                   _crearBoton(),
                 ],
@@ -224,6 +228,42 @@ class _EquipmentPageState extends State<EquipmentPage> {
     );
   }
 
+  Widget _crearRent() {
+    return RadioListTile(
+        value: equipment.rent ?? false,
+        title: Text(
+          'Renta',
+          style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+        ),
+        activeColor: Color.fromRGBO(0, 51, 51, 1.0),
+        groupValue: _rentSell,
+        onChanged: (value) {
+          setState(() {
+            _rentSell = value;
+            equipment.rent = true;
+            equipment.sell = false;
+          });
+        });
+  }
+
+  Widget _crearSell() {
+    return RadioListTile(
+        value: equipment.sell ?? true,
+        title: Text(
+          'Venta',
+          style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+        ),
+        activeColor: Color.fromRGBO(0, 51, 51, 1.0),
+        groupValue: _rentSell,
+        onChanged: (value) {
+          setState(() {
+            _rentSell = value;
+            equipment.sell = true;
+            equipment.rent = false;
+          });
+        });
+  }
+
   Widget _crearBoton() {
     return RaisedButton.icon(
       shape: RoundedRectangleBorder(
@@ -273,7 +313,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
   }
 
   Widget _mostrarFoto() {
-    print('FotoURL: ' + equipment.fotoUrl);
+    //print('FotoURL: ' + equipment.fotoUrl);
     if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
       return Image(
         image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
@@ -297,7 +337,8 @@ class _EquipmentPageState extends State<EquipmentPage> {
   }
 
   _seleccionarFoto() async {
-    foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    foto = File(image.path);
 
     if (foto != null) {
       //limpiar
@@ -307,11 +348,12 @@ class _EquipmentPageState extends State<EquipmentPage> {
   }
 
   _tomarFoto() async {
-    foto = await ImagePicker.pickImage(source: ImageSource.camera);
+    PickedFile image = await _picker.getImage(source: ImageSource.camera);
+    foto = File(image.path);
 
     if (foto == null) {
       //limpiar
-      setState(() {});
     }
+    setState(() {});
   }
 }
