@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/src/platform_file.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:http/http.dart' as http;
@@ -21,8 +25,33 @@ class WorkersProvider {
 
   WorkersProvider._internal({Key key, Widget child});
 
-  Future<bool> crearWorker(WorkerModel trabajador) async {
+  Future<StorageUploadTask> crearWorker(WorkerModel trabajador, PlatformFile hv) async {
     final url = '$_url/saveWorker';
+    String fileName;
+    String filePath;
+    String extensionFile;
+
+    fileName = hv.path.split('/').last;
+    filePath = hv.path;
+    extensionFile = fileName.split('.').last;
+
+    final StorageReference postImageRef =
+    FirebaseStorage.instance.ref().child('WorkerHV');
+
+    final StorageUploadTask uploadTask =
+    postImageRef.child(trabajador.userId).putFile(
+      File(filePath),
+      StorageMetadata(
+        contentType: '${FileType.any}/$extensionFile',
+      ),
+    );
+
+    final hvUrl =
+    await (await uploadTask.onComplete).ref.getDownloadURL();
+
+    print('URL ScreenPlay: ' + hvUrl);
+
+    trabajador.hvUrl = hvUrl;
 
     final resp = await http.post(url,
         headers: <String, String>{
@@ -32,7 +61,7 @@ class WorkersProvider {
 
     print(resp.statusCode);
 
-    return true;
+    return uploadTask;
   }
 
   Future<bool> editarTrabajador(WorkerModel trabajador) async {
