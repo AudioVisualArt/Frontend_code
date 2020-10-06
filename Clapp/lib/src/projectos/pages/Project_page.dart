@@ -19,12 +19,13 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     //final idUsuario = ModalRoute.of(context).settings.arguments;
 
     //print('id User ' + widget.user.id);
 
     return Scaffold(
-      body: _createproject(context, widget.user),
+      body: _createproject(context, usuario),
     );
   }
 
@@ -34,6 +35,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final size = MediaQuery.of(context).size;
     final idUsuario = ModalRoute.of(context).settings.arguments;
     return Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
           image: AssetImage("assets/img/mostraritems.jpg"),
@@ -50,7 +52,7 @@ class _ProjectPageState extends State<ProjectPage> {
             //key: formKey,
             child: Column(
               children: <Widget>[
-                newappbar(widget.user),
+                newappbar(userModel),
 
                 //SizedBox(height: 9),
 
@@ -131,7 +133,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
-                  child: _botonProyectoNuevo(widget.user),
+                  child: _botonProyectoNuevo(userModel),
                 )
               ],
             ),

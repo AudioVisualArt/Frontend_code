@@ -36,11 +36,9 @@ class _ProjectDetails extends State<ProjectDetails> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   newappbar(proyecto),
-
                   SizedBox(
                     height: 10,
                   ),
-
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
@@ -54,142 +52,155 @@ class _ProjectDetails extends State<ProjectDetails> {
                     ),
                   ),
                   _descriptionCard(proyecto.description),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 19, left: 10, right: 10),
-                        child: SizedBox(
-                          height: 52,
-                          width: 166,
-                          child: RaisedButton(
-                            //splashColor: Colors.green,
-                            padding: EdgeInsets.only(
-                                top: 13, bottom: 13, left: 10, right: 10),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  width: 1.2),
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: Text('Contratos',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: "Raleway",
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 19, left: 10, right: 10),
+                          child: SizedBox(
+                            height: 52,
+                            width: 166,
+                            child: RaisedButton(
+                              //splashColor: Colors.green,
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 10, right: 10),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
                                     color: Color.fromRGBO(0, 51, 51, 0.8),
-                                    fontWeight: FontWeight.bold)),
-                            textColor: Color.fromRGBO(0, 51, 51, 0.8),
-                            color: Colors.white,
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'see_contracts',
-                                  arguments: proyecto);
-                            },
+                                    width: 1.2),
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text('Contratos',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontFamily: "Raleway",
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      fontWeight: FontWeight.bold)),
+                              textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                              color: Colors.white,
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'see_contracts',
+                                    arguments: proyecto);
+                              },
+                            ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 19, left: 10, right: 10),
-                        child: SizedBox(
-                          height: 52,
-                          width: 166,
-                          child: RaisedButton(
-                            //splashColor: Colors.green,
-                            padding: EdgeInsets.only(
-                                top: 13, bottom: 13, left: 10, right: 10),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  width: 1.2),
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: Text('Presupuesto',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: "Raleway",
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 19, left: 10, right: 10),
+                          child: SizedBox(
+                            height: 52,
+                            width: 166,
+                            child: RaisedButton(
+                              //splashColor: Colors.green,
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 10, right: 10),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
                                     color: Color.fromRGBO(0, 51, 51, 0.8),
-                                    fontWeight: FontWeight.bold)),
-                            textColor: Color.fromRGBO(0, 51, 51, 0.8),
-                            color: Colors.white,
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'presupuesto');
-                            },
+                                    width: 1.2),
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text('Presupuesto',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontFamily: "Raleway",
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      fontWeight: FontWeight.bold)),
+                              textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                              color: Colors.white,
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'presupuesto');
+                              },
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 19, left: 10, right: 10),
-                        child: SizedBox(
-                          height: 52,
-                          width: 166,
-                          child: RaisedButton(
-                            //splashColor: Colors.green,
-                            padding: EdgeInsets.only(
-                                top: 13, bottom: 13, left: 10, right: 10),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  width: 1.2),
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: Text('Colaboradores',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: "Raleway",
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 19, left: 10, right: 10),
+                          child: SizedBox(
+                            height: 52,
+                            width: 166,
+                            child: RaisedButton(
+                              //splashColor: Colors.green,
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 10, right: 10),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
                                     color: Color.fromRGBO(0, 51, 51, 0.8),
-                                    fontWeight: FontWeight.bold)),
-                            textColor: Color.fromRGBO(0, 51, 51, 0.8),
-                            color: Colors.white,
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'collaborators',
-                                  arguments: proyecto);
-                            },
+                                    width: 1.2),
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text('Colaboradores',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontFamily: "Raleway",
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      fontWeight: FontWeight.bold)),
+                              textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                              color: Colors.white,
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'collaborators',
+                                    arguments: proyecto);
+                              },
+                            ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 19, left: 10, right: 10),
-                        child: SizedBox(
-                          height: 52,
-                          width: 166,
-                          child: RaisedButton(
-                            //splashColor: Colors.green,
-                            padding: EdgeInsets.only(
-                                top: 13, bottom: 13, left: 10, right: 10),
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: Color.fromRGBO(0, 51, 51, 0.8),
-                                  width: 1.2),
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: Text('Finanzas',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: "Raleway",
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 19, left: 10, right: 10),
+                          child: SizedBox(
+                            height: 52,
+                            width: 166,
+                            child: RaisedButton(
+                              //splashColor: Colors.green,
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 10, right: 10),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
                                     color: Color.fromRGBO(0, 51, 51, 0.8),
-                                    fontWeight: FontWeight.bold)),
-                            textColor: Color.fromRGBO(0, 51, 51, 0.8),
-                            color: Colors.redAccent,
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'finances',
-                                  arguments: proyecto);
-                            },
+                                    width: 1.2),
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text('Finanzas',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontFamily: "Raleway",
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      fontWeight: FontWeight.bold)),
+                              textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                              color: Colors.redAccent,
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'finances',
+                                    arguments: proyecto);
+                              },
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-
                   Padding(
                       padding: EdgeInsets.only(top: 17),
                       child: Text("Documentos",
@@ -202,7 +213,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                     padding: EdgeInsets.only(top: 12, left: 10, right: 10),
                     child: SizedBox(
                       height: 52,
-                      width: MediaQuery.of(context).size.width-40,
+                      width: MediaQuery.of(context).size.width - 40,
                       child: RaisedButton(
                         //splashColor: Colors.green,
                         padding: EdgeInsets.only(
@@ -222,9 +233,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                       ),
                     ),
                   ),
@@ -232,7 +241,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                     padding: EdgeInsets.only(top: 12, left: 10, right: 10),
                     child: SizedBox(
                       height: 52,
-                      width: MediaQuery.of(context).size.width-40,
+                      width: MediaQuery.of(context).size.width - 40,
                       child: RaisedButton(
                         //splashColor: Colors.green,
                         padding: EdgeInsets.only(
@@ -252,9 +261,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                       ),
                     ),
                   ),
@@ -262,7 +269,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                     padding: EdgeInsets.only(top: 12, left: 10, right: 10),
                     child: SizedBox(
                       height: 52,
-                      width: MediaQuery.of(context).size.width-40,
+                      width: MediaQuery.of(context).size.width - 40,
                       child: RaisedButton(
                         //splashColor: Colors.green,
                         padding: EdgeInsets.only(
@@ -282,9 +289,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                       ),
                     ),
                   ),
@@ -366,31 +371,24 @@ class _ProjectDetails extends State<ProjectDetails> {
         height: 100,
         child: Padding(
           padding: EdgeInsets.only(top: 1, left: 5, right: 5),
-
-
-            child: Container(
-              padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15.0),
-                border: Border.all(
-                  width: 1.3,
-                  color: Color.fromRGBO(0, 51, 51, 0.8),
-                ),
+          child: Container(
+            padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15.0),
+              border: Border.all(
+                width: 1.3,
+                color: Color.fromRGBO(0, 51, 51, 0.8),
               ),
-              child: Text(description,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: "Raleway",
-                      color: Color.fromRGBO(115, 115, 115, 1.0),
-
-                      fontWeight: FontWeight.bold)),
             ),
-
-
+            child: Text(description,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontFamily: "Raleway",
+                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                    fontWeight: FontWeight.bold)),
+          ),
         ));
   }
-
-
 }

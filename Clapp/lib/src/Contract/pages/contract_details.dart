@@ -34,7 +34,7 @@ class ContractDetails extends StatefulWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-        padding: EdgeInsets.only(left: 10.0, right: 10, top: 15, bottom: 15),
+        padding: EdgeInsets.only(left: 10.0, right: 10, top: 200, bottom: 15),
         child: Container(
           margin: EdgeInsets.only(left: 17, right: 16),
           child: Column(

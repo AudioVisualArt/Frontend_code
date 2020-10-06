@@ -11,16 +11,22 @@ class EquipmentModel extends ItemModel {
     this.specs,
     this.marca,
     this.modelo,
+    this.rent = false,
+    this.sell = true,
   }) : super();
 
   String specs;
   String marca;
   String modelo;
+  bool rent;
+  bool sell;
 
   EquipmentModel.fromJson(Map<String, dynamic> json)
       : specs = json["specs"],
         marca = json["marca"],
         modelo = json["modelo"],
+        rent = json["rent"],
+        sell = json["sell"],
         super.fromJson(json);
 
   Map<String, dynamic> toJson() => {
@@ -34,5 +40,7 @@ class EquipmentModel extends ItemModel {
         "specs": specs,
         "marca": marca,
         "modelo": modelo,
+        "rent": rent,
+        "sell": sell,
       };
 }
