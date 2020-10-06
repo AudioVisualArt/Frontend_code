@@ -103,6 +103,9 @@ class _NewService extends State<NewService> {
                           SizedBox(height: 10),
                           _laboral(),
                           SizedBox(height: 10),
+                          _minPayment(),
+                          SizedBox(height: 10),
+                          _maxPayment()
                         ],
                       ),
                     ),
@@ -136,7 +139,96 @@ class _NewService extends State<NewService> {
           ),
         ));
   }
+  Widget _minPayment() {
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          //initialValue: contrato.payment.toString(),
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 10,
+          maxLines: 1,
+          textAlign: TextAlign.left,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Minimo que cobra por hora',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => trabajador.minPayment = double.parse(value),
+          validator: (value) {
+            if (utils.isNumeric(value)) {
+              return null;
+            } else {
+              return 'Solo numeros';
+            }
+          },
+        ),
+      ),
+    );
 
+  }
+  Widget _maxPayment() {
+    return Container(
+      padding: EdgeInsets.only(left: 0.5, right: 59.0),
+      child: Center(
+        child: TextFormField(
+          //initialValue: contrato.payment.toString(),
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
+          maxLength: 10,
+          maxLines: 1,
+          textAlign: TextAlign.left,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+            labelText: 'Maximo que cobra por hora',
+            labelStyle: TextStyle(
+              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0),
+            // helperText: "",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (value) => trabajador.maxPayment = double.parse(value),
+          validator: (value) {
+            if (utils.isNumeric(value)) {
+              return null;
+            } else {
+              return 'Solo numeros';
+            }
+          },
+        ),
+      ),
+    );
+
+  }
   Widget _profesion() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
@@ -360,6 +452,7 @@ class _NewService extends State<NewService> {
       }
       // Navigator.pop(context);
       utils.mostrarAlerta(context, 'HV en  Clapp !!!');
+      Navigator.pop(context);
     } else {
       setState(() {
         _saved = false;
