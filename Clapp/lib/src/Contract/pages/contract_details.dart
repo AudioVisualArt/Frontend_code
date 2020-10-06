@@ -45,6 +45,7 @@ class ContractDetails extends StatefulWidget {
                     child: Text(
                       'Contrato como ${widget.contrato.jobPosition}',
                       style: TextStyle(
+                          decoration: TextDecoration.none,
                           fontSize: 20.0,
                           fontFamily: "Raleway",
                           color: Colors.white,
@@ -124,6 +125,7 @@ class ContractDetails extends StatefulWidget {
                             child: Text('Ver Proyecto',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
+                                    decoration: TextDecoration.none,
                                     fontSize: 20.0,
                                     fontFamily: "Raleway",
                                     fontWeight: FontWeight.bold)),
@@ -150,6 +152,7 @@ class ContractDetails extends StatefulWidget {
                                 child: Text('Aplicar',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      decoration: TextDecoration.none,
                                       fontSize: 20.0,
                                       fontFamily: "Raleway",
                                       //fontWeight: FontWeight.bold
@@ -239,6 +242,7 @@ class ContractDetails extends StatefulWidget {
               child: Text(
                 name,
                 style: TextStyle(
+                    decoration: TextDecoration.none,
                     fontSize: 20.0,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(
@@ -252,12 +256,16 @@ class ContractDetails extends StatefulWidget {
               left: 12,
             ),
             child: Container(
+              constraints: BoxConstraints(
+                maxHeight: 50
+              ),
               width:
               MediaQuery.of(context).size.width -
                   210,
               child: Text(
                 info,
                 style: TextStyle(
+                    decoration: TextDecoration.none,
                     fontSize: 20.0,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(
