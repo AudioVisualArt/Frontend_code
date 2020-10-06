@@ -138,10 +138,11 @@ class _OtherPage extends State<OtherPage> {
       // color: Color.fromRGBO(227, 227, 227, 1.0),
       child: ListTile(
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => ContractDetails(contrato, usuario)),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => ContractDetails(contrato, usuario),
           );
+
         },
         title: Text('${contrato.jobPosition} - ${contrato.workHours} horas',
             style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
