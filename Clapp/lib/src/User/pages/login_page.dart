@@ -27,7 +27,6 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             Background(text: "Bienvenido a Clapp"),
             _loginForm(context),
-            
           ],
         ),
       ),
@@ -43,8 +42,8 @@ class LoginPage extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10.0),
       padding: EdgeInsets.symmetric(vertical: 50.0),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.white70.withOpacity(1),
+          borderRadius: BorderRadius.circular(20.0),
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: Colors.black26,
@@ -55,8 +54,11 @@ class LoginPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text('Inicio de Sesión',
-              style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-          SizedBox(height: 50.0),
+              style: TextStyle(
+                fontSize: 22.0,
+                fontFamily: "Raleway",
+              )),
+          SizedBox(height: 45.0),
           _crearEmail(bloc),
           SizedBox(height: 30.0),
           _crearPassword(bloc),
@@ -95,6 +97,17 @@ class LoginPage extends StatelessWidget {
                   color: Color.fromRGBO(89, 122, 121, 1.0)),
               hintText: 'ejemplo@dominio.com.co',
               labelText: 'Correo Electronico',
+              labelStyle: TextStyle(
+                  //color: Color.fromRGBO(0, 51, 51, 0.8),
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 17.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+                  borderRadius: BorderRadius.circular(25.0)),
               errorText: snapshot.error,
             ),
             onChanged: bloc.changeEmail,
@@ -117,6 +130,17 @@ class LoginPage extends StatelessWidget {
                 icon: Icon(Icons.lock_outline,
                     color: Color.fromRGBO(89, 122, 121, 1.0)),
                 labelText: 'Contraseña',
+                labelStyle: TextStyle(
+                    //color: Color.fromRGBO(0, 51, 51, 0.8),
+                    //fontWeight: FontWeight.bold,
+                    fontSize: 17.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+                    borderRadius: BorderRadius.circular(25.0)),
                 //counterText: snapshot.data,
                 errorText: snapshot.error),
             onChanged: bloc.changePassword,
@@ -136,7 +160,7 @@ class LoginPage extends StatelessWidget {
             child: Text('Iniciar Sesión'),
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(20.0),
           ),
           elevation: 0.0,
           color: Color.fromRGBO(227, 227, 227, 1.0),
@@ -156,7 +180,7 @@ class LoginPage extends StatelessWidget {
             child: Text('Registrate'),
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(20.0),
           ),
           elevation: 0.0,
           color: Color.fromRGBO(227, 227, 227, 1.0),
@@ -168,9 +192,47 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _loginGmail(context){
-
-    return InkWell(
+  Widget _loginGmail(context) {
+    return SizedBox(
+        width: 253,
+        child: RaisedButton(
+          child: Row(
+            children: [
+              Container(
+                child: Image(
+                  image: AssetImage(
+                    'assets/img/google.jpg',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                height: 36,
+                width: 36,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+                child: Center(
+                  child: Text(
+                    "Ingresa con Gmail",
+                    style: TextStyle(
+                        fontSize: 17.0,
+                        fontFamily: "Raleway",
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              )
+            ],
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          elevation: 0.0,
+          color: Color.fromRGBO(65, 133, 244, 1.0),
+          onPressed: () {
+            onGoogleSignIn(context);
+          },
+        ));
+    /* InkWell(
       onTap: (){
         onGoogleSignIn(context);
       },
@@ -213,14 +275,17 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
+    */
   }
+
   void onGoogleSignIn(BuildContext context) async {
     FirebaseUser userg = await usuarioProvider.loginGmail();
     UserModel user = await usuarioProvider.getUserGoogle(userg);
 
-    if(user.description==null){
-      Navigator.pushReplacementNamed(context, 'register_google', arguments: user);
-    }else {
+    if (user.description == null) {
+      Navigator.pushReplacementNamed(context, 'register_google',
+          arguments: user);
+    } else {
       Navigator.pushReplacementNamed(context, 'home', arguments: user);
     }
   }
@@ -237,8 +302,5 @@ class LoginPage extends StatelessWidget {
       utils.mostrarAlerta(
           context, 'Usuario o Contraseña Invalidos ${info['mensaje']}');
     }
-
-
-
   }
 }
