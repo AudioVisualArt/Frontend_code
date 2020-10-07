@@ -1,6 +1,8 @@
 import 'package:Clapp/src/User/models/mensaje_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/providers/chat_provider.dart';
+import 'package:clay_containers/constants.dart';
+import 'package:clay_containers/widgets/clay_containers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -97,10 +99,7 @@ class LoginPage extends StatelessWidget {
                   color: Color.fromRGBO(89, 122, 121, 1.0)),
               hintText: 'ejemplo@dominio.com.co',
               labelText: 'Correo Electronico',
-              labelStyle: TextStyle(
-                  //color: Color.fromRGBO(0, 51, 51, 0.8),
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 17.0),
+              labelStyle: TextStyle(fontSize: 17.0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
@@ -154,18 +153,28 @@ class LoginPage extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return RaisedButton(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
-            child: Text('Iniciar Sesión'),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          elevation: 0.0,
-          color: Color.fromRGBO(227, 227, 227, 1.0),
-          onPressed: snapshot.hasData ? () => _login(context, bloc) : null,
-        );
+        return Container(
+            child: Center(
+                child: ClayContainer(
+                    borderRadius: 20,
+                    curveType: CurveType.none,
+                    color: Color.fromRGBO(227, 227, 227, 1),
+                    depth: 20,
+                    spread: 5,
+                    child: RaisedButton(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 70.0, vertical: 15.0),
+                        child: Text('Iniciar Sesión'),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      elevation: 0.0,
+                      color: Color.fromRGBO(227, 227, 227, 1.0),
+                      onPressed:
+                          snapshot.hasData ? () => _login(context, bloc) : null,
+                    ))));
       },
     );
   }
@@ -174,20 +183,29 @@ class LoginPage extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.formValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return RaisedButton(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-            child: Text('Registrate'),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          elevation: 0.0,
-          color: Color.fromRGBO(227, 227, 227, 1.0),
-          onPressed: () {
-            Navigator.pushNamed(context, 'signUp');
-          },
-        );
+        return Container(
+            child: Center(
+                child: ClayContainer(
+                    borderRadius: 20,
+                    curveType: CurveType.none,
+                    color: Color.fromRGBO(227, 227, 227, 1),
+                    depth: 25,
+                    spread: 5,
+                    child: RaisedButton(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 80.0, vertical: 15.0),
+                        child: Text('Registrate'),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      elevation: 0.0,
+                      color: Color.fromRGBO(227, 227, 227, 1.0),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'signUp');
+                      },
+                    ))));
       },
     );
   }
