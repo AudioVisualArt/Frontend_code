@@ -37,6 +37,7 @@ class _NewService extends State<NewService> {
   PlatformFile guion;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   List<String> values = [];
+  String _rolSelected = 'ninguno';
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,7 @@ class _NewService extends State<NewService> {
 
     UserModel usuario = ModalRoute.of(context).settings.arguments;
     trabajador.userId = usuario.id;
+
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -316,7 +318,29 @@ class _NewService extends State<NewService> {
     return Container(
         padding: EdgeInsets.only(left: 0.5, right: 59.0),
         child: Center(
-            child: TextFormField(
+            child:DropdownButton<String>(
+              value: trabajador.mainRol,
+              hint: Text("Seleccione el rol principal"),
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: "Raleway",
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold),
+              onChanged: (String selected) {
+                setState(() {
+                  trabajador.mainRol=selected;
+                },
+                );
+              },
+              items: <String>['ninguno','Personal artistico','Personal tecnico'].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: new Text(value),
+                );
+              }).toList(),
+
+            )
+          /*TextFormField(
           style: TextStyle(
               fontSize: 14.0,
               fontFamily: "Raleway",
@@ -338,14 +362,8 @@ class _NewService extends State<NewService> {
                       color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                   borderRadius: BorderRadius.circular(16.0))),
           onChanged: (value) => trabajador.mainRol = value,
-          validator: (value) {
-            if (value.length < 3) {
-              return 'Ingrese el nombre correctamente';
-            } else {
-              return null;
-            }
-          },
-        )));
+        ))*/)
+    );
   }
 
   Widget _description() {
