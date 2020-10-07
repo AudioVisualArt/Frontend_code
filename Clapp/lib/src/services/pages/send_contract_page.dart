@@ -404,7 +404,7 @@ class _SendContract extends State<SendContract> {
                         },
                         items: snapshot.data.map((project) =>
                             DropdownMenuItem<ProjectModel>(
-                              child: Text(project.proyectName),
+                              child: new Text(project.proyectName),
                               value: project,
                             )).toList(),
 
