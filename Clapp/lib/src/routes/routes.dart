@@ -5,6 +5,7 @@ import 'package:Clapp/src/projectos/pages/Project_page.dart';
 import 'package:Clapp/src/Space/pages/space_details.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
+import 'package:Clapp/src/projectos/pages/project_details_outsider.dart';
 import 'package:Clapp/src/projectos/pages/recomendados_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
@@ -92,6 +93,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'presupuesto': (BuildContext context) => PresupuestoPage(),
     'space_details': (BuildContext context) => SpaceDetails(),
     'space_details': (BuildContext context) => SpaceDetails(),
-    'recomendado': (BuildContext context) => RecomendadosPage()
+    'recomendado': (BuildContext context) => RecomendadosPage(),
+
   };
 }
