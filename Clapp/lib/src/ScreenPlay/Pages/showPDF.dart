@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
-import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf_flutter/pdf_flutter.dart';
-import 'package:pdf_platform_view/pdf_platform_view.dart';
 
 class ShowPDF extends StatefulWidget {
   ScreenPlayModel screenPlayModel;
