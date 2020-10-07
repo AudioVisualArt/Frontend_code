@@ -110,7 +110,7 @@ class _NewService extends State<NewService> {
                           SizedBox(height: 10),
                           _maxPayment(),
                           SizedBox(height: 10),
-                          _tags()
+                          //_tags()
                         ],
                       ),
                     ),
@@ -468,8 +468,7 @@ class _NewService extends State<NewService> {
   Future<Void> _submit() async {
     //trabajador.userId= workerProvider.crearWorker(trabajador).toString();
     //print("el id del servicio es: ${trabajador.userId}");
-
-    trabajador.briefcase= values;
+    //trabajador.briefcase= values;
     if (!workerformkey.currentState.validate())
       workerformkey.currentState.save();
 
