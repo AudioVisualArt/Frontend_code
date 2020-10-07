@@ -31,7 +31,7 @@ class _VerColaboradores extends State<VerColaboradores> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/img/background.jpg"),
+          image: AssetImage("assets/img/mostraritems.jpg"),
           fit: BoxFit.cover,
         )),
 
@@ -73,7 +73,7 @@ class _VerColaboradores extends State<VerColaboradores> {
           final projectos = snapshot.data;
           return GridView.builder(
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.75,
+                crossAxisCount: 2, childAspectRatio: 0.757,
             crossAxisSpacing: 15,
             mainAxisSpacing: 15),
             itemCount: projectos.length,
@@ -92,6 +92,7 @@ class _VerColaboradores extends State<VerColaboradores> {
       height: double.infinity,
 
     child: Container(
+
         /*decoration: ConcaveDecoration(
             shape: ContinuousRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -106,10 +107,12 @@ class _VerColaboradores extends State<VerColaboradores> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15.0),
-          border: Border.all(
-            width: 1.5,
+          /*border: Border.all(
+            width: 1.3,
             color: Color.fromRGBO(0, 51, 51, 0.8),
           ),
+
+           */
         ),
 
       //color: Colors.white.withOpacity(0.95),),
@@ -119,8 +122,8 @@ class _VerColaboradores extends State<VerColaboradores> {
        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         child: Column(
           children: <Widget>[
-            Padding(padding: EdgeInsets.only(top: 8),
-            child:  _crearPhoto(user.photoUrl),),
+            Flexible(child: Padding(padding: EdgeInsets.only(top: 8),
+              child:  _crearPhoto(user.photoUrl),),),
 
             Padding(
               padding: EdgeInsets.only(
@@ -136,7 +139,7 @@ class _VerColaboradores extends State<VerColaboradores> {
                   depth: 35,
                   spread: 3,
                   height: 80,
-                  width: 170,
+                  width: 160,
                   //borderRadius: 10,
                   //curveType: CurveType.none,
                   //color: Color.fromRGBO(227, 227, 227, 1),
@@ -214,7 +217,7 @@ class _VerColaboradores extends State<VerColaboradores> {
         child: Image(
           image: AssetImage('assets/img/no-image.png'),
           fit: BoxFit.cover,
-          width: 145.0,
+         width: 145.0,
           height: 145.0,
         ),
       );

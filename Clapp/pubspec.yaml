@@ -29,6 +29,7 @@ dependencies:
   http: ^0.12.2
   firebase_core: ^0.3.0
   percent_indicator: "^2.1.6"
+
   
 
   
