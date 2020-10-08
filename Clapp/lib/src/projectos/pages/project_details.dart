@@ -1,6 +1,7 @@
 import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:Clapp/src/projectos/pages/executive_summary_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -289,7 +290,12 @@ class _ProjectDetails extends State<ProjectDetails> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                            builder: (context) => ExecutiveSummaryPage(
+                          projectModel: proyecto,
+                        )));},
                       ),
                     ),
                   ),
