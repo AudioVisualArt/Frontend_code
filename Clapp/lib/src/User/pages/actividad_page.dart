@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class FavouritePage extends StatefulWidget {
-  FavouritePage({Key key}) : super(key: key);
+class ActividadPage extends StatefulWidget {
+  ActividadPage({Key key}) : super(key: key);
 
   @override
-  _FavouritePageState createState() => _FavouritePageState();
+  _ActividadPageState createState() => _ActividadPageState();
 }
 
-class _FavouritePageState extends State<FavouritePage> {
+class _ActividadPageState extends State<ActividadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Favoritos',
+          'Actividad',
           style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
         ),
       ),

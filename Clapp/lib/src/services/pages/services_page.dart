@@ -56,8 +56,8 @@ class _ServicesPages extends State<ServicesPages> {
               SliverList(
                 delegate: SliverChildListDelegate(<Widget>[
                   opcionesMenu1(context, usuario),
-                  opcionesMenu3(),
-                  opcionesMenu4(),
+                  opcionesMenu3(context, usuario),
+                  opcionesMenu4(context, usuario),
                   opcionesMenu2(usuario),
 
 
@@ -88,8 +88,8 @@ class _ServicesPages extends State<ServicesPages> {
           children: [
             SizedBox(height: 20,),
             opcionesMenu1(context, usuario),
-            opcionesMenu3(),
-            opcionesMenu4(),
+            opcionesMenu3(context, usuario),
+            opcionesMenu4(context, usuario),
             opcionesMenu2(usuario),
             SizedBox(height: 20,),
            /* Container(
@@ -261,17 +261,15 @@ class _ServicesPages extends State<ServicesPages> {
                 ))));
   }
 
-  Widget opcionesMenu3() {
+  Widget opcionesMenu3(BuildContext context, UserModel usuario) {
     return Card(
         margin: EdgeInsets.only(top: 15),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new EquipmentPage()));
+              Navigator.pushNamed(context,'equipment',arguments: usuario );
+                       
             },
             child: Padding(
                 padding: EdgeInsets.only(top: 0, bottom: 0.0),
@@ -322,17 +320,14 @@ class _ServicesPages extends State<ServicesPages> {
                 ))));
   }
 
-  Widget opcionesMenu4() {
+  Widget opcionesMenu4(BuildContext context, UserModel usuario) {
     return Card(
         margin: EdgeInsets.only(top: 15),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
         child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => new SpacesPage()));
+             Navigator.pushNamed(context,'spaces',arguments: usuario );
             },
             child: Padding(
                 padding: EdgeInsets.only(top: 0, bottom: 0.0),

@@ -2,6 +2,7 @@
 
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -15,8 +16,11 @@ class SpacesPage extends StatefulWidget {
 
 class _SpacesPage extends State<SpacesPage> {
   final spacesProvider = new SpacesProvider ();
+  UserModel user; 
+  List<dynamic> arguments=new List();
   @override
   Widget build(BuildContext context) {
+    user=ModalRoute.of(context).settings.arguments;
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -73,8 +77,11 @@ class _SpacesPage extends State<SpacesPage> {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 5),
         child: InkWell(
-          onTap: () { Navigator.pushNamed(context, 'space_details',
-              arguments: espacio);},
+          onTap: () { 
+            this.arguments.add(user);
+            this.arguments.add(espacio);
+            Navigator.pushNamed(context, 'space_details',
+              arguments: this.arguments);},
             child: Container(
                 margin: EdgeInsets.only(left: 6, right: 6),
                 //margin: EdgeInsets.only(top: 10, left: 15,right: 15),

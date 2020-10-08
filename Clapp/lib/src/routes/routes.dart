@@ -1,4 +1,5 @@
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
+import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/projectos/pages/Project_page.dart';
@@ -61,7 +62,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'new_project': (BuildContext context) => NewProjectPage(),
     'settings': (BuildContext context) => SettingsPage(),
     'profile': (BuildContext context) => ProfilePage(),
-    'favourite': (BuildContext context) => FavouritePage(),
+    'actividad': (BuildContext context) => FavouritePage(),
     'message': (BuildContext context) => MessagePage(),
     'see_contracts': (BuildContext context) => VerContratos(),
     'new_contract': (BuildContext context) => NewContract(),
@@ -91,7 +92,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto': (BuildContext context) => PresupuestoPage(),
     'space_details': (BuildContext context) => SpaceDetails(),
-    'space_details': (BuildContext context) => SpaceDetails(),
-    'recomendado': (BuildContext context) => RecomendadosPage()
+    'recomendado': (BuildContext context) => RecomendadosPage(),
+    'spaces': (BuildContext context) => SpacesPage()
   };
 }

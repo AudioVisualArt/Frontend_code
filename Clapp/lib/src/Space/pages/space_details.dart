@@ -1,5 +1,8 @@
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
+import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
@@ -14,6 +17,10 @@ final List<String> imgList = [
 ];
 
 class SpaceDetails extends StatefulWidget {
+    final UserModel userF;
+ 
+  SpaceDetails({Key key,this.userF}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -25,10 +32,16 @@ class _SpaceDetails extends State<SpaceDetails> {
 
   UsuarioProvider usuarioProvider = new UsuarioProvider();
   WorkersProvider workersProvider = new WorkersProvider();
+  ChatProvider chat=new ChatProvider();
+  List<dynamic> arg=new List();
+  UserModel usuario;
   @override
   Widget build(BuildContext context) {
+    
+    arg= ModalRoute.of(context).settings.arguments;
 
-    SpaceModel espacio = ModalRoute.of(context).settings.arguments;
+    SpaceModel espacio =arg[1];
+    usuario=arg[0];
     return Scaffold(
       appBar: AppBar(
         title: Text('Detalles',
@@ -399,7 +412,13 @@ class _SpaceDetails extends State<SpaceDetails> {
                         fontWeight: FontWeight.bold)),
                 textColor: Colors.white,
                 color: Color.fromRGBO(0, 51, 51, 0.8),
-                onPressed: () {},
+                onPressed: () async{
+                            if(user.id!=usuario.id){
+                              ChatModel chat=await _conseguirChat(user.id,user.name,user.photoUrl,usuario);
+                              ScreenArgument sc=ScreenArgument(usuario, chat, user.name, user.id,null);
+                              Navigator.pushNamed(context, 'messageInfo',arguments: sc);
+                            } 
+                          },
               ),
 
 
@@ -412,5 +431,44 @@ class _SpaceDetails extends State<SpaceDetails> {
     }
     );
 
+  }
+  Future<ChatModel> _conseguirChat(String tag,String name,String photo, UserModel usuarioOferta) async {
+    bool existe=false;
+    ChatModel ct;
+    List<ChatModel> chats=await chat.cargarChats(usuarioOferta.id);
+    if(chats!=null){
+      chats.forEach((element) {
+        if(element.usuarioD==usuarioOferta.id || element.usuarioD==tag){
+          if(element.usuarioO==usuarioOferta.id || element.usuarioO==tag){
+            existe=true;
+            ct=element;
+          }
+        }
+      });
+    }
+
+    if(existe==false){
+
+      ct=ChatModel(
+        chatId: "dddd",
+        fecha: DateTime.now().toString(),
+        nameD: name,
+        nameO: usuarioOferta.name,
+        photoUrlD: photo,
+        photoUrlO: usuarioOferta.photoUrl,
+        usuarioD: tag,
+        usuarioO: usuarioOferta.id
+      );
+      bool resp=await chat.crearChat(ct);
+      chats= await chat.cargarChats(usuarioOferta.id);
+      chats.forEach((element) {
+        if(element.usuarioD==usuarioOferta.id || element.usuarioD==tag){
+          if(element.usuarioO==usuarioOferta.id || element.usuarioO==tag){
+            ct=element;
+          }
+        }
+      });
+    }
+    return ct;
   }
 }

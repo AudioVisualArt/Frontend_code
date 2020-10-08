@@ -57,17 +57,17 @@ class MenuWidget extends StatelessWidget {
           //Favoritos
           ListTile(
             leading: Icon(
-              Icons.favorite,
+              Icons.add_to_home_screen_outlined,
               size: 30.0,
               color: Color.fromRGBO(0, 51, 51, 1.0),
             ),
             title: Text(
-              'Favoritos',
+              'Actividad',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'favourite');
+              Navigator.pushNamed(context, 'actividad');
             },
           ),
           Divider(),

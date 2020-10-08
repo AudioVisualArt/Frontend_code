@@ -24,6 +24,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   List<String> _categories = ["Actores", "Personal Tecnico", "Equipos", "Espacios","Arte"];
   List<StockPhotoModel> photos=new List();
   List<UserModel> usersA=new List();
+  List<UserModel> usersW=new List();
   List<SpaceModel> espacios=new List();
   List<WorkerModel> actores=new List();
   List<WorkerModel> tecnico=new List();
@@ -119,14 +120,26 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   }
 
   Future<bool> _llenarR() async {
-  
+    List workers=await wk.cargarTrabajadores();
     int i=0;
-    this.actores=await wk.cargarTrabajadores();
-    this.actores.forEach((element) async{
+    this.actores.clear();
+    this.tecnico.clear();
+    this.usersW.clear();
+    this.usersA.clear();
+    workers.forEach((element) async{
       UserModel user= await wk.cargarUsuarioTrabajador(element.userId);
-      this.usersA.add(user);
+      if(element.mainRol=="Actor"){
+        this.actores.add(element);
+        this.usersA.add(user);
+        print("entre 1");
+      }else{
+        this.tecnico.add(element);
+        this.usersW.add(user);
+        print("Entre 2");
+      }
+     
     });
-    this.tecnico=await wk.cargarTrabajadores();
+
     this.photos=await ph.cargarPhotos();
     this.photos.removeWhere((element) => element.valor>_valores[4]);
     this.equipos=await eq.cargarEquipments();
@@ -181,10 +194,10 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                       ),),
                       Text(wker.profession,textAlign: TextAlign.center,),
                       SizedBox(height: 5.0,),                    
-                      Text('Descripcion: ',style: TextStyle(
+                      Text('Pago minimo: ',style: TextStyle(
                         fontWeight: FontWeight.bold
                       )),
-                      Text(wker.description, textAlign: TextAlign.center,),  
+                      Text(wker.minPayment.toString(), textAlign: TextAlign.center,),  
 
                     ],
                   ),
@@ -210,7 +223,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   }
   Widget _tarjetasTecnico(index)  {
     WorkerModel wker=this.tecnico[index];
-    UserModel user= this.usersA[index];
+    UserModel user= this.usersW[index];
     if(user.photoUrl==null){
       user.photoUrl=('https://britz.mcmaster.ca/images/nouserimage.gif/image');
     }
@@ -250,10 +263,10 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                       ),),
                       Text(wker.profession,textAlign: TextAlign.center,),
                       SizedBox(height: 5.0,),                    
-                      Text('Descripcion: ',style: TextStyle(
+                      Text('Pago minimo: ',style: TextStyle(
                         fontWeight: FontWeight.bold
                       )),
-                      Text(wker.description, textAlign: TextAlign.center,),  
+                      Text(wker.minPayment.toString(), textAlign: TextAlign.center,),  
 
 
                     ],
@@ -380,10 +393,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                         Text("Locacion: " , style: TextStyle(
                           fontWeight: FontWeight.bold)),
                         Text(space.location,textAlign: TextAlign.center,),
-                        SizedBox(height: 5.0,),
-                        Text("Descripcion: " , style: TextStyle(
-                          fontWeight: FontWeight.bold)),
-                        Text(space.description,textAlign: TextAlign.center),
+
                         SizedBox(height: 5.0,),
                         Text("Precio hora: " , style: TextStyle(
                           fontWeight: FontWeight.bold)),
@@ -440,14 +450,6 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                       Text("Typo: " , style: TextStyle(
                         fontWeight: FontWeight.bold)),
                       Text(ph.photoType,textAlign: TextAlign.center,),
-                      SizedBox(height: 5.0,),
-                      Text("Alto: " , style: TextStyle(
-                        fontWeight: FontWeight.bold)),
-                      Text(ph.height.toString(),textAlign: TextAlign.center),
-                      SizedBox(height: 5.0,),
-                      Text("Ancho: " , style: TextStyle(
-                        fontWeight: FontWeight.bold)),
-                      Text(ph.width.toString(),textAlign: TextAlign.center),
                       SizedBox(height: 5.0,),
                       Text("Valor: " , style: TextStyle(
                         fontWeight: FontWeight.bold)),
