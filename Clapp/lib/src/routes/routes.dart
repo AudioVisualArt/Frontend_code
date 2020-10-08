@@ -1,11 +1,13 @@
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
+import 'package:Clapp/src/User/pages/actividad_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/projectos/pages/Project_page.dart';
 import 'package:Clapp/src/Space/pages/space_details.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
+import 'package:Clapp/src/projectos/pages/project_details_outsider.dart';
 import 'package:Clapp/src/projectos/pages/recomendados_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
@@ -27,7 +29,6 @@ import 'package:Clapp/src/projectos/pages/new_project_page.dart';
 import 'package:Clapp/src/Contract/pages/new_contract.dart';
 import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/User/pages/settings_page.dart';
-import 'package:Clapp/src/User/pages/favourites_page.dart';
 import 'package:Clapp/src/User/pages/profile_page.dart';
 import 'package:Clapp/src/User/pages/messages_page.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
@@ -62,7 +63,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'new_project': (BuildContext context) => NewProjectPage(),
     'settings': (BuildContext context) => SettingsPage(),
     'profile': (BuildContext context) => ProfilePage(),
-    'actividad': (BuildContext context) => FavouritePage(),
+    'actividad': (BuildContext context) => ActividadPage(),
     'message': (BuildContext context) => MessagePage(),
     'see_contracts': (BuildContext context) => VerContratos(),
     'new_contract': (BuildContext context) => NewContract(),
@@ -93,6 +94,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'presupuesto': (BuildContext context) => PresupuestoPage(),
     'space_details': (BuildContext context) => SpaceDetails(),
     'recomendado': (BuildContext context) => RecomendadosPage(),
-    'spaces': (BuildContext context) => SpacesPage()
+    'spaces': (BuildContext context) => SpacesPage(),
+
   };
 }

@@ -2,6 +2,7 @@ import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:Clapp/src/projectos/pages/project_details_outsider.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:clay_containers/constants.dart';
@@ -30,11 +31,13 @@ class ContractDetails extends StatefulWidget {
 class _ContractDetails extends State<ContractDetails> {
   ProyectosProvider proyectosProvider = new ProyectosProvider();
   ContratosProvider contratosProvider = new ContratosProvider();
+
+  ProjectModel project;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-        padding: EdgeInsets.only(left: 10.0, right: 10, top: 200, bottom: 15),
+        padding: EdgeInsets.only(left: 10.0, right: 10, top: 160, bottom: 15),
         child: Container(
           margin: EdgeInsets.only(left: 17, right: 16),
           child: Column(
@@ -136,7 +139,10 @@ class _ContractDetails extends State<ContractDetails> {
                             textColor: Colors.white70,
                             color: Color.fromRGBO(89, 122, 121, 1.0),
                             padding: EdgeInsets.symmetric(horizontal: 30.0),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context)=> ProjectDetailsOutsider(project)));
+                            },
                           ),
                         ),
                       ),
@@ -195,6 +201,7 @@ class _ContractDetails extends State<ContractDetails> {
       builder: (BuildContext context, AsyncSnapshot<ProjectModel> snapshot) {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
+          project = snapshot.data;
           return row_info_contrato("Proyecto:", snapshot.data.proyectName);
         } else {
           return Center(child: CircularProgressIndicator());

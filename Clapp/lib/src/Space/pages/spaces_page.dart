@@ -203,8 +203,9 @@ class _SpacesPage extends State<SpacesPage> {
         )
         );
   }
-
-  Widget newappbar() {
+  Widget newappbar(
+      //UserModel userModel
+      ) {
     return Container(
         height: 150,
         decoration: BoxDecoration(
@@ -221,12 +222,12 @@ class _SpacesPage extends State<SpacesPage> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 7.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
                       icon: Icon(Icons.arrow_back),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
@@ -234,22 +235,24 @@ class _SpacesPage extends State<SpacesPage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 35.0, right: 16, top: 37),
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                      ),
-                      child: Text('Espacios',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 25.0,
-                              fontFamily: "Raleway",
-                              color: Color.fromRGBO(115, 115, 115, 1.0))),
-                    ),
+                Container(
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.only(left: 16.0, right: 20, top: 37),
+                    child: Text('Espacios',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontFamily: "Raleway",
+                            color: Color.fromRGBO(115, 115, 115, 1.0))),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
+                  child: _botonEspacioNuevo(
+                     // userModel
+                  ),
+                )
               ],
             ),
             Container(
@@ -268,7 +271,9 @@ class _SpacesPage extends State<SpacesPage> {
                       iconSize: 22,
                       icon: Icon(Icons.autorenew),
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          //_crearListado(userModel.id);
+                        });
                       },
                     ),
                   ],
@@ -276,4 +281,37 @@ class _SpacesPage extends State<SpacesPage> {
           ],
         ));
   }
+  Widget _botonEspacioNuevo(
+     // UserModel userModel
+      ) {
+    return RaisedButton(
+      splashColor: Colors.grey,
+      padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Color.fromRGBO(0, 51, 51, 1), width: 1.2),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10)),
+      ),
+
+      child: Text(' Nuevo  ',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 21.0,
+              fontFamily: "Raleway",
+              color: Color.fromRGBO(0, 51, 51, 1),
+              fontWeight: FontWeight.bold)),
+      //textColor: Colors.white,
+      color: Colors.white,
+
+      onPressed: () {
+        //Navigator.pushNamed(context, 'new_project',
+          //  arguments: userModel); //ver routes
+      },
+    );
+  }
+
+
 }

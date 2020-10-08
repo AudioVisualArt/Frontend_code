@@ -2,6 +2,7 @@ import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
+import 'package:Clapp/src/projectos/pages/project_details_outsider.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:address_search_text_field/address_search_text_field.dart';
@@ -24,6 +25,7 @@ class MyContractRequest extends StatefulWidget {
 class _MyContractRequest extends State<MyContractRequest> {
   ContratosProvider contratosProvider = new ContratosProvider();
   ProyectosProvider proyectosProvider = new ProyectosProvider();
+  ProjectModel project;
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
@@ -183,7 +185,10 @@ class _MyContractRequest extends State<MyContractRequest> {
                             textColor: Colors.white70,
                             color: Color.fromRGBO(89, 122, 121, 1.0),
                             padding: EdgeInsets.symmetric(horizontal: 30.0),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context)=> ProjectDetailsOutsider(project)));
+                            },
                           ),
                         ),
                       ),
@@ -401,6 +406,7 @@ class _MyContractRequest extends State<MyContractRequest> {
       builder: (BuildContext context, AsyncSnapshot<ProjectModel> snapshot) {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
+          project = snapshot.data;
           return row_info_contrato("Proyecto:", snapshot.data.proyectName);
         } else {
           return Center(child: CircularProgressIndicator());

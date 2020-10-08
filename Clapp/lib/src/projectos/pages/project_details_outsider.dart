@@ -1,30 +1,30 @@
-import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
-import 'package:Clapp/src/projectos/pages/executive_summary_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class ProjectDetails extends StatefulWidget {
+class ProjectDetailsOutsider extends StatefulWidget {
   final UserModel user;
-  ProjectDetails({Key key, this.user}) : super(key: key);
+  final ProjectModel projectModel;
+
+  ProjectDetailsOutsider(this.projectModel, {Key key, this.user}) : super(key: key);
   @override
-  _ProjectDetails createState() => _ProjectDetails();
+  _ProjectDetailsOutsider createState() => _ProjectDetailsOutsider();
 }
 
-class _ProjectDetails extends State<ProjectDetails> {
+class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
   @override
   Widget build(BuildContext context) {
-    ProjectModel proyecto = ModalRoute.of(context).settings.arguments;
+    ProjectModel proyecto = widget.projectModel;
     final List<Widget> _screens = [];
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/img/homeback2.jpg"),
-          fit: BoxFit.cover,
-        )),
+              image: AssetImage("assets/img/homeback2.jpg"),
+              fit: BoxFit.cover,
+            )),
         child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 30.0,
@@ -60,81 +60,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                         flex: 1,
                         child: Padding(
                           padding:
-                              EdgeInsets.only(top: 19, left: 10, right: 10),
-                          child: SizedBox(
-                            height: 52,
-                            width: 166,
-                            child: RaisedButton(
-                              //splashColor: Colors.green,
-                              padding: EdgeInsets.only(
-                                  top: 13, bottom: 13, left: 10, right: 10),
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Color.fromRGBO(0, 51, 51, 0.8),
-                                    width: 1.2),
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                              child: Text('Contratos',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(0, 51, 51, 0.8),
-                                      fontWeight: FontWeight.bold)),
-                              textColor: Color.fromRGBO(0, 51, 51, 0.8),
-                              color: Colors.white,
-                              onPressed: () {
-                                Navigator.pushNamed(context, 'see_contracts',
-                                    arguments: proyecto);
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(top: 19, left: 10, right: 10),
-                          child: SizedBox(
-                            height: 52,
-                            width: 166,
-                            child: RaisedButton(
-                              //splashColor: Colors.green,
-                              padding: EdgeInsets.only(
-                                  top: 13, bottom: 13, left: 10, right: 10),
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Color.fromRGBO(0, 51, 51, 0.8),
-                                    width: 1.2),
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                              child: Text('Presupuesto',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(0, 51, 51, 0.8),
-                                      fontWeight: FontWeight.bold)),
-                              textColor: Color.fromRGBO(0, 51, 51, 0.8),
-                              color: Colors.white,
-                              onPressed: () {
-                                Navigator.pushNamed(context, 'presupuesto');
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(top: 19, left: 10, right: 10),
+                          EdgeInsets.only(top: 19, left: 10, right: 10),
                           child: SizedBox(
                             height: 52,
                             width: 166,
@@ -169,7 +95,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                         flex: 1,
                         child: Padding(
                           padding:
-                              EdgeInsets.only(top: 19, left: 10, right: 10),
+                          EdgeInsets.only(top: 19, left: 10, right: 10),
                           child: SizedBox(
                             height: 52,
                             width: 166,
@@ -290,12 +216,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                            builder: (context) => ExecutiveSummaryPage(
-                          projectModel: proyecto,
-                        )));},
+                        onPressed: () {},
                       ),
                     ),
                   ),
@@ -329,7 +250,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                 Container(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 6.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 6.0, right: 20, top: 37),
                     child: IconButton(
                       icon: Icon(Icons.arrow_back),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
@@ -342,7 +263,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                   child: Container(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 20.0, right: 20, top: 37),
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 37),
                       child: Text('Proyecto',
                           textAlign: TextAlign.center,
                           style: TextStyle(

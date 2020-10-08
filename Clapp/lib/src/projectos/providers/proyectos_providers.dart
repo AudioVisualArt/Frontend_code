@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/src/platform_file.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -47,8 +51,34 @@ class ProyectosProvider extends InheritedWidget{
     return project;
   }
 
-  Future<bool> editarProyecto(ProjectModel proyecto) async {
+  Future<StorageUploadTask> editarProyecto(ProjectModel proyecto, PlatformFile resumen_ejecutivo) async {
     final url = '$_url/updateProject/${proyecto.id}';
+
+    String fileName;
+    String filePath;
+    String extensionFile;
+
+    fileName = resumen_ejecutivo.path.split('/').last;
+    filePath = resumen_ejecutivo.path;
+    extensionFile = fileName.split('.').last;
+
+    final StorageReference postImageRef =
+    FirebaseStorage.instance.ref().child('Project_excutive_summary');
+
+    final StorageUploadTask uploadTask =
+    postImageRef.child(proyecto.id).putFile(
+      File(filePath),
+      StorageMetadata(
+        contentType: '${FileType.any}/$extensionFile',
+      ),
+    );
+
+    final excutivesummaryUrl =
+    await (await uploadTask.onComplete).ref.getDownloadURL();
+
+    print('URL ScreenPlay: ' + excutivesummaryUrl);
+
+    proyecto.executive_summary = excutivesummaryUrl;
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},
@@ -58,7 +88,7 @@ class ProyectosProvider extends InheritedWidget{
 
     print(decodeData);
 
-    return true;
+    return uploadTask;
   }
 
   Future<List<UserModel>> cargarColaboradores(idProject) async {

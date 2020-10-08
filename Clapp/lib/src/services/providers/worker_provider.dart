@@ -99,8 +99,9 @@ class WorkersProvider {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getUser/$userId';
     final rsp = await http.get(url);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
 
-    UserModel user = UserModel.fromJson(json.decode(rsp.body));
+    UserModel user = UserModel.fromJson(json.decode(source));
     return user;
   }
 

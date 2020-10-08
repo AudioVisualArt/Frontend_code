@@ -14,6 +14,7 @@ class ProjectModel {
   String description;
   String id;
   String ownerId;
+  String executive_summary;
 
   ProjectModel({
     this.id,
@@ -24,7 +25,7 @@ class ProjectModel {
 
     this.description = "",
     this.ownerId="",
-
+    this.executive_summary
 
   });
 
@@ -37,7 +38,8 @@ class ProjectModel {
         projectType: json["projectType"],
         description: json["description"],
         id: json["id"],
-          ownerId: json["ownerId"]
+          ownerId: json["ownerId"],
+          executive_summary: json["executive_summary"]
 
 
       );
@@ -51,6 +53,7 @@ class ProjectModel {
 
     "description": description,
     "id": id,
-    "ownerId": ownerId
+    "ownerId": ownerId,
+    "executive_summary": executive_summary
   };
 }

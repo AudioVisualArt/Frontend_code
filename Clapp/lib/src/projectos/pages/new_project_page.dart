@@ -1,5 +1,7 @@
 import 'package:Clapp/src/User/bloc/provider.dart';
 import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,7 @@ import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/Contract/pages/ver_contratos.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:flutter/services.dart';
 import '../../MyStudio/pages/manage_page.dart';
 
 class NewProjectPage extends StatefulWidget {
@@ -36,6 +39,10 @@ class _NewProjectPage extends State<NewProjectPage> {
 
   //publico
   var _categoriesPublico = List<DropdownMenuItem>();
+  PlatformFile resumen_ejecutivo;
+  List<StorageUploadTask> _tasks = <StorageUploadTask>[];
+  bool _saved = false;
+  bool _savedFile = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +75,15 @@ class _NewProjectPage extends State<NewProjectPage> {
                     )),
                 //background:
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    Icons.file_upload,
+                    color: Colors.black,
+                  ),
+                  onPressed: openFileExplorer,
+                ),
+              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(<Widget>[
@@ -124,7 +140,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                           proyecto.projectType.isNotEmpty &&
                           proyecto.proyectName.isNotEmpty) {
                         _submit(usuario);
-                        Navigator.pushNamed(
+                        Navigator.popAndPushNamed(
                           context,
                           'details_project',
                           arguments: proyecto,
@@ -141,12 +157,32 @@ class _NewProjectPage extends State<NewProjectPage> {
     );
   }
 
-  void _submit(
+   _submit(
     UserModel usuario,
-  ) {
+  ) async {
     //proyecto.idUser= usuario.id;
-    proyecto.id = proyectoProvider.crearProyecto(proyecto).toString();
+
+    proyecto.id = await Future.value(proyectoProvider.crearProyecto(proyecto));
     print("el id del proyecto es: ${proyecto.id}");
+    if (resumen_ejecutivo != null) {
+    StorageUploadTask t;
+    t = await proyectoProvider.editarProyecto(proyecto , resumen_ejecutivo);
+
+    if (t.isComplete) {
+      setState(() {
+        _tasks.add(t);
+        _saved = true;
+        _savedFile = true;
+      });
+    }
+    // Navigator.pop(context);
+    utils.mostrarAlerta(context, 'resumen ejecutivo en  Clapp !!!');
+  } else {
+  setState(() {
+  _saved = false;
+  });
+  utils.mostrarAlerta(context, 'No Has Subido Ningún resumen ejecutivo');
+  }
   }
 
   Widget _projectname() {
@@ -332,5 +368,22 @@ class _NewProjectPage extends State<NewProjectPage> {
         ),
       ),
     );
+  }
+  openFileExplorer() async {
+    try {
+      FilePickerResult picker = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: ['pdf', 'doc']);
+
+      if (picker != null) {
+        PlatformFile file = picker.files.first;
+        print('File Name ${file.path}');
+
+        setState(() {
+          resumen_ejecutivo = file;
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Operación no Permitida ' + e.toString());
+    }
   }
 }

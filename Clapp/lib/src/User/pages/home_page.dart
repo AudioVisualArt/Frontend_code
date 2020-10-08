@@ -210,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                     Color.fromRGBO(255, 199, 86, 1),
                   ),
                   elementoMenu(
-                    'Contratos',
+                    'Ofertas',
                     8,
                     usuario,
                     "assets/img/iconodecontratos.png",
