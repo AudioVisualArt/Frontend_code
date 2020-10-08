@@ -118,7 +118,7 @@ class _ContratarPage extends State<ContratarPage> {
           final user = snapshot.data;
           return Padding(
             padding:
-                EdgeInsets.only(top: 1.5, bottom: 3.2, left: 0.0, right: 0.0),
+                EdgeInsets.only(top: 1.5, bottom: 3.2, left: 5.0, right: 5.0),
             child: InkWell(
               onTap: () {
                 var ciudad = user.cityResidence;
@@ -159,7 +159,7 @@ class _ContratarPage extends State<ContratarPage> {
                       tag: worker.userId,
                       child: _crearImage(worker),
                     ),
-                    SizedBox(height: 4.0),
+                    SizedBox(height: 7.0),
                     Text(
                       user.name,
                       style: TextStyle(
@@ -181,43 +181,80 @@ class _ContratarPage extends State<ContratarPage> {
                     SizedBox(height: 4.0),
                     Padding(
                       padding:
-                          EdgeInsets.only(bottom: 0.5, left: 5.0, right: 5.0),
+                          EdgeInsets.only(bottom: 0.5, left: 2.0, right: 2.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Text('Perfil',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 17.0,
-                                    fontFamily: "Raleway",
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold)),
-                            textColor: Colors.white,
-                            color: Color.fromRGBO(112, 252, 118, 0.8),
-                            onPressed: () {},
+                          Padding(
+                            padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                            child: Container(
+                              height: 37,
+                              width: 85,
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(112, 252, 118, 0.8),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(5),
+                                )
+                              ),
+
+                              child: Center(
+                                child: Text('Perfil',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        fontFamily: "Raleway",
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold)
+
+                                ),
+                              )
+
+
+                            )
                           ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Text('Estudio',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 17.0,
-                                    fontFamily: "Raleway",
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold)),
-                            textColor: Colors.white,
-                            color: Color.fromRGBO(0, 51, 51, 0.8),
-                            onPressed: () {},
-                          ),
+
+                          Padding(
+                              padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                              child: SizedBox(
+                                height: 37, width: 85,
+                                child: RaisedButton(
+
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5),
+                                      bottomRight: Radius.circular(20),
+                                    )
+                                  ),
+                                  child: Center(
+                                    child : Text('Estudio',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontFamily: "Raleway",
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  textColor: Colors.white,
+                                  color: Color.fromRGBO(0, 51, 51, 0.8),
+                                  onPressed: () {},
+                                ),
+                              )
+                          )
+
+
+
+
+
+
                         ],
                       ),
                     )
+
                   ],
                 ),
               ),
@@ -246,23 +283,23 @@ class _ContratarPage extends State<ContratarPage> {
   Widget _constructorImagen(UserModel user) {
     if (user.photoUrl == null) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(50.0),
         child: Image(
           image: AssetImage('assets/img/no-image.png'),
           fit: BoxFit.cover,
-          width: 160.0,
+          width: 162.0,
           height: 160.0,
         ),
       );
     } else if (user.photoUrl != null || user.photoUrl.isNotEmpty) {
       return ClipRRect(
-          borderRadius: BorderRadius.circular(40.0),
+          borderRadius: BorderRadius.circular(50.0),
           child: FadeInImage(
               placeholder: AssetImage('assets/img/loader3.gif'),
               image: NetworkImage(
                 user.photoUrl,
               ),
-              width: 160.0,
+              width: 162.0,
               height: 160.0,
               fit: BoxFit.cover));
     }

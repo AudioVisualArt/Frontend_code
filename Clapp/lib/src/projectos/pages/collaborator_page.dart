@@ -34,8 +34,6 @@ class _VerColaboradores extends State<VerColaboradores> {
           image: AssetImage("assets/img/mostraritems.jpg"),
           fit: BoxFit.cover,
         )),
-
-
         child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 30.0,
@@ -73,9 +71,10 @@ class _VerColaboradores extends State<VerColaboradores> {
           final projectos = snapshot.data;
           return GridView.builder(
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.757,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 15),
+                crossAxisCount: 2,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 13,
+                mainAxisSpacing: 16),
             itemCount: projectos.length,
             itemBuilder: (context, index) =>
                 _crearProyecto(context, projectos[index]),
@@ -88,12 +87,11 @@ class _VerColaboradores extends State<VerColaboradores> {
   }
 
   Widget _crearProyecto(BuildContext context, UserModel user) {
-    return SizedBox(
-      height: double.infinity,
+    return Padding(
+        padding: EdgeInsets.only(left: 7, right: 7),
+        child: Container(
 
-    child: Container(
-
-        /*decoration: ConcaveDecoration(
+            /*decoration: ConcaveDecoration(
             shape: ContinuousRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -104,70 +102,79 @@ class _VerColaboradores extends State<VerColaboradores> {
             depression: 15),
 
          */
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15.0),
-          /*border: Border.all(
-            width: 1.3,
-            color: Color.fromRGBO(0, 51, 51, 0.8),
-          ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(100),
+                  topLeft: Radius.circular(100),
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20)),
+             boxShadow: [
+               BoxShadow(
+                   color: Colors.black12,
 
-           */
-        ),
+                 spreadRadius: 6.0,
+                 blurRadius: 4.0)
 
-      //color: Colors.white.withOpacity(0.95),),
+             ]
+            ),
 
-      //color: Colors.amber,
-        //elevation: 20.0,
-       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-        child: Column(
-          children: <Widget>[
-            Flexible(child: Padding(padding: EdgeInsets.only(top: 8),
-              child:  _crearPhoto(user.photoUrl),),),
+            //color: Colors.white.withOpacity(0.95),),
 
-            Padding(
-              padding: EdgeInsets.only(
-                top: 5,
-                left: 2,
-                right: 2
-              ),
-              child: Center(
-                child: ClayContainer(
-                  borderRadius: 10,
-                  curveType: CurveType.none,
-                  color: Color.fromRGBO(227, 227, 227, 1),
-                  depth: 35,
-                  spread: 3,
-                  height: 80,
-                  width: 160,
-                  //borderRadius: 10,
-                  //curveType: CurveType.none,
-                  //color: Color.fromRGBO(227, 227, 227, 1),
-                  //depth: 35,
-                  //spread: 2,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 5, left: 2, right: 2),
-                        child: Text('${user.name}', textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20.0,
-                              fontFamily: "Raleway",
-                                color: Color.fromRGBO(115, 115, 115, 1.0),
-                            fontWeight: FontWeight.bold)),
-                      ),
-                Padding(
-                  padding: EdgeInsets.only(top: 2, left: 2, right: 2),
-                      child: Text(user.description,textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 17.0,
-                            fontFamily: "Raleway",
-                            color: Color.fromRGBO(115, 115, 115, 1.0),)),),
-                    // _crearDatosWork(user.id)
-                    ],
+            //color: Colors.amber,
+            //elevation: 20.0,
+            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 6),
+                    child: _crearPhoto(user.photoUrl),
                   ),
-              )
-
-            )),
-            /*ListTile(
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 5, left: 2, right: 2),
+                    child: Center(
+                        child: ClayContainer(
+                      borderRadius: 10,
+                      curveType: CurveType.none,
+                      color: Color.fromRGBO(227, 227, 227, 1),
+                      depth: 35,
+                      spread: 3,
+                      height: 80,
+                      width: 160,
+                      //borderRadius: 10,
+                      //curveType: CurveType.none,
+                      //color: Color.fromRGBO(227, 227, 227, 1),
+                      //depth: 35,
+                      //spread: 2,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 5, left: 2, right: 2),
+                            child: Text('${user.name}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: "Raleway",
+                                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 2, left: 2, right: 2),
+                            child: Text(user.description,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontFamily: "Raleway",
+                                  color: Color.fromRGBO(115, 115, 115, 1.0),
+                                )),
+                          ),
+                          // _crearDatosWork(user.id)
+                        ],
+                      ),
+                    ))),
+                /*ListTile(
               title: Text('${user.name}',
                   style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
               subtitle: Text(user.description,
@@ -179,7 +186,7 @@ class _VerColaboradores extends State<VerColaboradores> {
 
              */
 
-            /*Row(
+                /*Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     FlatButton(
@@ -192,8 +199,8 @@ class _VerColaboradores extends State<VerColaboradores> {
                     ),
                   ],
                 )*/
-          ],
-        )));
+              ],
+            )));
   }
 
   Widget _crearDatosWork(String userId) {
@@ -217,8 +224,8 @@ class _VerColaboradores extends State<VerColaboradores> {
         child: Image(
           image: AssetImage('assets/img/no-image.png'),
           fit: BoxFit.cover,
-         width: 145.0,
-          height: 145.0,
+          width: 155.0,
+          height: 155.0,
         ),
       );
     } else {

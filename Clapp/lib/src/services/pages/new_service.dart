@@ -119,34 +119,36 @@ class _NewService extends State<NewService> {
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                  child: Container(
-                    padding:
-                        EdgeInsets.only(right: 10.0, left: 210,  bottom: 30.0),
-                    child: RaisedButton(
-                      padding: EdgeInsets.only(
-                          top: 13, bottom: 13, left: 10, right: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                    child: Container(
+                      padding:
+                          EdgeInsets.only(right: 10.0, left: 210, bottom: 30.0),
+                      child: RaisedButton(
+                        padding: EdgeInsets.only(
+                            top: 13, bottom: 13, left: 10, right: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Text('Nuevo servicio',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                fontWeight: FontWeight.bold)),
+                        textColor: Colors.white,
+                        color: Color.fromRGBO(112, 252, 118, 0.8),
+                        onPressed: (_guardando) ? null : _submit,
                       ),
-                      child: Text('Nuevo servicio',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontFamily: "Raleway",
-                              color: Color.fromRGBO(115, 115, 115, 1.0),
-                              fontWeight: FontWeight.bold)),
-                      textColor: Colors.white,
-                      color: Color.fromRGBO(112, 252, 118, 0.8),
-                      onPressed: (_guardando) ? null : _submit,
                     ),
-                  ),),
+                  ),
                 ]),
               )
             ],
           ),
         ));
   }
-  Widget _tags (){
+
+  Widget _tags() {
     return TagEditor(
       length: values.length,
       delimeters: [',', ' '],
@@ -174,6 +176,7 @@ class _NewService extends State<NewService> {
       ),
     );
   }
+
   onDelete(index) {
     setState(() {
       values.removeAt(index);
@@ -200,7 +203,7 @@ class _NewService extends State<NewService> {
           decoration: InputDecoration(
             labelText: 'Minimo que cobra por hora',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             // helperText: "",
@@ -223,8 +226,8 @@ class _NewService extends State<NewService> {
         ),
       ),
     );
-
   }
+
   Widget _maxPayment() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
@@ -245,7 +248,7 @@ class _NewService extends State<NewService> {
           decoration: InputDecoration(
             labelText: 'Maximo que cobra por hora',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             // helperText: "",
@@ -268,8 +271,8 @@ class _NewService extends State<NewService> {
         ),
       ),
     );
-
   }
+
   Widget _profesion() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
@@ -318,29 +321,42 @@ class _NewService extends State<NewService> {
     return Container(
         padding: EdgeInsets.only(left: 0.5, right: 59.0),
         child: Center(
-            child:DropdownButton<String>(
-              value: trabajador.mainRol,
-              hint: Text("Seleccione el rol principal"),
-              style: TextStyle(
-                  fontSize: 14.0,
-                  fontFamily: "Raleway",
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold),
-              onChanged: (String selected) {
-                setState(() {
-                  trabajador.mainRol=selected;
-                },
-                );
+            child: DropdownButtonFormField<String>(
+          value: trabajador.mainRol,
+          //hint: Text("Seleccione el rol principal"),
+          style: TextStyle(
+              fontSize: 14.0,
+              fontFamily: "Raleway",
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          decoration: InputDecoration(
+            labelText: 'Seleccione el rol principal',
+            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, fontFamily: "Raleway",),
+            helperText: "Ejemplo: Personal artistico",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+          onChanged: (String selected) {
+            setState(
+              () {
+                trabajador.mainRol = selected;
               },
-              items: <String>['ninguno','Personal artistico','Personal tecnico'].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: new Text(value),
-                );
-              }).toList(),
-
-            )
-          /*TextFormField(
+            );
+          },
+          items: <String>['ninguno', 'Personal artistico', 'Personal tecnico']
+              .map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: new Text(value),
+            );
+          }).toList(),
+        )
+            /*TextFormField(
           style: TextStyle(
               fontSize: 14.0,
               fontFamily: "Raleway",
@@ -362,8 +378,8 @@ class _NewService extends State<NewService> {
                       color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                   borderRadius: BorderRadius.circular(16.0))),
           onChanged: (value) => trabajador.mainRol = value,
-        ))*/)
-    );
+        ))*/
+            ));
   }
 
   Widget _description() {
@@ -518,7 +534,6 @@ class _NewService extends State<NewService> {
       utils.mostrarAlerta(context, 'No Has Subido Ningún hoja de vida');
     }
 
-
     // setState(() {
     //   _guardando = false;
     // });
@@ -527,6 +542,7 @@ class _NewService extends State<NewService> {
     Navigator.pop(context,
         new MaterialPageRoute(builder: (context) => new ServicesPages()));
   }
+
   openFileExplorer() async {
     try {
       FilePickerResult picker = await FilePicker.platform
@@ -545,6 +561,7 @@ class _NewService extends State<NewService> {
     }
   }
 }
+
 class _Chip extends StatelessWidget {
   const _Chip({
     @required this.label,
