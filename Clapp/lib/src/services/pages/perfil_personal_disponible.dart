@@ -141,7 +141,7 @@ class PerfilPersonal extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           color: Color.fromRGBO(227, 227, 227, 1),),
-                        height: 85,
+                        height: 100,
                         width: MediaQuery
                             .of(context)
                             .size
