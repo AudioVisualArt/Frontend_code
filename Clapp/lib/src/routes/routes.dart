@@ -1,5 +1,8 @@
 import 'package:Clapp/src/PhotoFind/pages/find_fast_page.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
+import 'package:Clapp/src/Space/pages/new_space.dart';
+import 'package:Clapp/src/Space/pages/new_space2.dart';
+import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/User/pages/actividad_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
@@ -94,7 +97,12 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto': (BuildContext context) => PresupuestoPage(),
     'space_details': (BuildContext context) => SpaceDetails(),
+
     'recomendado': (BuildContext context) => RecomendadosPage(),
+    'nuevoespacio': (BuildContext context) => NewSpace(),
+    'nuevoespacio2': (BuildContext context) => NewSpace2(),
+    'space': (BuildContext context) => SpacesPage(),
+
     'spaces': (BuildContext context) => SpacesPage(),
     'find_photo': (BuildContext context) => FindByPhotoPage(),
   };

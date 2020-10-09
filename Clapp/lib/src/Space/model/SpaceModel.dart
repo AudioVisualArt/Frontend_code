@@ -18,6 +18,7 @@ class SpaceModel {
   int minimumHours;
   double priceHour;
   String imageUrl;
+  double priceDay;
 
 
   SpaceModel({
@@ -32,7 +33,8 @@ class SpaceModel {
     this.description,
     this.minimumHours,
     this.priceHour,
-    this.imageUrl
+    this.imageUrl,
+    this.priceDay
 
   });
 
@@ -49,6 +51,7 @@ class SpaceModel {
         minimumHours: json["minimumHours"],
         priceHour: json["priceHour"],
         imageUrl: json["imageUrl"],
+        priceDay: json["priceDay"],
 
       );
 
@@ -64,5 +67,6 @@ class SpaceModel {
     "minimumHours": minimumHours,
     "priceHour": priceHour,
     "imageUrl": imageUrl,
+    "priceDay": priceDay,
   };
 }

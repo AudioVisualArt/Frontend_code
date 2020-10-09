@@ -95,10 +95,7 @@ class _HomePageState extends State<HomePage> {
                     arguments: usuario);
                 break;
               case 5:
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new SpacesPage()));
+                Navigator.pushNamed(context,'space', arguments: usuario);
                 break;
               case 6:
                 Navigator.pushNamed(context, 'find_photo', arguments: usuario);

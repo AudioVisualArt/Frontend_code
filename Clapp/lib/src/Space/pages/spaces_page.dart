@@ -8,7 +8,10 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 
 class SpacesPage extends StatefulWidget {
-  SpacesPage({Key key}) : super(key: key);
+  final UserModel user;
+  SpacesPage({Key key, this.user}) : super(key: key);
+
+
 
   @override
   _SpacesPage createState() => _SpacesPage();
@@ -16,10 +19,11 @@ class SpacesPage extends StatefulWidget {
 
 class _SpacesPage extends State<SpacesPage> {
   final spacesProvider = new SpacesProvider ();
-  UserModel user; 
+  UserModel user;
   List<dynamic> arguments=new List();
   @override
   Widget build(BuildContext context) {
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     user=ModalRoute.of(context).settings.arguments;
     return Scaffold(
       body: Container(
@@ -40,7 +44,7 @@ class _SpacesPage extends State<SpacesPage> {
             //key: formKey,
             child: Column(
               children: <Widget>[
-                newappbar(),
+                newappbar(usuario),
                 Expanded(
                     child: Container(
                   child: _crearListado(),
@@ -77,7 +81,7 @@ class _SpacesPage extends State<SpacesPage> {
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 5),
         child: InkWell(
-          onTap: () { 
+          onTap: () {
             this.arguments.add(user);
             this.arguments.add(espacio);
             Navigator.pushNamed(context, 'space_details',
@@ -204,7 +208,7 @@ class _SpacesPage extends State<SpacesPage> {
         );
   }
   Widget newappbar(
-      //UserModel userModel
+      UserModel usuario
       ) {
     return Container(
         height: 150,
@@ -250,7 +254,7 @@ class _SpacesPage extends State<SpacesPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
                   child: _botonEspacioNuevo(
-                     // userModel
+                     usuario
                   ),
                 )
               ],
@@ -282,7 +286,7 @@ class _SpacesPage extends State<SpacesPage> {
         ));
   }
   Widget _botonEspacioNuevo(
-     // UserModel userModel
+     UserModel userModel
       ) {
     return RaisedButton(
       splashColor: Colors.grey,
@@ -307,8 +311,9 @@ class _SpacesPage extends State<SpacesPage> {
       color: Colors.white,
 
       onPressed: () {
-        //Navigator.pushNamed(context, 'new_project',
-          //  arguments: userModel); //ver routes
+        Navigator.pushNamed(context,'nuevoespacio', arguments: userModel);
+
+       //ver routes
       },
     );
   }
