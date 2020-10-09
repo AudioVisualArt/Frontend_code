@@ -95,14 +95,13 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) => new SpacesPage()));
                 break;
               case 6:
-                print('Sin ruta');
-                //Navigator.pushNamed(context, 'find_photo', arguments: usuario);
+                Navigator.pushNamed(context, 'find_photo', arguments: usuario);
                 break;
               case 7:
                 Navigator.pushNamed(context, 'items_buy', arguments: usuario);
                 break;
               case 8:
-                Navigator.pushNamed(context, 'mycontract',arguments: usuario);
+                Navigator.pushNamed(context, 'mycontract', arguments: usuario);
                 break;
             }
             ;
@@ -300,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                     width: 125,
                   ),
                   elementoMenu(
-                    'Imagenes',
+                    'Rapido',
                     6,
                     usuario,
                     "assets/img/imagesIcon.png",

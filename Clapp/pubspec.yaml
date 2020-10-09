@@ -117,6 +117,7 @@ flutter:
     - assets/img/no-image.png
     - assets/img/jar-loading.gif
     - assets/img/APP ICON.png
+    - assets/model_img/
     - data/menu_Clapp.json
 
   fonts:

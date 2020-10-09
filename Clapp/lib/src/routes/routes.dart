@@ -1,3 +1,4 @@
+import 'package:Clapp/src/PhotoFind/pages/find_fast_page.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/User/pages/actividad_page.dart';
@@ -95,6 +96,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'space_details': (BuildContext context) => SpaceDetails(),
     'recomendado': (BuildContext context) => RecomendadosPage(),
     'spaces': (BuildContext context) => SpacesPage(),
-
+    'find_photo': (BuildContext context) => FindByPhotoPage(),
   };
 }
