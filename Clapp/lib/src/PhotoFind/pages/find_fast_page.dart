@@ -100,10 +100,11 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
     PickedFile image = await _picker.getImage(source: ImageSource.camera);
     foto = File(image.path);
 
-    if (foto == null) {
-      //limpiar
+    if (image != null) {
+      setState(() {
+        foto = File(image.path);
+      });
     }
-    setState(() {});
   }
 
   _clasificarImagen(File image) async {
