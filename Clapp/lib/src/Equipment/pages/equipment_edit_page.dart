@@ -27,6 +27,16 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
   bool _guardando = false;
   bool _rentSell = true;
 
+  List<String> _tags = [
+    'Seleccionar',
+    'CAMARAS',
+    'MICROFONOS',
+    'LUCES',
+    'ACCESORIO',
+  ];
+
+  String _opcionSeleccionada;
+
   final _picker = ImagePicker();
   File foto;
 
@@ -35,6 +45,8 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
   @override
   Widget build(BuildContext context) {
     EquipmentModel equipData = ModalRoute.of(context).settings.arguments;
+    String _opcionSeleccionada =
+        equipment.tag == null ? 'Seleccionar' : equipment.tag.toString();
     equipment = equipData;
 
     return GestureDetector(
@@ -69,6 +81,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
             child: Form(
               key: formKey,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _mostrarFoto(),
                   Divider(),
@@ -82,9 +95,15 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
                   Divider(),
                   _crearModelo(),
                   Divider(),
+                  _crearTag(),
+                  Divider(),
                   _crearPrecio(),
                   Divider(),
                   _crearDisponible(),
+                  Divider(),
+                  _crearRent(),
+                  Divider(),
+                  _crearSell(),
                   Divider(),
                   _crearBoton(),
                 ],
@@ -231,7 +250,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
 
   Widget _crearRent() {
     return RadioListTile(
-        value: equipment.rent ?? false,
+        value: equipment.rent,
         title: Text(
           'Renta',
           style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
@@ -249,7 +268,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
 
   Widget _crearSell() {
     return RadioListTile(
-        value: equipment.sell ?? true,
+        value: equipment.sell,
         title: Text(
           'Venta',
           style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
@@ -263,6 +282,37 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
             equipment.rent = false;
           });
         });
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _tags.forEach((element) {
+      lista.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+
+    return lista;
+  }
+
+  Widget _crearTag() {
+    return Flexible(
+      flex: 1,
+      child: DropdownButton(
+          style: TextStyle(
+              fontSize: 15.0, fontFamily: "Raleway", color: Colors.black),
+          isExpanded: true,
+          value: _opcionSeleccionada,
+          items: getOpcionesDropdown(),
+          onChanged: (opt) {
+            setState(() {
+              _opcionSeleccionada = opt;
+              equipment.tag = opt;
+            });
+          }),
+    );
   }
 
   Widget _crearBoton() {

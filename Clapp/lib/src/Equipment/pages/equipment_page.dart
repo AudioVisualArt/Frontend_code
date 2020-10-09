@@ -1,9 +1,9 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
@@ -24,6 +24,16 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   bool _guardando = false;
   bool _rentSell = true;
+
+  List<String> _tags = [
+    'Seleccionar',
+    'CAMARAS',
+    'MICROFONOS',
+    'LUCES',
+    'ACCESORIO',
+  ];
+
+  String _opcionSeleccionada = 'Seleccionar';
 
   File foto;
   final _picker = ImagePicker();
@@ -64,6 +74,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
             child: Form(
               key: formKey,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _mostrarFoto(),
                   Divider(),
@@ -76,6 +87,8 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   _crearMarca(),
                   Divider(),
                   _crearModelo(),
+                  Divider(),
+                  _crearTag(),
                   Divider(),
                   _crearPrecio(),
                   Divider(),
@@ -262,6 +275,37 @@ class _EquipmentPageState extends State<EquipmentPage> {
             equipment.rent = false;
           });
         });
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _tags.forEach((element) {
+      lista.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+
+    return lista;
+  }
+
+  Widget _crearTag() {
+    return Flexible(
+      flex: 1,
+      child: DropdownButton(
+          style: TextStyle(
+              fontSize: 15.0, fontFamily: "Raleway", color: Colors.black),
+          isExpanded: true,
+          value: _opcionSeleccionada,
+          items: getOpcionesDropdown(),
+          onChanged: (opt) {
+            setState(() {
+              _opcionSeleccionada = opt;
+              equipment.tag = opt;
+            });
+          }),
+    );
   }
 
   Widget _crearBoton() {

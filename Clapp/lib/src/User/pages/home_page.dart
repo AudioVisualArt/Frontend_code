@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
+import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +75,13 @@ class _HomePageState extends State<HomePage> {
 
                 break;
               case 1:
-                Navigator.pushNamed(context, 'ver_producto',
-                    arguments: usuario);
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (context) => new MostrarProductosPage(
+                        userModel: usuario,
+                      ),
+                    ));
                 break;
               case 2:
                 Navigator.pushNamed(context, 'open_contracts',

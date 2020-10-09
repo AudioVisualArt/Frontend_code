@@ -84,6 +84,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       initialValue: widget.equipmentModel.titulo,
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -92,6 +93,8 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       initialValue: widget.equipmentModel.itemDescription,
       textCapitalization: TextCapitalization.sentences,
+      enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -100,6 +103,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       initialValue: widget.equipmentModel.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -109,6 +113,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       initialValue: widget.equipmentModel.specs,
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -118,6 +123,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       initialValue: widget.equipmentModel.marca,
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -127,6 +133,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       initialValue: widget.equipmentModel.modelo,
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
