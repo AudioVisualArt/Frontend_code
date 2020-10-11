@@ -1,10 +1,10 @@
 import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
-import 'package:Clapp/src/item/widgets/StockPhotoHorizontal.dart';
+import 'package:Clapp/src/Market/widgets/StockPhotoHorizontal.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:Clapp/src/item/widgets/EquipmentsHorizontal.dart';
+import 'package:Clapp/src/Market/widgets/EquipmentsHorizontal.dart';
 
 class ItemsComprarPage extends StatelessWidget {
   EquipmentProvider equipmentProvider = new EquipmentProvider();

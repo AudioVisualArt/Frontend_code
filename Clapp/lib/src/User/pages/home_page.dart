@@ -1,3 +1,4 @@
+import 'package:Clapp/src/Market/pages/show_equipments_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
@@ -95,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                     arguments: usuario);
                 break;
               case 5:
-                Navigator.pushNamed(context,'space', arguments: usuario);
+                Navigator.pushNamed(context, 'space', arguments: usuario);
                 break;
               case 6:
                 Navigator.pushNamed(context, 'find_photo', arguments: usuario);
@@ -105,6 +106,14 @@ class _HomePageState extends State<HomePage> {
                 break;
               case 8:
                 Navigator.pushNamed(context, 'mycontract', arguments: usuario);
+                break;
+              case 9:
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new ShowEquipmentPage(
+                              userModel: usuario,
+                            )));
                 break;
             }
             ;
@@ -310,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   elementoMenu(
                     'Equipo',
-                    7,
+                    9,
                     usuario,
                     "assets/img/equipoIcon.png",
                     Color.fromRGBO(253, 132, 105, 1.0),

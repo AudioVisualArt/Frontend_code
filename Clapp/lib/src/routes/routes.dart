@@ -43,7 +43,7 @@ import 'package:Clapp/src/projectos/pages/collaborator_page.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_page.dart';
 import 'package:Clapp/src/item/pages/menu_agregar.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_edit_page.dart';
-import 'package:Clapp/src/item/pages/items_buy.dart';
+import 'package:Clapp/src/Market/pages/items_buy_general_page.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
@@ -97,12 +97,10 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'mycontract': (BuildContext context) => MyContractRequest(),
     'presupuesto': (BuildContext context) => PresupuestoPage(),
     'space_details': (BuildContext context) => SpaceDetails(),
-
     'recomendado': (BuildContext context) => RecomendadosPage(),
     'nuevoespacio': (BuildContext context) => NewSpace(),
     'nuevoespacio2': (BuildContext context) => NewSpace2(),
     'space': (BuildContext context) => SpacesPage(),
-
     'spaces': (BuildContext context) => SpacesPage(),
     'find_photo': (BuildContext context) => FindByPhotoPage(),
   };
