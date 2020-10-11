@@ -66,7 +66,7 @@ class _OtherPage extends State<OtherPage> {
     ));
   }
 
-  Widget _crearListado(String idUsuario, UserModel usuario) {
+  Widget _crearListado(String idUsuario, UserModel usuario)  {
     return FutureBuilder(
       future: proyectosProvider.cargarTodosProyectos(),
       builder:
@@ -77,8 +77,19 @@ class _OtherPage extends State<OtherPage> {
             shrinkWrap: true,
             // padding: const EdgeInsets.all(8.0),
             itemCount: proyectos.length,
-            itemBuilder: (context, index) =>
-                _crearproyectos(context, proyectos[index], usuario),
+            itemBuilder: (context, index) {
+              return FutureBuilder(
+                  future:_existencontratos(proyectos[index].id),
+                  builder:
+                  (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                   if(snapshot.data&&snapshot.hasData) {
+                     return _crearproyectos(context, proyectos[index], usuario);
+                   }else{
+                     return Card();
+                   }
+                  }
+              );
+              },
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -247,5 +258,20 @@ class _OtherPage extends State<OtherPage> {
                 )),
           ],
         ));
+  }
+
+  Future<bool> _existencontratos(String id) async{
+    bool resp;
+    List<ContractModel> c = await contratosProvider.cargarContratosProoyecto(id);
+
+
+      if (c.isNotEmpty) {
+        resp = true;
+      } else {
+        resp = false;
+      }
+
+    return resp;
+
   }
 }

@@ -3,6 +3,8 @@ import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'executive_summary_page.dart';
+
 class ProjectDetailsOutsider extends StatefulWidget {
   final UserModel user;
   final ProjectModel projectModel;
@@ -216,7 +218,12 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ExecutiveSummaryPage(
+                                  projectModel: proyecto,
+                                )));},
                       ),
                     ),
                   ),
