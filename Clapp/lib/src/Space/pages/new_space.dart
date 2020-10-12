@@ -15,10 +15,10 @@ import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:flutter/services.dart';
 
-
 class NewSpace extends StatefulWidget {
   //final UserModel user;
   final UserModel user;
+
   NewSpace({Key key, this.user}) : super(key: key);
 
   @override
@@ -33,16 +33,15 @@ class _NewSpace extends State<NewSpace> {
   File foto;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _guardando = false;
- SpaceModel espacio = new SpaceModel();
+  SpaceModel espacio = new SpaceModel();
   final spaceProvider = new SpacesProvider();
   final spaceformkey = GlobalKey<FormState>();
 
-
   List<String> values = [];
-
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _nameController = new TextEditingController();
     //print("id de usuario es : ${usuario.id}");
     // TODO: implement build
 
@@ -61,7 +60,6 @@ class _NewSpace extends State<NewSpace> {
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
-
                 expandedHeight: 100.0,
                 floating: false,
                 pinned: true,
@@ -99,7 +97,7 @@ class _NewSpace extends State<NewSpace> {
                           SizedBox(height: 10),
                           _capacidad(),
                           SizedBox(height: 10),
-                          Padding(
+                          /* Padding(
                             padding: EdgeInsets.only(top: 1.0, left: 0.5, right: 59.0),
                             child: SizedBox(
                               height: 52,
@@ -127,6 +125,8 @@ class _NewSpace extends State<NewSpace> {
                               ),
                             ),
                           ),
+
+                          */
                           SizedBox(height: 10),
                         ],
                       ),
@@ -134,36 +134,32 @@ class _NewSpace extends State<NewSpace> {
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                      child: Container(
-                        padding:
-                        EdgeInsets.only(right: 10.0, left: 210, bottom: 30.0),
-                        child: RaisedButton(
-                          padding: EdgeInsets.only(
-                              top: 13, bottom: 13, left: 25, right: 25),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Text('Siguiente',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(115, 115, 115, 1.0),
-                                  fontWeight: FontWeight.bold)),
-                          textColor: Colors.white,
-                          color: Color.fromRGBO(112, 252, 118, 0.8),
-                          onPressed: () { (_guardando) ? null : _submit(espacio, usuario);
-                           //Navigator.pushNamed(context, 'nuevoespacio2',
-                             //  arguments: usuario);
-
-                          },
-
-
-
+                    child: Container(
+                      padding:
+                          EdgeInsets.only(right: 10.0, left: 210, bottom: 30.0),
+                      child: RaisedButton(
+                        padding: EdgeInsets.only(
+                            top: 13, bottom: 13, left: 25, right: 25),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
+                        child: Text('Siguiente',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                fontWeight: FontWeight.bold)),
+                        textColor: Colors.white,
+                        color: Color.fromRGBO(112, 252, 118, 0.8),
+                        onPressed: () {
+                          //(_guardando) ? null : _submit(espacio, usuario);
+                          if (!spaceformkey.currentState.validate()) return;
+                          Navigator.pushNamed(context, 'nuevoespacio2',
+                              arguments: SegPagina(usuario, espacio));
+                        },
                       ),
-
-
+                    ),
                   ),
                 ]),
               )
@@ -189,7 +185,7 @@ class _NewSpace extends State<NewSpace> {
               color: Colors.grey,
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
-          maxLength: 150,
+          maxLength: 125,
           maxLines: 3,
           initialValue: espacio.description,
           textCapitalization: TextCapitalization.sentences,
@@ -228,8 +224,7 @@ class _NewSpace extends State<NewSpace> {
               color: Colors.grey,
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
-          maxLength: 32,
-
+          maxLength: 29,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
               labelText: 'Nombre del lugar',
@@ -267,7 +262,7 @@ class _NewSpace extends State<NewSpace> {
               color: Colors.grey,
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
-          maxLength: 20,
+          maxLength: 17,
           maxLines: 1,
           textAlign: TextAlign.left,
           textCapitalization: TextCapitalization.sentences,
@@ -299,7 +294,6 @@ class _NewSpace extends State<NewSpace> {
     );
   }
 
-
   Widget _capacidad() {
     return Container(
         padding: EdgeInsets.only(left: 0.5, right: 59.0),
@@ -328,10 +322,19 @@ class _NewSpace extends State<NewSpace> {
                   borderSide: BorderSide(
                       color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                   borderRadius: BorderRadius.circular(16.0))),
-          //onChanged: (value) => espacio.capacity = value,
+           /*onChanged: (value) => espacio.capacity = value,
+              validator: (value) {
+                if (utils.isNumeric(value)) {
+                  return 'Ingrese solo numeros';
+                } else {
+                  return null;
+                }
+              },
 
+            */
         )));
   }
+
   _seleccionarFoto() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     //limpiar
@@ -340,24 +343,26 @@ class _NewSpace extends State<NewSpace> {
     });
   }
 
-  void _submit(SpaceModel espacio, UserModel user){
-    if(!spaceformkey.currentState.validate()) return;
+  void _submit(SpaceModel espacio, UserModel user) {
+    if (!spaceformkey.currentState.validate()) return;
     spaceformkey.currentState.save();
     print('Todo Ok');
     setState(() {
       _guardando = true;
     });
 
-    if(espacio.id == null){
+    if (espacio.id == null) {
       espacio.userOwner = user.id;
       spaceProvider.crearEspacio(espacio, foto);
-    }else{
+    } else {
       spaceProvider.editarEspacio(espacio, foto);
     }
   }
-
-
-
 }
 
+class SegPagina {
+  final UserModel usuario2;
+  final SpaceModel space2;
 
+  SegPagina(this.usuario2, this.space2);
+}

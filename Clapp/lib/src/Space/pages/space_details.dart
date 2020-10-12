@@ -11,15 +11,19 @@ import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:clay_containers/clay_containers.dart';
 
+import 'new_space.dart';
+
 final List<String> imgList = [
   'assets/img/space1.JPG',
   'assets/img/espacios.PNG',
 ];
 
 class SpaceDetails extends StatefulWidget {
-    final UserModel userF;
+  final SegPagina arg;
+  SpaceDetails({Key key, this.arg}) : super(key: key);
+    //final UserModel userF;
  
-  SpaceDetails({Key key,this.userF}) : super(key: key);
+  //SpaceDetails({Key key,this.userF}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,6 +34,7 @@ class SpaceDetails extends StatefulWidget {
 
 class _SpaceDetails extends State<SpaceDetails> {
 
+
   UsuarioProvider usuarioProvider = new UsuarioProvider();
   WorkersProvider workersProvider = new WorkersProvider();
   ChatProvider chat=new ChatProvider();
@@ -37,11 +42,14 @@ class _SpaceDetails extends State<SpaceDetails> {
   UserModel usuario;
   @override
   Widget build(BuildContext context) {
-    
-    arg= ModalRoute.of(context).settings.arguments;
+    SegPagina usrSpace = ModalRoute.of(context).settings.arguments;
 
-    SpaceModel espacio =arg[1];
-    usuario=arg[0];
+    //arg= ModalRoute.of(context).settings.arguments;
+
+    SpaceModel espacio = usrSpace.space2;
+    usuario = usrSpace.usuario2;
+    //SpaceModel espacio =arg[1];
+    //usuario=arg[0];
     return Scaffold(
       appBar: AppBar(
         title: Text('Detalles',
@@ -60,8 +68,11 @@ class _SpaceDetails extends State<SpaceDetails> {
            */
           child: ListView(
             children: [
-              _listimages(),
-              infospace('Horario', espacio.scheduleDays, espacio.scheduleHours),
+              _listimages(espacio),
+              infospace('Horario',
+                  //espacio.scheduleDays,
+                  "Lunes a viernes",
+                  espacio.scheduleHours),
               Column(
                 children: [
                   Padding(
@@ -71,7 +82,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                               minWidth:
                                   MediaQuery.of(context).size.width - 20.0,
                               maxWidth: MediaQuery.of(context).size.width,
-                              maxHeight: 220,
+                              maxHeight: 260,
                               minHeight: 200),
                           decoration: BoxDecoration(
                             borderRadius:
@@ -99,7 +110,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                                                constraints: BoxConstraints(
                                                    minWidth: 100,
                                                    maxWidth: 200,
-                                                   maxHeight: 42,
+                                                   maxHeight: 56,
                                                    minHeight: 22),
 
                                                child: Text(
@@ -157,7 +168,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                                                constraints: BoxConstraints(
                                                    minWidth: 100,
                                                    maxWidth: 200,
-                                                   maxHeight: 82,
+                                                   maxHeight: 110,
                                                    minHeight: 22),
                                                child: Text(
                                                    espacio.description,
@@ -181,7 +192,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                           )),
 
 
-                  infospace('Tarifa', "${espacio.minimumHours} horas min", '${espacio.priceHour} COP/hora'),
+                  infospace('Tarifa', "${espacio.minimumHours} min", '${espacio.priceHour} COP/hora'),
 
 
 
@@ -296,7 +307,7 @@ class _SpaceDetails extends State<SpaceDetails> {
     );
   }
 
-  Widget _listimages() {
+  Widget _listimages(SpaceModel espacio) {
     return Container(
         padding: EdgeInsets.only(left: 4, right: 4, top: 5),
       child: Center(
@@ -314,7 +325,7 @@ class _SpaceDetails extends State<SpaceDetails> {
                     bottomRight: Radius.circular(20)),
                 child: Card(
                   child: Hero(
-                    tag: 'assets/img/espacios.PNG',
+                    tag: espacio.id,
 
 
 
@@ -323,7 +334,9 @@ class _SpaceDetails extends State<SpaceDetails> {
                     child: Image(
                       width: MediaQuery.of(context).size.width,
                       height: 300,
-                      image: AssetImage('assets/img/space1.JPG'),
+                      image: NetworkImage(
+                        espacio.imageUrl
+                      ),
                       fit: BoxFit.cover,
                     ),
 
@@ -354,7 +367,7 @@ class _SpaceDetails extends State<SpaceDetails> {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: EdgeInsets.only(
-                    top: 16.0, left: 5, right: 15),
+                    top: 28.0, left: 5, right: 15),
                 child: Container(
                     height: 100.0,
                     width: 100.0,

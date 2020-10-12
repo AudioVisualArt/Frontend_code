@@ -1,8 +1,10 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
+
+import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 
 import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:file_picker/file_picker.dart';
@@ -18,8 +20,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class NewSpace2 extends StatefulWidget {
-  final SpaceModel espacio;
-  NewSpace2({Key key, this.espacio}) : super(key: key);
+  final SegPagina arg;
+  NewSpace2({Key key, this.arg}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -31,24 +33,21 @@ class NewSpace2 extends StatefulWidget {
 class _NewSpace2 extends State<NewSpace2> {
   final picker = ImagePicker();
   File foto;
-  final format = DateFormat("HH:mm");
-  //final format = DateFormat("yyyy-MM-dd HH:mm");
-  //final format = DateFormat("yyyy-MM-dd");
+
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _guardando = false;
-
+  DateTime date1, date2;
 
   final spaceProvider = new SpacesProvider();
-  final spaceformkey = GlobalKey<FormState>();
+  final spaceformkey2 = GlobalKey<FormState>();
   List<String> values = [];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    SpaceModel spaces = ModalRoute.of(context).settings.arguments;
+    SegPagina usrSpace = ModalRoute.of(context).settings.arguments;
 
     return GestureDetector(
         onTap: () {
-
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
@@ -85,14 +84,14 @@ class _NewSpace2 extends State<NewSpace2> {
                     padding: EdgeInsets.only(
                         right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
                     child: Form(
-                      key: spaceformkey,
+                      key: spaceformkey2,
                       child: Column(
                         children: <Widget>[
-                          _pago(spaces),
+                          _pago(usrSpace.space2),
                           SizedBox(height: 10),
-                          _horasMin(spaces),
+                          _horasMin(usrSpace.space2),
                           SizedBox(height: 10),
-                          _precioDia(spaces),
+                          _precioDia(usrSpace.space2),
                           Container(
                               padding: EdgeInsets.only(top: 10.0),
                               child: Text('Calendario',
@@ -100,10 +99,42 @@ class _NewSpace2 extends State<NewSpace2> {
                                   style: TextStyle(
                                       fontSize: 17.5, fontFamily: "Raleway"))),
                           SizedBox(height: 30),
-                          _horaInicio(),
+                          _horaInicio(usrSpace.space2),
                           SizedBox(height: 10),
-                          _horafinal(),
+                          _horafinal(usrSpace.space2),
                           SizedBox(height: 10),
+                          Padding(
+
+                            padding: EdgeInsets.only(
+                                top: 1.0, left: 0.5, right: 59.0),
+                            child: SizedBox(
+                              height: 52,
+                              width: MediaQuery.of(context).size.width - 40,
+                              child: RaisedButton(
+                                //splashColor: Colors.green,
+                                padding: EdgeInsets.only(
+                                    top: 13, bottom: 13, left: 10, right: 10),
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      width: 1.2),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                child: Text('Sube una imagen',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontFamily: "Raleway",
+                                        color: Color.fromRGBO(0, 51, 51, 0.8),
+                                        fontWeight: FontWeight.bold)),
+                                textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                                color: Colors.white,
+                                onPressed: _seleccionarFoto,
+
+                              ),
+                            ),
+                          ),
+
                           SizedBox(height: 10),
                           //_tags()
                         ],
@@ -130,8 +161,11 @@ class _NewSpace2 extends State<NewSpace2> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Colors.white,
                         color: Color.fromRGBO(112, 252, 118, 0.8),
-                        onPressed: () {},
-                        //(_guardando) ? null : _submit,
+                        onPressed: () {
+                          (_guardando)
+                              ? null
+                              : _submit(usrSpace.space2, usrSpace.usuario2);
+                        },
                       ),
                     ),
                   ),
@@ -148,7 +182,7 @@ class _NewSpace2 extends State<NewSpace2> {
     });
   }
 
-  Widget _horaInicio() {
+  Widget _horaInicio(SpaceModel espacio) {
     return Container(
         padding: EdgeInsets.only(left: 0.5, right: 59.0),
         child: DateTimeField(
@@ -166,7 +200,7 @@ class _NewSpace2 extends State<NewSpace2> {
                   borderSide: BorderSide(
                       color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                   borderRadius: BorderRadius.circular(16.0))),
-          format: format,
+          format: DateFormat("HH:mm"),
           onShowPicker: (context, currentValue) async {
             final time = await showTimePicker(
               context: context,
@@ -175,10 +209,17 @@ class _NewSpace2 extends State<NewSpace2> {
             );
             return DateTimeField.convert(time);
           },
+          onChanged: (dt) {
+            setState(() => date1 = dt);
+            espacio.scheduleHours =
+            "${DateFormat.jm().format(date1)} a ${DateFormat.jm().format(date2)}";
+            print("El horario es: ${espacio.scheduleHours}");
+            print("el nombre es: ${espacio.name}");
+          },
         ));
   }
 
-  Widget _horafinal() {
+  Widget _horafinal(SpaceModel espacio) {
     return Container(
         padding: EdgeInsets.only(left: 0.5, right: 59.0),
         child: DateTimeField(
@@ -196,7 +237,7 @@ class _NewSpace2 extends State<NewSpace2> {
                   borderSide: BorderSide(
                       color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                   borderRadius: BorderRadius.circular(16.0))),
-          format: format,
+          format: DateFormat("HH:mm"),
           onShowPicker: (context, currentValue) async {
             final time = await showTimePicker(
               context: context,
@@ -205,6 +246,14 @@ class _NewSpace2 extends State<NewSpace2> {
             );
             return DateTimeField.convert(time);
           },
+          onChanged: (dt) {
+            setState(() => date2 = dt);
+            espacio.scheduleHours =
+            "${DateFormat.jm().format(date1)} a ${DateFormat.jm().format(date2)}";
+            print("El horario es: ${espacio.scheduleHours}");
+            print("el nombre es: ${espacio.name}");
+          },
+
         ));
   }
 
@@ -240,7 +289,7 @@ class _NewSpace2 extends State<NewSpace2> {
                     color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                 borderRadius: BorderRadius.circular(16.0)),
           ),
-          onChanged: (value) => espacio.priceHour= double.parse(value),
+          onChanged: (value) => espacio.priceHour = double.parse(value),
           validator: (value) {
             if (utils.isNumeric(value)) {
               return null;
@@ -303,7 +352,7 @@ class _NewSpace2 extends State<NewSpace2> {
         padding: EdgeInsets.only(left: 0.5, right: 59.0),
         child: Center(
             child: DropdownButtonFormField<String>(
-          //value: espacio.minimumHours,
+          value: espacio.minimumHours,
           style: TextStyle(
               fontSize: 14.0,
               fontFamily: "Raleway",
@@ -328,7 +377,7 @@ class _NewSpace2 extends State<NewSpace2> {
           onChanged: (String selected) {
             setState(
               () {
-
+                espacio.minimumHours = selected;
               },
             );
           },
@@ -343,24 +392,16 @@ class _NewSpace2 extends State<NewSpace2> {
               child: new Text(value),
             );
           }).toList(),
-        )
+          /*validator: (value) {
+            if (value.isEmpty) {
+              return null;
+            } else {
+              return 'Seleccione una opcion';
+            }
+          },
 
-            ));
-  }
-  void _submit(SpaceModel espacio){
-    if(!spaceformkey.currentState.validate()) return;
-    spaceformkey.currentState.save();
-    print('Todo Ok');
-    setState(() {
-      _guardando = true;
-    });
-
-    if(espacio.id == null){
-      //espacio.userOwner = user.id;
-      spaceProvider.crearEspacio(espacio, foto);
-    }else{
-      spaceProvider.editarEspacio(espacio, foto);
-    }
+           */
+        )));
   }
 
   _seleccionarFoto() async {
@@ -369,5 +410,35 @@ class _NewSpace2 extends State<NewSpace2> {
     setState(() {
       foto = File(pickedFile.path);
     });
+  }
+
+  void _submit(SpaceModel espacio, UserModel user) {
+    if (!spaceformkey2.currentState.validate()) return;
+    spaceformkey2.currentState.save();
+    print('Todo Ok');
+    setState(() {
+      _guardando = true;
+    });
+
+    if (espacio.id == null) {
+      espacio.userOwner = user.id;
+      spaceProvider.crearEspacio(espacio, foto);
+      /*showDialog(context: context,builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          width: 300,
+          child: Text(
+            "Su locacion ha sido publicada con exito"
+          )
+        );
+      });
+
+       */
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } else {
+      spaceProvider.editarEspacio(espacio, foto);
+    }
   }
 }

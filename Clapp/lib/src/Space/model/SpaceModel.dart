@@ -15,7 +15,7 @@ class SpaceModel {
   int rating;
   String userOwner;
   String description;
-  int minimumHours;
+  String minimumHours;
   double priceHour;
   String imageUrl;
   double priceDay;

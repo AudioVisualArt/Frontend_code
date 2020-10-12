@@ -1,6 +1,7 @@
 
 
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
+import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -82,10 +83,10 @@ class _SpacesPage extends State<SpacesPage> {
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 5),
         child: InkWell(
           onTap: () {
-            this.arguments.add(user);
-            this.arguments.add(espacio);
+            //this.arguments.add(user);
+            //this.arguments.add(espacio);
             Navigator.pushNamed(context, 'space_details',
-              arguments: this.arguments);},
+              arguments: SegPagina(user, espacio));},
             child: Container(
                 margin: EdgeInsets.only(left: 6, right: 6),
                 //margin: EdgeInsets.only(top: 10, left: 15,right: 15),
@@ -166,6 +167,10 @@ class _SpacesPage extends State<SpacesPage> {
                                     padding: EdgeInsets.only(
                                         top: 2, left: 15, right: 12),
                                     child: Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: 200,
+                                        maxHeight: 23
+                                      ),
                                       //width:                                  MediaQuery.of(context).size.width - 255,
                                       child: Text(
                                         espacio.location,
