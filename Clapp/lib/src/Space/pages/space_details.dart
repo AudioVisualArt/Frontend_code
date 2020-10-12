@@ -308,7 +308,8 @@ class _SpaceDetails extends State<SpaceDetails> {
                   child: Card(
                     child: Hero(
                       tag: espacio.id,
-                      child: Image(
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/img/loader3.gif'),
                         width: MediaQuery.of(context).size.width,
                         height: 300,
                         image: NetworkImage(espacio.imageUrl),

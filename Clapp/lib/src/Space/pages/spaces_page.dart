@@ -80,7 +80,7 @@ class _SpacesPage extends State<SpacesPage> {
 
   Widget locaciones(BuildContext context, SpaceModel espacio) {
     return Padding(
-        padding: EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 5),
+        padding: EdgeInsets.only(left: 6.0, right: 6.0, top: 6, bottom: 5),
         child: InkWell(
           onTap: () {
             //this.arguments.add(user);
@@ -98,18 +98,19 @@ class _SpacesPage extends State<SpacesPage> {
                         tag: espacio.id,
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0)),
-                          child: Image(
+                          child: FadeInImage(
+                            placeholder: AssetImage('assets/img/loader3.gif'),
                             image: NetworkImage(espacio.imageUrl),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ) ,
-                      height: MediaQuery.of(context).size.height - 495,
-                      width: MediaQuery.of(context).size.width - 35,
+                      height: 235, //MediaQuery.of(context).size.height - 495,
+                      width: MediaQuery.of(context).size.width - 25,
                     ),
                     Stack(
                       children: [
@@ -122,11 +123,11 @@ class _SpacesPage extends State<SpacesPage> {
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(0),
                                       topRight: Radius.circular(0),
-                                      bottomLeft: Radius.circular(20),
-                                      bottomRight: Radius.circular(20)),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
                                   color: Color.fromRGBO(237, 237, 237, 1.0)),
                               height: 83,
-                              width: MediaQuery.of(context).size.width - 35,
+                              width: MediaQuery.of(context).size.width - 25,
                             )),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +139,7 @@ class _SpacesPage extends State<SpacesPage> {
                                     child: Text(
                                       espacio.name,
                                       style: TextStyle(
-                                          fontSize: 20.0,
+                                          fontSize: 19.0,
                                           fontFamily: "Raleway",
                                           color: Color.fromRGBO(115, 115, 115, 1.0),
                                           fontWeight: FontWeight.bold),
@@ -153,7 +154,7 @@ class _SpacesPage extends State<SpacesPage> {
                                   child: Text(
                                     "${espacio.priceHour.toString()} COP/hora",
                                     style: TextStyle(
-                                      fontSize: 19.0,
+                                      fontSize: 17.0,
                                       fontFamily: "Raleway",
                                       color: Color.fromRGBO(115, 115, 115, 1.0),
                                       //fontWeight: FontWeight.bold
@@ -175,7 +176,7 @@ class _SpacesPage extends State<SpacesPage> {
                                       child: Text(
                                         espacio.location,
                                         style: TextStyle(
-                                          fontSize: 19.0,
+                                          fontSize: 17.0,
                                           fontFamily: "Raleway",
                                           color: Color.fromRGBO(115, 115, 115, 1.0),
                                           // fontWeight: FontWeight.bold
@@ -188,7 +189,7 @@ class _SpacesPage extends State<SpacesPage> {
                                     child: SmoothStarRating(
                                       rating: 0,
                                       isReadOnly: false,
-                                      size: 22,
+                                      size: 18,
                                       filledIconData: Icons.star,
                                       halfFilledIconData: Icons.star_half,
                                       defaultIconData: Icons.star_border,
