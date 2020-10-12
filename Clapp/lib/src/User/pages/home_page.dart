@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Market/pages/show_equipments_page.dart';
+import 'package:Clapp/src/Market/pages/show_screenplays_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
@@ -115,8 +116,15 @@ class _HomePageState extends State<HomePage> {
                               userModel: usuario,
                             )));
                 break;
+              case 10:
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new ShowScreenPlayPage(
+                              userModel: usuario,
+                            )));
+                break;
             }
-            ;
           },
           child: Container(
             constraints: BoxConstraints(
@@ -326,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   elementoMenu(
                     'Guiones',
-                    7,
+                    10,
                     usuario,
                     "assets/img/guionIcon.jpg",
                     Color.fromRGBO(253, 196, 18, 1.0),

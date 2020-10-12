@@ -56,7 +56,8 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
 
   Widget _crearListadoEquipments() {
     return FutureBuilder(
-      future: equipmentProvider.cargarEquipments(),
+      future:
+          equipmentProvider.cargarEquipmentsNotSessionUser(widget.userModel.id),
       builder:
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
@@ -89,6 +90,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
         ),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(30.0), child: imagen));
+
     final _containerInfoUser = Container(
       height: 200.0,
       width: 120,
@@ -113,7 +115,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
                 height: 10.0,
               ),
               Text(
-                'Precio:' + equipmentModel.valor.toString(),
+                'Precio: ' + equipmentModel.valor.toString(),
                 style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
               )
             ],
@@ -164,8 +166,6 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
               width: 5.0,
             ),
             SizedBox(
-              height: 35.0,
-              width: 120.0,
               child: RaisedButton.icon(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -218,7 +218,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
       );
     } else {
       return FadeInImage(
-        placeholder: AssetImage('assets/img/jar-loading.gif'),
+        placeholder: AssetImage('assets/img/loader2.gif'),
         image: NetworkImage(equipment.fotoUrl),
         fit: BoxFit.cover,
       );

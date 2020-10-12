@@ -84,6 +84,29 @@ class EquipmentProvider {
     return equipmentModels;
   }
 
+  Future<List<EquipmentModel>> cargarEquipmentsNotSessionUser(String id) async {
+    //print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getAllEquipments';
+    final rsp = await http.get(url);
+    //print('Equipments: ' + rsp.body);
+
+    List<EquipmentModel> equipmentModelsMarket = new List();
+    final Iterable decodeData = json.decode(rsp.body);
+    List<EquipmentModel> equipmentModels = new List();
+    if (decodeData == null) return [];
+
+    equipmentModels =
+        decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
+
+    for (var item in equipmentModels) {
+      print(item.idOwner.compareTo(id));
+      if (item.idOwner.compareTo(id) != 0) {
+        equipmentModelsMarket.add(item);
+      }
+    }
+    return equipmentModelsMarket;
+  }
+
   Future<int> borrarProducto(String id) async {
     final url = '$_url/deleteEquipment/$id';
     final rsp = await http.delete(url);
