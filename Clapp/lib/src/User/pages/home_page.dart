@@ -116,6 +116,7 @@ class _HomePageState extends State<HomePage> {
                               userModel: usuario,
                             )));
                 break;
+
               case 10:
                 Navigator.push(
                     context,
@@ -124,7 +125,11 @@ class _HomePageState extends State<HomePage> {
                               userModel: usuario,
                             )));
                 break;
+              case 11:
+                print("Falta la ruta");
+                break;
             }
+            ;
           },
           child: Container(
             constraints: BoxConstraints(
@@ -319,8 +324,15 @@ class _HomePageState extends State<HomePage> {
                     width: 125,
                   ),
                   elementoMenu(
-                    'Rapido',
+                    'Buscar',
                     6,
+                    usuario,
+                    "assets/img/searchIcon.png",
+                    Color.fromRGBO(231, 74, 74, 1.0),
+                  ),
+                  elementoMenu(
+                    'Imagenes',
+                    11,
                     usuario,
                     "assets/img/imagesIcon.png",
                     Color.fromRGBO(255, 105, 76, 1.0),
