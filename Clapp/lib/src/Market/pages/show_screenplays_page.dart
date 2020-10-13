@@ -1,4 +1,6 @@
+import 'package:Clapp/src/ScreenPlay/Pages/showPDF.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
@@ -80,7 +82,7 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
   Widget _tarjetaScreenPlay(
       BuildContext context, ScreenPlayModel screenPlayModel) {
     final _containerInfoUser = Container(
-      height: 120.0,
+      height: 140.0,
       width: 300.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
@@ -93,6 +95,26 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
             SizedBox(
               height: 10.0,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    '    Por:',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 100.0,
+                ),
+                _obtenerNombre(context, screenPlayModel.idOwner) ?? "Not User ",
+              ],
+            ),
+            SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -219,30 +241,65 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
             SizedBox(
               width: 5.0,
             ),
+            Flexible(
+              flex: 1,
+              child: SizedBox(
+                width: 115.0,
+                child: RaisedButton.icon(
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    color: Color.fromRGBO(112, 252, 118, 1.0),
+                    label: Text(
+                      'Ver ',
+                      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+                      textAlign: TextAlign.center,
+                    ),
+                    autofocus: true,
+                    icon: Icon(
+                      Icons.description,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new ShowPDF(
+                                    screenPlayModel: screenPlayModel,
+                                  )));
+                    }),
+              ),
+            ),
             SizedBox(
-              child: RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  color: Color.fromRGBO(112, 252, 118, 1.0),
-                  label: Text(
-                    'Ver ',
-                    style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-                    textAlign: TextAlign.center,
-                  ),
-                  autofocus: true,
-                  icon: Icon(
-                    Icons.description,
-                  ),
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     new MaterialPageRoute(
-                    //         builder: (context) => new EquipmentCompraPage(
-                    //               equipmentModel: equipmentModel,
-                    //               userModel: widget.userModel,
-                    //             )));
-                  }),
+              width: 5.0,
+            ),
+            Flexible(
+              flex: 1,
+              child: SizedBox(
+                child: RaisedButton.icon(
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    color: Color.fromRGBO(112, 252, 118, 1.0),
+                    label: Text(
+                      'Comprar',
+                      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+                      textAlign: TextAlign.center,
+                    ),
+                    autofocus: true,
+                    icon: Icon(
+                      Icons.add_shopping_cart_rounded,
+                    ),
+                    onPressed: () {
+                      // Navigator.push(
+                      //     context,
+                      //     new MaterialPageRoute(
+                      //         builder: (context) => new ShowPDF(
+                      //               screenPlayModel: screenPlayModel,
+                      //             )));
+                    }),
+              ),
             ),
           ],
         ),
@@ -270,5 +327,28 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
       color: Color.fromRGBO(227, 227, 227, 1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
     );
+  }
+
+  Widget _obtenerNombre(BuildContext context, String id) {
+    final usuarioProvider = UsuarioProvider();
+
+    return FutureBuilder(
+        future: usuarioProvider.obtenerUsuario(id),
+        builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+          if (snapshot.hasData) {
+            return Text(
+              '    ' + snapshot.data.name,
+              style: TextStyle(
+                fontSize: 15.0,
+                fontFamily: "Raleway",
+              ),
+            );
+          } else {
+            return Container(
+              width: 0.0,
+              height: 0.0,
+            );
+          }
+        });
   }
 }
