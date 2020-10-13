@@ -1,3 +1,4 @@
+import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
@@ -17,6 +18,8 @@ class ShowScreenPlayPage extends StatefulWidget {
 }
 
 class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
+  final screenPlayProvider = ScreenPlayProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,24 +34,241 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
           fit: BoxFit.cover,
         )),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.9,
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        height: double.infinity,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            children: [
+              Flexible(flex: 1, child: _crearListadoScreenPlays()),
+            ],
+          ),
+          width: MediaQuery.of(context).size.width,
+        ),
+      ),
+    );
+  }
+
+  Widget _crearListadoScreenPlays() {
+    return FutureBuilder(
+      future: screenPlayProvider.cargarScreenPlays(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<ScreenPlayModel>> snapshot) {
+        if (snapshot.hasData) {
+          final equipos = snapshot.data;
+          return ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  height: 20.0,
+                );
+              },
+              itemCount: equipos.length,
+              itemBuilder: (context, index) {
+                return _tarjetaScreenPlay(context, equipos[index]);
+              });
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+              Color.fromRGBO(0, 51, 51, 1.0),
+            )),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _tarjetaScreenPlay(
+      BuildContext context, ScreenPlayModel screenPlayModel) {
+    final _containerInfoUser = Container(
+      height: 120.0,
+      width: 300.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.white70,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
               height: 10.0,
             ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: Container(), //_crearListadoEquipments(),
-                width: MediaQuery.of(context).size.width,
-              ),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    '    Paginas:',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 100.0,
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    screenPlayModel.pages.toString(),
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    '    Precio:',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 100.0,
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    screenPlayModel.valor.toString(),
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    '    Temática:',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 80.0,
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    screenPlayModel.topic,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
           ],
         ),
       ),
+    );
+
+    final _containerInfo = Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(
+          height: 8.0,
+        ),
+        Text(
+          screenPlayModel.titulo ?? "",
+          style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
+        ),
+        SizedBox(
+          height: 8.0,
+        ),
+        Text(
+          screenPlayModel.itemDescription ?? " ",
+          style: TextStyle(fontSize: 10.0, fontFamily: "Raleway"),
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+        _containerInfoUser,
+        SizedBox(
+          height: 20.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 5.0,
+            ),
+            SizedBox(
+              child: RaisedButton.icon(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  color: Color.fromRGBO(112, 252, 118, 1.0),
+                  label: Text(
+                    'Ver ',
+                    style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+                    textAlign: TextAlign.center,
+                  ),
+                  autofocus: true,
+                  icon: Icon(
+                    Icons.description,
+                  ),
+                  onPressed: () {
+                    // Navigator.push(
+                    //     context,
+                    //     new MaterialPageRoute(
+                    //         builder: (context) => new EquipmentCompraPage(
+                    //               equipmentModel: equipmentModel,
+                    //               userModel: widget.userModel,
+                    //             )));
+                  }),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    return Card(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          color: Color.fromRGBO(227, 227, 227, 1.0),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30.0),
+              child: _containerInfo,
+            ),
+          ],
+        ),
+      ),
+      elevation: 4.0,
+      color: Color.fromRGBO(227, 227, 227, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
     );
   }
 }

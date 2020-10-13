@@ -33,22 +33,15 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
           fit: BoxFit.cover,
         )),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.9,
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: 10.0,
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: _crearListadoEquipments(),
-                width: MediaQuery.of(context).size.width,
-              ),
-            )
-          ],
+        height: double.infinity,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            children: [
+              Flexible(flex: 1, child: _crearListadoEquipments()),
+            ],
+          ),
+          width: MediaQuery.of(context).size.width,
         ),
       ),
     );
@@ -56,8 +49,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
 
   Widget _crearListadoEquipments() {
     return FutureBuilder(
-      future:
-          equipmentProvider.cargarEquipmentsNotSessionUser(widget.userModel.id),
+      future: equipmentProvider.cargarEquipments(),
       builder:
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
@@ -195,17 +187,21 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
       ],
     );
 
-    return Container(
-      margin: EdgeInsets.only(right: 15.0),
-      padding: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0),
-        color: Color.fromRGBO(227, 227, 227, 1.0),
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          color: Color.fromRGBO(227, 227, 227, 1.0),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30.0),
+          child: _containerInfo,
+        ),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: _containerInfo,
-      ),
+      elevation: 4.0,
+      color: Color.fromRGBO(227, 227, 227, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
     );
   }
 
