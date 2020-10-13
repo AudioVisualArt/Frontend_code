@@ -72,7 +72,7 @@ class _VerColaboradores extends State<VerColaboradores> {
           return GridView.builder(
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.75,
+                childAspectRatio: 0.71,
                 crossAxisSpacing: 13,
                 mainAxisSpacing: 16),
             itemCount: projectos.length,
@@ -103,21 +103,29 @@ class _VerColaboradores extends State<VerColaboradores> {
 
          */
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(100),
-                  topLeft: Radius.circular(100),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20)),
-             boxShadow: [
-               BoxShadow(
-                   color: Colors.black12,
 
-                 spreadRadius: 6.0,
-                 blurRadius: 4.0)
-
-             ]
-            ),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20)),
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(189, 189, 189, 1.0),
+                    Color.fromRGBO(250, 250, 250, 1.0),
+                    Color.fromRGBO(250, 250, 250, 1.0),
+                    Color.fromRGBO(189, 189, 189, 1.0),
+                   // Color.fromRGBO(112, 252, 118, 1.0),
+                    //Color.fromRGBO(185, 250, 188, 1.0),
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0, 4),
+                      spreadRadius: 1.0,
+                      blurRadius: 4.0)
+                ]),
 
             //color: Colors.white.withOpacity(0.95),),
 
@@ -135,19 +143,20 @@ class _VerColaboradores extends State<VerColaboradores> {
                 Padding(
                     padding: EdgeInsets.only(top: 5, left: 2, right: 2),
                     child: Center(
-                        child: ClayContainer(
-                      borderRadius: 10,
-                      curveType: CurveType.none,
-                      color: Color.fromRGBO(227, 227, 227, 1),
-                      depth: 35,
-                      spread: 3,
-                      height: 80,
+                        child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        /* borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20.0),
+                              bottomLeft: Radius.circular(20),
+                              topRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                            ),
+
+                            */
+                      ),
+                      height: 90,
                       width: 160,
-                      //borderRadius: 10,
-                      //curveType: CurveType.none,
-                      //color: Color.fromRGBO(227, 227, 227, 1),
-                      //depth: 35,
-                      //spread: 2,
                       child: Column(
                         children: [
                           Padding(
@@ -155,9 +164,9 @@ class _VerColaboradores extends State<VerColaboradores> {
                             child: Text('${user.name}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 18.0,
                                     fontFamily: "Raleway",
-                                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                                    color: Color.fromRGBO(89, 89, 89, 1.0),
                                     fontWeight: FontWeight.bold)),
                           ),
                           Padding(
@@ -165,12 +174,22 @@ class _VerColaboradores extends State<VerColaboradores> {
                             child: Text(user.description,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 17.0,
+                                  fontSize: 16.0,
                                   fontFamily: "Raleway",
-                                  color: Color.fromRGBO(115, 115, 115, 1.0),
+                                  color: Color.fromRGBO(89, 89, 89, 1.0),
                                 )),
                           ),
-                          // _crearDatosWork(user.id)
+                          Padding(
+                            padding: EdgeInsets.only(top: 2, left: 2, right: 2),
+                            child: Text("Profesion:",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontFamily: "Raleway",
+                                    color: Color.fromRGBO(89, 89, 89, 1.0),
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Expanded(child: _crearDatosWork(user.id))
                         ],
                       ),
                     ))),
@@ -209,7 +228,13 @@ class _VerColaboradores extends State<VerColaboradores> {
       builder: (BuildContext context, AsyncSnapshot<WorkerModel> snapshot) {
         if (snapshot.hasData) {
           final worker = snapshot.data;
-          return Text(worker.mainRol);
+          return Text(worker.mainRol,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 17.0,
+                fontFamily: "Raleway",
+                color: Color.fromRGBO(89, 89, 89, 1.0),
+              ));
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -220,7 +245,7 @@ class _VerColaboradores extends State<VerColaboradores> {
   Widget _crearPhoto(String photoUrl) {
     if (photoUrl == null) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(100.0),
+        borderRadius: BorderRadius.circular(50.0),
         child: Image(
           image: AssetImage('assets/img/no-image.png'),
           fit: BoxFit.cover,
@@ -230,7 +255,7 @@ class _VerColaboradores extends State<VerColaboradores> {
       );
     } else {
       return ClipRRect(
-          borderRadius: BorderRadius.circular(100.0),
+          borderRadius: BorderRadius.circular(50.0),
           child: FadeInImage(
               placeholder: AssetImage('assets/img/loader3.gif'),
               image: NetworkImage(
