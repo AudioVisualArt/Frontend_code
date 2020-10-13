@@ -1,4 +1,5 @@
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,6 +9,7 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // UserModel usuario = ModalRoute.of(context).settings.arguments;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -32,6 +34,7 @@ class MenuWidget extends StatelessWidget {
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
             onTap: () {
+
               Navigator.pushReplacementNamed(context, 'home',
                   arguments: userModel);
             },
@@ -50,7 +53,13 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'profile');
+             /* Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage(usuario: userModel,)));
+
+              */
+             Navigator.pushNamed(context, 'profile',
+              arguments: userModel);
             },
           ),
           Divider(),

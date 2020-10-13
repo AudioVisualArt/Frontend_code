@@ -6,6 +6,7 @@ import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/User/pages/actividad_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
+import 'package:Clapp/src/User/pages/edit_profile_page.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/projectos/pages/Project_page.dart';
 import 'package:Clapp/src/Space/pages/space_details.dart';
@@ -103,5 +104,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'space': (BuildContext context) => SpacesPage(),
     'spaces': (BuildContext context) => SpacesPage(),
     'find_photo': (BuildContext context) => FindByPhotoPage(),
+    'editar_perfil': (BuildContext context) => EditProfile(),
   };
 }

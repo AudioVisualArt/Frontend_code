@@ -156,7 +156,7 @@ class LoginPage extends StatelessWidget {
         return Container(
             child: Center(
                 child: ClayContainer(
-                    borderRadius: 20,
+                    borderRadius: 15,
                     curveType: CurveType.none,
                     color: Color.fromRGBO(227, 227, 227, 1),
                     depth: 20,
@@ -168,7 +168,7 @@ class LoginPage extends StatelessWidget {
                         child: Text('Iniciar Sesión'),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                       elevation: 0.0,
                       color: Color.fromRGBO(227, 227, 227, 1.0),
@@ -186,7 +186,7 @@ class LoginPage extends StatelessWidget {
         return Container(
             child: Center(
                 child: ClayContainer(
-                    borderRadius: 20,
+                    borderRadius: 15,
                     curveType: CurveType.none,
                     color: Color.fromRGBO(227, 227, 227, 1),
                     depth: 25,
