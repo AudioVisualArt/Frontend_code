@@ -1,23 +1,25 @@
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
-
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Clapp/src/User/models/user_model.dart';
-
-class ShowEquipmentPage extends StatefulWidget {
+class ShowFoundImagePage extends StatefulWidget {
   final List<EquipmentModel> equipos;
   final UserModel userModel;
-  ShowEquipmentPage(
-      {List<EquipmentModel> this.equipos, UserModel this.userModel, Key key})
+  final String etiqueta;
+  ShowFoundImagePage(
+      {List<EquipmentModel> this.equipos,
+      UserModel this.userModel,
+      String this.etiqueta,
+      Key key})
       : super(key: key);
 
   @override
-  _ShowEquipmentPageState createState() => _ShowEquipmentPageState();
+  _ShowFoundImagePageState createState() => _ShowFoundImagePageState();
 }
 
-class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
+class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
   final equipmentProvider = new EquipmentProvider();
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/img/mostrarItems2.jpeg"),
+          image: AssetImage("assets/img/mostraritems2.jpg"),
           fit: BoxFit.cover,
         )),
         width: MediaQuery.of(context).size.width,
@@ -49,7 +51,8 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
 
   Widget _crearListadoEquipments() {
     return FutureBuilder(
-      future: equipmentProvider.cargarEquipments(),
+      future: equipmentProvider.cargarEquipmentsNotSessionUserByTag(
+          widget.userModel.id, widget.etiqueta),
       builder:
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
