@@ -335,7 +335,7 @@ class _SignUp extends State<SignUp> {
         return Container(
             child: Center(
                 child: ClayContainer(
-                    borderRadius: 20,
+                    borderRadius: 15,
                     curveType: CurveType.none,
                     color: Color.fromRGBO(227, 227, 227, 1),
                     depth: 15,
@@ -347,7 +347,7 @@ class _SignUp extends State<SignUp> {
                         child: Text('Registrar'),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
                       elevation: 0.0,
                       //color: Color.fromRGBO(227, 227, 227, 1.0),
