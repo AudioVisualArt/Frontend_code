@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
@@ -36,7 +38,6 @@ class _EquipmentPageState extends State<EquipmentPage> {
   String _opcionSeleccionada = 'Seleccionar';
 
   File foto;
-  final _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +111,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   Widget _crearNombre() {
     return TextFormField(
+      autofocus: false,
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       initialValue: equipment.titulo,
       textCapitalization: TextCapitalization.sentences,
@@ -381,23 +383,47 @@ class _EquipmentPageState extends State<EquipmentPage> {
   }
 
   _seleccionarFoto() async {
-    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
-    foto = File(image.path);
+    final _picker = ImagePicker();
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (Platform.isAndroid) {
+      try {
+        FilePickerResult picker =
+            await FilePicker.platform.pickFiles(type: FileType.image);
 
-    if (foto != null) {
-      //limpiar
+        if (picker != null) {
+          PlatformFile file = picker.files.first;
+          print('File Name ${file.path}');
 
+          setState(() {
+            //guion = file;
+            foto = File(file.path);
+          });
+        }
+      } on PlatformException catch (e) {
+        print('Operación no Permitida ' + e.toString());
+      }
+    } else {
+      PickedFile pick;
+
+      pick = await _picker.getImage(source: ImageSource.gallery);
+
+      setState(() {
+        if (pick != null) {
+          foto = File(pick.path);
+        } else {
+          pick = null;
+        }
+      });
     }
-    setState(() {});
   }
 
   _tomarFoto() async {
+    final _picker = ImagePicker();
+    FocusScope.of(context).requestFocus(new FocusNode());
     PickedFile image = await _picker.getImage(source: ImageSource.camera);
     foto = File(image.path);
 
-    if (foto == null) {
-      //limpiar
-    }
+    if (foto == null) {}
     setState(() {});
   }
 }

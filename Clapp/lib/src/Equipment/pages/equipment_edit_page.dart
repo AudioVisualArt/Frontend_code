@@ -4,7 +4,9 @@ import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
@@ -383,13 +385,38 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
   }
 
   _seleccionarFoto() async {
-    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
-    foto = File(image.path);
+    final _picker = ImagePicker();
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (Platform.isAndroid) {
+      try {
+        FilePickerResult picker =
+            await FilePicker.platform.pickFiles(type: FileType.image);
 
-    if (foto != null) {
-      //limpiar
+        if (picker != null) {
+          PlatformFile file = picker.files.first;
+          print('File Name ${file.path}');
+
+          setState(() {
+            //guion = file;
+            foto = File(file.path);
+          });
+        }
+      } on PlatformException catch (e) {
+        print('Operación no Permitida ' + e.toString());
+      }
+    } else {
+      PickedFile pick;
+
+      pick = await _picker.getImage(source: ImageSource.gallery);
+
+      setState(() {
+        if (pick != null) {
+          foto = File(pick.path);
+        } else {
+          pick = null;
+        }
+      });
     }
-    setState(() {});
   }
 
   _tomarFoto() async {
