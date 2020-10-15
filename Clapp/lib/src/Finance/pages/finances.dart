@@ -1,3 +1,5 @@
+import 'package:Clapp/src/Finance/Model/Finance.dart';
+import 'package:Clapp/src/Finance/provider/finances_provider.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class Finances extends StatefulWidget {
 
 class _Finances extends State<Finances> {
   String state = 'Animation start';
+  FinancesProvider financesProvider = new FinancesProvider();
   @override
   Widget build(BuildContext context) {
     ProjectModel project = ModalRoute.of(context).settings.arguments;
@@ -32,86 +35,8 @@ class _Finances extends State<Finances> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             appbar(project),
+            SizedBox(height:1000,child:crearlistado(project.id))
 
-            /*Padding(
-                padding: EdgeInsets.all(15.0),
-                child: LinearPercentIndicator(
-                  animation: true,
-                  animationDuration: 500,
-                  lineHeight: 20.0,
-                  leading: Expanded(
-                    child: Text("left finanzas"),
-                  ),
-                  trailing: Expanded(
-                      child: Text(
-                        "right finanzas",
-                        textAlign: TextAlign.end,
-                      )),
-                  percent: 0.2,
-                  center: Text("20.0%"),
-                  linearStrokeCap: LinearStrokeCap.butt,
-                  progressColor: Colors.red,
-                ),
-              ),
-
-               */
-
-            crowdfunding(
-              "CrowdFunding",
-              "2.145.018 COP",
-              "Objetivo 2818 US",
-              0.2,
-              "20.0%",
-              Color.fromRGBO(112, 252, 118, 1),
-            ),
-            crowdfunding(
-              "Inversores",
-              "2.681.272 COP",
-              "Objetivo 2818 US",
-              0.25,
-              "25.0%",
-              Color.fromRGBO(112, 252, 118, 1),
-            ),
-            crowdfunding("Total", "4.826.290 COP", "Objetivo 2818 US", 0.45,
-                "45.0%", Colors.blueAccent),
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Container(
-
-                  /* decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(
-                    width: 1.3,
-                    color: Color.fromRGBO(0, 51, 51, 0.8),
-                  ),
-                ),
-
-                */
-                  width: MediaQuery.of(context).size.width - 10,
-                  //color: Color.fromRGBO(112,252,118, 1),
-                  child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 4),
-                      child: Center(
-                          child: Text(
-                        "Nómina",
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: "Raleway",
-                            color: Color.fromRGBO(115, 115, 115, 1.0),
-                            fontWeight: FontWeight.bold),
-                      )))),
-            ),
-            crowdfunding(
-              "Preproducción",
-              "7.000.000 COP",
-              "",
-              0.72,
-              "72.0%",
-              Color.fromRGBO(112, 252, 118, 1),
-            ),
-            crowdfunding(
-                "Total", "7.000.000 COP", "", 0.72, "72.0%", Colors.blueAccent),
 
             /*Padding(
               padding: EdgeInsets.all(15),
@@ -133,6 +58,42 @@ class _Finances extends State<Finances> {
         ),
       ),
     ));
+  }
+
+  Widget crearlistado(String id){
+    return FutureBuilder(
+      future: financesProvider.cargarFinanzas(id),
+      builder: (BuildContext context, AsyncSnapshot<List<FinanceModel>> snapshot) {
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator();
+        }else{
+          final finanzas = snapshot.data;
+          return ListView.builder(
+              itemCount: finanzas.length,
+              itemBuilder: (context, index){
+                if(finanzas[index].title != "Total"){
+                  return crowdfunding(
+                    finanzas[index].title,
+                    "${finanzas[index].quantity} COP",
+                    "${finanzas[index].quantity} COP",
+                    finanzas[index].percentage,
+                    "${finanzas[index].percentage*100}%",
+                    Color.fromRGBO(112, 252, 118, 1),
+                  );
+                }else{
+                  return crowdfunding(
+                      finanzas[index].title,
+                      "${finanzas[index].quantity} COP",
+                      "${finanzas[index].quantity} COP",
+                      finanzas[index].percentage,
+                      "${finanzas[index].percentage*100}%",
+                      Colors.blueAccent);
+                }
+              }
+          );
+        }
+      },
+    );
   }
 
   Widget crowdfunding(String nombre, String cantidad, String objetivo,

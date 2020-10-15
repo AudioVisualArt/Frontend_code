@@ -50,7 +50,7 @@ import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
-import 'package:Clapp/src/projectos/pages/finances.dart';
+import 'file:///E:/Tesis_FronEnd/Code/Clapp/lib/src/Finance/pages/finances.dart';
 import 'package:Clapp/src/projectos/pages/new_goal.dart';
 import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
 
