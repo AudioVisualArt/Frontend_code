@@ -14,8 +14,21 @@ class MenuAgregarPage extends StatelessWidget {
         title: Text('¿ Que Vas a Agregar ?',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
-      body: SingleChildScrollView(
-        child: _agregarBotones(context, usuario),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage("assets/img/mostrarItems2.jpeg"),
+              fit: BoxFit.cover,
+            )),
+            width: MediaQuery.of(context).size.width,
+            height: double.infinity,
+          ),
+          SingleChildScrollView(
+            child: _agregarBotones(context, usuario),
+          ),
+        ],
       ),
     );
   }
@@ -78,9 +91,11 @@ class MenuAgregarPage extends StatelessWidget {
       @required String texto,
       @required String ruta,
       @required UserModel userModel}) {
-    final boton = ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+    final boton = Card(
+      elevation: 20.0,
+      color: Color.fromRGBO(227, 227, 227, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      child: ClipRRect(
         child: Container(
           height: 180.0,
           margin: EdgeInsets.all(10.0),

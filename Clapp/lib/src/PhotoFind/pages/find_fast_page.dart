@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:Clapp/src/PhotoFind/pages/show_found_equipments.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:tflite/tflite.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -85,14 +87,34 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
 
   _seleccionarFoto() async {
     final _picker = ImagePicker();
-    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (Platform.isAndroid) {
+      try {
+        FilePickerResult picker =
+            await FilePicker.platform.pickFiles(type: FileType.image);
 
-    //foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+        if (picker != null) {
+          PlatformFile file = picker.files.first;
+          print('File Name ${file.path}');
 
-    if (image != null) {
-      setState(() {
-        foto = File(image.path);
-      });
+          setState(() {
+            //guion = file;
+            foto = File(file.path);
+          });
+        }
+      } on PlatformException catch (e) {
+        print('Operación no Permitida ' + e.toString());
+      }
+    } else {
+      PickedFile pick;
+      try {
+        pick = await _picker.getImage(source: ImageSource.gallery);
+        foto = File(pick.path);
+
+        setState(() {});
+      } catch (e) {
+        print('$e');
+      }
     }
   }
 
