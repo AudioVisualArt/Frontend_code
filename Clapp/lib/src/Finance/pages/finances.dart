@@ -35,7 +35,7 @@ class _Finances extends State<Finances> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             appbar(project),
-            SizedBox(height:1000,child:crearlistado(project.id))
+            crearlistado(project.id)
 
 
             /*Padding(
@@ -63,12 +63,14 @@ class _Finances extends State<Finances> {
   Widget crearlistado(String id){
     return FutureBuilder(
       future: financesProvider.cargarFinanzas(id),
+
       builder: (BuildContext context, AsyncSnapshot<List<FinanceModel>> snapshot) {
         if (!snapshot.hasData) {
           return CircularProgressIndicator();
         }else{
           final finanzas = snapshot.data;
           return ListView.builder(
+              shrinkWrap: true,
               itemCount: finanzas.length,
               itemBuilder: (context, index){
                 if(finanzas[index].title != "Total"){
@@ -77,7 +79,7 @@ class _Finances extends State<Finances> {
                     "${finanzas[index].quantity} COP",
                     "${finanzas[index].quantity} COP",
                     finanzas[index].percentage,
-                    "${finanzas[index].percentage*100}%",
+                    "${num.parse((finanzas[index].percentage*100).toStringAsFixed(3))}%",
                     Color.fromRGBO(112, 252, 118, 1),
                   );
                 }else{
@@ -86,7 +88,7 @@ class _Finances extends State<Finances> {
                       "${finanzas[index].quantity} COP",
                       "${finanzas[index].quantity} COP",
                       finanzas[index].percentage,
-                      "${finanzas[index].percentage*100}%",
+                      "${num.parse((finanzas[index].percentage*100).toStringAsFixed(3))}%",
                       Colors.blueAccent);
                 }
               }
@@ -240,7 +242,7 @@ class _Finances extends State<Finances> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
-                  child: _botonNuevo(),
+                  child: _botonNuevo(proyecto),
                 )
               ],
             ),
@@ -261,7 +263,7 @@ class _Finances extends State<Finances> {
         ));
   }
 
-  Widget _botonNuevo() {
+  Widget _botonNuevo(ProjectModel project) {
     return RaisedButton(
       splashColor: Colors.grey,
       padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
@@ -285,7 +287,7 @@ class _Finances extends State<Finances> {
       color: Colors.white,
 
       onPressed: () {
-        Navigator.pushNamed(context, 'newgoal',
+        Navigator.pushNamed(context, 'newgoal', arguments: project
             ); //ver routes
       },
     );

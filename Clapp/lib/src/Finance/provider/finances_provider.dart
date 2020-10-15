@@ -36,6 +36,19 @@ class FinancesProvider extends InheritedWidget {
 
     return finances;
   }
+  Future<bool> crearFinance(FinanceModel finanza) async {
+    final url = '$_url/saveFinance';
+
+    final resp = await http.post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: FinanceModelToJson(finanza));
+
+    print(resp.statusCode);
+
+    return true;
+  }
 
 
   @override
