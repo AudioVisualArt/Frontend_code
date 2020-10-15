@@ -5,14 +5,9 @@ import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class ShowFoundImagePage extends StatefulWidget {
-  final List<EquipmentModel> equipos;
   final UserModel userModel;
   final String etiqueta;
-  ShowFoundImagePage(
-      {List<EquipmentModel> this.equipos,
-      UserModel this.userModel,
-      String this.etiqueta,
-      Key key})
+  ShowFoundImagePage({UserModel this.userModel, String this.etiqueta, Key key})
       : super(key: key);
 
   @override
@@ -31,7 +26,7 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/img/mostraritems2.jpg"),
+          image: AssetImage("assets/img/mostrarItems2.jpeg"),
           fit: BoxFit.cover,
         )),
         width: MediaQuery.of(context).size.width,
@@ -57,7 +52,12 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
           final equipos = snapshot.data;
-          return ListView.builder(
+          return ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  height: 20.0,
+                );
+              },
               itemCount: equipos.length,
               itemBuilder: (context, index) {
                 return _tarjetaEquipo(context, equipos[index]);

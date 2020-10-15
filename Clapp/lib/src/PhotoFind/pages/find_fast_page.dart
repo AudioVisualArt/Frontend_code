@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:Clapp/src/PhotoFind/pages/show_found_equipments.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:tflite/tflite.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -59,7 +61,7 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _clasificarImagen(foto);
+          _clasificarImagen(foto, userModel);
         },
         child: Icon(Icons.grain_sharp),
       ),
@@ -85,14 +87,34 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
 
   _seleccionarFoto() async {
     final _picker = ImagePicker();
-    PickedFile image = await _picker.getImage(source: ImageSource.gallery);
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (Platform.isAndroid) {
+      try {
+        FilePickerResult picker =
+            await FilePicker.platform.pickFiles(type: FileType.image);
 
-    //foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+        if (picker != null) {
+          PlatformFile file = picker.files.first;
+          print('File Name ${file.path}');
 
-    if (image != null) {
-      setState(() {
-        foto = File(image.path);
-      });
+          setState(() {
+            //guion = file;
+            foto = File(file.path);
+          });
+        }
+      } on PlatformException catch (e) {
+        print('Operación no Permitida ' + e.toString());
+      }
+    } else {
+      PickedFile pick;
+      try {
+        pick = await _picker.getImage(source: ImageSource.gallery);
+        foto = File(pick.path);
+
+        setState(() {});
+      } catch (e) {
+        print('$e');
+      }
     }
   }
 
@@ -108,13 +130,14 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
     }
   }
 
-  _clasificarImagen(File image) async {
+  _clasificarImagen(File image, UserModel userModel) async {
     String etiqueta;
+    double confianza;
     if (image != null) {
       var output = await Tflite.runModelOnImage(
         path: image.path,
         numResults: 2,
-        threshold: 0.5,
+        threshold: 0.1,
         imageMean: 127.5,
         imageStd: 127.5,
       );
@@ -122,15 +145,26 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
       setState(() {
         _salida = output;
         _estado = true;
+        confianza = _salida[0]["confidence"] * 100;
         etiqueta = _salida[0]["label"];
-        print('${etiqueta.substring(etiqueta.lastIndexOf(" ")).trim()}');
-        Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (context) => new ShowFoundImagePage(
-                      etiqueta:
-                          etiqueta.substring(etiqueta.lastIndexOf(" ")).trim(),
-                    )));
+        print(
+            '${etiqueta.substring(etiqueta.lastIndexOf(" ")).trim()} & $confianza');
+
+        if (confianza > 90) {
+          Tflite.close();
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new ShowFoundImagePage(
+                        etiqueta: etiqueta
+                            .substring(etiqueta.lastIndexOf(" "))
+                            .trim(),
+                        userModel: userModel,
+                      )));
+        } else {
+          utils.mostrarAlerta(context,
+              'Actualmente no tenemos equipmentes de este tipo en el mercado');
+        }
       });
       //await Tflite.close();
     } else {

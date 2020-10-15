@@ -54,7 +54,12 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
           final equipos = snapshot.data;
-          return ListView.builder(
+          return ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  height: 20.0,
+                );
+              },
               itemCount: equipos.length,
               itemBuilder: (context, index) {
                 return _tarjetaEquipo(context, equipos[index]);

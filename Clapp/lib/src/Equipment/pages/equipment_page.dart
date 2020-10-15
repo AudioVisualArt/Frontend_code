@@ -344,7 +344,12 @@ class _EquipmentPageState extends State<EquipmentPage> {
       equipmentProvider.editarEquipment(equipment, foto);
     }
 
-    mostrarSnackbar('Registro Guardado');
+    final snacckbar = SnackBar(
+      content: Text('En Clapp'),
+      duration: Duration(seconds: 1),
+    );
+
+    scaffoldKey.currentState.showSnackBar(snacckbar);
 
     Navigator.pop(context);
   }
@@ -404,16 +409,14 @@ class _EquipmentPageState extends State<EquipmentPage> {
       }
     } else {
       PickedFile pick;
+      try {
+        pick = await _picker.getImage(source: ImageSource.gallery);
+        foto = File(pick.path);
 
-      pick = await _picker.getImage(source: ImageSource.gallery);
-
-      setState(() {
-        if (pick != null) {
-          foto = File(pick.path);
-        } else {
-          pick = null;
-        }
-      });
+        setState(() {});
+      } catch (e) {
+        print('$e');
+      }
     }
   }
 
