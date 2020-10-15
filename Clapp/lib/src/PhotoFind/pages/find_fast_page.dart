@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Clapp/src/PhotoFind/pages/show_found_equipments.dart';
 import 'package:tflite/tflite.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -108,6 +109,7 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
   }
 
   _clasificarImagen(File image) async {
+    String etiqueta;
     if (image != null) {
       var output = await Tflite.runModelOnImage(
         path: image.path,
@@ -120,7 +122,15 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
       setState(() {
         _salida = output;
         _estado = true;
-        print(_salida.toString());
+        etiqueta = _salida[0]["label"];
+        print('${etiqueta.substring(etiqueta.lastIndexOf(" ")).trim()}');
+        Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => new ShowFoundImagePage(
+                      etiqueta:
+                          etiqueta.substring(etiqueta.lastIndexOf(" ")).trim(),
+                    )));
       });
       //await Tflite.close();
     } else {

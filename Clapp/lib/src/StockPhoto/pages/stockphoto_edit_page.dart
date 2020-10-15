@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
 import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class StockPhotoEditPage extends StatefulWidget {
@@ -290,13 +292,38 @@ class _StockPhotoEditPageState extends State<StockPhotoEditPage> {
   }
 
   _seleccionarFoto() async {
-    foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final _picker = ImagePicker();
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (Platform.isAndroid) {
+      try {
+        FilePickerResult picker =
+            await FilePicker.platform.pickFiles(type: FileType.image);
 
-    if (foto != null) {
-      //limpiar
+        if (picker != null) {
+          PlatformFile file = picker.files.first;
+          print('File Name ${file.path}');
 
+          setState(() {
+            //guion = file;
+            foto = File(file.path);
+          });
+        }
+      } on PlatformException catch (e) {
+        print('Operación no Permitida ' + e.toString());
+      }
+    } else {
+      PickedFile pick;
+
+      pick = await _picker.getImage(source: ImageSource.gallery);
+
+      setState(() {
+        if (pick != null) {
+          foto = File(pick.path);
+        } else {
+          pick = null;
+        }
+      });
     }
-    setState(() {});
   }
 
   _tomarFoto() async {

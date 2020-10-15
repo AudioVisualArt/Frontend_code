@@ -32,7 +32,7 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-          image: AssetImage("assets/img/mostraritems.jpg"),
+          image: AssetImage("assets/img/mostrarItems2.jpeg"),
           fit: BoxFit.cover,
         )),
         width: MediaQuery.of(context).size.width,
