@@ -6,6 +6,7 @@ import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:Clapp/src/User/widgets/menu_widget.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
+import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:clay_containers/constants.dart';
 import 'package:clay_containers/widgets/clay_containers.dart';
@@ -166,8 +167,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         BorderRadius.only(
                             topLeft: Radius.circular(34),
                             topRight: Radius.circular(34),
-                      bottomLeft: Radius.circular(24),
-                    bottomRight: Radius.circular(24),
+                      bottomLeft: Radius.circular(29),
+                    bottomRight: Radius.circular(29),
             ),
                   ),
                   child: Column(
@@ -263,17 +264,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             Center(
                               child: Container(
-                                  child: Text('Sus servicios',
+                                  child: Text('Sus servicios publicados',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                            fontSize: 19.0,
+                            fontSize: 21.0,
                             fontFamily: "Raleway",
                             color: Color.fromRGBO(227, 227, 227, 1.0),
                             fontWeight: FontWeight.bold),)),
                             ),
                             Container(
 
-                              height: 270,
+                              height: 282,
                               child: _servicios(usuario),
                             ),
                             Center(
@@ -290,10 +291,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Center(
                                 child: Container(
-                                    child: Text('Sus locaciones',
+                                    child: Text('Sus locaciones publicadas',
                                         textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 19.0,
+                                          fontSize: 21.0,
                                           fontFamily: "Raleway",
                                           color: Color.fromRGBO(227, 227, 227, 1.0),
                                           fontWeight: FontWeight.bold),)),
@@ -508,112 +509,129 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Padding(
       padding: EdgeInsets.only(top: 1.5, bottom: 3.2, left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 3.0,
-                  blurRadius: 5.0)
-            ],
-            color: Color.fromRGBO(227, 227, 227, 1.0)),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(2.5),
-            ),
-            _constructorImagen(usuario, 50.0, 162, 160),
-            /*Hero(
-                      tag: worker.userId,
-                      child: _crearImage(worker),
-                    ),
+      child: InkWell(
+        onTap: () {
+          var ciudad = usuario.cityResidence;
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => PerfilPersonal(
+                    workers.userId,
+                    workers.mainRol,
+                    usuario.name,
+                    workers.description,
+                    workers.profession,
+                    ciudad,
+                    usuario.photoUrl,
+                    usuario,
+                    workers.hvUrl)),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 3.0,
+                    blurRadius: 5.0)
+              ],
+              color: Color.fromRGBO(227, 227, 227, 1.0)),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(2.5),
+              ),
 
-                     */
-            SizedBox(height: 7.0),
-            Text(
-              usuario.name,
-              style: TextStyle(
-                  fontSize: 17.0,
-                  fontFamily: "Raleway",
-                  color: Color.fromRGBO(115, 115, 115, 1.0),
-                  fontWeight: FontWeight.bold),
-            ),
-            Expanded(
-              child: Text(
-                workers.mainRol,
+              Hero(
+                tag: workers.userId,
+                child: _constructorImagen(usuario, 50.0, 162, 160),
+              ),
+              SizedBox(height: 7.0),
+              Text(
+                usuario.name,
                 style: TextStyle(
                     fontSize: 17.0,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),
               ),
-            ),
-            SizedBox(height: 4.0),
-            Padding(
-              padding: EdgeInsets.only(bottom: 0.5, left: 2.0, right: 2.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(right: 0.2, bottom: 2),
-                      child: Container(
+              Expanded(
+                child: Text(
+                  workers.mainRol,
+                  style: TextStyle(
+                      fontSize: 17.0,
+                      fontFamily: "Raleway",
+                      color: Color.fromRGBO(115, 115, 115, 1.0),
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 4.0),
+              Padding(
+                padding: EdgeInsets.only(bottom: 0.5, left: 2.0, right: 2.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                        child: Container(
+                            height: 37,
+                            width: 85,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(112, 252, 118, 0.8),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(5),
+                                )),
+                            child: Center(
+                              child: Text('Perfil',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: "Raleway",
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold)),
+                            ))),
+                    Padding(
+                        padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                        child: SizedBox(
                           height: 37,
                           width: 85,
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(112, 252, 118, 0.8),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5),
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(5),
-                              )),
-                          child: Center(
-                            child: Text('Perfil',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: "Raleway",
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold)),
-                          ))),
-                  Padding(
-                      padding: EdgeInsets.only(right: 0.2, bottom: 2),
-                      child: SizedBox(
-                        height: 37,
-                        width: 85,
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5),
-                            bottomLeft: Radius.circular(5),
-                            bottomRight: Radius.circular(20),
-                          )),
-                          child: Center(
-                            child: Text('Estudio',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: "Raleway",
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold)),
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5),
+                                  bottomLeft: Radius.circular(5),
+                                  bottomRight: Radius.circular(20),
+                                )),
+                            child: Center(
+                              child: Text('Estudio',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: "Raleway",
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            textColor: Colors.white,
+                            color: Color.fromRGBO(0, 51, 51, 0.8),
+                            onPressed: () {},
                           ),
-                          textColor: Colors.white,
-                          color: Color.fromRGBO(0, 51, 51, 0.8),
-                          onPressed: () {},
-                        ),
-                      ))
-                ],
-              ),
-            )
-          ],
+                        ))
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-      ),
+      )
+
     );
 
   }
