@@ -215,7 +215,9 @@ class _SignUp extends State<SignUp> {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
             keyboardType: TextInputType.text,
+            maxLength: 125,
             decoration: InputDecoration(
+
               icon: Icon(Icons.text_fields,
                   color: Color.fromRGBO(89, 122, 121, 1.0)),
               hintText: 'cuentanos de ti!',

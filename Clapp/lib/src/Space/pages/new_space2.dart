@@ -104,7 +104,6 @@ class _NewSpace2 extends State<NewSpace2> {
                           _horafinal(usrSpace.space2),
                           SizedBox(height: 10),
                           Padding(
-
                             padding: EdgeInsets.only(
                                 top: 1.0, left: 0.5, right: 59.0),
                             child: SizedBox(
@@ -130,7 +129,6 @@ class _NewSpace2 extends State<NewSpace2> {
                                 textColor: Color.fromRGBO(0, 51, 51, 0.8),
                                 color: Colors.white,
                                 onPressed: _seleccionarFoto,
-
                               ),
                             ),
                           ),
@@ -212,7 +210,7 @@ class _NewSpace2 extends State<NewSpace2> {
           onChanged: (dt) {
             setState(() => date1 = dt);
             espacio.scheduleHours =
-            "${DateFormat.jm().format(date1)} a ${DateFormat.jm().format(date2)}";
+                "${DateFormat.jm().format(date1)} a ${DateFormat.jm().format(date2)}";
             print("El horario es: ${espacio.scheduleHours}");
             print("el nombre es: ${espacio.name}");
           },
@@ -249,11 +247,10 @@ class _NewSpace2 extends State<NewSpace2> {
           onChanged: (dt) {
             setState(() => date2 = dt);
             espacio.scheduleHours =
-            "${DateFormat.jm().format(date1)} a ${DateFormat.jm().format(date2)}";
+                "${DateFormat.jm().format(date1)} a ${DateFormat.jm().format(date2)}";
             print("El horario es: ${espacio.scheduleHours}");
             print("el nombre es: ${espacio.name}");
           },
-
         ));
   }
 
@@ -407,12 +404,15 @@ class _NewSpace2 extends State<NewSpace2> {
   _seleccionarFoto() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     //limpiar
-    setState(() {
-      foto = File(pickedFile.path);
-    });
+    if (pickedFile != null) {
+      setState(() {
+        foto = File(pickedFile.path);
+      });
+    }
   }
 
   void _submit(SpaceModel espacio, UserModel user) {
+    if(foto != null) {
     if (!spaceformkey2.currentState.validate()) return;
     spaceformkey2.currentState.save();
     print('Todo Ok');
@@ -420,7 +420,7 @@ class _NewSpace2 extends State<NewSpace2> {
       _guardando = true;
     });
 
-    if (espacio.id == null) {
+      if (espacio.id == null) {
       espacio.userOwner = user.id;
       spaceProvider.crearEspacio(espacio, foto);
       /*showDialog(context: context,builder: (BuildContext context) {
@@ -436,9 +436,12 @@ class _NewSpace2 extends State<NewSpace2> {
        */
       Navigator.pop(context);
       Navigator.pop(context);
-      Navigator.pop(context);
+
+      utils.mostrarAlerta(context, 'Su locacion ha sido publicada con exito!');
     } else {
       spaceProvider.editarEspacio(espacio, foto);
+    }} else{
+      utils.mostrarAlerta(context, 'Debes seleccionar o tomar un foto');
     }
   }
 }

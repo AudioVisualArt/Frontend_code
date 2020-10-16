@@ -104,6 +104,22 @@ class WorkersProvider {
     UserModel user = UserModel.fromJson(json.decode(source));
     return user;
   }
+  Future<List<WorkerModel>> cargarTrabajadoresUsuario(idUsuario) async {
+
+    final url = '$_url/getAllWorkersFromUser/$idUsuario';
+    print("la url que se trata de acceder es: $url");
+    final rsp = await http.get(url);
+    //print(rsp.body.toString());
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<WorkerModel> workers = new List();
+    if (decodeData == null) return [];
+
+    workers =
+        decodeData.map((model) => WorkerModel.fromJson(model)).toList();
+
+    return workers;
+  }
 
 
 

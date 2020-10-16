@@ -93,4 +93,20 @@ class SpacesProvider {
 
     return true;
   }
+  Future<List<SpaceModel>> cargarEspaciosUsuario(idUsuario) async {
+
+    final url = '$_url/getAllSpacesUser/$idUsuario';
+    print("la url que se trata de acceder es: $url");
+    final rsp = await http.get(url);
+    //print(rsp.body.toString());
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<SpaceModel> spaces = new List();
+    if (decodeData == null) return [];
+
+    spaces =
+        decodeData.map((model) => SpaceModel.fromJson(model)).toList();
+
+    return spaces;
+  }
 }

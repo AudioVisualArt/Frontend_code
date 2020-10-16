@@ -28,7 +28,7 @@ class PerfilPersonal extends StatelessWidget {
     var assetpath = "assets/img/perfiltest.PNG";
     return Scaffold(
         appBar: AppBar(
-          title: Text('Perfil',
+          title: Text('Perfil de servicio',
               style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
           //backgroundColor: Colors.white70,
           elevation: 0.0,

@@ -1,4 +1,7 @@
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -9,8 +12,12 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfile extends State<EditProfile> {
+  final picker = ImagePicker();
+  final editkey = GlobalKey<FormState>();
+  File foto;
   @override
   Widget build(BuildContext context) {
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return GestureDetector(
         onTap: () {
@@ -44,103 +51,212 @@ class _EditProfile extends State<EditProfile> {
                 //key: formKey,
                 child: Column(children: <Widget>[
                   newappbar(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Container(
-                        child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50.0),
-                      child: Image(
-                        image: AssetImage('assets/img/no-image.png'),
-                        fit: BoxFit.cover,
-                        width: 100.0,
-                        height: 100.0,
-                      ),
-                    )),
-                  ),
-                  SizedBox(
-                    width: 200,
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: OutlineButton(
-                            child: Center(
-                              child: Text(
-                                "Cambiar foto del perfil",
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: "Raleway",
-                                    //color: Color.fromRGBO(112, 252, 118, 0.8),
-                                    color: Color.fromRGBO(246, 246, 246, 1.0),
-                                    fontWeight: FontWeight.bold),
+                  Expanded(child: SingleChildScrollView(
+                    child: Form(
+                      key: editkey,
+                        child: Column(
+                          children: [
+                        Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Container(
+                          child: _cambiarimagen(),)),
+                            SizedBox(
+                              width: 200,
+                              child: Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: OutlineButton(
+                                      child: Center(
+                                        child: Text(
+                                          "Cambiar foto del perfil",
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontFamily: "Raleway",
+                                              //color: Color.fromRGBO(112, 252, 118, 0.8),
+                                              color: Color.fromRGBO(246, 246, 246, 1.0),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      onPressed: () {_seleccionarFoto();},
+                                      //splashColor:  Color.fromRGBO(112, 252, 118, 0.8),
+                                      highlightedBorderColor:
+                                      Color.fromRGBO(112, 252, 118, 0.8),
+                                      borderSide: BorderSide(
+                                        color: Color.fromRGBO(246, 246, 246, 1.0),
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30.0),
+                                      ))),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Container(
+                                height: 1.2,
+                                width: MediaQuery.of(context).size.width,
+                                color: Color.fromRGBO(246, 246, 246, 1.0),
                               ),
                             ),
-                            onPressed: () {},
-                            //splashColor:  Color.fromRGBO(112, 252, 118, 0.8),
-                            highlightedBorderColor:
-                                Color.fromRGBO(112, 252, 118, 0.8),
-                            borderSide: BorderSide(
-                              color: Color.fromRGBO(246, 246, 246, 1.0),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ))),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Container(
-                      height: 1.2,
-                      width: MediaQuery.of(context).size.width,
-                      color: Color.fromRGBO(246, 246, 246, 1.0),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 20, right: 10),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
+                            _nombre(usuario),
+                            _description(usuario),
+                            _ciudad(usuario),
 
-                          hintText: 'Pepito Perez',
-                          labelText: 'Nombre completo',
-                          labelStyle: TextStyle(fontSize: 17.0, color: Color.fromRGBO(246, 246, 246, 1.0),),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(246, 246, 246, 1.0), width: 1.2),
-                              borderRadius: BorderRadius.circular(25.0)),
 
-                        ),
+                          ],
+                        )
+                    )
 
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 15, right: 10),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
+                  ))
 
-                          hintText: 'Pepito Perez',
-                          labelText: 'Edad',
-                          labelStyle: TextStyle(fontSize: 17.0, color: Color.fromRGBO(246, 246, 246, 1.0),),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(246, 246, 246, 1.0), width: 1.2),
-                              borderRadius: BorderRadius.circular(25.0)),
 
-                        ),
-
-                      ),
-                    ),
-                  )
                 ])))));
+  }
+  _seleccionarFoto() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    //limpiar
+    setState(() {
+      foto = File(pickedFile.path);
+    });
+  }
+
+  Widget _cambiarimagen(){
+  if(foto != null){
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50.0),
+      child: Image.file(
+        File(foto.path),
+        fit: BoxFit.cover,
+        width: 100.0,
+        height: 100.0,
+      ),
+    );
+
+  }else if (foto == null){
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50.0),
+      child: Image(
+        image: AssetImage('assets/img/no-image.png'),
+        fit: BoxFit.cover,
+        width: 100.0,
+        height: 100.0,
+      ),
+    );
+  }
+
+  }
+  Widget _nombre(UserModel usuario) {
+    return Container(
+        padding: EdgeInsets.only(left: 32.0, right: 32.0, top: 30),
+        child: Center(
+            child: TextFormField(
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: "Raleway",
+                  color: Color.fromRGBO(246, 246, 246, 1.0),
+                  fontWeight: FontWeight.bold),
+              cursorColor: Color.fromRGBO(246, 246, 246, 1.0),
+              maxLength: 29,
+              initialValue: usuario.name,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  labelStyle: TextStyle(
+                   color: Color.fromRGBO(246, 246, 246, 1.0),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0),
+
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Color.fromRGBO(246, 246, 246, 1.0), width: 0.7),
+                      borderRadius: BorderRadius.circular(16.0))),
+             // onChanged: (value) => espacio.name = value,
+              validator: (value) {
+                if (value.length < 3) {
+                  return 'Ingrese minimo 5 palabras';
+                } else {
+                  return null;
+                }
+              },
+            )));
+  }
+  Widget _ciudad(UserModel usuario) {
+    return Container(
+        padding: EdgeInsets.only(left: 32.0, right: 32.0, top: 6),
+        child: Center(
+            child: TextFormField(
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: "Raleway",
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold),
+              cursorColor: Color.fromRGBO(246, 246, 246, 1.0),
+              maxLength: 29,
+              initialValue: usuario.cityResidence,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                  labelText: 'Ciudad',
+                  labelStyle: TextStyle(
+                    color:Color.fromRGBO(246, 246, 246, 1.0),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0),
+
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Color.fromRGBO(246, 246, 246, 1.0), width: 0.7),
+                      borderRadius: BorderRadius.circular(16.0))),
+              //onChanged: (value) => espacio.name = value,
+              validator: (value) {
+                if (value.length < 3) {
+                  return 'Ingrese minimo 5 palabras';
+                } else {
+                  return null;
+                }
+              },
+            )));
+  }
+  Widget _description(UserModel usuario) {
+    return
+       Padding(
+         padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 6),
+         child: Center(
+              child: TextFormField(
+                style: TextStyle(
+                    fontSize: 14.0,
+                    fontFamily: "Raleway",
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
+                cursorColor: Color.fromRGBO(246, 246, 246, 1.0),
+                maxLength: 125,
+                maxLines: 2,
+                initialValue: usuario.description,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                    labelText: 'Descripción',
+                    labelStyle: TextStyle(
+                      color: Color.fromRGBO(246, 246, 246, 1.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+
+                    border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(246, 246, 246, 1.0), width: 0.7),
+                        borderRadius: BorderRadius.circular(16.0))),
+               // onChanged: (value) => espacio.description = value,
+                validator: (value) {
+                  if (value.length < 3) {
+                    return 'Ingrese minimo 10 palabras';
+                  } else {
+                    return null;
+                  }
+                },
+              )),
+       );
   }
 
   Widget newappbar() {

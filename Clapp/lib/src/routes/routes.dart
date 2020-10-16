@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Finance/pages/finances.dart';
+import 'package:Clapp/src/Finance/pages/new_goal.dart';
 import 'package:Clapp/src/PhotoFind/pages/find_fast_page.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/Space/pages/new_space.dart';
@@ -52,7 +53,7 @@ import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
 
-import 'package:Clapp/src/projectos/pages/new_goal.dart';
+
 import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {

@@ -68,7 +68,7 @@ class _ContratarPage extends State<ContratarPage> {
                                       childAspectRatio: 0.69),
                               itemCount: worker.length,
                               itemBuilder: (context, index) =>
-                                  _buildCard(context, worker[index], usuario)))
+                                  _buildCard(context, worker[index], usuario, index)))
                     ])),
               ),
               floatingActionButton: _BotonCrear2(usuario),
@@ -110,7 +110,7 @@ class _ContratarPage extends State<ContratarPage> {
     );
   }
 
-  Widget _buildCard(context, WorkerModel worker, UserModel usuario) {
+  Widget _buildCard(context, WorkerModel worker, UserModel usuario, int index) {
     return FutureBuilder(
       future: workerProvider.cargarUsuarioTrabajador(worker.userId),
       builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
