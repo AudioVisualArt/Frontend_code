@@ -1,5 +1,6 @@
 import 'package:Clapp/src/Finance/pages/finances.dart';
 import 'package:Clapp/src/Finance/pages/new_goal.dart';
+import 'package:Clapp/src/NewHome/Pages/home_market_page.dart';
 import 'package:Clapp/src/PhotoFind/pages/find_fast_page.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/Space/pages/new_space.dart';
@@ -107,5 +108,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'spaces': (BuildContext context) => SpacesPage(),
     'find_photo': (BuildContext context) => FindByPhotoPage(),
     'editar_perfil': (BuildContext context) => EditProfile(),
+    'home_market': (BuildContext context) => HomeMarketPage(),
   };
 }
