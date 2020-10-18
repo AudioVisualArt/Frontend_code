@@ -71,6 +71,7 @@ class _Finances extends State<Finances> {
           final finanzas = snapshot.data;
           return ListView.builder(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: finanzas.length,
               itemBuilder: (context, index){
                 if(finanzas[index].title != "Total"){
