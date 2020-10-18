@@ -4,8 +4,12 @@ import 'package:Clapp/src/NewHome/Pages/recomendados_market.dart';
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/home_page.dart';
 import 'package:Clapp/src/User/providers/usuario_provider.dart';
+import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:flutter/material.dart';
+
+import 'elemento_carrusel.dart';
 
 class HomeMarketPage extends StatefulWidget {
   @override
@@ -47,7 +51,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                   ],
                 )),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 30, bottom: 20),
+              padding: const EdgeInsets.only(top: 10.0, left: 30, bottom: 12),
               child: Text("Mercado",
                   style: TextStyle(
                       fontSize: 31.0,
@@ -75,7 +79,9 @@ class _HomeMarketPage extends State<HomeMarketPage> {
             SizedBox(
               height: 100,
               child: _ListarGuion(),
-            )
+            ),
+            SizedBox(height: 5.0),
+            _carruselMarket(usuario),
           ],
         ),
       ),
@@ -239,5 +245,124 @@ class _HomeMarketPage extends State<HomeMarketPage> {
             );
           }
         });
+  }
+  Widget _carruselMarket(UserModel usuario) {
+    return Stack(
+      children: [
+        Padding(
+            padding: EdgeInsets.only(),
+            child: Container(
+              decoration: ConcaveDecoration(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  colors: [
+                    Color.fromRGBO(230, 230, 230, 0.5),
+                    Color.fromRGBO(247, 245, 245, 0.5),
+                  ],
+                  depression: 15),
+              //color: Color.fromRGBO(227, 227, 227, 1),
+              height: 115, //MediaQuery.of(context).size.height - 570,
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  SizedBox(
+                    width: 125,
+                  ),
+                  ElementoMenu(
+                    name: 'Buscar',
+                    onPressed: 6,
+                    usuario: usuario,
+                    imagenIcono: "assets/img/searchIcon.png",
+                    colorfondo: Color.fromRGBO(231, 74, 74, 1.0),
+                  ),
+
+                  ElementoMenu(
+                    name:'Equipo',
+                    onPressed:9,
+                    usuario:usuario,
+                    imagenIcono:"assets/img/equipoIcon.png",
+                    colorfondo:  Color.fromRGBO(253, 132, 105, 1.0),
+                  ),
+                  ElementoMenu(
+                    name:'Imagenes',
+                    onPressed:11,
+                    usuario:usuario,
+                    imagenIcono:"assets/img/imagesIcon.png",
+                    colorfondo: Color.fromRGBO(255, 105, 76, 1.0),
+                  ),
+                  ElementoMenu(
+                    name: 'Guiones',
+                    onPressed: 10,
+                    usuario: usuario,
+                    imagenIcono:"assets/img/guionIcon.jpg",
+                    colorfondo:  Color.fromRGBO(253, 196, 18, 1.0),
+                  ),
+                  ElementoMenu(
+                    name:'Props',
+                    onPressed:7,
+                    usuario: usuario,
+                    imagenIcono:"assets/img/propsIcon.png",
+                    colorfondo: Color.fromRGBO(190, 214, 48, 1.0),
+                  ),
+                  //elementoMenu('Accesorios', 6, usuario, "assets/img/imagesIcon.png", Color.fromRGBO(255, 105, 76, 1.0),),
+                  SizedBox(
+                    width: 15,
+                  ),
+                ],
+              ),
+            )),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+              padding: EdgeInsets.only(),
+              child: ClipPath(
+                  clipper: ClippCarrusel(),
+                  child: Container(
+                      color: Color.fromRGBO(112, 252, 118, 0.8),
+                      height: 115, //MediaQuery.of(context).size.height - 570,
+                      width: 131, // MediaQuery.of(context).size.width - 280,
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamed(context, 'items_buy',
+                            arguments: usuario),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 10,
+                                right: 18,
+                              ),
+                              child: Container(
+                                  height:
+                                  73, //MediaQuery.of(context).size.height - 610,
+                                  width:
+                                  77, //                                         MediaQuery.of(context).size.width - 335,
+
+                                  child: Icon(
+                                    Icons.store_mall_directory,
+                                    color: Colors.black,
+                                    size: 75,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 0.0,
+                                right: 18,
+                              ),
+                              child: Text("Mercado",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      fontSize: 18,
+                                      fontFamily: "Raleway",
+                                      fontWeight: FontWeight.bold)),
+                            )
+                          ],
+                        ),
+                      )))),
+        )
+      ],
+    );
   }
 }
