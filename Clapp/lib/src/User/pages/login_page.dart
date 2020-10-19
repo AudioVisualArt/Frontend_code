@@ -315,7 +315,7 @@ class LoginPage extends StatelessWidget {
     // print('Info User:  ' + user.id + '\n');
 
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home_market', arguments: info['user']);
+      Navigator.pushReplacementNamed(context, 'home_servicios', arguments: info['user']);
     } else {
       utils.mostrarAlerta(
           context, 'Usuario o Contraseña Invalidos ${info['mensaje']}');

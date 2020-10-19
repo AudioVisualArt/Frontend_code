@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:flutter/material.dart';
 
-class RecomendadosMarket extends StatelessWidget{
-  final EquipmentModel equipos;
-  RecomendadosMarket({this.equipos});
+class TopLocaciones extends StatelessWidget {
+  final SpaceModel espacio;
+
+  TopLocaciones({this.espacio});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,7 @@ class RecomendadosMarket extends StatelessWidget{
                             ),
 
                            */
-                              child: Text(equipos.titulo,
+                              child: Text(espacio.name,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16.0,
@@ -73,17 +77,16 @@ class RecomendadosMarket extends StatelessWidget{
                     )),
               ),
             ),
-            Positioned(top: 70, left: 5, right: 5, child: _imagenEquipo(equipos))
+            Positioned(
+                top: 70, left: 5, right: 5, child: _imagenEquipo(espacio))
           ],
         ),
       ),
     );
-
-
-
   }
-  Widget _imagenEquipo(EquipmentModel equipment) {
-    if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
+
+  Widget _imagenEquipo(SpaceModel espacio) {
+    if (espacio.imageUrl.isEmpty || espacio.imageUrl == null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Image(
@@ -100,12 +103,12 @@ class RecomendadosMarket extends StatelessWidget{
           child: FadeInImage(
               placeholder: AssetImage('assets/img/loader3.gif'),
               image: NetworkImage(
-                equipment.fotoUrl,
+                espacio.imageUrl,
               ),
               width: 178,
               height: 219.5,
               fit: BoxFit.cover));
     }
   }
-
 }
+

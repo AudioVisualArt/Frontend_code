@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/NewHome/Pages/recomendados_market.dart';
@@ -29,7 +31,10 @@ class _HomeMarketPage extends State<HomeMarketPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: Stack(
+        children: [
+
+       SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -80,11 +85,17 @@ class _HomeMarketPage extends State<HomeMarketPage> {
               height: 100,
               child: _ListarGuion(),
             ),
-            SizedBox(height: 5.0),
-            _carruselMarket(usuario),
+
+
+            SizedBox(height: 110.0),
           ],
         ),
       ),
+          Positioned(
+            top: MediaQuery.of(context).size.height - 115,
+            child: _carruselMarket(usuario),
+          ),],
+      )
     );
   }
 
@@ -251,8 +262,14 @@ class _HomeMarketPage extends State<HomeMarketPage> {
       children: [
         Padding(
             padding: EdgeInsets.only(),
-            child: Container(
-              decoration: ConcaveDecoration(
+            child: ClipRect(
+            child: BackdropFilter(
+            filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+            decoration: BoxDecoration(
+                color: Colors.grey.shade200.withOpacity(0.5)),
+
+              /*decoration: ConcaveDecoration(
                   shape: ContinuousRectangleBorder(
                     borderRadius: BorderRadius.circular(0),
                   ),
@@ -261,6 +278,8 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                     Color.fromRGBO(247, 245, 245, 0.5),
                   ],
                   depression: 15),
+
+               */
               //color: Color.fromRGBO(227, 227, 227, 1),
               height: 115, //MediaQuery.of(context).size.height - 570,
               width: MediaQuery.of(context).size.width,
@@ -312,7 +331,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                   ),
                 ],
               ),
-            )),
+            )),)),
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
