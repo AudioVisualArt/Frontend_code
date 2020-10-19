@@ -21,11 +21,11 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
 
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.white,
-        //shadowColor: Colors.grey,
-        title: Text('CLAPP',
-            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-      ),
+          // backgroundColor: Colors.white,
+          //shadowColor: Colors.grey,
+          //title: Text('CLAPP',
+          //  style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+          ),
       drawer: MenuWidget(
         userModel: usuario,
       ),
@@ -40,24 +40,70 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/img/homeback2.jpg"),
-            fit: BoxFit.cover,
-          )),
+        image: AssetImage("assets/img/homeback2.jpg"),
+        fit: BoxFit.cover,
+      )),
       child: Container(
         height: MediaQuery.of(context).size.height - 30.0,
         width: size.width,
-        margin: EdgeInsets.symmetric(vertical: 5.0),
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 0.0),
+        padding: EdgeInsets.symmetric(vertical: 0.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _mostrarFotoPerfil(),
+              Align(
+                alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 30, bottom: 12),
+                child: Text("Hola, " + usuario.name,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontFamily: "Raleway",
+                      color: Colors.black,
+                    )),
+              ),),
+          Align(
+            alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                ),
+                child: Text("Menu Principal",
+                    style: TextStyle(
+                        fontSize: 31.0,
+                        fontFamily: "Raleway",
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold)),
+              ),),
+              //_mostrarFotoPerfil(),
               SizedBox(height: 20.0),
-              _carruselStudio(usuario),
+              _opcionMenu(
+                  context,
+                  usuario,
+                  'Estudio',
+                  'Empieza creando un proyecto',
+                  Icons.local_convenience_store,
+                  0),
+              _opcionMenu(
+                  context,
+                  usuario,
+                  'Mercado',
+                  'Encuentra articulos para tu proyecto',
+                  Icons.store_mall_directory,
+                  1),
+              _opcionMenu(
+                  context,
+                  usuario,
+                  'Servicios',
+                  'Gestiona el personal y las locaciones de tu proyecto',
+                  Icons.work,
+                  2),
+              //_carruselStudio(usuario),
               SizedBox(height: 25.0),
-              _carruselMarket(usuario),
+              //_carruselMarket(usuario),
               SizedBox(height: 25.0),
-              _carruselServicio(usuario),
+              //_carruselServicio(usuario),
             ],
           ),
         ),
@@ -65,7 +111,146 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
     );
   }
 
+  Widget _opcionMenu(BuildContext context, UserModel usuario, String titulo,
+      String description, icon, onPressed) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 5),
+        child: InkWell(
+          onTap: () {
+            switch (onPressed) {
+              case 0:
+                Navigator.pushNamed(context, 'my_studio', arguments: usuario);
 
+                break;
+              case 1:
+                Navigator.pushNamed(context, 'home_market', arguments: usuario);
+                break;
+              case 2:
+                Navigator.pushNamed(context, 'home_servicios',
+                    arguments: usuario);
+                break;
+
+              case 11:
+                print("Falta la ruta");
+                break;
+            }
+            ;
+          },
+          child: Container(
+            height: 105,
+            width: MediaQuery.of(context).size.width - 40,
+            child: Stack(
+              children: [
+                Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding: EdgeInsets.only(top: 8, left: 14),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [
+                          Color.fromRGBO(112, 252, 118, 1),
+                          Color.fromRGBO(121, 181, 136, 1),
+                        ]),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(0, 4),
+                            blurRadius: 10,
+                          ),
+                          BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(0, -6),
+                            blurRadius: 25,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(18)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 3.0, left: 10),
+                              child: Container(
+                                constraints: BoxConstraints(
+                                    maxHeight: 24, maxWidth: 270),
+                                child: Text(titulo,
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontFamily: "Raleway",
+                                        color: Color.fromRGBO(100, 100, 110, 1),
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                            /*Text("${guion.pages.toString()} paginas",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: "Raleway",
+                        color: Colors.black54,
+                        //fontWeight: FontWeight.bold
+                      )),
+
+                  */
+
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Container(
+                                constraints: BoxConstraints(
+                                    maxHeight: 55, maxWidth: 220),
+                                child: Text(description,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: "Raleway",
+                                      color: Colors.black87,
+                                      //fontWeight: FontWeight.bold
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Container(
+                                constraints: BoxConstraints(
+                                    maxHeight: 24, maxWidth: 270),
+                                child: Text('cualquiera',
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: "Raleway",
+                                      color: Colors.black87,
+                                      //fontWeight: FontWeight.bold
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 6,
+                            right: 18,
+                          ),
+                          child: Container(
+                              height:
+                                  73, //MediaQuery.of(context).size.height - 610,
+                              width: 77, //
+                              child: Hero(
+                                  tag: icon,
+                                  child: Icon(
+                                    icon,
+                                    color: Colors.black,
+                                    size: 75,
+                                  )) //                                       MediaQuery.of(context).size.width - 335,
+
+                              ),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+        ));
+  }
 
   Widget _mostrarFotoPerfil() {
     return Padding(
@@ -86,7 +271,6 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
   Widget _carruselStudio(UserModel usuario) {
     return Stack(
       children: [
-
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -110,9 +294,9 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                               ),
                               child: Container(
                                   height:
-                                  73, //MediaQuery.of(context).size.height - 610,
+                                      73, //MediaQuery.of(context).size.height - 610,
                                   width:
-                                  77, //                                      MediaQuery.of(context).size.width - 335,
+                                      77, //                                      MediaQuery.of(context).size.width - 335,
 
                                   child: Icon(
                                     Icons.local_convenience_store,
@@ -143,7 +327,6 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
   Widget _carruselMarket(UserModel usuario) {
     return Stack(
       children: [
-
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -167,17 +350,15 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                               ),
                               child: Container(
                                   height:
-                                  73, //MediaQuery.of(context).size.height - 610,
-                                  width:
-                                  77, //
+                                      73, //MediaQuery.of(context).size.height - 610,
+                                  width: 77, //
                                   child: Hero(
-                                    tag: Icons.store_mall_directory,
+                                      tag: Icons.store_mall_directory,
                                       child: Icon(
                                         Icons.store_mall_directory,
                                         color: Colors.black,
                                         size: 75,
-                                      )
-                                  )//                                       MediaQuery.of(context).size.width - 335,
+                                      )) //                                       MediaQuery.of(context).size.width - 335,
 
                                   ),
                             ),
@@ -204,7 +385,6 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
   Widget _carruselServicio(UserModel usuario) {
     return Stack(
       children: [
-
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -216,7 +396,8 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                       height: 115, //MediaQuery.of(context).size.height - 570,
                       width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
-                        onTap: () => Navigator.pushNamed(context, 'home_servicios',
+                        onTap: () => Navigator.pushNamed(
+                            context, 'home_servicios',
                             arguments: usuario),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -228,19 +409,16 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                               ),
                               child: Container(
                                   height:
-                                  73, //                                     MediaQuery.of(context).size.height - 610,
+                                      73, //                                     MediaQuery.of(context).size.height - 610,
                                   width:
-                                  77, //                                     MediaQuery.of(context).size.width - 335,
+                                      77, //                                     MediaQuery.of(context).size.width - 335,
                                   child: Hero(
-                                    tag:  Icons.work,
+                                      tag: Icons.work,
                                       child: Icon(
                                         Icons.work,
                                         color: Colors.black,
                                         size: 75,
-                                      )
-                                  )
-
-                                  ),
+                                      ))),
                             ),
                             Padding(
                               padding: EdgeInsets.only(

@@ -33,6 +33,9 @@ class _HomeMarketPage extends State<HomeMarketPage> {
         backgroundColor: Colors.white,
         body: Stack(
           children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+            ),
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +258,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
             padding: EdgeInsets.only(),
             child: ClipRect(
               child: BackdropFilter(
-                  filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  filter: new ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.grey.shade200.withOpacity(0.5)),

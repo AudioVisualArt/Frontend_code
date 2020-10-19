@@ -185,7 +185,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
             padding: EdgeInsets.only(),
             child: ClipRect(
               child: BackdropFilter(
-                  filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  filter: new ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.grey.shade200.withOpacity(0.5)),
