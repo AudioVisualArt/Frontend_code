@@ -1,16 +1,19 @@
-import 'package:Clapp/src/Equipment/model/equipment_models.dart';
-import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
-import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
+import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 
 class ShowEquipmentPage extends StatefulWidget {
   final List<EquipmentModel> equipos;
   final UserModel userModel;
   ShowEquipmentPage(
-      {List<EquipmentModel> this.equipos, UserModel this.userModel, Key key})
+      // ignore: type_init_formals
+      {List<EquipmentModel> this.equipos,
+      // ignore: type_init_formals
+      UserModel this.userModel,
+      Key key})
       : super(key: key);
 
   @override
@@ -80,7 +83,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
     final imagen = _imagenEquipo(equipmentModel);
     final _containerFoto = Container(
         height: 200.0,
-        width: 165,
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.white70,
@@ -146,11 +149,11 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
             SizedBox(
               width: 5.0,
             ),
-            Flexible(flex: 3, child: _containerInfoUser),
+            Flexible(flex: 2, child: _containerInfoUser),
             SizedBox(
               width: 15.0,
             ),
-            Flexible(flex: 4, child: _containerFoto),
+            Flexible(flex: 3, child: _containerFoto),
           ],
         ),
         SizedBox(
@@ -198,6 +201,13 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: Color.fromRGBO(227, 227, 227, 1.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black45,
+                spreadRadius: 2.0,
+                blurRadius: 10.0,
+                offset: Offset(2.0, 5.0))
+          ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30.0),
