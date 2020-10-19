@@ -267,12 +267,13 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                                       73, //                                     MediaQuery.of(context).size.height - 610,
                                   width:
                                       77, //                                     MediaQuery.of(context).size.width - 335,
-
-                                  child: Icon(
-                                    Icons.work,
-                                    color: Colors.black,
-                                    size: 75,
-                                  )),
+                                  child: Hero(
+                                      tag: Icons.work,
+                                      child: Icon(
+                                        Icons.work,
+                                        color: Colors.black,
+                                        size: 75,
+                                      ))),
                             ),
                             Padding(
                               padding: EdgeInsets.only(

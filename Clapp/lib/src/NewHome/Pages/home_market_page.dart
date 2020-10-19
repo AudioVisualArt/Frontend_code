@@ -30,73 +30,70 @@ class _HomeMarketPage extends State<HomeMarketPage> {
     // TODO: implement build
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-
-       SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        backgroundColor: Colors.white,
+        body: Stack(
           children: [
-            Padding(
-                padding: EdgeInsets.only(top: 30, left: 15, right: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100.0),
-                      child: Image(
-                        image: AssetImage('assets/img/no-image.png'),
-                        fit: BoxFit.cover,
-                        width: 60.0,
-                        height: 60.0,
-                      ),
-                    )
-                  ],
-                )),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 30, bottom: 12),
-              child: Text("Mercado",
-                  style: TextStyle(
-                      fontSize: 31.0,
-                      fontFamily: "Raleway",
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 30,
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(top: 30, left: 15, right: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: Image(
+                              image: AssetImage('assets/img/no-image.png'),
+                              fit: BoxFit.cover,
+                              width: 60.0,
+                              height: 60.0,
+                            ),
+                          )
+                        ],
+                      )),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10.0, left: 30, bottom: 12),
+                    child: Text("Mercado",
+                        style: TextStyle(
+                            fontSize: 31.0,
+                            fontFamily: "Raleway",
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                    ),
+                    child: Text("Productos que te pueden interesar",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: "Raleway",
+                          color: Colors.black,
+                          //fontWeight: FontWeight.bold
+                        )),
+                  ),
+                  SizedBox(
+                    height: 310,
+                    child: _ListadoEquipments(),
+                  ),
+                  SizedBox(
+                    height: 100,
+                    child: _ListarGuion(),
+                  ),
+                  SizedBox(height: 110.0),
+                ],
               ),
-              child: Text("Productos que te pueden interesar",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontFamily: "Raleway",
-                    color: Colors.black,
-                    //fontWeight: FontWeight.bold
-                  )),
             ),
-            SizedBox(
-              height: 310,
-              child: _ListadoEquipments(),
+            Positioned(
+              top: MediaQuery.of(context).size.height - 115,
+              child: _carruselMarket(usuario),
             ),
-
-            SizedBox(
-              height: 100,
-              child: _ListarGuion(),
-            ),
-
-
-            SizedBox(height: 110.0),
           ],
-        ),
-      ),
-          Positioned(
-            top: MediaQuery.of(context).size.height - 115,
-            child: _carruselMarket(usuario),
-          ),],
-      )
-    );
+        ));
   }
 
   Widget _ListadoEquipments() {
@@ -135,18 +132,15 @@ class _HomeMarketPage extends State<HomeMarketPage> {
           AsyncSnapshot<List<ScreenPlayModel>> snapshot) {
         if (snapshot.hasData) {
           final equipos = snapshot.data;
-          return
-
-            ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: equipos.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: _GuionBanner(context, equipos[index]),
-                  );
-                })
-          ;
+          return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: equipos.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: _GuionBanner(context, equipos[index]),
+                );
+              });
         } else {
           return Center(
             child: CircularProgressIndicator(
@@ -168,47 +162,45 @@ class _HomeMarketPage extends State<HomeMarketPage> {
         child: Stack(
           children: [
             Container(
-              width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              padding: EdgeInsets.only(top: 10, left: 10),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Color.fromRGBO(112, 252, 118, 1),
-                    Color.fromRGBO(121, 181, 136, 1),
-                  ]),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(0, 4),
-                      blurRadius: 10,
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                padding: EdgeInsets.only(top: 10, left: 10),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      Color.fromRGBO(112, 252, 118, 1),
+                      Color.fromRGBO(121, 181, 136, 1),
+                    ]),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(0, 4),
+                        blurRadius: 10,
+                      ),
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(0, -6),
+                        blurRadius: 25,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 3.0),
+                      child: Container(
+                        height: 24,
+                        width: 280,
+                        child: Text(guion.titulo + ",",
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(100, 100, 110, 1),
+                                fontWeight: FontWeight.bold)),
+                      ),
                     ),
-                    BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(0, -6),
-                      blurRadius: 25,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(15)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 3.0),
-                    child: Container(
-                      height: 24,
-                      width: 280,
-                      child: Text(guion.titulo+",",
-
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: "Raleway",
-                            color: Color.fromRGBO(100, 100, 110, 1),
-                            fontWeight: FontWeight.bold
-                          )),
-                    ),
-                  ),
-                 /*Text("${guion.pages.toString()} paginas",
+                    /*Text("${guion.pages.toString()} paginas",
                       style: TextStyle(
                         fontSize: 20.0,
                         fontFamily: "Raleway",
@@ -217,24 +209,22 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                       )),
 
                   */
-                  _autor(context, guion.idOwner),
-                  Text("Genero: "+guion.topic,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: "Raleway",
-                        color: Colors.black87,
-                        //fontWeight: FontWeight.bold
-                      )),
-
-                ],
-              )
-            ),
-
+                    _autor(context, guion.idOwner),
+                    Text("Genero: " + guion.topic,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: "Raleway",
+                          color: Colors.black87,
+                          //fontWeight: FontWeight.bold
+                        )),
+                  ],
+                )),
           ],
         ),
       ),
     );
   }
+
   Widget _autor(BuildContext context, String id) {
     final usuarioProvider = UsuarioProvider();
 
@@ -257,19 +247,20 @@ class _HomeMarketPage extends State<HomeMarketPage> {
           }
         });
   }
+
   Widget _carruselMarket(UserModel usuario) {
     return Stack(
       children: [
         Padding(
             padding: EdgeInsets.only(),
             child: ClipRect(
-            child: BackdropFilter(
-            filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-        child: Container(
-            decoration: BoxDecoration(
-                color: Colors.grey.shade200.withOpacity(0.5)),
+              child: BackdropFilter(
+                  filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200.withOpacity(0.5)),
 
-              /*decoration: ConcaveDecoration(
+                    /*decoration: ConcaveDecoration(
                   shape: ContinuousRectangleBorder(
                     borderRadius: BorderRadius.circular(0),
                   ),
@@ -280,58 +271,59 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                   depression: 15),
 
                */
-              //color: Color.fromRGBO(227, 227, 227, 1),
-              height: 115, //MediaQuery.of(context).size.height - 570,
-              width: MediaQuery.of(context).size.width,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  SizedBox(
-                    width: 125,
-                  ),
-                  ElementoMenu(
-                    name: 'Buscar',
-                    onPressed: 6,
-                    usuario: usuario,
-                    imagenIcono: "assets/img/searchIcon.png",
-                    colorfondo: Color.fromRGBO(231, 74, 74, 1.0),
-                  ),
+                    //color: Color.fromRGBO(227, 227, 227, 1),
+                    height: 115, //MediaQuery.of(context).size.height - 570,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(
+                          width: 125,
+                        ),
+                        ElementoMenu(
+                          name: 'Buscar',
+                          onPressed: 6,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/searchIcon.png",
+                          colorfondo: Color.fromRGBO(231, 74, 74, 1.0),
+                        ),
 
-                  ElementoMenu(
-                    name:'Equipo',
-                    onPressed:9,
-                    usuario:usuario,
-                    imagenIcono:"assets/img/equipoIcon.png",
-                    colorfondo:  Color.fromRGBO(253, 132, 105, 1.0),
-                  ),
-                  ElementoMenu(
-                    name:'Imagenes',
-                    onPressed:11,
-                    usuario:usuario,
-                    imagenIcono:"assets/img/imagesIcon.png",
-                    colorfondo: Color.fromRGBO(255, 105, 76, 1.0),
-                  ),
-                  ElementoMenu(
-                    name: 'Guiones',
-                    onPressed: 10,
-                    usuario: usuario,
-                    imagenIcono:"assets/img/guionIcon.jpg",
-                    colorfondo:  Color.fromRGBO(253, 196, 18, 1.0),
-                  ),
-                  ElementoMenu(
-                    name:'Props',
-                    onPressed:7,
-                    usuario: usuario,
-                    imagenIcono:"assets/img/propsIcon.png",
-                    colorfondo: Color.fromRGBO(190, 214, 48, 1.0),
-                  ),
-                  //elementoMenu('Accesorios', 6, usuario, "assets/img/imagesIcon.png", Color.fromRGBO(255, 105, 76, 1.0),),
-                  SizedBox(
-                    width: 15,
-                  ),
-                ],
-              ),
-            )),)),
+                        ElementoMenu(
+                          name: 'Equipo',
+                          onPressed: 9,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/equipoIcon.png",
+                          colorfondo: Color.fromRGBO(253, 132, 105, 1.0),
+                        ),
+                        ElementoMenu(
+                          name: 'Imagenes',
+                          onPressed: 11,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/imagesIcon.png",
+                          colorfondo: Color.fromRGBO(255, 105, 76, 1.0),
+                        ),
+                        ElementoMenu(
+                          name: 'Guiones',
+                          onPressed: 10,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/guionIcon.jpg",
+                          colorfondo: Color.fromRGBO(253, 196, 18, 1.0),
+                        ),
+                        ElementoMenu(
+                          name: 'Props',
+                          onPressed: 7,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/propsIcon.png",
+                          colorfondo: Color.fromRGBO(190, 214, 48, 1.0),
+                        ),
+                        //elementoMenu('Accesorios', 6, usuario, "assets/img/imagesIcon.png", Color.fromRGBO(255, 105, 76, 1.0),),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
+                    ),
+                  )),
+            )),
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -355,15 +347,16 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                               ),
                               child: Container(
                                   height:
-                                  73, //MediaQuery.of(context).size.height - 610,
+                                      73, //MediaQuery.of(context).size.height - 610,
                                   width:
-                                  77, //                                         MediaQuery.of(context).size.width - 335,
-
-                                  child: Icon(
-                                    Icons.store_mall_directory,
-                                    color: Colors.black,
-                                    size: 75,
-                                  )),
+                                      77, //                                         MediaQuery.of(context).size.width - 335,
+                                  child: Hero(
+                                      tag: Icons.store_mall_directory,
+                                      child: Icon(
+                                        Icons.store_mall_directory,
+                                        color: Colors.black,
+                                        size: 75,
+                                      ))),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
