@@ -40,6 +40,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   //publico
   var _categoriesPublico = List<DropdownMenuItem>();
   PlatformFile resumen_ejecutivo;
+  PlatformFile carpeta_madre;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   bool _saved = false;
   bool _savedFile = false;
@@ -109,7 +110,9 @@ class _NewProjectPage extends State<NewProjectPage> {
                         SizedBox(height: 10),
                         _description(),
                         SizedBox(height: 10),
-
+                        _subirResumenEjecutivo(),
+                        SizedBox(height: 10),
+                        _subirCarpetaMadre()
                       ],
                     ),
                   ),
@@ -157,6 +160,69 @@ class _NewProjectPage extends State<NewProjectPage> {
     );
   }
 
+  Widget _subirCarpetaMadre(){
+    return Padding(
+      padding: EdgeInsets.only(
+          top: 1.0, left: 0.5, right: 59.0),
+      child: SizedBox(
+        height: 52,
+        width: MediaQuery.of(context).size.width - 40,
+        child: RaisedButton(
+          //splashColor: Colors.green,
+          padding: EdgeInsets.only(
+              top: 13, bottom: 13, left: 10, right: 10),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+                color: Color.fromRGBO(0, 51, 51, 0.8),
+                width: 1.2),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Text('Sube Carpeta Madre',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "Raleway",
+                  color: Color.fromRGBO(0, 51, 51, 0.8),
+                  fontWeight: FontWeight.bold)),
+          textColor: Color.fromRGBO(0, 51, 51, 0.8),
+          color: Colors.white,
+          onPressed: openFileExplorer2,
+        ),
+      ),
+    );
+  }
+
+  Widget _subirResumenEjecutivo(){
+    return Padding(
+      padding: EdgeInsets.only(
+          top: 1.0, left: 0.5, right: 59.0),
+      child: SizedBox(
+        height: 52,
+        width: MediaQuery.of(context).size.width - 40,
+        child: RaisedButton(
+          //splashColor: Colors.green,
+          padding: EdgeInsets.only(
+              top: 13, bottom: 13, left: 10, right: 10),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+                color: Color.fromRGBO(0, 51, 51, 0.8),
+                width: 1.2),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Text('Sube Resumen Ejecutivo',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "Raleway",
+                  color: Color.fromRGBO(0, 51, 51, 0.8),
+                  fontWeight: FontWeight.bold)),
+          textColor: Color.fromRGBO(0, 51, 51, 0.8),
+          color: Colors.white,
+          onPressed: openFileExplorer,
+        ),
+      ),
+    );
+  }
    _submit(
     UserModel usuario,
   ) async {
@@ -164,9 +230,9 @@ class _NewProjectPage extends State<NewProjectPage> {
 
     proyecto.id = await Future.value(proyectoProvider.crearProyecto(proyecto));
     print("el id del proyecto es: ${proyecto.id}");
-    if (resumen_ejecutivo != null) {
+    if (resumen_ejecutivo != null&& carpeta_madre != null) {
     StorageUploadTask t;
-    t = await proyectoProvider.editarProyecto(proyecto , resumen_ejecutivo);
+    t = await proyectoProvider.editarProyecto(proyecto , resumen_ejecutivo,carpeta_madre);
 
     if (t.isComplete) {
       setState(() {
@@ -380,6 +446,23 @@ class _NewProjectPage extends State<NewProjectPage> {
 
         setState(() {
           resumen_ejecutivo = file;
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Operación no Permitida ' + e.toString());
+    }
+  }
+  openFileExplorer2() async {
+    try {
+      FilePickerResult picker = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: ['pdf', 'doc']);
+
+      if (picker != null) {
+        PlatformFile file2 = picker.files.first;
+        print('File Name ${file2.path}');
+
+        setState(() {
+          carpeta_madre = file2;
         });
       }
     } on PlatformException catch (e) {
