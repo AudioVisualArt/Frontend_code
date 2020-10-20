@@ -263,7 +263,7 @@ class _EditProfile extends State<EditProfile> {
     return Container(
         height: 150,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(34)),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
             //borderRadius: BorderRadius.circular(20.0),
             gradient: LinearGradient(
                 colors: [

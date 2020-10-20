@@ -55,7 +55,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
               Align(
                 alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.only(top: 10.0, left: 30, bottom: 12),
+                padding: const EdgeInsets.only(top: 20.0, left: 30, bottom: 12),
                 child: Text("Hola, " + usuario.name,
                     style: TextStyle(
                       fontSize: 20.0,
@@ -77,7 +77,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                         fontWeight: FontWeight.bold)),
               ),),
               //_mostrarFotoPerfil(),
-              SizedBox(height: 20.0),
+              SizedBox(height: 30.0),
               _opcionMenu(
                   context,
                   usuario,
@@ -173,7 +173,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(bottom: 3.0, left: 10),
+                                  const EdgeInsets.only(top: 10, bottom: 3.0, left: 10),
                               child: Container(
                                 constraints: BoxConstraints(
                                     maxHeight: 24, maxWidth: 270),
@@ -185,15 +185,6 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                                         fontWeight: FontWeight.bold)),
                               ),
                             ),
-                            /*Text("${guion.pages.toString()} paginas",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: "Raleway",
-                        color: Colors.black54,
-                        //fontWeight: FontWeight.bold
-                      )),
-
-                  */
 
                             Padding(
                               padding: const EdgeInsets.only(left: 10.0),
@@ -209,20 +200,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                                     )),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Container(
-                                constraints: BoxConstraints(
-                                    maxHeight: 24, maxWidth: 270),
-                                child: Text('cualquiera',
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontFamily: "Raleway",
-                                      color: Colors.black87,
-                                      //fontWeight: FontWeight.bold
-                                    )),
-                              ),
-                            ),
+
                           ],
                         ),
                         Padding(

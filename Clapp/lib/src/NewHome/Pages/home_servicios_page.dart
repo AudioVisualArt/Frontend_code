@@ -52,8 +52,8 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-                          ClipRRect(
+                          IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () => Navigator.pop(context, false),),
+                          /*ClipRRect(
                             borderRadius: BorderRadius.circular(100.0),
                             child: Image(
                               image: AssetImage('assets/img/no-image.png'),
@@ -62,6 +62,8 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                               height: 60.0,
                             ),
                           )
+
+                           */
                         ],
                       )),
                   Padding(
