@@ -15,6 +15,7 @@ class ProjectModel {
   String id;
   String ownerId;
   String executive_summary;
+  String main_file;
 
   ProjectModel({
     this.id,
@@ -25,7 +26,9 @@ class ProjectModel {
 
     this.description = "",
     this.ownerId="",
-    this.executive_summary
+    this.executive_summary,
+    this.main_file
+
 
   });
 
@@ -38,9 +41,9 @@ class ProjectModel {
         projectType: json["projectType"],
         description: json["description"],
         id: json["id"],
-          ownerId: json["ownerId"],
-          executive_summary: json["executive_summary"]
-
+        ownerId: json["ownerId"],
+        executive_summary: json["executive_summary"],
+          main_file: json["main_file"]
 
       );
 
@@ -54,6 +57,7 @@ class ProjectModel {
     "description": description,
     "id": id,
     "ownerId": ownerId,
-    "executive_summary": executive_summary
+    "executive_summary": executive_summary,
+    "main_file":main_file
   };
 }

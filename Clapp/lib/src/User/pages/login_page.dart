@@ -98,7 +98,7 @@ class LoginPage extends StatelessWidget {
               icon: Icon(Icons.alternate_email,
                   color: Color.fromRGBO(89, 122, 121, 1.0)),
               hintText: 'ejemplo@dominio.com.co',
-              labelText: 'Correo Electronico',
+              labelText: 'Correo Electrónico',
               labelStyle: TextStyle(fontSize: 17.0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25.0),
@@ -195,7 +195,7 @@ class LoginPage extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 80.0, vertical: 15.0),
-                        child: Text('Registrate'),
+                        child: Text('Regístrate'),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),

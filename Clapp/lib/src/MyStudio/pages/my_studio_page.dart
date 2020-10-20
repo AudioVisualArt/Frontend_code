@@ -46,7 +46,7 @@ class _MyStudioPageState extends State<MyStudioPage> {
               title: Text('Proyectos'),
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.slideshow), title: Text('Items')),
+                icon: Icon(Icons.slideshow), title: Text('Ítems')),
           ],
         ));
   }

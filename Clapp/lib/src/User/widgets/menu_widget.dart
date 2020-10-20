@@ -2,14 +2,13 @@ import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
-
 class MenuWidget extends StatelessWidget {
   final UserModel userModel;
   const MenuWidget({Key key, this.userModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   // UserModel usuario = ModalRoute.of(context).settings.arguments;
+    // UserModel usuario = ModalRoute.of(context).settings.arguments;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -30,11 +29,10 @@ class MenuWidget extends StatelessWidget {
               color: Color.fromRGBO(0, 51, 51, 1.0),
             ),
             title: Text(
-              'Menu Principal',
+              'Menú Principal',
               style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
             ),
             onTap: () {
-
               Navigator.pushReplacementNamed(context, 'home',
                   arguments: userModel);
             },
@@ -53,13 +51,12 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-             /* Navigator.push(
+              /* Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfilePage(usuario: userModel,)));
 
               */
-             Navigator.pushNamed(context, 'profile',
-              arguments: userModel);
+              Navigator.pushNamed(context, 'profile', arguments: userModel);
             },
           ),
           Divider(),
@@ -76,7 +73,7 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'actividad');
+              Navigator.pushNamed(context, 'actividad', arguments: userModel);
             },
           ),
           Divider(),
@@ -93,7 +90,7 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'message',arguments: userModel);
+              Navigator.pushNamed(context, 'message', arguments: userModel);
             },
           ),
           //Configuraciòn
@@ -126,7 +123,7 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'mycontract',arguments: userModel);
+              Navigator.pushNamed(context, 'mycontract', arguments: userModel);
             },
           ),
           //Terminar Sesión

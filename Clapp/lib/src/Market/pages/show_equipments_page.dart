@@ -1,16 +1,19 @@
-import 'package:Clapp/src/Equipment/model/equipment_models.dart';
-import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
-import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
+import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 
 class ShowEquipmentPage extends StatefulWidget {
   final List<EquipmentModel> equipos;
   final UserModel userModel;
   ShowEquipmentPage(
-      {List<EquipmentModel> this.equipos, UserModel this.userModel, Key key})
+      // ignore: type_init_formals
+      {List<EquipmentModel> this.equipos,
+      // ignore: type_init_formals
+      UserModel this.userModel,
+      Key key})
       : super(key: key);
 
   @override
@@ -57,12 +60,12 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
           return ListView.separated(
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
-                  height: 20.0,
+                  height: 25.0,
                 );
               },
               itemCount: equipos.length,
               itemBuilder: (context, index) {
-                return _tarjetaEquipo(context, equipos[index]);
+                return _cardEquipment(context, equipos[index]);
               });
         } else {
           return Center(
@@ -76,11 +79,88 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
     );
   }
 
+  Widget _cardEquipment(BuildContext context, EquipmentModel equipmentModel) {
+    final card = Container(
+      child: Column(
+        children: [
+          Flexible(flex: 6, child: _imagenEquipo(equipmentModel)),
+          Flexible(
+            flex: 1,
+            child: ListTile(
+              title: Text(equipmentModel.titulo.toString()),
+              subtitle: Text(equipmentModel.itemDescription.toString()),
+              leading: Icon(
+                Icons.menu_sharp,
+                color: Color.fromRGBO(0, 51, 51, 1.0),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Flexible(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  child: RaisedButton.icon(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Color.fromRGBO(112, 252, 118, 1.0),
+                      label: Text(
+                        'Más...',
+                        style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+                        textAlign: TextAlign.center,
+                      ),
+                      autofocus: true,
+                      icon: Icon(
+                        Icons.description,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new EquipmentCompraPage(
+                                      equipmentModel: equipmentModel,
+                                      userModel: widget.userModel,
+                                    )));
+                      }),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return Container(
+      height: 400,
+      width: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.white,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Colors.black45,
+              spreadRadius: 1.0,
+              blurRadius: 5.0,
+              offset: Offset(2.0, 5.0))
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: card,
+      ),
+    );
+  }
+
   Widget _tarjetaEquipo(BuildContext context, EquipmentModel equipmentModel) {
     final imagen = _imagenEquipo(equipmentModel);
     final _containerFoto = Container(
         height: 200.0,
-        width: 165,
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: Colors.white70,
@@ -146,11 +226,11 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
             SizedBox(
               width: 5.0,
             ),
-            Flexible(flex: 3, child: _containerInfoUser),
+            Flexible(flex: 2, child: _containerInfoUser),
             SizedBox(
               width: 15.0,
             ),
-            Flexible(flex: 4, child: _containerFoto),
+            Flexible(flex: 3, child: _containerFoto),
           ],
         ),
         SizedBox(
@@ -198,6 +278,13 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: Color.fromRGBO(227, 227, 227, 1.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black45,
+                spreadRadius: 2.0,
+                blurRadius: 10.0,
+                offset: Offset(2.0, 5.0))
+          ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30.0),
@@ -214,14 +301,15 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
     if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
       return Image(
         image: AssetImage('assets/img/no-image.png'),
-        height: 300.0,
         fit: BoxFit.cover,
       );
     } else {
       return FadeInImage(
         placeholder: AssetImage('assets/img/loader2.gif'),
         image: NetworkImage(equipment.fotoUrl),
-        fit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+        fit: BoxFit.fill,
       );
     }
   }
