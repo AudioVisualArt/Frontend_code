@@ -51,7 +51,7 @@ class ProyectosProvider extends InheritedWidget{
     return project;
   }
 
-  Future<StorageUploadTask> editarProyecto(ProjectModel proyecto, PlatformFile resumen_ejecutivo) async {
+  Future<StorageUploadTask> editarProyecto(ProjectModel proyecto, PlatformFile resumen_ejecutivo, PlatformFile carpeta_madre) async {
     final url = '$_url/updateProject/${proyecto.id}';
 
     String fileName;
@@ -79,6 +79,34 @@ class ProyectosProvider extends InheritedWidget{
     print('URL ScreenPlay: ' + excutivesummaryUrl);
 
     proyecto.executive_summary = excutivesummaryUrl;
+
+    String fileName2;
+    String filePath2;
+    String extensionFile2;
+
+    fileName2 = carpeta_madre.path.split('/').last;
+    filePath2 = carpeta_madre.path;
+    extensionFile2 = fileName2.split('.').last;
+
+    final StorageReference postImageRef2 =
+    FirebaseStorage.instance.ref().child('Project_main_file');
+
+    final StorageUploadTask uploadTask2 =
+    postImageRef2.child(proyecto.id).putFile(
+      File(filePath2),
+      StorageMetadata(
+        contentType: '${FileType.any}/$extensionFile2',
+      ),
+    );
+
+    final mainFile =
+    await (await uploadTask2.onComplete).ref.getDownloadURL();
+
+    print('URL ScreenPlay: ' + excutivesummaryUrl);
+
+    proyecto.main_file = mainFile;
+
+
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},

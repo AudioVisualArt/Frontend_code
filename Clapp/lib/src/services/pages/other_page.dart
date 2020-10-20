@@ -82,11 +82,18 @@ class _OtherPage extends State<OtherPage> {
                   future:_existencontratos(proyectos[index].id),
                   builder:
                   (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                   if(snapshot.data&&snapshot.hasData) {
-                     return _crearproyectos(context, proyectos[index], usuario);
-                   }else{
-                     return Card();
-                   }
+                    if (snapshot != null) {
+                      if (snapshot.data && snapshot.hasData) {
+                        return _crearproyectos(
+                            context, proyectos[index], usuario);
+                      } else if (snapshot.hasError) {
+                        return Center(child: CircularProgressIndicator());
+                      } else {
+                        return Card();
+                      }
+                    }else{
+                      return Center(child: CircularProgressIndicator());
+                    }
                   }
               );
               },

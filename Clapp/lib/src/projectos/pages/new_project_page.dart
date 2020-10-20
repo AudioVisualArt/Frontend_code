@@ -40,6 +40,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   //publico
   var _categoriesPublico = List<DropdownMenuItem>();
   PlatformFile resumen_ejecutivo;
+  PlatformFile carpeta_madre;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   bool _saved = false;
   bool _savedFile = false;
@@ -89,7 +90,7 @@ class _NewProjectPage extends State<NewProjectPage> {
               delegate: SliverChildListDelegate(<Widget>[
                 Container(
                     padding: EdgeInsets.only(top: 15.0),
-                    child: Text('Complete los datos',
+                    child: Text('Complete los Datos',
                         textAlign: TextAlign.center,
                         style:
                             TextStyle(fontSize: 17.5, fontFamily: "Raleway"))),
@@ -109,7 +110,9 @@ class _NewProjectPage extends State<NewProjectPage> {
                         SizedBox(height: 10),
                         _description(),
                         SizedBox(height: 10),
-
+                        _subirResumenEjecutivo(),
+                        SizedBox(height: 10),
+                        _subirCarpetaMadre()
                       ],
                     ),
                   ),
@@ -117,38 +120,38 @@ class _NewProjectPage extends State<NewProjectPage> {
                 Align(
                     alignment: Alignment.bottomRight,
                     child: Container(
-                  padding:
-                  EdgeInsets.only(right: 10.0, left: 210,  bottom: 30.0),
-                  child: RaisedButton(
-                    padding: EdgeInsets.only(
-                        top: 13, bottom: 13, left: 10, right: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Text('Empezar Proyecto',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: "Raleway",
-                            color: Color.fromRGBO(115, 115, 115, 1.0),
-                            fontWeight: FontWeight.bold)),
-                    textColor: Colors.white,
-                    color: Color.fromRGBO(112, 252, 118, 0.8),
-                    onPressed: () {
-                      if (proyecto.description.isNotEmpty &&
-                          proyecto.contacto.isNotEmpty &&
-                          proyecto.projectType.isNotEmpty &&
-                          proyecto.proyectName.isNotEmpty) {
-                        _submit(usuario);
-                        Navigator.popAndPushNamed(
-                          context,
-                          'details_project',
-                          arguments: proyecto,
-                        );
-                      }
-                    },
-                  ),
-                ))
+                      padding:
+                          EdgeInsets.only(right: 10.0, left: 210, bottom: 30.0),
+                      child: RaisedButton(
+                        padding: EdgeInsets.only(
+                            top: 13, bottom: 13, left: 10, right: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Text('Empezar Proyecto',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                fontWeight: FontWeight.bold)),
+                        textColor: Colors.white,
+                        color: Color.fromRGBO(112, 252, 118, 0.8),
+                        onPressed: () {
+                          if (proyecto.description.isNotEmpty &&
+                              proyecto.contacto.isNotEmpty &&
+                              proyecto.projectType.isNotEmpty &&
+                              proyecto.proyectName.isNotEmpty) {
+                            _submit(usuario);
+                            Navigator.popAndPushNamed(
+                              context,
+                              'details_project',
+                              arguments: proyecto,
+                            );
+                          }
+                        },
+                      ),
+                    ))
               ]),
             )
           ],
@@ -157,32 +160,89 @@ class _NewProjectPage extends State<NewProjectPage> {
     );
   }
 
-   _submit(
+  Widget _subirCarpetaMadre() {
+    return Padding(
+      padding: EdgeInsets.only(top: 1.0, left: 0.5, right: 59.0),
+      child: SizedBox(
+        height: 52,
+        width: MediaQuery.of(context).size.width - 40,
+        child: RaisedButton(
+          //splashColor: Colors.green,
+          padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Text('Sube Carpeta Madre',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "Raleway",
+                  color: Color.fromRGBO(0, 51, 51, 0.8),
+                  fontWeight: FontWeight.bold)),
+          textColor: Color.fromRGBO(0, 51, 51, 0.8),
+          color: Colors.white,
+          onPressed: openFileExplorer2,
+        ),
+      ),
+    );
+  }
+
+  Widget _subirResumenEjecutivo() {
+    return Padding(
+      padding: EdgeInsets.only(top: 1.0, left: 0.5, right: 59.0),
+      child: SizedBox(
+        height: 52,
+        width: MediaQuery.of(context).size.width - 40,
+        child: RaisedButton(
+          //splashColor: Colors.green,
+          padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Color.fromRGBO(0, 51, 51, 0.8), width: 1.2),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Text('Sube Resumen Ejecutivo',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "Raleway",
+                  color: Color.fromRGBO(0, 51, 51, 0.8),
+                  fontWeight: FontWeight.bold)),
+          textColor: Color.fromRGBO(0, 51, 51, 0.8),
+          color: Colors.white,
+          onPressed: openFileExplorer,
+        ),
+      ),
+    );
+  }
+
+  _submit(
     UserModel usuario,
   ) async {
     //proyecto.idUser= usuario.id;
 
     proyecto.id = await Future.value(proyectoProvider.crearProyecto(proyecto));
     print("el id del proyecto es: ${proyecto.id}");
-    if (resumen_ejecutivo != null) {
-    StorageUploadTask t;
-    t = await proyectoProvider.editarProyecto(proyecto , resumen_ejecutivo);
+    if (resumen_ejecutivo != null && carpeta_madre != null) {
+      StorageUploadTask t;
+      t = await proyectoProvider.editarProyecto(
+          proyecto, resumen_ejecutivo, carpeta_madre);
 
-    if (t.isComplete) {
+      if (t.isComplete) {
+        setState(() {
+          _tasks.add(t);
+          _saved = true;
+          _savedFile = true;
+        });
+      }
+      // Navigator.pop(context);
+      utils.mostrarAlerta(context, 'resumen ejecutivo en  Clapp !!!');
+    } else {
       setState(() {
-        _tasks.add(t);
-        _saved = true;
-        _savedFile = true;
+        _saved = false;
       });
+      utils.mostrarAlerta(context, 'No Has Subido Ningún resumen ejecutivo');
     }
-    // Navigator.pop(context);
-    utils.mostrarAlerta(context, 'resumen ejecutivo en  Clapp !!!');
-  } else {
-  setState(() {
-  _saved = false;
-  });
-  utils.mostrarAlerta(context, 'No Has Subido Ningún resumen ejecutivo');
-  }
   }
 
   Widget _projectname() {
@@ -202,7 +262,7 @@ class _NewProjectPage extends State<NewProjectPage> {
           textAlign: TextAlign.left,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            labelText: 'Nombre del proyecto',
+            labelText: 'Nombre del Proyecto',
             labelStyle: TextStyle(
                 //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
@@ -246,7 +306,7 @@ class _NewProjectPage extends State<NewProjectPage> {
           textAlign: TextAlign.left,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            labelText: 'Tipo de proyecto',
+            labelText: 'Tipo de Proyecto',
             labelStyle: TextStyle(
                 //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
@@ -290,7 +350,7 @@ class _NewProjectPage extends State<NewProjectPage> {
           textAlign: TextAlign.left,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            labelText: 'Descripcion',
+            labelText: 'Descripción',
             labelStyle: TextStyle(
                 //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
@@ -369,6 +429,7 @@ class _NewProjectPage extends State<NewProjectPage> {
       ),
     );
   }
+
   openFileExplorer() async {
     try {
       FilePickerResult picker = await FilePicker.platform
@@ -380,6 +441,24 @@ class _NewProjectPage extends State<NewProjectPage> {
 
         setState(() {
           resumen_ejecutivo = file;
+        });
+      }
+    } on PlatformException catch (e) {
+      print('Operación no Permitida ' + e.toString());
+    }
+  }
+
+  openFileExplorer2() async {
+    try {
+      FilePickerResult picker = await FilePicker.platform
+          .pickFiles(type: FileType.custom, allowedExtensions: ['pdf', 'doc']);
+
+      if (picker != null) {
+        PlatformFile file2 = picker.files.first;
+        print('File Name ${file2.path}');
+
+        setState(() {
+          carpeta_madre = file2;
         });
       }
     } on PlatformException catch (e) {
