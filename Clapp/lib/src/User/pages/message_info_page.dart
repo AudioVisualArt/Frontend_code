@@ -1,7 +1,9 @@
+import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/mensaje_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +16,15 @@ class MessageInfo extends StatefulWidget {
 
 class _MessageInfoState extends State<MessageInfo> {
   ChatProvider chatProvider=new ChatProvider();
+  ActividadProvider actividadProvider=new ActividadProvider();
   ChatModel aux;
   bool cambio=false;
+  ScreenArgument args;
   final tarjetas=new List<Widget>();
   @override
   Widget build(BuildContext context) {
    
-   final ScreenArgument args=ModalRoute.of(context).settings.arguments;
+   args=ModalRoute.of(context).settings.arguments;
    int contador=0;
    if(cambio==true){
      args.model=aux;
@@ -213,6 +217,13 @@ class _MessageInfoState extends State<MessageInfo> {
          }
        }
      });
+    ActividadModel activity=new ActividadModel(
+      descripcion: "Enviaste enviado un mensaje a ${args.nameuser}",
+      fecha: DateTime.now().toString(),
+      tipo: "Mensaje"
+
+    );
+    actividadProvider.crearActividad(activity, usuario.id);
     return nuevoM;
   }
 

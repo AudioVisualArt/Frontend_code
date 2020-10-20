@@ -10,7 +10,7 @@ class PresupuestoPage extends StatefulWidget {
 
 class _PresupuestoPageState extends State<PresupuestoPage> {
   List<double> _valores = new List();
-  
+  PageController pc=new PageController();
   int _valorActores=0;
   int _valorTecnico=0;
   int _valorEquipo=0;
@@ -28,12 +28,18 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                     style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
                   ),
         ),
-        body: PageView(
-          scrollDirection: Axis.vertical,
-          children: [
-            _pagina1(),
-            _pagina2()
-          ],
+        body: GestureDetector(
+          child: PageView(
+            scrollDirection: Axis.vertical,
+            controller: pc,
+            children: [
+              _pagina1(),
+              _pagina2()
+            ],
+          ),
+          onTap: (){
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
         )
         
        
@@ -83,6 +89,9 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                         borderRadius: BorderRadius.circular(16.0)),
                   ),
                   onChanged: (value) => _presupuesto = int.tryParse(value),
+                  onEditingComplete: (){
+                    pc.animateToPage(2, duration: Duration(milliseconds: 1000), curve: Curves.linear);
+                  },
                   validator: (value) {
                     if (value.length==0) {
                       return 'Ingrese un valor';
@@ -131,7 +140,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Actores: ${this._valorActores}%",
+                        child: Text("Actores: \u0024 ${((this._valorActores/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),
@@ -141,7 +150,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
         ),
         Slider(
           activeColor: Colors.indigoAccent,
-          label: '${this._valorActores}',
+          label: '${this._valorActores}%',
           divisions: 20,
           value: _valorActores.toDouble(),
           min: 0.0,
@@ -178,7 +187,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Personal Tecnico: ${this._valorTecnico}%",
+                        child: Text("Personal Tecnico: \u0024 ${((this._valorTecnico/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),
@@ -188,7 +197,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
         ),
        Slider(
           activeColor: Colors.indigoAccent,
-          label: '${this._valorTecnico}',
+          label: '${this._valorTecnico}%',
           divisions: 20,
           value: _valorTecnico.toDouble(),
           min: 0.0,
@@ -223,7 +232,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Equipos: ${this._valorEquipo}%",
+                        child: Text("Equipos: \u0024 ${((this._valorEquipo/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),
@@ -233,7 +242,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
         ),
        Slider(
           activeColor: Colors.indigoAccent,
-          label: '${this._valorEquipo}',
+          label: '${this._valorEquipo}%',
           divisions: 20,
           value: _valorEquipo.toDouble(),
           min: 0.0,
@@ -268,7 +277,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Espacios: ${this._valorEspacios}%",
+                        child: Text("Espacios: \u0024 ${((this._valorEspacios/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),
@@ -278,7 +287,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
         ),
         Slider(
           activeColor: Colors.indigoAccent,
-          label: '${this._valorEspacios}',
+          label: '${this._valorEspacios}%',
           divisions: 20,
           value: _valorEspacios.toDouble(),
           min: 0.0,
@@ -314,7 +323,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Arte:  ${this._valorArte}%",
+                        child: Text("Arte: \u0024 ${((this._valorArte/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),
@@ -324,7 +333,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
         ),
         Slider(
           activeColor: Colors.indigoAccent,
-          label: '${this._valorArte}',
+          label: '${this._valorArte}%',
           divisions: 20,
           value: _valorArte.toDouble(),
           min: 0.0,

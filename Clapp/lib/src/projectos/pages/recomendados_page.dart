@@ -2,6 +2,7 @@ import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
+import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_buy_page.dart';
@@ -25,6 +26,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   List<StockPhotoModel> photos=new List();
   List<UserModel> usersA=new List();
   List<UserModel> usersW=new List();
+  List<UserModel> usersE=new List();
   List<SpaceModel> espacios=new List();
   List<WorkerModel> actores=new List();
   List<WorkerModel> tecnico=new List();
@@ -128,24 +130,31 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     this.usersA.clear();
     workers.forEach((element) async{
       UserModel user= await wk.cargarUsuarioTrabajador(element.userId);
-      if(element.mainRol=="Actor"){
+      if(element.mainRol=="Actor" && element.minPayment<=_valores[0]){
         this.actores.add(element);
         this.usersA.add(user);
         print("entre 1");
       }else{
-        this.tecnico.add(element);
-        this.usersW.add(user);
-        print("Entre 2");
+        if(element.minPayment<=_valores[1]){
+          print("Valor: ${_valores[1]} y min pay ${element.minPayment}");
+          this.tecnico.add(element);
+          this.usersW.add(user);
+          print("Entre 2");
+        }
+        
       }
      
     });
-
     this.photos=await ph.cargarPhotos();
     this.photos.removeWhere((element) => element.valor>_valores[4]);
     this.equipos=await eq.cargarEquipments();
     this.equipos.removeWhere((element) => element.valor>_valores[2]);
     this.espacios=await sp.cargarEspacios();
     this.espacios.removeWhere((element) => element.priceHour>_valores[3]);
+    this.espacios.forEach((element) async {
+      UserModel user= await wk.cargarUsuarioTrabajador(element.userOwner);
+      this.usersE.add(user);
+    });
 
     return true;
 
@@ -170,14 +179,18 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Text(user.name, 
-                      style: TextStyle(
-                         color: Color.fromRGBO(0, 51, 51, 0.8),
-                          fontSize: 15.5,
-                          fontFamily: "Raleway",
-                          fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center
+                      Container(
+                        height: 40,
+                        child: Text(user.name, 
+                        style: TextStyle(
+                          color: Color.fromRGBO(0, 51, 51, 0.8),
+                            fontSize: 15.5,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center
+                        ),
                       ),
+                      
                       SizedBox(height: 5.0,),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16.0),
@@ -239,14 +252,19 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Text(user.name,
+                      Container(
+                        height: 40,
+
+                        child:  Text(user.name,
                       style: TextStyle(
                          color: Color.fromRGBO(0, 51, 51, 0.8),
                           fontSize: 15.5,
                           fontFamily: "Raleway",
                           fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center
+                        ),
                       ),
+                     
                       SizedBox(height: 5.0,),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
@@ -315,14 +333,18 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Text(equip.titulo,
-                        style: TextStyle(
-                          color: Color.fromRGBO(0, 51, 51, 0.8),
-                            fontSize: 15.5,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center
-                        ),
+                        Container(
+                          height: 40,
+                          child:Text(equip.titulo,
+                          style: TextStyle(
+                            color: Color.fromRGBO(0, 51, 51, 0.8),
+                              fontSize: 15.5,
+                              fontFamily: "Raleway",
+                              fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center
+                          )
+                        )
+                        ,
                         SizedBox(height: 5.0,),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
@@ -353,7 +375,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
       );
   }
 
-  Widget _tarjetasEspacios(index)  {
+  Widget _tarjetasEspacios(index) {
     SpaceModel space=this.espacios[index];
     if(space.imageUrl==null || space.imageUrl==""){
       space.imageUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
@@ -405,7 +427,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
         ),
         onTap: (){
           Navigator.pushNamed(context, 'space_details',
-                arguments: space);
+                arguments: SegPagina(this.usersE[index], space));
         },
       );
     

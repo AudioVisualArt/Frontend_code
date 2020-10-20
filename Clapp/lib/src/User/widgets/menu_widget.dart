@@ -76,7 +76,7 @@ class MenuWidget extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, 'actividad');
+              Navigator.pushNamed(context, 'actividad', arguments: userModel);
             },
           ),
           Divider(),

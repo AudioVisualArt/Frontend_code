@@ -14,6 +14,9 @@ class ScreenArgument{
     ScreenArgument(this.user,this.model,this.nameuser,this.id2,this.nw);
 }
 
+
+
+
 class MessagePage extends StatelessWidget {
   
   final chatProvider=new ChatProvider();
