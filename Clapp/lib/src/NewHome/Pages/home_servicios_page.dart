@@ -68,7 +68,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                       )),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 10.0, left: 30, bottom: 12),
+                        const EdgeInsets.only(top: 20.0, left: 30, bottom: 12),
                     child: Text("Servicios",
                         style: TextStyle(
                             fontSize: 31.0,

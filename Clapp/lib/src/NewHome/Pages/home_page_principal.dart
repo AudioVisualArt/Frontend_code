@@ -99,6 +99,31 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                   'Gestiona el personal y las locaciones de tu proyecto',
                   Icons.work,
                   2),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0, left: 30, bottom: 12),
+                  child: Text('Publica tus servicios en Clapp',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: "Raleway",
+                        color: Colors.black,
+                      )),
+                ),),
+              _opcionMenu(
+                  context,
+                  usuario,
+                  'Se parte de un proyecto',
+                  'Publica tu perfil y conviertete en un clapper',
+                  Icons.person,
+                  3),
+              _opcionMenu(
+                  context,
+                  usuario,
+                  'Publica una locacion',
+                  'Alquila tu propiedad para filmar obras audiovisuales y gana dinero',
+                  Icons.location_on_rounded,
+                  4),
               //_carruselStudio(usuario),
               SizedBox(height: 25.0),
               //_carruselMarket(usuario),
@@ -119,7 +144,8 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
           onTap: () {
             switch (onPressed) {
               case 0:
-                Navigator.pushNamed(context, 'my_studio', arguments: usuario);
+                Navigator.pushNamed(context, 'proyectos', arguments: usuario);
+                //Navigator.pushNamed(context, 'my_studio', arguments: usuario);
 
                 break;
               case 1:
@@ -128,6 +154,12 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
               case 2:
                 Navigator.pushNamed(context, 'home_servicios',
                     arguments: usuario);
+                break;
+              case 3:
+                Navigator.pushNamed(context, 'new_service', arguments: usuario);
+                break;
+              case 4:
+                Navigator.pushNamed(context,'nuevoespacio', arguments: usuario);
                 break;
 
               case 11:
@@ -190,7 +222,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                               padding: const EdgeInsets.only(left: 10.0),
                               child: Container(
                                 constraints: BoxConstraints(
-                                    maxHeight: 55, maxWidth: 220),
+                                    maxHeight: 55, maxWidth: 235),
                                 child: Text(description,
                                     style: TextStyle(
                                       fontSize: 15.0,
@@ -203,10 +235,10 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
 
                           ],
                         ),
-                        Padding(
+                        Flexible(child: Padding(
                           padding: EdgeInsets.only(
                             top: 6,
-                            right: 18,
+                            right: 10,
                           ),
                           child: Container(
                               height:
@@ -221,7 +253,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                                   )) //                                       MediaQuery.of(context).size.width - 335,
 
                               ),
-                        ),
+                        ),),
                       ],
                     )),
               ],

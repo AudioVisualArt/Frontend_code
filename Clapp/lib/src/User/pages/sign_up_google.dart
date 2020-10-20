@@ -216,7 +216,7 @@ class _SignUpGoogle extends State<SignUpGoogle> {
         bloc.city, bloc.age, bloc.description, bloc.passw, user);
 
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home', arguments: info['token']);
+      Navigator.pushReplacementNamed(context, 'home_principal', arguments: info['token']);
     } else {
       utils.mostrarAlerta(context, 'Revisar Campos ${info['mensaje']}');
     }
