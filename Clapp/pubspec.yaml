@@ -34,6 +34,8 @@ dependencies:
   datetime_picker_formfield: ^1.0.0
   intl: ^0.16.1
   decimal: ^0.3.5
+  hidden_drawer_menu: ^2.0.1
+
 
 
   

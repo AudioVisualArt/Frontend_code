@@ -366,7 +366,7 @@ class _SignUp extends State<SignUp> {
         bloc.city, bloc.age, bloc.name, bloc.description, foto);
 
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home', arguments: info['token']);
+      Navigator.pushReplacementNamed(context, 'home_principal', arguments: info['token']);
     } else {
       utils.mostrarAlerta(context, 'Revisar Campos ${info['mensaje']}');
     }

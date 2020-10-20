@@ -153,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Color.fromRGBO(227, 227, 227, 1.0),
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(20.0),
                           ))),
                 ),
                 Container(
