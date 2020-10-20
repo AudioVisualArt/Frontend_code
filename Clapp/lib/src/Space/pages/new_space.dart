@@ -1,5 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
+import 'package:Clapp/src/User/models/actividad_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
@@ -36,8 +38,9 @@ class _NewSpace extends State<NewSpace> {
   SpaceModel espacio = new SpaceModel();
   final spaceProvider = new SpacesProvider();
   final spaceformkey = GlobalKey<FormState>();
-
+  ActividadProvider actividadProvider=new ActividadProvider();
   List<String> values = [];
+  UserModel usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class _NewSpace extends State<NewSpace> {
     //print("id de usuario es : ${usuario.id}");
     // TODO: implement build
 
-    UserModel usuario = ModalRoute.of(context).settings.arguments;
+    usuario = ModalRoute.of(context).settings.arguments;
     //ya esta // espacio.userOwner = usuario.id;
 
     return GestureDetector(
@@ -357,6 +360,14 @@ class _NewSpace extends State<NewSpace> {
     } else {
       spaceProvider.editarEspacio(espacio, foto);
     }
+    ActividadModel act=new ActividadModel(
+      descripcion: "Has publicado un nuevo espacio",
+      fecha: DateTime.now().toString(),
+      tipo: "Espacio"
+
+    );
+    actividadProvider.crearActividad(act, usuario.id);
+
   }
 }
 

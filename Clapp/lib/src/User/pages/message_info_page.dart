@@ -224,6 +224,11 @@ class _MessageInfoState extends State<MessageInfo> {
 
     );
     actividadProvider.crearActividad(activity, usuario.id);
+    if(args.ms!=null){
+      args.ms.setState(() {
+        
+      });
+    }
     return nuevoM;
   }
 

@@ -1,6 +1,8 @@
 import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
+import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:address_search_text_field/address_search_text_field.dart';
@@ -41,7 +43,7 @@ class _SendContract extends State<SendContract> {
   final projectProvider = new ProyectosProvider();
   List<Marker> _markers = [];
   String _currentAddress;
-
+  ActividadProvider actividadProvider=new ActividadProvider();
   _SendContract(UserModel usuarioOferta, String tag);
 
   @override
@@ -374,6 +376,14 @@ class _SendContract extends State<SendContract> {
     /*Navigator.pop(context, new MaterialPageRoute(
         builder: (context) =>
         new NewContract())*/
+
+    ActividadModel act=new ActividadModel(
+      descripcion: "Has ofrecido un contrato a ",
+      fecha: DateTime.now().toString(),
+      tipo: "Contrato"
+
+    );
+    actividadProvider.crearActividad(act, widget.usuarioOferta.id);
     Navigator.pop(context);
 
   }

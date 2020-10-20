@@ -11,13 +11,22 @@ class ScreenArgument{
     String nameuser;
     String id2;
     bool nw;
-    ScreenArgument(this.user,this.model,this.nameuser,this.id2,this.nw);
+    _MessagePageState ms;
+
+    ScreenArgument(this.user,this.model,this.nameuser,this.id2,this.nw,[this.ms]);
+}
+class MessagePage extends StatefulWidget {
+  final UserModel userF;
+  MessagePage({Key key, this.userF}) : super(key: key);
+
+  @override
+  _MessagePageState createState() => _MessagePageState();
 }
 
 
 
 
-class MessagePage extends StatelessWidget {
+class _MessagePageState extends State<MessagePage> {
   
   final chatProvider=new ChatProvider();
   final List<String> mensajes=new List();
@@ -49,7 +58,7 @@ class MessagePage extends StatelessWidget {
                       itemCount: chats.length,
                       itemBuilder: (context,index){  
                           if(chats[index].mensajes.length!=0){
-                            return _tarjetaMensaje(chats[index],context,usuario); 
+                            return _tarjetaMensaje(chats[index],context,usuario,this); 
                           }else{
                             return Container(
                               width: 0,
@@ -97,7 +106,7 @@ class MessagePage extends StatelessWidget {
     
   }
 
-  Widget _tarjetaMensaje(ChatModel e,BuildContext context,UserModel usuario) {
+  Widget _tarjetaMensaje(ChatModel e,BuildContext context,UserModel usuario, _MessagePageState _messagePageState) {
       String url,idaux,username,mens;
       
       if(e.usuarioD==usuario.id){
@@ -142,7 +151,8 @@ class MessagePage extends StatelessWidget {
                           e,
                           username,
                           idaux,
-                          null
+                          null,
+                          _messagePageState
                   ));
                 },
               ),

@@ -1,4 +1,6 @@
 import 'package:Clapp/src/User/bloc/provider.dart';
+import 'package:Clapp/src/User/models/actividad_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -29,6 +31,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   var _categoryNameProject = TextEditingController();
   // tipo de projecto
   var _selectedValue;
+  ActividadProvider actividadProvider=new ActividadProvider();
   ProjectModel proyecto = new ProjectModel();
   bool _guardando = false;
   final proyectoProvider = new ProyectosProvider();
@@ -233,6 +236,13 @@ class _NewProjectPage extends State<NewProjectPage> {
           _tasks.add(t);
           _saved = true;
           _savedFile = true;
+          ActividadModel activity=new ActividadModel(
+          descripcion: "Enviaste enviado un mensaje a ",
+          fecha: DateTime.now().toString(),
+          tipo: "Proyecto"
+
+    );
+    actividadProvider.crearActividad(activity, usuario.id);
         });
       }
       // Navigator.pop(context);
