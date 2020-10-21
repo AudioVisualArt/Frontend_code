@@ -14,7 +14,7 @@ class ItemsComprarPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Items Compra',
+          'Ítems Compra',
           style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
         ),
       ),

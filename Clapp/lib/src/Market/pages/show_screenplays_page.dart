@@ -111,7 +111,8 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
                 SizedBox(
                   width: 100.0,
                 ),
-                _obtenerNombre(context, screenPlayModel.idOwner) ?? "Not User ",
+                _obtenerNombre(context, screenPlayModel.idOwner) ??
+                    " Not User ",
               ],
             ),
             SizedBox(height: 10.0),
@@ -283,21 +284,16 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
                     ),
                     color: Color.fromRGBO(112, 252, 118, 1.0),
                     label: Text(
-                      'Comprar',
+                      'Contactar',
                       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
                       textAlign: TextAlign.center,
                     ),
                     autofocus: true,
                     icon: Icon(
-                      Icons.add_shopping_cart_rounded,
+                      Icons.mark_chat_read,
                     ),
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     new MaterialPageRoute(
-                      //         builder: (context) => new ShowPDF(
-                      //               screenPlayModel: screenPlayModel,
-                      //             )));
+                      //TODO: Función Para Contactar al dueño del guion
                     }),
               ),
             ),
@@ -312,6 +308,13 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.0),
           color: Color.fromRGBO(227, 227, 227, 1.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black45,
+                spreadRadius: 1.0,
+                blurRadius: 5.0,
+                offset: Offset(2.0, 5.0))
+          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,15 +1,22 @@
+import 'package:Clapp/src/Market/pages/showStockPhotos_page.dart';
 import 'package:Clapp/src/Market/pages/show_equipments_page.dart';
 import 'package:Clapp/src/Market/pages/show_screenplays_page.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:flutter/material.dart';
-class ElementoMenu extends StatelessWidget{
+
+class ElementoMenu extends StatelessWidget {
   final String name;
   final int onPressed;
   final UserModel usuario;
   final String imagenIcono;
   final colorfondo;
-  ElementoMenu({this.name, this.onPressed, this.usuario, this.imagenIcono, this.colorfondo});
+  ElementoMenu(
+      {this.name,
+      this.onPressed,
+      this.usuario,
+      this.imagenIcono,
+      this.colorfondo});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -59,8 +66,8 @@ class ElementoMenu extends StatelessWidget{
                     context,
                     new MaterialPageRoute(
                         builder: (context) => new ShowEquipmentPage(
-                          userModel: usuario,
-                        )));
+                              userModel: usuario,
+                            )));
                 break;
 
               case 10:
@@ -68,14 +75,21 @@ class ElementoMenu extends StatelessWidget{
                     context,
                     new MaterialPageRoute(
                         builder: (context) => new ShowScreenPlayPage(
-                          userModel: usuario,
-                        )));
+                              userModel: usuario,
+                            )));
                 break;
               case 11:
                 print("Falta la ruta");
                 break;
+              case 12:
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new ShowPhotosPage(
+                              userModel: usuario,
+                            )));
+                break;
             }
-            ;
           },
           child: Container(
             constraints: BoxConstraints(
@@ -124,6 +138,4 @@ class ElementoMenu extends StatelessWidget{
           ),
         ));
   }
-
-
 }
