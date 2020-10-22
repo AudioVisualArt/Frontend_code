@@ -92,7 +92,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 16.0, right: 20, top: 37),
-                    child: Text('Productos',
+                    child: Text('Tus productos',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 25.0,

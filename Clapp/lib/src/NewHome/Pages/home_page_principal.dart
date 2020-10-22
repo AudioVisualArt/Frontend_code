@@ -125,6 +125,13 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                   'Alquila tu propiedad para filmar obras audiovisuales y gana dinero',
                   Icons.location_on_rounded,
                   4),
+              _opcionMenu(
+                  context,
+                  usuario,
+                  'Vender',
+                  'Publica tus productos en el mercado',
+                  Icons.shopping_cart_rounded,
+                  5),
               //_carruselStudio(usuario),
               SizedBox(height: 25.0),
               //_carruselMarket(usuario),
@@ -163,6 +170,10 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                 Navigator.pushNamed(context, 'nuevoespacio',
                     arguments: usuario);
                 break;
+              case 5:
+                Navigator.pushNamed(context,'ver_producto', arguments: usuario);
+                break;
+
 
               case 11:
                 print("Falta la ruta");
