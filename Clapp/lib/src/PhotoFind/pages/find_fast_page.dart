@@ -48,11 +48,19 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
         ],
       ),
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/img/mostrarItems2.jpeg"),
+          fit: BoxFit.cover,
+        )),
         padding: EdgeInsets.all(15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _mostrarFoto(),
+            SizedBox(
+              height: 15.0,
+            ),
+            Center(child: _mostrarFoto()),
             SizedBox(
               height: 15.0,
             ),
@@ -60,6 +68,9 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 8.0,
+        splashColor: Color.fromRGBO(112, 252, 118, 1.0),
+        backgroundColor: Color.fromRGBO(0, 51, 51, 1.0),
         onPressed: () {
           _clasificarImagen(foto, userModel);
         },
@@ -151,7 +162,6 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
             '${etiqueta.substring(etiqueta.lastIndexOf(" ")).trim()} & $confianza');
 
         if (confianza > 90) {
-          Tflite.close();
           Navigator.push(
               context,
               new MaterialPageRoute(
