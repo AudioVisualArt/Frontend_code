@@ -269,19 +269,4 @@ class _OtherPage extends State<OtherPage> {
           ],
         ));
   }
-
-  Future<bool> _existencontratos(String id) async{
-    bool resp;
-    List<ContractModel> c = await contratosProvider.cargarContratosProoyecto(id);
-
-
-      if (c.isNotEmpty) {
-        resp = true;
-      } else {
-        resp = false;
-      }
-
-    return resp;
-
-  }
 }

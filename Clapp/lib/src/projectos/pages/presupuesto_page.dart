@@ -149,7 +149,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
             ),
         ),
         Slider(
-          activeColor: Colors.indigoAccent,
+          activeColor: Colors.black,
           label: '${this._valorActores}%',
           divisions: 20,
           value: _valorActores.toDouble(),
@@ -196,7 +196,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
             ),
         ),
        Slider(
-          activeColor: Colors.indigoAccent,
+          activeColor: Colors.black,
           label: '${this._valorTecnico}%',
           divisions: 20,
           value: _valorTecnico.toDouble(),
@@ -241,7 +241,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
             ),
         ),
        Slider(
-          activeColor: Colors.indigoAccent,
+          activeColor: Colors.black,
           label: '${this._valorEquipo}%',
           divisions: 20,
           value: _valorEquipo.toDouble(),
@@ -286,7 +286,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
             ),
         ),
         Slider(
-          activeColor: Colors.indigoAccent,
+          activeColor: Colors.black,
           label: '${this._valorEspacios}%',
           divisions: 20,
           value: _valorEspacios.toDouble(),
@@ -332,7 +332,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
             ),
         ),
         Slider(
-          activeColor: Colors.indigoAccent,
+          activeColor: Colors.black,
           label: '${this._valorArte}%',
           divisions: 20,
           value: _valorArte.toDouble(),
@@ -392,7 +392,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Color.fromRGBO(110, 164, 129,1.0),
+      color: Color.fromRGBO(89, 159, 112  ,1.0),
     );
   }
 
@@ -415,11 +415,18 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
 
   Widget _pagina1() {
     return  
-        Stack(
-          children:[
-            _colorFondo(),
-            _boxPresupuesto(),
-          ] 
+        Container(
+          height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/img/homeback2.jpg"),
+              fit: BoxFit.cover,
+            )),
+          child: Stack(
+            children:[
+              _boxPresupuesto(),
+            ] 
+          ),
         );
   }
 
@@ -436,7 +443,8 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Color.fromRGBO(186, 186, 186 ,1.0),
+      color: Color.fromRGBO(
+ 100, 127, 156,1),
     );
   }
 }

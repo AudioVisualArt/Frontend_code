@@ -35,8 +35,10 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   WorkersProvider wk=new WorkersProvider();
   StockPhotoProvider ph=new StockPhotoProvider();
   SpacesProvider sp=new SpacesProvider();
+  double value;
   int selectedIndex=0;
   List<double> _valores=new List();
+  final ScrollController sc= ScrollController();
  
   @override
   Widget build(BuildContext context) {
@@ -50,38 +52,47 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
           style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: SizedBox(
-              height: 25,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _categories.length,
-                itemBuilder: (context, index) => buildCategory(index),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/img/mostraritems.jpg"),
+          fit: BoxFit.cover,
+        )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: SizedBox(
+                height: 25,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _categories.length,
+                  controller: sc,
+                  itemBuilder: (context, index) => buildCategory(index),
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 15.0),
-          FutureBuilder(
-            future: _llenarR(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if(snapshot.hasData){
-                return _tarjetas(selectedIndex);
-              }
-              else{
-                return Container(
+            SizedBox(height: 15.0),
+            FutureBuilder(
+              future: _llenarR(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if(snapshot.hasData){
+                  return _tarjetas(selectedIndex);
+                }
+                else{
+                  return Container(
 
-                );
-              }
-            },
+                  );
+                }
+              },
+            ),
+           SizedBox(height: 65.0),
+          ]
+          
           ),
-         SizedBox(height: 65.0),
-        ]
-        
-        ),
+      ),
       bottomSheet: _presupuesto()
       ),
     );
@@ -92,8 +103,23 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
  
     return GestureDetector(
       onTap: () {
+        switch (index) {
+          case 0: value=sc.position.minScrollExtent;
+          break;
+            
+          case 1:value=sc.position.minScrollExtent;
+          break;
+
+          case 2:value=sc.position.maxScrollExtent;
+          break;
+          case 3:value=sc.position.maxScrollExtent;
+          break;
+          default:
+        }
         setState(() {
           selectedIndex = index;
+          sc.animateTo(value, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+          
         });
       },
       child: Padding(
@@ -170,11 +196,19 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
       child: Container(
                 
                 padding: EdgeInsets.all(20.0),
+                margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
                 height: 300,
                 width: 160,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(181, 189, 185 , 1.0),
-                  borderRadius: BorderRadius.circular(16)
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 10.0,
+                          offset: Offset(5.0, 4.0)
+                      )
+                    ],
                 ),
                 child: SingleChildScrollView(
                   child: Column(
@@ -243,11 +277,19 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     return InkWell(
           child: Container(
                 padding: EdgeInsets.all(20.0),
+                margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
                 height: 300,
                 width: 160,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(181, 189, 185 , 1.0),
-                  borderRadius: BorderRadius.circular(16)
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 10.0,
+                          offset: Offset(5.0, 4.0)
+                      )
+                    ],
                 ),
                 child: SingleChildScrollView(
                   child: Column(
@@ -324,11 +366,19 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   ))),
             child: Container(
                   padding: EdgeInsets.all(20.0),
+                  margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
                   height: 300,
                   width: 160,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(181, 189, 185 , 1.0),
-                    borderRadius: BorderRadius.circular(16)
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 10.0,
+                          offset: Offset(5.0, 4.0)
+                      )
+                    ],
                   ),
                   child: SingleChildScrollView(
                     child: Column(
@@ -384,22 +434,33 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     return InkWell(
             child: Container(
                   padding: EdgeInsets.all(20.0),
+                  margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
                   height: 300,
                   width: 160,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(181, 189, 185 , 1.0),
-                    borderRadius: BorderRadius.circular(16)
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 10.0,
+                          offset: Offset(5.0, 4.0)
+                      )
+                    ],
                   ),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Text(space.name,
-                        style: TextStyle(
-                          color: Color.fromRGBO(0, 51, 51, 0.8),
-                            fontSize: 15.5,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center
+                        Container(
+                          height: 40,
+                          child: Text(space.name,
+                          style: TextStyle(
+                            color: Color.fromRGBO(0, 51, 51, 0.8),
+                              fontSize: 15.5,
+                              fontFamily: "Raleway",
+                              fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center
+                          ),
                         ),
                         SizedBox(height: 5.0,),
                         ClipRRect(
@@ -441,22 +502,33 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
       return InkWell(
           child: Container(
                 padding: EdgeInsets.all(20.0),
+                margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
                 height: 300,
                 width: 160,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(181, 189, 185 , 1.0),
-                  borderRadius: BorderRadius.circular(16)
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 10.0,
+                          offset: Offset(5.0, 4.0)
+                      )
+                    ],
                 ),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Text(ph.titulo,
-                      style: TextStyle(
-                         color: Color.fromRGBO(0, 51, 51, 0.8),
-                          fontSize: 15.5,
-                          fontFamily: "Raleway",
-                          fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center
+                      Container(
+                        height: 40,
+                        child: Text(ph.titulo,
+                        style: TextStyle(
+                           color: Color.fromRGBO(0, 51, 51, 0.8),
+                            fontSize: 15.5,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center
+                        ),
                       ),
                       SizedBox(height: 5.0,),
                       ClipRRect(
