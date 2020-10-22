@@ -78,25 +78,28 @@ class _OtherPage extends State<OtherPage> {
             // padding: const EdgeInsets.all(8.0),
             itemCount: proyectos.length,
             itemBuilder: (context, index) {
-              return FutureBuilder(
-                  future:_existencontratos(proyectos[index].id),
-                  builder:
-                  (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    if (snapshot != null) {
-                      if (snapshot.data && snapshot.hasData) {
-                        return _crearproyectos(
+                  return FutureBuilder(
+                  future: contratosProvider.cargarContratosProoyecto(proyectos[index].id),
+                  builder:(BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
+                    
+                    if (snapshot.hasData) {
+                      List<ContractModel> aux=snapshot.data;
+                      if(aux.isNotEmpty){
+                         return _crearproyectos(
                             context, proyectos[index], usuario);
-                      } else if (snapshot.hasError) {
-                        return Center(child: CircularProgressIndicator());
-                      } else {
-                        return Card();
+                      }else{
+                        return Container(
+
+                        );
                       }
                     }else{
                       return Center(child: CircularProgressIndicator());
                     }
+                     
                   }
-              );
-              },
+                  );
+              } 
+          
           );
         } else {
           return Center(child: CircularProgressIndicator());
