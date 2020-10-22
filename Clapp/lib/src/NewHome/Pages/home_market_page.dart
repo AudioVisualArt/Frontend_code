@@ -45,8 +45,11 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () => Navigator.pop(context, false),),
-                         /* ClipRRect(
+                          IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () => Navigator.pop(context, false),
+                          ),
+                          /* ClipRRect(
                             borderRadius: BorderRadius.circular(100.0),
                             child: Image(
                               image: AssetImage('assets/img/no-image.png'),
@@ -302,7 +305,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                         ),
                         ElementoMenu(
                           name: 'Imagenes',
-                          onPressed: 11,
+                          onPressed: 12,
                           usuario: usuario,
                           imagenIcono: "assets/img/imagesIcon.png",
                           colorfondo: Color.fromRGBO(255, 105, 76, 1.0),

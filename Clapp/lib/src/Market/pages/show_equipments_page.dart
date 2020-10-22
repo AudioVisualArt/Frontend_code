@@ -87,12 +87,17 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
           Flexible(
             flex: 1,
             child: ListTile(
-              title: Text(equipmentModel.titulo.toString()),
-              subtitle: Text(equipmentModel.itemDescription.toString()),
-              leading: Icon(
-                Icons.menu_sharp,
-                color: Color.fromRGBO(0, 51, 51, 1.0),
+              title: Text(
+                equipmentModel.titulo.toString(),
+                style: TextStyle(
+                    fontSize: 15.0, fontFamily: "Raleway", color: Colors.white),
               ),
+              subtitle: Text(
+                equipmentModel.itemDescription.toString(),
+                style: TextStyle(
+                    fontSize: 15.0, fontFamily: "Raleway", color: Colors.white),
+              ),
+              leading: Icon(Icons.menu_sharp, color: Colors.white),
             ),
           ),
           SizedBox(
@@ -140,7 +145,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
       width: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
-        color: Colors.white,
+        color: Color.fromRGBO(89, 122, 121, 1.0),
         boxShadow: <BoxShadow>[
           BoxShadow(
               color: Colors.black45,

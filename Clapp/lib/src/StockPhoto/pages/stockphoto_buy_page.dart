@@ -83,6 +83,7 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       initialValue: widget.stockPhotoModel.titulo,
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -91,6 +92,8 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       initialValue: widget.stockPhotoModel.itemDescription,
       textCapitalization: TextCapitalization.sentences,
+      enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -99,6 +102,7 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       initialValue: widget.stockPhotoModel.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -108,6 +112,7 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       initialValue: widget.stockPhotoModel.photoType,
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -117,6 +122,7 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       initialValue: widget.stockPhotoModel.width.toString(),
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
@@ -126,6 +132,7 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       initialValue: widget.stockPhotoModel.height.toString() ?? " ",
       textCapitalization: TextCapitalization.sentences,
       enabled: false,
+      enableInteractiveSelection: false,
     );
   }
 
