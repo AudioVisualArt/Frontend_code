@@ -52,7 +52,10 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () => Navigator.pop(context, false),),
+                          IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () => Navigator.pop(context, false),
+                          ),
                           /*ClipRRect(
                             borderRadius: BorderRadius.circular(100.0),
                             child: Image(
@@ -105,7 +108,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                   SizedBox(height: 5.0),
                   SizedBox(
                     height: 310,
-                    child: _ListarSpace(),
+                    child: _ListarSpace(usuario),
                   ),
                   SizedBox(height: 110.0),
                 ],
@@ -152,7 +155,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
     );
   }
 
-  Widget _ListarSpace() {
+  Widget _ListarSpace(UserModel usuario) {
     return FutureBuilder(
       future: spacesProvider.cargarEspacios(),
       builder:
@@ -165,7 +168,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: TopLocaciones(espacio: espacios[index]),
+                  child: TopLocaciones(espacio: espacios[index], user: usuario),
                 );
               });
         } else {
