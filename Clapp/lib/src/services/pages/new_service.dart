@@ -1,5 +1,8 @@
 import 'dart:ffi';
+import 'dart:ui';
 
+import 'package:Clapp/src/NewHome/Pages/elemento_carrusel.dart';
+import 'package:Clapp/src/NewHome/Pages/home_page_principal.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:file_picker/file_picker.dart';
@@ -57,92 +60,103 @@ class _NewService extends State<NewService> {
         },
         child: Scaffold(
           key: scaffoldKey,
-          body: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.file_upload,
-                      color: Colors.black,
-                    ),
-                    onPressed: openFileExplorer,
-                  ),
-                ],
-                expandedHeight: 100.0,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text('Nuevo Servicio',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontFamily: "Raleway",
-                        color: Color.fromRGBO(115, 115, 115, 1.0),
-                      )),
-                  //background:
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate(<Widget>[
-                  Container(
-                      padding: EdgeInsets.only(top: 15.0),
-                      child: Text('Complete sus datos',
+          body: Stack(
+            children: [
+              CustomScrollView(
+                slivers: <Widget>[
+                  SliverAppBar(
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.file_upload,
+                          color: Colors.black,
+                        ),
+                        onPressed: openFileExplorer,
+                      ),
+                    ],
+                    expandedHeight: 100.0,
+                    floating: false,
+                    pinned: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: Text('Nuevo Clapper',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 17.5, fontFamily: "Raleway"))),
-                  Container(
-                    padding: EdgeInsets.only(
-                        right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
-                    child: Form(
-                      key: workerformkey,
-                      child: Column(
-                        children: <Widget>[
-                          _description(),
-                          SizedBox(height: 10),
-                          _studies(),
-                          SizedBox(height: 10),
-                          _mainRol(),
-                          SizedBox(height: 10),
-                          _profesion(),
-                          SizedBox(height: 10),
-                          _laboral(),
-                          SizedBox(height: 10),
-                          _minPayment(),
-                          SizedBox(height: 10),
-                          _maxPayment(),
-                          SizedBox(height: 10),
-                          //_tags()
-                        ],
-                      ),
+                            fontSize: 25.0,
+                            fontFamily: "Raleway",
+                            color: Color.fromRGBO(115, 115, 115, 1.0),
+                          )),
+                      //background:
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      padding:
-                          EdgeInsets.only(right: 10.0, left: 210, bottom: 30.0),
-                      child: RaisedButton(
+                  SliverList(
+                    delegate: SliverChildListDelegate(<Widget>[
+                      Container(
+                          padding: EdgeInsets.only(top: 15.0),
+                          child: Text('Complete sus datos',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 17.5, fontFamily: "Raleway"))),
+                      Container(
                         padding: EdgeInsets.only(
-                            top: 13, bottom: 13, left: 10, right: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                            right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
+                        child: Form(
+                          key: workerformkey,
+                          child: Column(
+                            children: <Widget>[
+                              _description(),
+                              SizedBox(height: 10),
+                              _studies(),
+                              SizedBox(height: 10),
+                              _mainRol(),
+                              SizedBox(height: 10),
+                              _profesion(),
+                              SizedBox(height: 10),
+                              _laboral(),
+                              SizedBox(height: 10),
+                              _minPayment(),
+                              SizedBox(height: 10),
+                              _maxPayment(),
+                              SizedBox(height: 10),
+                              //_tags()
+                            ],
+                          ),
                         ),
-                        child: Text('Nuevo servicio',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20.0,
-                                fontFamily: "Raleway",
-                                color: Color.fromRGBO(115, 115, 115, 1.0),
-                                fontWeight: FontWeight.bold)),
-                        textColor: Colors.white,
-                        color: Color.fromRGBO(112, 252, 118, 0.8),
-                        onPressed: (_guardando) ? null : _submit,
                       ),
-                    ),
-                  ),
-                ]),
-              )
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              right: 10.0, left: 210, bottom: 30.0),
+                          child: RaisedButton(
+                            padding: EdgeInsets.only(
+                                top: 13, bottom: 13, left: 10, right: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Text('Publicar perfil',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: "Raleway",
+                                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                                    fontWeight: FontWeight.bold)),
+                            textColor: Colors.white,
+                            color: Color.fromRGBO(112, 252, 118, 0.8),
+                            onPressed: (_guardando) ? null : _submit,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 100,
+                      )
+                    ]),
+                  )
+                ],
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height - 115,
+                child: _carruselServicio(usuario),
+              ),
             ],
           ),
         ));
@@ -331,7 +345,11 @@ class _NewService extends State<NewService> {
               fontWeight: FontWeight.bold),
           decoration: InputDecoration(
             labelText: 'Seleccione el rol principal',
-            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, fontFamily: "Raleway",),
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              fontFamily: "Raleway",
+            ),
             helperText: "Ejemplo: Personal artistico",
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
@@ -559,6 +577,117 @@ class _NewService extends State<NewService> {
     } on PlatformException catch (e) {
       print('Operación no Permitida ' + e.toString());
     }
+  }
+
+  Widget _carruselServicio(UserModel usuario) {
+    return Stack(
+      children: [
+        Padding(
+            padding: EdgeInsets.only(),
+            child: ClipRect(
+              child: BackdropFilter(
+                  filter: new ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200.withOpacity(0.5)),
+
+                    /*decoration: ConcaveDecoration(
+                  shape: ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  colors: [
+                    Color.fromRGBO(230, 230, 230, 0.5),
+                    Color.fromRGBO(247, 245, 245, 0.5),
+                  ],
+                  depression: 15),
+
+               */
+                    //color: Color.fromRGBO(227, 227, 227, 1),
+                    height: 115, //MediaQuery.of(context).size.height - 570,
+                    width: MediaQuery.of(context).size.width,
+
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(
+                          width: 132,
+                        ),
+                        ElementoMenu(
+                          name: 'Ofertas',
+                          onPressed: 4,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/contractIcon.png",
+                          colorfondo: Color.fromRGBO(255, 211, 78, 1.0),
+                        ),
+
+                        ElementoMenu(
+                          name: 'Tus Contratos',
+                          onPressed: 8,
+                          usuario: usuario,
+                          imagenIcono: "assets/img/iconodecontratos.png",
+                          colorfondo: Color.fromRGBO(255, 105, 76, 1.0),
+                        ),
+
+                        //elementoMenu(usuario,'Catering'),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
+                    ),
+                  )),
+            )),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+              padding: EdgeInsets.only(),
+              child: ClipPath(
+                  clipper: ClippCarrusel(),
+                  child: Container(
+                      color: Color.fromRGBO(112, 252, 118, 0.8),
+                      height: 115, //MediaQuery.of(context).size.height - 570,
+                      width: 131, // MediaQuery.of(context).size.width - 280,
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamed(context, 'services',
+                            arguments: usuario),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 10,
+                                right: 18,
+                              ),
+                              child: Container(
+                                  height:
+                                      73, //                                     MediaQuery.of(context).size.height - 610,
+                                  width:
+                                      77, //                                     MediaQuery.of(context).size.width - 335,
+                                  child: Hero(
+                                      tag: Icons.person,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Colors.black,
+                                        size: 75,
+                                      ))),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 0.0,
+                                right: 18,
+                              ),
+                              child: Text("Clapper",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 51, 51, 0.8),
+                                      fontSize: 18,
+                                      fontFamily: "Raleway",
+                                      fontWeight: FontWeight.bold)),
+                            )
+                          ],
+                        ),
+                      )))),
+        )
+      ],
+    );
   }
 }
 
