@@ -132,7 +132,7 @@ class EquipmentProvider {
   }
 
   Future<List<EquipmentModel>> cargarEquipmentsNotSessionUserByTag(
-      String id, String etiqueta) async {
+      String id, String etiqueta, String marca) async {
     //print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllEquipments';
     final rsp = await http.get(url);
@@ -147,8 +147,12 @@ class EquipmentProvider {
         decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
 
     for (var item in equipmentModels) {
-      //print(item.idOwner.compareTo(id));
-      if (item.tag.trim() == etiqueta.trim()) {
+      print('Marca Equipo: ' +
+          item.marca.toString() +
+          ' Etiquita:' +
+          marca.toString());
+      if (item.tag.trim() == etiqueta.trim() &&
+          item.marca.toUpperCase().trim() == marca) {
         equipmentModelsMarket.add(item);
       }
     }

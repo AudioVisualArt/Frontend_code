@@ -1,0 +1,3 @@
+0 SONY
+1 CANON
+2 NIKON

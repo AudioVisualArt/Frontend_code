@@ -218,7 +218,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
 
                   */
                     _autor(context, guion.idOwner),
-                    Text("Genero: " + guion.topic,
+                    Text("Generó: " + guion.topic,
                         style: TextStyle(
                           fontSize: 15.0,
                           fontFamily: "Raleway",

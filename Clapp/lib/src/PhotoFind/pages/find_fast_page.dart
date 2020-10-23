@@ -147,7 +147,7 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
     if (image != null) {
       var output = await Tflite.runModelOnImage(
         path: image.path,
-        numResults: 2,
+        numResults: 3,
         threshold: 0.1,
         imageMean: 127.5,
         imageStd: 127.5,
@@ -170,6 +170,7 @@ class _FindByPhotoPageState extends State<FindByPhotoPage> {
                             .substring(etiqueta.lastIndexOf(" "))
                             .trim(),
                         userModel: userModel,
+                        file: image,
                       )));
         } else {
           utils.mostrarAlerta(context,

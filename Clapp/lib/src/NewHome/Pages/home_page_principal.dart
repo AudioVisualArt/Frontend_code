@@ -1,3 +1,4 @@
+import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/User/providers/chat_provider.dart';
@@ -171,9 +172,13 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                     arguments: usuario);
                 break;
               case 5:
-                Navigator.pushNamed(context,'ver_producto', arguments: usuario);
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new MostrarProductosPage(
+                              userModel: usuario,
+                            )));
                 break;
-
 
               case 11:
                 print("Falta la ruta");

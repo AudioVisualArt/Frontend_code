@@ -314,7 +314,7 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
         image: NetworkImage(equipment.fotoUrl),
         height: double.infinity,
         width: double.infinity,
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       );
     }
   }

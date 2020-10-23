@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:tflite/tflite.dart';
 
 class ShowFoundImagePage extends StatefulWidget {
   final UserModel userModel;
   final String etiqueta;
-  ShowFoundImagePage({UserModel this.userModel, String this.etiqueta, Key key})
+  final File file;
+
+  ShowFoundImagePage(
+      {UserModel this.userModel, String this.etiqueta, File this.file, Key key})
       : super(key: key);
 
   @override
@@ -16,6 +22,17 @@ class ShowFoundImagePage extends StatefulWidget {
 
 class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
   final equipmentProvider = new EquipmentProvider();
+  List _salida;
+  String marcaEquipment;
+
+  @override
+  void initState() {
+    _cargarModeloEquipment();
+    _clasificarEquipment(widget.file);
+    print('Marca:' + marcaEquipment.toString());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +52,7 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              Flexible(flex: 1, child: _crearListadoEquipments()),
+              Flexible(flex: 1, child: _crearListadoEquipments(widget.file)),
             ],
           ),
           width: MediaQuery.of(context).size.width,
@@ -44,10 +61,13 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
     );
   }
 
-  Widget _crearListadoEquipments() {
+  Widget _crearListadoEquipments(File image) {
     return FutureBuilder(
       future: equipmentProvider.cargarEquipmentsNotSessionUserByTag(
-          widget.userModel.id, widget.etiqueta),
+          widget.userModel.id,
+          widget.etiqueta,
+          marcaEquipment?.substring(marcaEquipment?.lastIndexOf(" ")).trim() ??
+              'NOTHING'),
       builder:
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
@@ -60,7 +80,7 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
               },
               itemCount: equipos.length,
               itemBuilder: (context, index) {
-                return _tarjetaEquipo(context, equipos[index]);
+                return _cardEquipment(context, equipos[index]);
               });
         } else {
           return Center(
@@ -71,6 +91,88 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           );
         }
       },
+    );
+  }
+
+  Widget _cardEquipment(BuildContext context, EquipmentModel equipmentModel) {
+    final card = Container(
+      child: Column(
+        children: [
+          Flexible(flex: 6, child: _imagenEquipo(equipmentModel)),
+          Flexible(
+            flex: 1,
+            child: ListTile(
+              title: Text(
+                equipmentModel.titulo.toString(),
+                style: TextStyle(
+                    fontSize: 15.0, fontFamily: "Raleway", color: Colors.white),
+              ),
+              subtitle: Text(
+                equipmentModel.itemDescription.toString(),
+                style: TextStyle(
+                    fontSize: 15.0, fontFamily: "Raleway", color: Colors.white),
+              ),
+              leading: Icon(Icons.menu_sharp, color: Colors.white),
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Flexible(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  child: RaisedButton.icon(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Color.fromRGBO(112, 252, 118, 1.0),
+                      label: Text(
+                        'Más...',
+                        style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+                        textAlign: TextAlign.center,
+                      ),
+                      autofocus: true,
+                      icon: Icon(
+                        Icons.description,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new EquipmentCompraPage(
+                                      equipmentModel: equipmentModel,
+                                      userModel: widget.userModel,
+                                    )));
+                      }),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return Container(
+      height: 400,
+      width: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Color.fromRGBO(89, 122, 121, 1.0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Colors.black45,
+              spreadRadius: 1.0,
+              blurRadius: 5.0,
+              offset: Offset(2.0, 5.0))
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: card,
+      ),
     );
   }
 
@@ -219,8 +321,38 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
       return FadeInImage(
         placeholder: AssetImage('assets/img/loader2.gif'),
         image: NetworkImage(equipment.fotoUrl),
+        height: double.infinity,
+        width: double.infinity,
         fit: BoxFit.cover,
       );
+    }
+  }
+
+  _cargarModeloEquipment() async {
+    await Tflite.loadModel(
+      model: 'assets/model_img/model_unquant_marca.tflite',
+      labels: 'assets/model_img/labelsMarca.txt',
+    );
+  }
+
+  _clasificarEquipment(File image) async {
+    double confianza;
+    if (image != null) {
+      var output = await Tflite.runModelOnImage(
+        path: image.path,
+        numResults: 3,
+        threshold: 0.1,
+        imageMean: 127.5,
+        imageStd: 127.5,
+      );
+
+      setState(() {
+        _salida = output;
+        confianza = _salida[0]["confidence"] * 100;
+        marcaEquipment = _salida[0]["label"];
+        print(
+            '${marcaEquipment.substring(marcaEquipment.lastIndexOf(" ")).trim()} & $confianza');
+      });
     }
   }
 }
