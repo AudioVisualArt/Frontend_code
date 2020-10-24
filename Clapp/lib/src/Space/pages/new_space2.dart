@@ -10,14 +10,19 @@ import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:geocoder/geocoder.dart';
 
 class NewSpace2 extends StatefulWidget {
   final SegPagina arg;
@@ -34,9 +39,12 @@ class _NewSpace2 extends State<NewSpace2> {
   final picker = ImagePicker();
   File foto;
 
+
+
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _guardando = false;
   DateTime date1, date2;
+
 
   final spaceProvider = new SpacesProvider();
   final spaceformkey2 = GlobalKey<FormState>();
@@ -400,6 +408,7 @@ class _NewSpace2 extends State<NewSpace2> {
            */
         )));
   }
+
 
   _seleccionarFoto() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);

@@ -2,6 +2,10 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/providers/actividad_provider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
@@ -13,7 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:Clapp/src/services/model/worker_model.dart';
-
+import 'package:geocoder/geocoder.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:flutter/services.dart';
 
@@ -41,6 +45,12 @@ class _NewSpace extends State<NewSpace> {
   ActividadProvider actividadProvider=new ActividadProvider();
   List<String> values = [];
   UserModel usuario;
+
+  double longitud;
+  double latitud;
+  String city;
+
+  List<Marker> _markers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +106,9 @@ class _NewSpace extends State<NewSpace> {
                           SizedBox(height: 10),
                           _description(),
                           SizedBox(height: 10),
-                          _ciudad(),
-                          SizedBox(height: 10),
                           _capacidad(),
+                          SizedBox(height: 10),
+                          _googleMap(),
                           SizedBox(height: 10),
                           /* Padding(
                             padding: EdgeInsets.only(top: 1.0, left: 0.5, right: 59.0),
@@ -336,6 +346,68 @@ class _NewSpace extends State<NewSpace> {
 
             */
         )));
+  }
+  Widget _googleMap() {
+    return SizedBox(
+        height: 300,
+        width: 400,
+        child: FutureBuilder<Position>(
+            future: getLocation(),
+            builder: (BuildContext context,
+                AsyncSnapshot<Position> snapshot) {
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              } else {
+                return GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                        snapshot.data.latitude, snapshot.data.longitude),
+                    zoom: 16,
+                  ),
+                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                    new Factory<OneSequenceGestureRecognizer>(
+                          () => new EagerGestureRecognizer(),
+                    ),
+                  ].toSet(),
+                  onTap: _handleTap,
+                  markers: Set.from(_markers),
+                );
+              }
+            }
+        )
+    );
+  }
+
+  Future<Position> getLocation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position;
+  }
+
+  _handleTap(LatLng point) {
+    setState(() {
+      _markers = [];
+      _markers.add(Marker(
+        markerId: MarkerId(point.toString()),
+        position: point,
+      ));
+      longitud = point.longitude;
+      latitud = point.latitude;
+    });
+    _getAddress(_markers.first.position);
+  }
+
+  Future<Address> _getAddress(LatLng myLocation) async {
+    final coordinates = new Coordinates(
+        myLocation.latitude, myLocation.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(
+        coordinates);
+    var first = addresses.first;
+    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
+        .subAdminArea},${first.addressLine}, ${first.featureName},${first
+        .thoroughfare}, ${first.subThoroughfare}');
+    espacio.location=first.locality;
+    return first;
   }
 
   _seleccionarFoto() async {

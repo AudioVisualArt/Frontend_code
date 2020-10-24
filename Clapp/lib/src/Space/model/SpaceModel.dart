@@ -19,6 +19,8 @@ class SpaceModel {
   double priceHour;
   String imageUrl;
   double priceDay;
+  double longitud;
+  double latitud;
 
 
   SpaceModel({
@@ -34,7 +36,9 @@ class SpaceModel {
     this.minimumHours,
     this.priceHour,
     this.imageUrl,
-    this.priceDay
+    this.priceDay,
+    this.longitud,
+    this.latitud
 
   });
 
@@ -52,6 +56,8 @@ class SpaceModel {
         priceHour: json["priceHour"],
         imageUrl: json["imageUrl"],
         priceDay: json["priceDay"],
+        latitud: json["latitud"],
+        longitud: json["longitud"]
 
       );
 
@@ -68,5 +74,7 @@ class SpaceModel {
     "priceHour": priceHour,
     "imageUrl": imageUrl,
     "priceDay": priceDay,
+    "longitud" : longitud,
+    "latitud" : latitud
   };
 }
