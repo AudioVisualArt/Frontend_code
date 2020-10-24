@@ -72,12 +72,14 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
           final equipos = snapshot.data;
-          return ListView.separated(
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  height: 20.0,
-                );
-              },
+          return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 13.0,
+                mainAxisSpacing: 16.0,
+                childAspectRatio: 0.69
+            ),
+
               itemCount: equipos.length,
               itemBuilder: (context, index) {
                 return _cardEquipment(context, equipos[index]);

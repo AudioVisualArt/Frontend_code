@@ -42,7 +42,7 @@ class _NewSpace extends State<NewSpace> {
   SpaceModel espacio = new SpaceModel();
   final spaceProvider = new SpacesProvider();
   final spaceformkey = GlobalKey<FormState>();
-  ActividadProvider actividadProvider=new ActividadProvider();
+  ActividadProvider actividadProvider = new ActividadProvider();
   List<String> values = [];
   UserModel usuario;
 
@@ -319,7 +319,6 @@ class _NewSpace extends State<NewSpace> {
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
           maxLength: 4,
-
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
               labelText: 'Capacidad maxima',
@@ -335,7 +334,7 @@ class _NewSpace extends State<NewSpace> {
                   borderSide: BorderSide(
                       color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                   borderRadius: BorderRadius.circular(16.0))),
-           /*onChanged: (value) => espacio.capacity = value,
+          /*onChanged: (value) => espacio.capacity = value,
               validator: (value) {
                 if (utils.isNumeric(value)) {
                   return 'Ingrese solo numeros';
@@ -347,35 +346,38 @@ class _NewSpace extends State<NewSpace> {
             */
         )));
   }
+
   Widget _googleMap() {
     return SizedBox(
         height: 300,
         width: 400,
         child: FutureBuilder<Position>(
             future: getLocation(),
-            builder: (BuildContext context,
-                AsyncSnapshot<Position> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
               if (!snapshot.hasData) {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Color.fromRGBO(0, 51, 51, 1.0),),
+                    strokeWidth: 5.0
+                ));
               } else {
-                return GoogleMap(
+                return ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+              child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        snapshot.data.latitude, snapshot.data.longitude),
+                    target:
+                        LatLng(snapshot.data.latitude, snapshot.data.longitude),
                     zoom: 16,
                   ),
                   gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
                     new Factory<OneSequenceGestureRecognizer>(
-                          () => new EagerGestureRecognizer(),
+                      () => new EagerGestureRecognizer(),
                     ),
                   ].toSet(),
                   onTap: _handleTap,
                   markers: Set.from(_markers),
-                );
+                ));
               }
-            }
-        )
-    );
+            }));
   }
 
   Future<Position> getLocation() async {
@@ -398,15 +400,14 @@ class _NewSpace extends State<NewSpace> {
   }
 
   Future<Address> _getAddress(LatLng myLocation) async {
-    final coordinates = new Coordinates(
-        myLocation.latitude, myLocation.longitude);
-    var addresses = await Geocoder.local.findAddressesFromCoordinates(
-        coordinates);
+    final coordinates =
+        new Coordinates(myLocation.latitude, myLocation.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
-    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
-        .subAdminArea},${first.addressLine}, ${first.featureName},${first
-        .thoroughfare}, ${first.subThoroughfare}');
-    espacio.location=first.locality;
+    print(
+        ' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first.subAdminArea},${first.addressLine}, ${first.featureName},${first.thoroughfare}, ${first.subThoroughfare}');
+    espacio.location = first.locality;
     return first;
   }
 
@@ -432,14 +433,11 @@ class _NewSpace extends State<NewSpace> {
     } else {
       spaceProvider.editarEspacio(espacio, foto);
     }
-    ActividadModel act=new ActividadModel(
-      descripcion: "Has publicado un nuevo espacio",
-      fecha: DateTime.now().toString(),
-      tipo: "Espacio"
-
-    );
+    ActividadModel act = new ActividadModel(
+        descripcion: "Has publicado un nuevo espacio",
+        fecha: DateTime.now().toString(),
+        tipo: "Espacio");
     actividadProvider.crearActividad(act, usuario.id);
-
   }
 }
 

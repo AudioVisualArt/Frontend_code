@@ -15,8 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:http/http.dart';
 
-
-class SendContract extends StatefulWidget{
+class SendContract extends StatefulWidget {
   String tag;
   UserModel usuarioOferta;
 
@@ -25,14 +24,11 @@ class SendContract extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _SendContract(this.usuarioOferta, this.tag );
+    return _SendContract(this.usuarioOferta, this.tag);
   }
-
-
 }
 
 class _SendContract extends State<SendContract> {
-
   final contractformkey = GlobalKey<FormState>();
   ProjectModel _selectedProject;
 
@@ -43,7 +39,7 @@ class _SendContract extends State<SendContract> {
   final projectProvider = new ProyectosProvider();
   List<Marker> _markers = [];
   String _currentAddress;
-  ActividadProvider actividadProvider=new ActividadProvider();
+  ActividadProvider actividadProvider = new ActividadProvider();
   _SendContract(UserModel usuarioOferta, String tag);
 
   @override
@@ -57,7 +53,6 @@ class _SendContract extends State<SendContract> {
           }
         },
         child: Scaffold(
-
           appBar: AppBar(
             title: Text('Nuevo contrato',
                 textAlign: TextAlign.center,
@@ -67,43 +62,40 @@ class _SendContract extends State<SendContract> {
             children: [
               Expanded(
                   child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-
-                        Container(
-                          padding: EdgeInsets.only(
-                              right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
-                          child: Form(
-                            key: contractformkey,
-
-                            child: Column(
-                              children: <Widget>[
-                                _dropProject(widget.usuarioOferta.id),
-                                SizedBox(height: 10),
-                                _payment(),
-                                SizedBox(height: 10),
-                                _jobPosition(),
-                                SizedBox(height: 10),
-                                _workDays(),
-                                //SizedBox(height: 10),
-                                //_city(),
-                                SizedBox(height: 10),
-                                _googleMap(),
-                                //_desiredSkills(),
-                                SizedBox(height: 10),
-
-                              ],
-                            ),
-                          ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(
+                          right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
+                      child: Form(
+                        key: contractformkey,
+                        child: Column(
+                          children: <Widget>[
+                            _dropProject(widget.usuarioOferta.id),
+                            SizedBox(height: 10),
+                            _payment(),
+                            SizedBox(height: 10),
+                            _jobPosition(),
+                            SizedBox(height: 10),
+                            _workDays(),
+                            //SizedBox(height: 10),
+                            //_city(),
+                            SizedBox(height: 10),
+                            _googleMap(),
+                            //_desiredSkills(),
+                            SizedBox(height: 10),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  )),
+                  ],
+                ),
+              )),
               Container(
                 padding: EdgeInsets.only(right: 10.0, left: 210, bottom: 35.0),
                 child: RaisedButton(
                   padding:
-                  EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
+                      EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -121,8 +113,6 @@ class _SendContract extends State<SendContract> {
               )
             ],
           ),
-
-
         ));
   }
 
@@ -141,12 +131,11 @@ class _SendContract extends State<SendContract> {
           maxLength: 15,
           maxLines: 1,
           textAlign: TextAlign.left,
-
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             labelText: 'Ciudad',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             helperText: "Ejemplo: Bogotá",
@@ -186,12 +175,11 @@ class _SendContract extends State<SendContract> {
           maxLength: 50,
           maxLines: 1,
           textAlign: TextAlign.left,
-
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             labelText: 'Posicion de trabajo',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             helperText: "Ejemplo: DP",
@@ -237,7 +225,7 @@ class _SendContract extends State<SendContract> {
           decoration: InputDecoration(
             labelText: 'Horas de trabajo',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             helperText: "",
@@ -262,7 +250,6 @@ class _SendContract extends State<SendContract> {
     );
   }
 
-
   Widget _payment() {
     return Container(
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
@@ -283,7 +270,7 @@ class _SendContract extends State<SendContract> {
           decoration: InputDecoration(
             labelText: 'Pago',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             // helperText: "",
@@ -313,17 +300,15 @@ class _SendContract extends State<SendContract> {
       padding: EdgeInsets.only(left: 0.5, right: 59.0),
       child: Center(
         child: DropdownButtonFormField(
-
           style: TextStyle(
               fontSize: 14.0,
               fontFamily: "Raleway",
               color: Colors.grey,
               fontWeight: FontWeight.bold),
-
           decoration: InputDecoration(
             labelText: 'Hablidades requeridas',
             labelStyle: TextStyle(
-              //color: Color.fromRGBO(0, 51, 51, 0.8),
+                //color: Color.fromRGBO(0, 51, 51, 0.8),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
             // helperText: "",
@@ -360,7 +345,7 @@ class _SendContract extends State<SendContract> {
     contrato.userBidderId = widget.usuarioOferta.id;
     contrato.userApplicantId = widget.tag;
     contrato.projectId = _selectedProject.id;
-    contrato.acceptedBidder=true;
+    contrato.acceptedBidder = true;
     print('Todo Ok');
 
     setState(() {
@@ -377,15 +362,12 @@ class _SendContract extends State<SendContract> {
         builder: (context) =>
         new NewContract())*/
 
-    ActividadModel act=new ActividadModel(
-      descripcion: "Has ofrecido un contrato a ",
-      fecha: DateTime.now().toString(),
-      tipo: "Contrato"
-
-    );
+    ActividadModel act = new ActividadModel(
+        descripcion: "Has ofrecido un contrato a ",
+        fecha: DateTime.now().toString(),
+        tipo: "Contrato");
     actividadProvider.crearActividad(act, widget.usuarioOferta.id);
     Navigator.pop(context);
-
   }
 
   Widget _dropProject(String userid) {
@@ -396,37 +378,34 @@ class _SendContract extends State<SendContract> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                FutureBuilder<List<ProjectModel>>(
-                  future: projectProvider.cargarProyectos(userid),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<ProjectModel>> snapshot) {
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    } else {
-                      return DropdownButton<ProjectModel>(
-                        hint: Text("selecione el proyecto de este contrato"),
-                        //value: _selectedProject,
-                        onChanged: (ProjectModel project) {
-                          setState(() {
-                            _selectedProject = project;
-                          },
-                          );
+            FutureBuilder<List<ProjectModel>>(
+              future: projectProvider.cargarProyectos(userid),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<ProjectModel>> snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                } else {
+                  return DropdownButton<ProjectModel>(
+                    hint: Text("selecione el proyecto de este contrato"),
+                    //value: _selectedProject,
+                    onChanged: (ProjectModel project) {
+                      setState(
+                        () {
+                          _selectedProject = project;
                         },
-                        items: snapshot.data.map((project) =>
-                            DropdownMenuItem<ProjectModel>(
+                      );
+                    },
+                    items: snapshot.data
+                        .map((project) => DropdownMenuItem<ProjectModel>(
                               child: new Text(project.proyectName),
                               value: project,
-                            )).toList(),
-
-
-                      );
-                    }
-                  },
-                ),
-
-              ]
-          )
-      ),
+                            ))
+                        .toList(),
+                  );
+                }
+              },
+            ),
+          ])),
     );
   }
 
@@ -436,29 +415,34 @@ class _SendContract extends State<SendContract> {
         width: 400,
         child: FutureBuilder<Position>(
             future: getLocation(),
-            builder: (BuildContext context,
-                AsyncSnapshot<Position> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
               if (!snapshot.hasData) {
-                return CircularProgressIndicator();
+                return Center(
+                    child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ),
+                        strokeWidth: 5.0));
               } else {
-                return GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                        snapshot.data.latitude, snapshot.data.longitude),
-                    zoom: 16,
-                  ),
-                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
-                    new Factory<OneSequenceGestureRecognizer>(
+                return ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                            snapshot.data.latitude, snapshot.data.longitude),
+                        zoom: 16,
+                      ),
+                      gestureRecognizers:
+                          <Factory<OneSequenceGestureRecognizer>>[
+                        new Factory<OneSequenceGestureRecognizer>(
                           () => new EagerGestureRecognizer(),
-                    ),
-                  ].toSet(),
-                  onTap: _handleTap,
-                  markers: Set.from(_markers),
-                );
+                        ),
+                      ].toSet(),
+                      onTap: _handleTap,
+                      markers: Set.from(_markers),
+                    ));
               }
-            }
-        )
-    );
+            }));
   }
 
   Future<Position> getLocation() async {
@@ -474,22 +458,21 @@ class _SendContract extends State<SendContract> {
         markerId: MarkerId(point.toString()),
         position: point,
       ));
-     contrato.longitud = point.longitude;
+      contrato.longitud = point.longitude;
       contrato.latitud = point.latitude;
     });
     _getAddress(_markers.first.position);
   }
 
   Future<Address> _getAddress(LatLng myLocation) async {
-    final coordinates = new Coordinates(
-        myLocation.latitude, myLocation.longitude);
-    var addresses = await Geocoder.local.findAddressesFromCoordinates(
-        coordinates);
+    final coordinates =
+        new Coordinates(myLocation.latitude, myLocation.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
-    print(' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first
-        .subAdminArea},${first.addressLine}, ${first.featureName},${first
-        .thoroughfare}, ${first.subThoroughfare}');
-    contrato.city=first.locality;
+    print(
+        ' ${first.locality}, ${first.adminArea},${first.subLocality}, ${first.subAdminArea},${first.addressLine}, ${first.featureName},${first.thoroughfare}, ${first.subThoroughfare}');
+    contrato.city = first.locality;
     return first;
   }
 }

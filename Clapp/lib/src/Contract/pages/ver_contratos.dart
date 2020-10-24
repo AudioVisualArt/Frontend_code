@@ -23,6 +23,7 @@ class _VerContratos extends State<VerContratos> {
         child: Scaffold(
 
       body: Container(
+        height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               image: DecorationImage(
             image: AssetImage("assets/img/mostraritems.jpg"),

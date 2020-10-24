@@ -414,9 +414,14 @@ class _NewContract extends State<NewContract>{
             builder: (BuildContext context,
                 AsyncSnapshot<Position> snapshot) {
               if (!snapshot.hasData) {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Color.fromRGBO(0, 51, 51, 1.0),),
+                    strokeWidth: 5.0
+                ));
               } else {
-                return GoogleMap(
+                return ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+              child: GoogleMap(
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
                         snapshot.data.latitude, snapshot.data.longitude),
@@ -429,7 +434,7 @@ class _NewContract extends State<NewContract>{
                   ].toSet(),
                   onTap: _handleTap,
                   markers: Set.from(_markers),
-                );
+                ));
               }
             }
         )
