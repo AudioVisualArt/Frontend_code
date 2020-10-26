@@ -42,15 +42,17 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        /*decoration: BoxDecoration(
             image: DecorationImage(
           image: AssetImage("assets/img/mostrarItems2.jpeg"),
           fit: BoxFit.cover,
         )),
+
+         */
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          //padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
               Flexible(flex: 1, child: _crearListadoEquipments(widget.file)),
@@ -76,12 +78,16 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 13.0,
-                  mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.67),
+                  crossAxisSpacing: 14.0,
+                  mainAxisSpacing: 6.0,
+                  childAspectRatio: 0.66),
+              padding: EdgeInsets.symmetric(horizontal: 15),
               itemCount: equipos.length,
               itemBuilder: (context, index) {
-                return _cardEquipment(context, equipos[index]);
+                return Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: _cardEquipment(context, equipos[index]),
+                );
               });
         } else {
           return Center(
@@ -113,37 +119,39 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           Flexible(
             flex: 1,
             child: Align(
-             alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only( top: 8, left: 15),
-              child: Text(
-                currency() + equipmentModel.valor.toString(),
-                textAlign: TextAlign.center,
-                //equipmentModel.titulo.toString(),
-                style: TextStyle(
-                    fontSize: 17.0,
-                    fontFamily: "Raleway",
-                    color: Colors.black.withOpacity(0.7),
-                    fontWeight: FontWeight.w600),
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, left: 15),
+                child: Text(
+                  currency() + equipmentModel.valor.toString(),
+                  textAlign: TextAlign.center,
+                  //equipmentModel.titulo.toString(),
+                  style: TextStyle(
+                      fontSize: 17.0,
+                      fontFamily: "Raleway",
+                      color: Colors.black.withOpacity(0.7),
+                      fontWeight: FontWeight.w600),
+                ),
               ),
-            ),),
+            ),
           ),
           Flexible(
             flex: 1,
             child: Align(
               alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 5.0, left: 15),
-              child: Text(
-                equipmentModel.titulo.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontFamily: "Raleway",
-                  color: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 5.0, left: 15),
+                child: Text(
+                  equipmentModel.titulo.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontFamily: "Raleway",
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),),
+            ),
           ),
 
           /* Flexible(
