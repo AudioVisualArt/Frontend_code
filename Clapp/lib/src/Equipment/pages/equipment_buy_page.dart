@@ -54,7 +54,10 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  _mostrarFoto(),
+                  Hero(
+                    tag: widget.equipmentModel.id,
+                    child: _mostrarFoto(),
+                  ),
                   Divider(),
                   _crearNombre(),
                   Divider(),

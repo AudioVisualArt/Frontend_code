@@ -5,6 +5,7 @@ import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tflite/tflite.dart';
 
 class ShowFoundImagePage extends StatefulWidget {
@@ -73,13 +74,11 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
         if (snapshot.hasData) {
           final equipos = snapshot.data;
           return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 13.0,
-                mainAxisSpacing: 16.0,
-                childAspectRatio: 0.69
-            ),
-
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 13.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 0.67),
               itemCount: equipos.length,
               itemBuilder: (context, index) {
                 return _cardEquipment(context, equipos[index]);
@@ -96,31 +95,58 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
     );
   }
 
+  String currency() {
+    Locale locale = Localizations.localeOf(context);
+    var format = NumberFormat.simpleCurrency(locale: locale.toString());
+    return format.currencySymbol.toString() + ' ';
+  }
+
   Widget _cardEquipment(BuildContext context, EquipmentModel equipmentModel) {
     final card = Container(
       child: Column(
         children: [
-          Flexible(flex: 6, child: _imagenEquipo(equipmentModel)),
+          Flexible(
+              flex: 8,
+              child: Hero(
+                  tag: equipmentModel.id,
+                  child: _imagenEquipo(equipmentModel))),
           Flexible(
             flex: 1,
-            child: ListTile(
-              title: Text(
-                equipmentModel.titulo.toString(),
+            child: Align(
+             alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only( top: 8, left: 15),
+              child: Text(
+                currency() + equipmentModel.valor.toString(),
+                textAlign: TextAlign.center,
+                //equipmentModel.titulo.toString(),
                 style: TextStyle(
-                    fontSize: 15.0, fontFamily: "Raleway", color: Colors.white),
+                    fontSize: 17.0,
+                    fontFamily: "Raleway",
+                    color: Colors.black.withOpacity(0.7),
+                    fontWeight: FontWeight.w600),
               ),
-              subtitle: Text(
-                equipmentModel.itemDescription.toString(),
-                style: TextStyle(
-                    fontSize: 15.0, fontFamily: "Raleway", color: Colors.white),
-              ),
-              leading: Icon(Icons.menu_sharp, color: Colors.white),
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
+            ),),
           ),
           Flexible(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0, left: 15),
+              child: Text(
+                equipmentModel.titulo.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: "Raleway",
+                  color: Colors.black,
+                ),
+              ),
+            ),),
+          ),
+
+          /* Flexible(
             flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -153,29 +179,53 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
               ],
             ),
           ),
+
+          */
         ],
       ),
     );
 
-    return Container(
-      height: 400,
-      width: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0),
-        color: Color.fromRGBO(89, 122, 121, 1.0),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.black45,
-              spreadRadius: 1.0,
-              blurRadius: 5.0,
-              offset: Offset(2.0, 5.0))
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: card,
-      ),
-    );
+    return InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new EquipmentCompraPage(
+                        equipmentModel: equipmentModel,
+                        userModel: widget.userModel,
+                      )));
+        },
+        child: Container(
+          height: 400,
+          width: 200,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(112, 252, 118, 1),
+                Color.fromRGBO(89, 122, 121, 1),
+              ],
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0, 8),
+                blurRadius: 25,
+              )
+            ],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: card,
+          ),
+        ));
   }
 
   Widget _tarjetaEquipo(BuildContext context, EquipmentModel equipmentModel) {
@@ -314,19 +364,23 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
 
   Widget _imagenEquipo(EquipmentModel equipment) {
     if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
-      return Image(
-        image: AssetImage('assets/img/no-image.png'),
-        height: 300.0,
-        fit: BoxFit.cover,
-      );
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image(
+            image: AssetImage('assets/img/no-image.png'),
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ));
     } else {
-      return FadeInImage(
-        placeholder: AssetImage('assets/img/loader2.gif'),
-        image: NetworkImage(equipment.fotoUrl),
-        height: double.infinity,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      );
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: FadeInImage(
+            placeholder: AssetImage('assets/img/loader2.gif'),
+            image: NetworkImage(equipment.fotoUrl),
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ));
     }
   }
 
