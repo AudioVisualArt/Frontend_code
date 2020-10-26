@@ -86,7 +86,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                   ),
                   SizedBox(
                     height: 310,
-                    child: _ListadoEquipments(),
+                    child: _ListadoEquipments(usuario),
                   ),
                   SizedBox(
                     height: 100,
@@ -104,7 +104,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
         ));
   }
 
-  Widget _ListadoEquipments() {
+  Widget _ListadoEquipments(UserModel usuario) {
     return FutureBuilder(
       future: equiposProvider.cargarEquipments(),
       builder:
@@ -117,7 +117,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 1),
-                  child: RecomendadosMarket(equipos: equipos[index]),
+                  child: RecomendadosMarket(equipos: equipos[index], usuario: usuario,),
                   //_equiposCard(context, equipos[index]),
                 );
               });

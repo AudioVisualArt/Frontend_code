@@ -205,7 +205,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
         );
       } else {
         return FadeInImage(
-          placeholder: AssetImage('assets/img/jar-loading.gif'),
+          placeholder: AssetImage('assets/img/loader3.gif'),
           image: NetworkImage(widget.equipmentModel.fotoUrl),
         );
       }
