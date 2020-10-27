@@ -18,13 +18,14 @@ import 'package:http/http.dart';
 class SendContract extends StatefulWidget {
   String tag;
   UserModel usuarioOferta;
-
-  SendContract(this.tag, this.usuarioOferta);
+  String photoUrl;
+  String nombre;
+  SendContract(this.tag, this.usuarioOferta,this.photoUrl,this.nombre);
   //final description;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _SendContract(this.usuarioOferta, this.tag);
+    return _SendContract(this.usuarioOferta, this.tag,this.photoUrl,this.nombre);
   }
 }
 
@@ -40,7 +41,7 @@ class _SendContract extends State<SendContract> {
   List<Marker> _markers = [];
   String _currentAddress;
   ActividadProvider actividadProvider = new ActividadProvider();
-  _SendContract(UserModel usuarioOferta, String tag);
+  _SendContract(UserModel usuarioOferta, String tag,String photoUrl,String nombre);
 
   @override
   Widget build(BuildContext context) {
@@ -363,10 +364,21 @@ class _SendContract extends State<SendContract> {
         new NewContract())*/
 
     ActividadModel act = new ActividadModel(
-        descripcion: "Has ofrecido un contrato a ",
+        descripcion: "Has ofrecido un contrato a ${widget.nombre}",
         fecha: DateTime.now().toString(),
-        tipo: "Contrato");
+        tipo: "Contrato",
+        contenido: "${contrato.city},${contrato.jobPosition},${contrato.payment},${contrato.workHours}",
+        photoUrl: widget.photoUrl
+        );
+    ActividadModel act2 = new ActividadModel(
+        descripcion: "Has recibido un contrato de ${widget.usuarioOferta.name}",
+        fecha: DateTime.now().toString(),
+        tipo: "Contrato",
+        contenido: "${contrato.city},${contrato.jobPosition},${contrato.payment},${contrato.workHours}",
+        photoUrl: widget.usuarioOferta.photoUrl
+        );
     actividadProvider.crearActividad(act, widget.usuarioOferta.id);
+    actividadProvider.crearActividad(act2, widget.tag);
     Navigator.pop(context);
   }
 

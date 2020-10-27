@@ -20,6 +20,7 @@ class _MessageInfoState extends State<MessageInfo> {
   ChatModel aux;
   bool cambio=false;
   ScreenArgument args;
+  String url;
   final tarjetas=new List<Widget>();
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _MessageInfoState extends State<MessageInfo> {
   }
 
   Widget _mensajeInfo(ChatModel chat,BuildContext context, UserModel user,String name) {
-    String url;
+    
       if(chat.usuarioD==user.id){
         print(url);
         url=chat.photoUrlO;
@@ -218,12 +219,21 @@ class _MessageInfoState extends State<MessageInfo> {
        }
      });
     ActividadModel activity=new ActividadModel(
-      descripcion: "Enviaste enviado un mensaje a ${args.nameuser}",
+      descripcion: "Enviaste un mensaje a ${args.nameuser}",
       fecha: DateTime.now().toString(),
-      tipo: "Mensaje"
-
+      tipo: "Mensaje",
+      contenido: valor,
+      photoUrl: url
+    );
+     ActividadModel activity2=new ActividadModel(
+      descripcion: "Has recibido un mensaje de ${args.user.name}",
+      fecha: DateTime.now().toString(),
+      tipo: "Mensaje",
+      contenido: valor,
+      photoUrl: url
     );
     actividadProvider.crearActividad(activity, usuario.id);
+    actividadProvider.crearActividad(activity2, args.id2);
     if(args.ms!=null){
       args.ms.setState(() {
         

@@ -223,7 +223,7 @@ class PerfilPersonal extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          SendContract(tag, usuarioOferta)));
+                                          SendContract(tag, usuarioOferta,photoUrl,name)));
                                 },
                               ),
                             )
