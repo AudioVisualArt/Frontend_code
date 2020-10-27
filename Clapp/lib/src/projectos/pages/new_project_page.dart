@@ -226,23 +226,27 @@ class _NewProjectPage extends State<NewProjectPage> {
 
     proyecto.id = await Future.value(proyectoProvider.crearProyecto(proyecto));
     print("el id del proyecto es: ${proyecto.id}");
+          ActividadModel activity=new ActividadModel(
+          descripcion: "Has creado un nuevo proyecto",
+          fecha: DateTime.now().toString(),
+          tipo: "Proyecto",
+          contenido: "${proyecto.proyectName},${proyecto.projectType},${proyecto.description}",
+          photoUrl: usuario.photoUrl
+
+
+    );
+    actividadProvider.crearActividad(activity, usuario.id);
     if (resumen_ejecutivo != null && carpeta_madre != null) {
       StorageUploadTask t;
       t = await proyectoProvider.editarProyecto(
           proyecto, resumen_ejecutivo, carpeta_madre);
-
+     
       if (t.isComplete) {
         setState(() {
           _tasks.add(t);
           _saved = true;
           _savedFile = true;
-          ActividadModel activity=new ActividadModel(
-          descripcion: "Enviaste enviado un mensaje a ",
-          fecha: DateTime.now().toString(),
-          tipo: "Proyecto"
-
-    );
-    actividadProvider.crearActividad(activity, usuario.id);
+          
         });
       }
       // Navigator.pop(context);

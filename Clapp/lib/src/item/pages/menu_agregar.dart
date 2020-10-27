@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:flutter/material.dart';
 
 class MenuAgregarPage extends StatelessWidget {
   const MenuAgregarPage({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
