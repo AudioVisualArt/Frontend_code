@@ -38,9 +38,9 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Equipos',
-            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
-      ),
+          // title: Text('Equipos',
+          //   style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
+          ),
       body: Container(
         /*decoration: BoxDecoration(
             image: DecorationImage(
@@ -53,11 +53,8 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
         height: double.infinity,
         child: Container(
           //padding: EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            children: [
-              Flexible(flex: 1, child: _crearListadoEquipments(widget.file)),
-            ],
-          ),
+          child: _crearListadoEquipments(widget.file),
+          height: double.infinity,
           width: MediaQuery.of(context).size.width,
         ),
       ),
@@ -75,20 +72,56 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {
           final equipos = snapshot.data;
-          return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 14.0,
-                  mainAxisSpacing: 6.0,
-                  childAspectRatio: 0.66),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              itemCount: equipos.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: _cardEquipment(context, equipos[index]),
-                );
-              });
+          return SingleChildScrollView(
+              child: Column(
+            //mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, left: 30, bottom: 12),
+                child: Text('Equipos',
+                    style: TextStyle(
+                        fontSize: 31.0,
+                        fontFamily: "Raleway",
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                ),
+                child: Text(equipos.length.toString() + " resultados",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontFamily: "Raleway",
+                      color: Colors.black,
+                      //fontWeight: FontWeight.bold
+                    )),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              GridView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 14.0,
+                      mainAxisSpacing: 6.0,
+                      childAspectRatio: 0.66),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  itemCount: equipos.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: _cardEquipment(context, equipos[index]),
+                    );
+                  }),
+              SizedBox(
+                height: 25,
+              )
+            ],
+          ));
         } else {
           return Center(
             child: CircularProgressIndicator(
@@ -123,14 +156,13 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8, left: 15),
                 child: Text(
-                  currency() + equipmentModel.valor.toString(),
+                  equipmentModel.titulo.toString(),
                   textAlign: TextAlign.center,
-                  //equipmentModel.titulo.toString(),
                   style: TextStyle(
-                      fontSize: 17.0,
-                      fontFamily: "Raleway",
-                      color: Colors.black.withOpacity(0.7),
-                      fontWeight: FontWeight.w600),
+                    fontSize: 14.0,
+                    fontFamily: "Raleway",
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -142,12 +174,14 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 5.0, left: 15),
                 child: Text(
-                  equipmentModel.titulo.toString(),
+                  currency() + equipmentModel.valor.toString(),
                   textAlign: TextAlign.center,
+                  //equipmentModel.titulo.toString(),
                   style: TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 16.0,
                     fontFamily: "Raleway",
                     color: Colors.black,
+                    //fontWeight: FontWeight.bold
                   ),
                 ),
               ),
@@ -383,7 +417,7 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
       return ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: FadeInImage(
-            placeholder: AssetImage('assets/img/loader2.gif'),
+            placeholder: AssetImage('assets/img/loader3.gif'),
             image: NetworkImage(equipment.fotoUrl),
             width: double.infinity,
             height: double.infinity,

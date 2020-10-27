@@ -1,87 +1,105 @@
+import 'dart:math';
+
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
-class RecomendadosMarket extends StatelessWidget{
+class RecomendadosMarket extends StatelessWidget {
   final EquipmentModel equipos;
-  RecomendadosMarket({this.equipos});
+  final UserModel usuario;
+  RecomendadosMarket({this.equipos, this.usuario});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
       padding: const EdgeInsets.only(bottom: 9.7),
-      child: Container(
-        width: 190,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                    width: 180,
-                    height: 260,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(112, 252, 118, 1),
-                          Color.fromRGBO(89, 122, 121, 1),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new EquipmentCompraPage(
+                        equipmentModel: equipos,
+                        userModel: usuario,
+                      )));
+        },
+        child: Container(
+          width: 190,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Container(
+                      width: 180,
+                      height: 260,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromRGBO(112, 252, 118, 1),
+                            Color.fromRGBO(89, 122, 121, 1),
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0, 8),
+                            blurRadius: 25,
+                          )
                         ],
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(0, 8),
-                          blurRadius: 25,
-                        )
-                      ],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                            left: 10,
-                            right: 10,
-                            top: 14,
-                            child: Container(
-                              width: 170,
-                              height: 22,
-                              /*  constraints: BoxConstraints(
+                      child: Stack(
+                        children: [
+                          Positioned(
+                              left: 10,
+                              right: 10,
+                              top: 14,
+                              child: Container(
+                                width: 170,
+                                height: 22,
+                                /*  constraints: BoxConstraints(
                               maxWidth: 170,
                               maxHeight: 24
                             ),
 
                            */
-                              child: Text(equipos.titulo,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: "Raleway",
-                                    color: Colors.black,
-                                    //fontWeight: FontWeight.bold
-                                  )),
-                            ))
-                      ],
-                    )),
+                                child: Text(equipos.titulo,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily: "Raleway",
+                                      color: Colors.black,
+                                      //fontWeight: FontWeight.bold
+                                    )),
+                              ))
+                        ],
+                      )),
+                ),
               ),
-            ),
-            Positioned(top: 70, left: 5, right: 5, child: _imagenEquipo(equipos))
-          ],
+              Positioned(
+                  top: 70,
+                  left: 5,
+                  right: 5,
+                  child: Hero(tag: equipos.id, child: _imagenEquipo(equipos)))
+            ],
+          ),
         ),
       ),
     );
-
-
-
   }
+
   Widget _imagenEquipo(EquipmentModel equipment) {
     if (equipment.fotoUrl.isEmpty || equipment.fotoUrl == null) {
       return ClipRRect(
@@ -107,5 +125,4 @@ class RecomendadosMarket extends StatelessWidget{
               fit: BoxFit.cover));
     }
   }
-
 }
