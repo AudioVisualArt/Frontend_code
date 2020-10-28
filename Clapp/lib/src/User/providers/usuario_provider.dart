@@ -35,8 +35,9 @@ class UsuarioProvider {
 
       final url = '$_url/getUserByEmail/$email';
       final rsp = await http.get(url);
+      String source = Utf8Decoder().convert(rsp.bodyBytes);
 
-      UserModel userModel = UserModel.fromJson(json.decode(rsp.body));
+      UserModel userModel = UserModel.fromJson(json.decode(source));
       //print(rsp.body);
 
       return {'ok': true, 'user': userModel};
@@ -150,7 +151,8 @@ class UsuarioProvider {
       newuser.id = resp.body;
       return newuser;
     } else {
-      UserModel userm = UserModel.fromJson(json.decode(rsp.body));
+      String source = Utf8Decoder().convert(rsp.bodyBytes);
+      UserModel userm = UserModel.fromJson(json.decode(source));
       return userm;
     }
   }

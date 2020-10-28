@@ -43,7 +43,9 @@ class ContratosProvider {
     final rsp = await http.get(url);
     print(rsp.body);
 
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<ContractModel> contratos = new List();
     if (decodeData == null) return [];
 
@@ -83,8 +85,8 @@ class ContratosProvider {
     final url = '$_url/getAllContractsRecibed/$idUsuario';
     final rsp = await http.get(url);
     print(rsp.body);
-
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+    final Iterable decodeData = json.decode(source);
     List<ContractModel> contratos = new List();
     if (decodeData == null) return [];
 

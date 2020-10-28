@@ -150,7 +150,9 @@ class ProyectosProvider extends InheritedWidget{
     final rsp = await http.get(url);
     //print(rsp.body.toString());
 
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<ProjectModel> proyectos = new List();
     if (decodeData == null) return [];
 
@@ -165,7 +167,9 @@ class ProyectosProvider extends InheritedWidget{
     final rsp = await http.get(url);
     //print(rsp.body.toString());
 
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<ProjectModel> proyectos = new List();
     if (decodeData == null) return [];
 

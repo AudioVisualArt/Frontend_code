@@ -27,7 +27,9 @@ class FinancesProvider extends InheritedWidget {
     final rsp = await http.get(url);
     //print(rsp.body.toString());
 
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<FinanceModel> finances = new List();
     if (decodeData == null) return [];
 

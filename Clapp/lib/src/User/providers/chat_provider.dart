@@ -41,9 +41,10 @@ class ChatProvider {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllChats/$id';
     final rsp = await http.get(url);
-    
-    final Iterable decodeData = json.decode(rsp.body);
-    
+
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<ChatModel> chatModels = new List();
     List<MensajeModel> msgs=new List();
     if (decodeData == null) return null;
@@ -57,7 +58,9 @@ class ChatProvider {
   Future<List<MensajeModel>> cargarMess(String chatid) async {
     final url = '$_url/getAllMess/$chatid';
     final rsp = await http.get(url);
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     if (decodeData == null) return null;
     final mensajes = decodeData.map((model) => MensajeModel.fromJson(model)).toList();
     return mensajes;
