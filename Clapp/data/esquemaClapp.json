@@ -1,0 +1,130 @@
+{
+    "Clapp": {
+        "Contracts": [{
+            "acceptedApplicant": true,
+            "acceptedBidder": true,
+            "city": "Bogotá",
+            "desiredSkills": "actor express",
+            "id": "1k1l3ne3nwern",
+            "jobPosition": "Actor",
+            "latitud": 37.42,
+            "longitud": -122.3,
+            "payment": 123123,
+            "projectId": "12lnkjnrewflnf",
+            "userApplicantId": "1em32elnlrjkn",
+            "userBidderId": "1em32elnlrjkn"
+        }],
+        "projects": [{
+            "contacto": 123456,
+            "crew": "team",
+            "description": "temas varios",
+            "excutive_summary": "https://firebasestorage.googleapis.com",
+            "id": "lknlkn54n54kn5kl",
+            "ownerId": "ldvl343ln",
+            "projectType": "largometraje",
+            "projectName": "Bebe Dictador"
+        }],
+        "Finances": [{
+            "id": "1en3kjjk3e",
+            "porcentaje": 0,
+            "projectId": "idfm546mom",
+            "quanty": 50000,
+            "title": "bbva"
+        }],
+        "registros": {
+            "id": "d2l3l43lkj",
+            "idUser": "Iglsdfv435",
+            "actividades": [{
+                "id": "54m6n65n7",
+                "contenido": "Bogotá,Aguatero,500",
+                "descripcion": "has recibido un contraro",
+                "fecha": "2020-10-27 10:08:20.882239",
+                "photoUrl": "https://images.unsplash.com/photo-1555445091-5a8b65",
+                "tipo": "contrato"
+            }]
+        },
+        "items": [{
+            "id": "546nkjn5",
+            "titulo": "El Bebe Dictador",
+            "valor": 0.0,
+            "disponible": true,
+            "fotoUrl": "https://firebasestorage.googleapis.com",
+            "itemDescription": "Obra Maestra",
+            "idOwner": "Q545grv43",
+            "Equipments": [{
+                "spec": "micrófono inalambrico",
+                "marca": "Sim",
+                "modelo": "3r45",
+                "rent": false,
+                "sell": true,
+                "tag": "MICROFONO"
+            }],
+            "ScreenPlays": [{
+                "topic": "Guerra Clandestina",
+                "pages": 10,
+                "sinopsis": "ataque de la nada"
+            }],
+            "StockPhotos": [{
+                "photoType": "panorama",
+                "width": 1720,
+                "height": 820
+            }],
+            "Props": [{
+                "propType": "Utilidad",
+                "propTheme": "Drama"
+            }]
+        }],
+        "spaces": [{
+            "id": "kl43lnk3n5",
+            "description": "Desierto de ambiente de alto calor",
+            "imageUrl": "https://firebasestorage.googleapis.com",
+            "location": "Bogotá",
+            "minimumHours": "3 horas",
+            "name": "Desierto de poca vegetación",
+            "priceHour": 25000,
+            "raiting": 0,
+            "scheduleDays": "",
+            "scheduleHours": "5:45 a.m. a 11:30 p.m."
+        }],
+        "users": [{
+            "id": "jn32krn42n",
+            "age": 22,
+            "cityResidence": "Bogotá",
+            "description": "Liderazgo y emprendedor",
+            "email": "sebastian@sebas.com",
+            "name": "Carlos Pedraza",
+            "photoUrl": "https://firebasestorage.googleapis.com",
+            "rating": 0
+        }],
+        "workers": [{
+            "id": "2n43b5b53bkbvñ",
+            "userId": "n4v545g",
+            "studies": "Profesional Fotografo",
+            "profession": "Fotografia",
+            "minPayment": 200000,
+            "maxPayment": 300000,
+            "mainRol": "Director de Foto",
+            "hvUrl": "https://firebasestorage.googleapis.com",
+            "description": "Joven fotografo apasionado",
+            "briefCase": ""
+        }],
+        "chats": [{
+            "id": "39384bbjhbvfdsknv",
+            "fecha": "2020-10-26 17:41:48.152157",
+            "nameD": "Esteban Lemus",
+            "nameO": "Jonathan Molina",
+            "photoUrlD": "https://firebasestorage.googleapis.com",
+            "photoUrlO": "https://firebasestorage.googleapis.com",
+            "usuarioD": "434nk3jb5n",
+            "usuarioO": "65nj6jn65n",
+            "mensajes": [{
+                "chatId": "nkhb45k5jk",
+                "cont": 1,
+                "contenido": "hola",
+                "fecha": "2020-10-26 17:41:48.152157",
+                "usuario": "Jonathan Molina"
+            }]
+        }]
+    }
+
+}
