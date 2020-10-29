@@ -73,8 +73,9 @@ class ProductosProvider {
     final url = '$_url/getAllItems';
     final rsp = await http.get(url);
     print(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
 
-    final Iterable decodeData = json.decode(rsp.body);
+    final Iterable decodeData = json.decode(source);
     List<ItemModel> productos = new List();
     if (decodeData == null) return [];
 

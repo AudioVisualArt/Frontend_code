@@ -148,7 +148,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       color: Color.fromRGBO(89, 122, 121, 1.0),
       textColor: Colors.white,
       label: Text(
-        'Comprar',
+        'Contactar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       icon: Icon(Icons.system_update_alt),
@@ -156,22 +156,8 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
     );
   }
 
+  //Función para mensajes
   void _submit() {
-    if (!formKey.currentState.validate()) return;
-
-    formKey.currentState.save();
-
-    print('Todo Ok');
-
-    setState(() {
-      _guardando = true;
-    });
-
-    widget.equipmentModel.idOwner = widget.userModel.id;
-    widget.equipmentModel.disponible = false;
-
-    equipmentProvider.editarEquipment(widget.equipmentModel, foto);
-
     utils.mostrarAlerta(context, 'Compra Realizada');
 
     Navigator.pop(context);

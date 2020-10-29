@@ -73,7 +73,9 @@ class EquipmentProvider {
 
     print('Edit1: ${resp.body.trim()}');
 
-    final decodeData = json.decode(resp.body);
+    String source = Utf8Decoder().convert(resp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
 
     print('Edit: $decodeData');
 
@@ -86,7 +88,9 @@ class EquipmentProvider {
     final rsp = await http.get(url);
     print('Equipments: ' + rsp.body);
 
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<EquipmentModel> equipmentModels = new List();
     if (decodeData == null) return [];
 
@@ -126,7 +130,9 @@ class EquipmentProvider {
     //print('Equipments: ' + rsp.body);
 
     List<EquipmentModel> equipmentModelsMarket = new List();
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<EquipmentModel> equipmentModels = new List();
     if (decodeData == null) return [];
 
@@ -150,7 +156,9 @@ class EquipmentProvider {
     //print('Equipments: ' + rsp.body);
 
     List<EquipmentModel> equipmentModelsMarket = new List();
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<EquipmentModel> equipmentModels = new List();
     if (decodeData == null) return [];
 
@@ -174,7 +182,9 @@ class EquipmentProvider {
     //print('Equipments: ' + rsp.body);
 
     List<EquipmentModel> equipmentModelsMarket = new List();
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<EquipmentModel> equipmentModels = new List();
     if (decodeData == null) return [];
 

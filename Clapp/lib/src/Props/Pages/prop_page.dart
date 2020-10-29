@@ -1,39 +1,37 @@
 import 'dart:io';
-
-import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
-import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
-import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:Clapp/src/Props/Model/prop_model.dart';
+import 'package:Clapp/src/Props/Provider/prop_provider.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-class StockPhotoPage extends StatefulWidget {
+// ignore: must_be_immutable
+class PropPage extends StatefulWidget {
   UserModel userModel;
-  StockPhotoPage({Key key, this.userModel}) : super(key: key);
+  PropPage({Key key, this.userModel}) : super(key: key);
 
   @override
-  _StockPhotoPageState createState() => _StockPhotoPageState();
+  _PropPageState createState() => _PropPageState();
 }
 
-class _StockPhotoPageState extends State<StockPhotoPage> {
+class _PropPageState extends State<PropPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  StockPhotoModel stockPhoto = new StockPhotoModel();
-  final stockphotoProvider = new StockPhotoProvider();
+  PropModel propModel = new PropModel();
+  final propProvider = new PropProvider();
 
   bool _guardando = false;
-
-  bool _equipo = false;
-
   File foto;
 
   @override
   Widget build(BuildContext context) {
     widget.userModel = ModalRoute.of(context).settings.arguments;
-
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -45,7 +43,7 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            'Fotos',
+            'Prop',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
             textAlign: TextAlign.center,
           ),
@@ -73,11 +71,9 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
                   Divider(),
                   _crearDescripcion(),
                   Divider(),
-                  _crearPhotoType(),
+                  _crearPropType(),
                   Divider(),
-                  _crearWidth(),
-                  Divider(),
-                  _crearHeight(),
+                  _crearPropTheme(),
                   Divider(),
                   _crearPrecio(),
                   Divider(),
@@ -96,13 +92,13 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
   Widget _crearNombre() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: stockPhoto.titulo,
+      initialValue: propModel.titulo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Nombre de tu Foto',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => stockPhoto.titulo = value,
+      onSaved: (value) => propModel.titulo = value,
       validator: (value) {
         if (value.length < 3) {
           return 'Ingrese el nombre del Foto con mas 3 letras';
@@ -116,13 +112,13 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
   Widget _crearDescripcion() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: stockPhoto.itemDescription,
+      initialValue: propModel.itemDescription,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: 'Descripción Simple',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => stockPhoto.itemDescription = value,
+      onSaved: (value) => propModel.itemDescription = value,
       validator: (value) {
         if (value.length < 3) {
           return 'Ingresa un pequeña descripción';
@@ -135,13 +131,13 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
 
   Widget _crearPrecio() {
     return TextFormField(
-      initialValue: stockPhoto.valor.toString(),
+      initialValue: propModel.valor.toString(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Precio',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => stockPhoto.valor = double.parse(value),
+      onSaved: (value) => propModel.valor = double.parse(value),
       validator: (value) {
         if (utils.isNumeric(value)) {
           return null;
@@ -152,19 +148,19 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
     );
   }
 
-  Widget _crearPhotoType() {
+  Widget _crearPropType() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: stockPhoto.photoType,
+      initialValue: propModel.propType,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: 'Tipo de Foto',
+        labelText: '¿Tipo?',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => stockPhoto.photoType = value,
+      onSaved: (value) => propModel.propType = value,
       validator: (value) {
         if (value.length < 3) {
-          return 'Ingresa una especificación';
+          return 'Ingresa un tipo';
         } else {
           return null;
         }
@@ -172,41 +168,21 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
     );
   }
 
-  Widget _crearWidth() {
+  Widget _crearPropTheme() {
     return TextFormField(
       style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: stockPhoto.width.toString(),
+      initialValue: propModel.propType,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: '¿Ancho de tu Foto?',
+        labelText: '¿Tema?',
         labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      onSaved: (value) => stockPhoto.width = double.parse(value),
+      onSaved: (value) => propModel.propType = value,
       validator: (value) {
-        if (utils.isNumeric(value)) {
-          return null;
+        if (value.length < 3) {
+          return 'Ingresa un tema';
         } else {
-          return 'Solo números';
-        }
-      },
-    );
-  }
-
-  Widget _crearHeight() {
-    return TextFormField(
-      style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      initialValue: stockPhoto.height.toString(),
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: '¿Alto de Foto?',
-        labelStyle: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
-      ),
-      onSaved: (value) => stockPhoto.height = double.parse(value),
-      validator: (value) {
-        if (utils.isNumeric(value)) {
           return null;
-        } else {
-          return 'Solo números';
         }
       },
     );
@@ -214,14 +190,14 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
 
   Widget _crearDisponible() {
     return SwitchListTile(
-      value: stockPhoto.disponible,
+      value: propModel.disponible,
       title: Text(
         'Disponible',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       activeColor: Color.fromRGBO(153, 255, 204, 1.0),
       onChanged: (value) => setState(() {
-        stockPhoto.disponible = value;
+        propModel.disponible = value;
       }),
     );
   }
@@ -253,11 +229,11 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
       _guardando = true;
     });
 
-    if (stockPhoto.id == null) {
-      stockPhoto.idOwner = widget.userModel.id;
-      stockphotoProvider.crearPhoto(stockPhoto, foto);
+    if (propModel.id == null) {
+      propModel.idOwner = widget.userModel.id;
+      propProvider.crearProp(propModel, foto);
     } else {
-      stockphotoProvider.editarPhoto(stockPhoto, foto);
+      propProvider.editarProp(propModel, foto);
     }
 
     mostrarSnackbar('Registro Guardado');
@@ -275,14 +251,14 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
   }
 
   Widget _mostrarFoto() {
-    print('FotoURL: ' + stockPhoto.fotoUrl);
-    if (stockPhoto.fotoUrl.isEmpty || stockPhoto.fotoUrl == null) {
+    print('FotoURL: ' + propModel.fotoUrl);
+    if (propModel.fotoUrl.isEmpty || propModel.fotoUrl == null) {
       return Image(
         image: AssetImage(foto?.path ?? 'assets/img/no-image.png'),
         height: 300.0,
         fit: BoxFit.cover,
       );
-    } else if (stockPhoto.fotoUrl != null || stockPhoto.fotoUrl.isNotEmpty) {
+    } else if (propModel.fotoUrl != null || propModel.fotoUrl.isNotEmpty) {
       if (foto != null) {
         return Image(
           image: AssetImage(foto.path),
@@ -292,7 +268,7 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
       } else {
         return FadeInImage(
           placeholder: AssetImage('assets/img/jar-loading.gif'),
-          image: NetworkImage(stockPhoto.fotoUrl),
+          image: NetworkImage(propModel.fotoUrl),
         );
       }
     }

@@ -78,14 +78,17 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 7.0, right: 20, top: 37),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                      onPressed: () => Navigator.pop(context, false),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 7.0, right: 20, top: 37),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        color: Color.fromRGBO(115, 115, 115, 1.0),
+                        onPressed: () => Navigator.pop(context, false),
+                      ),
                     ),
                   ),
                 ),

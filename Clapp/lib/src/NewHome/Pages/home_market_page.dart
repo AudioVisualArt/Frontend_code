@@ -117,7 +117,10 @@ class _HomeMarketPage extends State<HomeMarketPage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 1),
-                  child: RecomendadosMarket(equipos: equipos[index], usuario: usuario,),
+                  child: RecomendadosMarket(
+                    equipos: equipos[index],
+                    usuario: usuario,
+                  ),
                   //_equiposCard(context, equipos[index]),
                 );
               });
@@ -319,7 +322,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                         ),
                         ElementoMenu(
                           name: 'Props',
-                          onPressed: 7,
+                          onPressed: 13,
                           usuario: usuario,
                           imagenIcono: "assets/img/propsIcon.png",
                           colorfondo: Color.fromRGBO(190, 214, 48, 1.0),
