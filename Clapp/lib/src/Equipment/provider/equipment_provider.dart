@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
+import 'package:Clapp/src/User/models/actividad_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +11,7 @@ import 'package:http/http.dart' as http;
 class EquipmentProvider {
   final String _url = utils.url;
 
+  ActividadProvider actividadProvider=ActividadProvider();
   Future<bool> crearEquipmente(EquipmentModel equipmentModel, File foto) async {
     final url = '$_url/saveEquipment';
 
@@ -23,7 +26,6 @@ class EquipmentProvider {
     print('URL Image: ' + imageUrl);
 
     equipmentModel.fotoUrl = imageUrl;
-
     final resp = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -31,7 +33,17 @@ class EquipmentProvider {
         body: equipmentModelToJson(equipmentModel));
 
     print(resp.statusCode);
+    print("ACTIVIDAD");
+     ActividadModel activity=new ActividadModel(
+          descripcion: "Has publicado un nuevo equipo",
+          fecha: DateTime.now().toString(),
+          tipo: "Equipo",
+          contenido: "${equipmentModel.titulo},${equipmentModel.marca},${equipmentModel.valor}",
+          photoUrl: equipmentModel.fotoUrl
+    );
+    print("QUE PASA ${activity.contenido}");
 
+    actividadProvider.crearActividad(activity, equipmentModel.idOwner);
     return true;
   }
 
@@ -82,6 +94,29 @@ class EquipmentProvider {
         decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
 
     return equipmentModels;
+  }
+
+  Future<EquipmentModel> cargarEquipment(String id) async {
+    print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getAllEquipments';
+    final rsp = await http.get(url);
+    print('Equipments: ' + rsp.body);
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<EquipmentModel> equipmentModels = new List();
+    if (decodeData == null) return null;
+
+    equipmentModels =
+        decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
+
+     equipmentModels.forEach((element) {
+      if(element.id==id){
+        return element;
+      }else{
+        return null;
+      }
+    });
+
   }
 
   Future<List<EquipmentModel>> cargarEquipmentsNotSessionUser(String id) async {
@@ -167,4 +202,7 @@ class EquipmentProvider {
 
     return 1;
   }
+
+  
+
 }

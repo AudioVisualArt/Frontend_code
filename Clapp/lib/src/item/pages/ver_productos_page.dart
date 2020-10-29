@@ -15,6 +15,7 @@ class MostrarProductosPage extends StatefulWidget {
 class _MostrarProductosPageState extends State<MostrarProductosPage> {
   final productosProvider = new ProductosProvider();
   final equipmentProvider = new EquipmentProvider();
+  
 
   @override
   Widget build(BuildContext context) {

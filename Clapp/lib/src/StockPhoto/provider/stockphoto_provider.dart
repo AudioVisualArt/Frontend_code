@@ -2,13 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
+import 'package:Clapp/src/User/models/actividad_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 class StockPhotoProvider {
   final String _url = utils.url;
-
+  ActividadProvider actividadProvider=ActividadProvider();
   Future<bool> crearPhoto(StockPhotoModel stockPhotoModel, File foto) async {
     final url = '$_url/savePhoto';
 
@@ -31,6 +33,17 @@ class StockPhotoProvider {
         body: stockPhotoModelToJson(stockPhotoModel));
 
     print(resp.statusCode);
+
+     ActividadModel activity=new ActividadModel(
+          descripcion: "Has publicado una nueva foto",
+          fecha: DateTime.now().toString(),
+          tipo: "Photo",
+          contenido: "${stockPhotoModel.titulo},${stockPhotoModel.photoType},${stockPhotoModel.valor}",
+          photoUrl: stockPhotoModel.fotoUrl
+
+
+    );
+    actividadProvider.crearActividad(activity, stockPhotoModel.idOwner);
 
     return true;
   }

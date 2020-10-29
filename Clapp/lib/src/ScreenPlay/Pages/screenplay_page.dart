@@ -5,7 +5,9 @@ import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/showPDF.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:Clapp/src/ScreenPlay/widgets/uploadtasklisttitle.dart';
+import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
   bool _savedFile = false;
   PlatformFile guion;
   GlobalKey<ScaffoldState> _scafoldKey = GlobalKey();
+  ActividadProvider actividadProvider=new ActividadProvider();
   final formKey = GlobalKey<FormState>();
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   final screenPlayProvider = ScreenPlayProvider();
@@ -274,6 +277,16 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
           _savedFile = true;
         });
       }
+       ActividadModel activity=new ActividadModel(
+          descripcion: "Has publicado un nuevo guion",
+          fecha: DateTime.now().toString(),
+          tipo: "Guion",
+          contenido: "${screenPlayModel.titulo},${screenPlayModel.topic},${screenPlayModel.valor}",
+          photoUrl: ""
+
+
+    );
+    actividadProvider.crearActividad(activity, screenPlayModel.idOwner);
       // Navigator.pop(context);
       utils.mostrarAlerta(context, 'Guion en  Clapp !!!');
     } else {

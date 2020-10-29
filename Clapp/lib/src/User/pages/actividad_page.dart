@@ -231,43 +231,89 @@ class _ActividadPageState extends State<ActividadPage> {
                           ),
                             ); 
                 break;
-              case 'Producto': var str=actividades[index].fecha;
+              case 'Equipo': var str=actividades[index].fecha;
                               var str2=str.split(" ");
-                            return Container(
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(135, 202, 118  , 1),
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.7),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            padding: EdgeInsets.all(10.0),
-                            margin: EdgeInsets.only(left: 10.0,right: 10.0,top: 5.0),
-                            child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                                children:[ 
-                                Text(str2[0]),
-                                SizedBox(height: 5.0),
-                                Row(
-                                children: [
-                                  Icon(Icons.mic_external_on),
+                              var str3=str2[1].split(".");
+                            return InkWell(
+                              onTap: (){
+                                var tokens=actividades[index].contenido.split(",");
+                             return showDialog(
+                                context: context,
+                                builder: (context){
+                                  return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  content: Container(
+                                  height: 500,
+                                  width: 600,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/img/homeback2.jpg"),
+                                    fit: BoxFit.cover,
+                                  )),
+                                 
+                                  child: Column(children: [
+                                    Image(
+                                      height: 100,
+                                      width: 100,
+                                      image: NetworkImage(actividades[index].photoUrl),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text("Descripción: ",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold),), 
+                                    SizedBox(height: 10,),
+                                    Text(actividades[index].descripcion,textAlign: TextAlign.center,),
+                                    SizedBox(height: 10,),
+                                    ListTile(leading: Text("Fecha: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(str2[0])),
+                                    ListTile(leading: Text("Hora: ",style: TextStyle(fontWeight: FontWeight.bold)),trailing:Text(str3[0],)), 
+                                    SizedBox(height: 10,),
+                                    Text("Contenido: ",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold)),
+                                    ListTile(leading: Text("Nombre: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[0])),
+                                    ListTile(leading: Text("Marca: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[1])),
+                                    ListTile(leading: Text("Valor: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[1])),          
+                                    
+                                  ],
+                                  ),
                                   
-                                  Expanded(
-                                    child: Text(actividades[index].descripcion,textAlign: TextAlign.center,style: TextStyle(
-                                      color: Colors.white,
-                                      fontStyle: FontStyle.italic
-                                    ),),
-                                  )
+                                ),
+                              );},
+                                
+                              );
+                              },
+                              child: Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(135, 202, 118  , 1),
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.7),
+                                    spreadRadius: 2,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
                                 ],
                               ),
-                              ]
-                            ),
-                          ); 
+                              padding: EdgeInsets.all(10.0),
+                              margin: EdgeInsets.only(left: 10.0,right: 10.0,top: 5.0),
+                              child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:[ 
+                                  Text(str2[0]),
+                                  SizedBox(height: 5.0),
+                                  Row(
+                                  children: [
+                                    Icon(Icons.mic_external_on),
+                                    
+                                    Expanded(
+                                      child: Text(actividades[index].descripcion,textAlign: TextAlign.center,style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic
+                                      ),),
+                                    )
+                                  ],
+                                ),
+                                ]
+                              ),
+                          ),
+                            ); 
                 break;
                 case 'Mensaje': var str=actividades[index].fecha;
                                 var str2=str.split(" ");
@@ -437,7 +483,177 @@ class _ActividadPageState extends State<ActividadPage> {
                               ]
                             ),
                           ),
-                                ); 
+                      ); 
+                break;
+                case "Photo":var str=actividades[index].fecha;
+                              var str2=str.split(" ");
+                              var str3=str2[1].split(".");
+                            return InkWell(
+                              onTap: (){
+                                var tokens=actividades[index].contenido.split(",");
+                             return showDialog(
+                                context: context,
+                                builder: (context){
+                                  return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  content: Container(
+                                  height: 500,
+                                  width: 600,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/img/homeback2.jpg"),
+                                    fit: BoxFit.cover,
+                                  )),
+                                 
+                                  child: Column(children: [
+                                    Image(
+                                      height: 100,
+                                      width: 100,
+                                      image: NetworkImage(actividades[index].photoUrl),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text("Descripción: ",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold),), 
+                                    SizedBox(height: 10,),
+                                    Text(actividades[index].descripcion,textAlign: TextAlign.center,),
+                                    SizedBox(height: 10,),
+                                    ListTile(leading: Text("Fecha: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(str2[0])),
+                                    ListTile(leading: Text("Hora: ",style: TextStyle(fontWeight: FontWeight.bold)),trailing:Text(str3[0],)), 
+                                    SizedBox(height: 10,),
+                                    Text("Contenido: ",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold)),
+                                    ListTile(leading: Text("Nombre: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[0])),
+                                    ListTile(leading: Text("Tipo: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[1])),
+                                    ListTile(leading: Text("Valor: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[2])),          
+                                    
+                                  ],
+                                  ),
+                                  
+                                ),
+                              );},
+                                
+                              );
+                              },
+                              child: Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(135, 202, 118  , 1),
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.7),
+                                    spreadRadius: 2,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              padding: EdgeInsets.all(10.0),
+                              margin: EdgeInsets.only(left: 10.0,right: 10.0,top: 5.0),
+                              child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:[ 
+                                  Text(str2[0]),
+                                  SizedBox(height: 5.0),
+                                  Row(
+                                  children: [
+                                    Icon(Icons.mic_external_on),
+                                    
+                                    Expanded(
+                                      child: Text(actividades[index].descripcion,textAlign: TextAlign.center,style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic
+                                      ),),
+                                    )
+                                  ],
+                                ),
+                                ]
+                              ),
+                          ),
+                            ); 
+
+                break;
+                case "Guion":
+                var str=actividades[index].fecha;
+                              var str2=str.split(" ");
+                              var str3=str2[1].split(".");
+                            return InkWell(
+                              onTap: (){
+                                var tokens=actividades[index].contenido.split(",");
+                             return showDialog(
+                                context: context,
+                                builder: (context){
+                                  return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  content: Container(
+                                  height: 600,
+                                  width: 600,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/img/homeback2.jpg"),
+                                    fit: BoxFit.cover,
+                                  )),
+                                 
+                                  child: Column(children: [
+                                    Image(
+                                      height: 100,
+                                      width: 100,
+                                      image: NetworkImage(actividades[index].photoUrl),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text("Descripción: ",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold),), 
+                                    SizedBox(height: 10,),
+                                    Text(actividades[index].descripcion,textAlign: TextAlign.center,),
+                                    SizedBox(height: 10,),
+                                    ListTile(leading: Text("Fecha: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(str2[0])),
+                                    ListTile(leading: Text("Hora: ",style: TextStyle(fontWeight: FontWeight.bold)),trailing:Text(str3[0],)), 
+                                    SizedBox(height: 10,),
+                                    Text("Contenido: ",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold)),
+                                    ListTile(leading: Text("Titulo: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[0])),
+                                    ListTile(leading: Text("Tema: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[1])),
+                                    ListTile(leading: Text("Valor: ",style: TextStyle(fontWeight: FontWeight.bold),),trailing: Text(tokens[1])),          
+                                    
+                                  ],
+                                  ),
+                                  
+                                ),
+                              );},
+                                
+                              );
+                              },
+                              child: Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(135, 202, 118  , 1),
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.7),
+                                    spreadRadius: 2,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              padding: EdgeInsets.all(10.0),
+                              margin: EdgeInsets.only(left: 10.0,right: 10.0,top: 5.0),
+                              child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:[ 
+                                  Text(str2[0]),
+                                  SizedBox(height: 5.0),
+                                  Row(
+                                  children: [
+                                    Icon(Icons.mic_external_on),
+                                    
+                                    Expanded(
+                                      child: Text(actividades[index].descripcion,textAlign: TextAlign.center,style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic
+                                      ),),
+                                    )
+                                  ],
+                                ),
+                                ]
+                              ),
+                          ),
+                            ); 
                 break;
           default: return Container();
         }
