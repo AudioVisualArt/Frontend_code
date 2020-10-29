@@ -1,5 +1,6 @@
 import 'package:Clapp/src/Market/pages/showStockPhotos_page.dart';
 import 'package:Clapp/src/Market/pages/show_equipments_page.dart';
+import 'package:Clapp/src/Market/pages/show_props_page.dart';
 import 'package:Clapp/src/Market/pages/show_screenplays_page.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
@@ -86,6 +87,14 @@ class ElementoMenu extends StatelessWidget {
                     context,
                     new MaterialPageRoute(
                         builder: (context) => new ShowPhotosPage(
+                              userModel: usuario,
+                            )));
+                break;
+              case 13:
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new ShowPropPage(
                               userModel: usuario,
                             )));
                 break;
