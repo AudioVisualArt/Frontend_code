@@ -7,6 +7,7 @@ import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 
 class OtherPage extends StatefulWidget {
   final UserModel user;
@@ -66,7 +67,7 @@ class _OtherPage extends State<OtherPage> {
     ));
   }
 
-  Widget _crearListado(String idUsuario, UserModel usuario)  {
+  Widget _crearListado(String idUsuario, UserModel usuario) {
     return FutureBuilder(
       future: proyectosProvider.cargarTodosProyectos(),
       builder:
@@ -74,33 +75,28 @@ class _OtherPage extends State<OtherPage> {
         if (snapshot.hasData) {
           final proyectos = snapshot.data;
           return ListView.builder(
-            shrinkWrap: true,
-            // padding: const EdgeInsets.all(8.0),
-            itemCount: proyectos.length,
-            itemBuilder: (context, index) {
-                  return FutureBuilder(
-                  future: contratosProvider.cargarContratosProoyecto(proyectos[index].id),
-                  builder:(BuildContext context, AsyncSnapshot<List<ContractModel>> snapshot) {
-                    
-                    if (snapshot.hasData) {
-                      List<ContractModel> aux=snapshot.data;
-                      if(aux.isNotEmpty){
-                         return _crearproyectos(
-                            context, proyectos[index], usuario);
-                      }else{
-                        return Container(
-
-                        );
+              shrinkWrap: true,
+              // padding: const EdgeInsets.all(8.0),
+              itemCount: proyectos.length,
+              itemBuilder: (context, index) {
+                return FutureBuilder(
+                    future: contratosProvider
+                        .cargarContratosProoyecto(proyectos[index].id),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<ContractModel>> snapshot) {
+                      if (snapshot.hasData) {
+                        List<ContractModel> aux = snapshot.data;
+                        if (aux.isNotEmpty) {
+                          return _crearproyectos(
+                              context, proyectos[index], usuario);
+                        } else {
+                          return Container();
+                        }
+                      } else {
+                        return Center(child: CircularProgressIndicator());
                       }
-                    }else{
-                      return Center(child: CircularProgressIndicator());
-                    }
-                     
-                  }
-                  );
-              } 
-          
-          );
+                    });
+              });
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -159,11 +155,13 @@ class _OtherPage extends State<OtherPage> {
       // color: Color.fromRGBO(227, 227, 227, 1.0),
       child: ListTile(
         onTap: () {
+          //mostrar_dialog.MostrarDialog(context, 'Tu proyecto ha sido creado!', 'Puedes buscar locaciones y personal en servicios.');
+
           showDialog(
             context: context,
-            builder: (BuildContext context) => ContractDetails(contrato, usuario),
+            builder: (BuildContext context) =>
+                ContractDetails(contrato, usuario),
           );
-
         },
         title: Text('${contrato.jobPosition} - ${contrato.workHours} horas',
             style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),

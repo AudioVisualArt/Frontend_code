@@ -14,6 +14,7 @@ import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/User/pages/actividad_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/User/pages/edit_profile_page.dart';
+import 'package:Clapp/src/User/pages/inicio_clapp_terminos.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/projectos/pages/Project_page.dart';
 import 'package:Clapp/src/Space/pages/space_details.dart';
@@ -57,6 +58,7 @@ import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
+
 
 import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
 
@@ -115,5 +117,8 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home_servicios': (BuildContext context) => HomeServiciosPage(),
     'home_principal': (BuildContext context) => HomePagePrincipal(),
     'props': (BuildContext context) => PropPage(),
+    'terminos_clapp': (BuildContext context) => InicioClapp(),
+
+
   };
 }

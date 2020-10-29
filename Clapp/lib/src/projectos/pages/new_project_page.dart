@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 import 'package:Clapp/src/item/model/item_models.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
@@ -31,7 +31,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   var _categoryNameProject = TextEditingController();
   // tipo de projecto
   var _selectedValue;
-  ActividadProvider actividadProvider=new ActividadProvider();
+  ActividadProvider actividadProvider = new ActividadProvider();
   ProjectModel proyecto = new ProjectModel();
   bool _guardando = false;
   final proyectoProvider = new ProyectosProvider();
@@ -226,27 +226,25 @@ class _NewProjectPage extends State<NewProjectPage> {
 
     proyecto.id = await Future.value(proyectoProvider.crearProyecto(proyecto));
     print("el id del proyecto es: ${proyecto.id}");
-          ActividadModel activity=new ActividadModel(
-          descripcion: "Has creado un nuevo proyecto",
-          fecha: DateTime.now().toString(),
-          tipo: "Proyecto",
-          contenido: "${proyecto.proyectName},${proyecto.projectType},${proyecto.description}",
-          photoUrl: usuario.photoUrl
-
-
-    );
+    ActividadModel activity = new ActividadModel(
+        descripcion: "Has creado un nuevo proyecto",
+        fecha: DateTime.now().toString(),
+        tipo: "Proyecto",
+        contenido:
+            "${proyecto.proyectName},${proyecto.projectType},${proyecto.description}",
+        photoUrl: usuario.photoUrl);
     actividadProvider.crearActividad(activity, usuario.id);
+
     if (resumen_ejecutivo != null && carpeta_madre != null) {
       StorageUploadTask t;
       t = await proyectoProvider.editarProyecto(
           proyecto, resumen_ejecutivo, carpeta_madre);
-     
+
       if (t.isComplete) {
         setState(() {
           _tasks.add(t);
           _saved = true;
           _savedFile = true;
-          
         });
       }
       // Navigator.pop(context);

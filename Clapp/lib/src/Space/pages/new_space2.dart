@@ -6,6 +6,7 @@ import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
 import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 import 'package:Clapp/src/User/providers/actividad_provider.dart';
 
 import 'package:Clapp/src/services/pages/services_page.dart';
@@ -40,8 +41,6 @@ class NewSpace2 extends StatefulWidget {
 class _NewSpace2 extends State<NewSpace2> {
   final picker = ImagePicker();
   File foto;
-
-
 
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _guardando = false;
@@ -411,7 +410,6 @@ class _NewSpace2 extends State<NewSpace2> {
         )));
   }
 
-
   _seleccionarFoto() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     //limpiar
@@ -423,44 +421,39 @@ class _NewSpace2 extends State<NewSpace2> {
   }
 
   void _submit(SpaceModel espacio, UserModel user) async {
-    if(foto != null) {
-    if (!spaceformkey2.currentState.validate()) return;
-    spaceformkey2.currentState.save();
-    print('Todo Ok');
-    setState(() {
-      _guardando = true;
-    });
-
-      if (espacio.id == null) {
-      espacio.userOwner = user.id;
-      var url=await spaceProvider.crearEspacio(espacio, foto);
-      ActividadModel act = new ActividadModel(
-        descripcion: "Has publicado un nuevo espacio",
-        fecha: DateTime.now().toString(),
-        tipo: "Espacio",
-        contenido: "${espacio.name},${espacio.location},${espacio.scheduleHours},${espacio.priceHour}",
-        photoUrl: url
-        );
-        actividadProvider.crearActividad(act, user.id);
-      /*showDialog(context: context,builder: (BuildContext context) {
-        return Container(
-          height: 300,
-          width: 300,
-          child: Text(
-            "Su locacion ha sido publicada con exito"
-          )
-        );
+    if (foto != null) {
+      if (!spaceformkey2.currentState.validate()) return;
+      spaceformkey2.currentState.save();
+      print('Todo Ok');
+      setState(() {
+        _guardando = true;
       });
 
-       */
-      Navigator.pop(context);
-      Navigator.pop(context);
+      if (espacio.id == null) {
+        espacio.userOwner = user.id;
+        var url = await spaceProvider.crearEspacio(espacio, foto);
+        ActividadModel act = new ActividadModel(
+            descripcion: "Has publicado un nuevo espacio",
+            fecha: DateTime.now().toString(),
+            tipo: "Espacio",
+            contenido:
+                "${espacio.name},${espacio.location},${espacio.scheduleHours},${espacio.priceHour}",
+            photoUrl: url);
+        actividadProvider.crearActividad(act, user.id);
 
-      utils.mostrarAlerta(context, 'Su locacion ha sido publicada con exito!');
+        Navigator.pop(context);
+        Navigator.pop(context);
+
+        mostrar_dialog.MostrarDialog(context, 'Su locación ha sido publicada!',
+            'Otros Clappers podrán ver tu locacion en servicios y contactarte para rentarla.');
+        // utils.mostrarAlerta(context, 'Su locacion ha sido publicada con exito!');
+      } else {
+        spaceProvider.editarEspacio(espacio, foto);
+      }
     } else {
-      spaceProvider.editarEspacio(espacio, foto);
-    }} else{
-      utils.mostrarAlerta(context, 'Debes seleccionar o tomar un foto');
+      mostrar_dialog.MostrarDialog(context, 'Error!',
+          'Debes seleccionar una imagen o tomar una foto para publicar una locación.');
+      //utils.mostrarAlerta(context, 'Debes seleccionar o tomar un foto');
     }
   }
 }
