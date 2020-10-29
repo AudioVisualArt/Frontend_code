@@ -23,7 +23,9 @@ class ActividadProvider{
   Future<List<ActividadModel>> cargarActividades(String userid) async {
       final url = '$_url/getAllActivities/$userid';
       final rsp = await http.get(url);
-      final Iterable decodeData = json.decode(rsp.body);
+      String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+      final Iterable decodeData = json.decode(source);
       if (decodeData == null) return null;
       final actividades = decodeData.map((model) => ActividadModel.fromJson(model)).toList();
       actividades.sort((b,a)=>a.fecha.compareTo(b.fecha));

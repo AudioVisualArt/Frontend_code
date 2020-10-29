@@ -4,7 +4,9 @@ import 'package:Clapp/src/Space/model/SpaceModel.dart';
 
 import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
+import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/providers/actividad_provider.dart';
 
 import 'package:Clapp/src/services/pages/services_page.dart';
 import 'package:file_picker/file_picker.dart';
@@ -44,7 +46,7 @@ class _NewSpace2 extends State<NewSpace2> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _guardando = false;
   DateTime date1, date2;
-
+  ActividadProvider actividadProvider = new ActividadProvider();
 
   final spaceProvider = new SpacesProvider();
   final spaceformkey2 = GlobalKey<FormState>();
@@ -420,7 +422,7 @@ class _NewSpace2 extends State<NewSpace2> {
     }
   }
 
-  void _submit(SpaceModel espacio, UserModel user) {
+  void _submit(SpaceModel espacio, UserModel user) async {
     if(foto != null) {
     if (!spaceformkey2.currentState.validate()) return;
     spaceformkey2.currentState.save();
@@ -431,7 +433,15 @@ class _NewSpace2 extends State<NewSpace2> {
 
       if (espacio.id == null) {
       espacio.userOwner = user.id;
-      spaceProvider.crearEspacio(espacio, foto);
+      var url=await spaceProvider.crearEspacio(espacio, foto);
+      ActividadModel act = new ActividadModel(
+        descripcion: "Has publicado un nuevo espacio",
+        fecha: DateTime.now().toString(),
+        tipo: "Espacio",
+        contenido: "${espacio.name},${espacio.location},${espacio.scheduleHours},${espacio.priceHour}",
+        photoUrl: url
+        );
+        actividadProvider.crearActividad(act, user.id);
       /*showDialog(context: context,builder: (BuildContext context) {
         return Container(
           height: 300,

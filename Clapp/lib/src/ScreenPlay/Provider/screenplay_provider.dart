@@ -93,7 +93,9 @@ class ScreenPlayProvider {
     final rsp = await http.get(url);
     print('ScreenPlays: ' + rsp.body);
 
-    final Iterable decodeData = json.decode(rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
     List<ScreenPlayModel> screenplayModels = new List();
     if (decodeData == null) return [];
 

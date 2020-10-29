@@ -39,7 +39,7 @@ class SpacesProvider {
     return espacios;
   }
 
-  Future<bool> crearEspacio(SpaceModel espacio, File foto) async {
+  Future<String> crearEspacio(SpaceModel espacio, File foto) async {
     final url = '$_url/saveSpace';
 
     final StorageReference postImageRef =
@@ -62,7 +62,7 @@ class SpacesProvider {
 
     print(resp.statusCode);
 
-    return true;
+    return imagenUrl;
   }
 
   Future<bool> editarEspacio(SpaceModel espacio, File foto) async {
