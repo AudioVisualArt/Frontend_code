@@ -36,17 +36,12 @@ class _NewProjectPage extends State<NewProjectPage> {
   bool _guardando = false;
   final proyectoProvider = new ProyectosProvider();
 
-  var _categoriesProjectType = List<DropdownMenuItem>();
-  // job positions
-  var _categoriesJobPosition = List<DropdownMenuItem>();
-
-  //publico
-  var _categoriesPublico = List<DropdownMenuItem>();
   PlatformFile resumen_ejecutivo;
   PlatformFile carpeta_madre;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   bool _saved = false;
   bool _savedFile = false;
+  final projectformkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +96,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                   padding: EdgeInsets.only(
                       right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
                   child: Form(
-                    //key: formKey,
-
+                    key: projectformkey,
                     child: Column(
                       children: <Widget>[
                         _projectname(),
@@ -141,6 +135,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                         textColor: Colors.white,
                         color: Color.fromRGBO(112, 252, 118, 0.8),
                         onPressed: () {
+                          (_guardando) ? null : _submit(usuario);
                           if (proyecto.description.isNotEmpty &&
                               proyecto.contacto.isNotEmpty &&
                               proyecto.projectType.isNotEmpty &&
@@ -219,41 +214,62 @@ class _NewProjectPage extends State<NewProjectPage> {
     );
   }
 
-  _submit(
+  void _submit(
     UserModel usuario,
   ) async {
     //proyecto.idUser= usuario.id;
-
-    proyecto.id = await Future.value(proyectoProvider.crearProyecto(proyecto));
-    print("el id del proyecto es: ${proyecto.id}");
-    ActividadModel activity = new ActividadModel(
-        descripcion: "Has creado un nuevo proyecto",
-        fecha: DateTime.now().toString(),
-        tipo: "Proyecto",
-        contenido:
-            "${proyecto.proyectName},${proyecto.projectType},${proyecto.description}",
-        photoUrl: usuario.photoUrl);
-    actividadProvider.crearActividad(activity, usuario.id);
-
     if (resumen_ejecutivo != null && carpeta_madre != null) {
-      StorageUploadTask t;
-      t = await proyectoProvider.editarProyecto(
-          proyecto, resumen_ejecutivo, carpeta_madre);
+      if (!projectformkey.currentState.validate()) return;
+      projectformkey.currentState.save();
+      print('Todo Ok');
+      setState(() {
+        _guardando = true;
+      });
+      if (proyecto.id == null) {
+        proyecto.id =
+            await Future.value(proyectoProvider.crearProyecto(proyecto));
+        print("el id del proyecto es: ${proyecto.id}");
+        ActividadModel activity = new ActividadModel(
+            descripcion: "Has creado un nuevo proyecto",
+            fecha: DateTime.now().toString(),
+            tipo: "Proyecto",
+            contenido:
+                "${proyecto.proyectName},${proyecto.projectType},${proyecto.description}",
+            photoUrl: usuario.photoUrl);
+        actividadProvider.crearActividad(activity, usuario.id);
 
-      if (t.isComplete) {
-        setState(() {
-          _tasks.add(t);
-          _saved = true;
-          _savedFile = true;
-        });
+        StorageUploadTask t;
+        t = await proyectoProvider.editarProyecto(
+            proyecto, resumen_ejecutivo, carpeta_madre);
+
+        if (t.isComplete) {
+          setState(() {
+            _tasks.add(t);
+            _saved = true;
+            _savedFile = true;
+          });
+        }
+
+        // Navigator.pop(context);
+        //utils.mostrarAlerta(context, 'resumen ejecutivo en  Clapp !!!');
+      } else {
+        proyectoProvider.editarProyecto(
+            proyecto, resumen_ejecutivo, carpeta_madre);
       }
-      // Navigator.pop(context);
-      utils.mostrarAlerta(context, 'resumen ejecutivo en  Clapp !!!');
     } else {
       setState(() {
         _saved = false;
       });
-      utils.mostrarAlerta(context, 'No Has Subido Ningún resumen ejecutivo');
+      if (resumen_ejecutivo == null && carpeta_madre == null) {
+        mostrar_dialog.MostrarDialog(context, 'Error!',
+            'Debes subir el resumen ejecutivo y la carpeta madre para crear un proyecto.');
+      } else if (resumen_ejecutivo == null) {
+        mostrar_dialog.MostrarDialog(context, 'Error!',
+            'Debes subir el resumen ejecutivo para crear un proyecto.');
+      } else {
+        mostrar_dialog.MostrarDialog(context, 'Error!',
+            'Debes subir la carpeta madre para crear un proyecto.');
+      }
     }
   }
 
