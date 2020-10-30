@@ -140,7 +140,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                               proyecto.contacto.isNotEmpty &&
                               proyecto.projectType.isNotEmpty &&
                               proyecto.proyectName.isNotEmpty) {
-                            _submit(usuario);
+                            //_submit(usuario);
                             Navigator.popAndPushNamed(
                               context,
                               'details_project',
