@@ -1,5 +1,8 @@
 import 'package:Clapp/src/ScreenPlay/Pages/showPDF.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
+import 'package:Clapp/src/User/models/chat_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +24,9 @@ class ShowScreenPlayPage extends StatefulWidget {
 
 class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
   final screenPlayProvider = ScreenPlayProvider();
-
+  UserModel owner;
+  UsuarioProvider user=UsuarioProvider();
+  ChatProvider chat=ChatProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -292,8 +297,15 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
                     icon: Icon(
                       Icons.mark_chat_read,
                     ),
-                    onPressed: () {
-                      //TODO: Función Para Contactar al dueño del guion
+                    onPressed: () async {
+                      if (widget.userModel.id != screenPlayModel.idOwner) {
+                        ChatModel chat = await _conseguirChat(
+                            screenPlayModel.idOwner, widget.userModel);
+                        ScreenArgument sc = ScreenArgument(
+                           widget.userModel, chat, owner.name, owner.id, null);
+                        Navigator.pushNamed(context, 'messageInfo',
+                            arguments: sc);
+                      }
                     }),
               ),
             ),
@@ -353,5 +365,44 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
             );
           }
         });
+  }
+   Future<ChatModel> _conseguirChat(
+      String tag, UserModel usuarioOferta) async {
+     owner=await user.obtenerUsuario(tag);
+    bool existe = false;
+    ChatModel ct;
+    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
+    if (chats != null) {
+      chats.forEach((element) {
+        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
+          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
+            existe = true;
+            ct = element;
+          }
+        }
+      });
+    }
+
+    if (existe == false) {
+      ct = ChatModel(
+          chatId: "dddd",
+          fecha: DateTime.now().toString(),
+          nameD: owner.name,
+          nameO: usuarioOferta.name,
+          photoUrlD: owner.photoUrl,
+          photoUrlO: usuarioOferta.photoUrl,
+          usuarioD: tag,
+          usuarioO: usuarioOferta.id);
+      bool resp = await chat.crearChat(ct);
+      chats = await chat.cargarChats(usuarioOferta.id);
+      chats.forEach((element) {
+        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
+          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
+            ct = element;
+          }
+        }
+      });
+    }
+    return ct;
   }
 }
