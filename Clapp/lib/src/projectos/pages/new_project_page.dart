@@ -28,9 +28,6 @@ class NewProjectPage extends StatefulWidget {
 }
 
 class _NewProjectPage extends State<NewProjectPage> {
-  var _categoryNameProject = TextEditingController();
-  // tipo de projecto
-  var _selectedValue;
   ActividadProvider actividadProvider = new ActividadProvider();
   ProjectModel proyecto = new ProjectModel();
   bool _guardando = false;
@@ -74,15 +71,6 @@ class _NewProjectPage extends State<NewProjectPage> {
                     )),
                 //background:
               ),
-              actions: [
-                IconButton(
-                  icon: Icon(
-                    Icons.file_upload,
-                    color: Colors.black,
-                  ),
-                  onPressed: openFileExplorer,
-                ),
-              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(<Widget>[
@@ -136,17 +124,6 @@ class _NewProjectPage extends State<NewProjectPage> {
                         color: Color.fromRGBO(112, 252, 118, 0.8),
                         onPressed: () {
                           (_guardando) ? null : _submit(usuario);
-                          if (proyecto.description.isNotEmpty &&
-                              proyecto.contacto.isNotEmpty &&
-                              proyecto.projectType.isNotEmpty &&
-                              proyecto.proyectName.isNotEmpty) {
-                            //_submit(usuario);
-                            Navigator.popAndPushNamed(
-                              context,
-                              'details_project',
-                              arguments: proyecto,
-                            );
-                          }
                         },
                       ),
                     ))
@@ -226,6 +203,19 @@ class _NewProjectPage extends State<NewProjectPage> {
         _guardando = true;
       });
       if (proyecto.id == null) {
+        if (proyecto.description.isNotEmpty &&
+            proyecto.contacto.isNotEmpty &&
+            proyecto.projectType.isNotEmpty &&
+            proyecto.proyectName.isNotEmpty) {
+          //_submit(usuario);
+          Navigator.popAndPushNamed(
+            context,
+            'details_project',
+            arguments: proyecto,
+          );
+        }
+        mostrar_dialog.MostrarDialog(context, 'Tu proyecto ha sido creado!',
+            'Desde esta sección puedes crear contratos y gestionar el personal y las finanzas de tu proyecto.');
         proyecto.id =
             await Future.value(proyectoProvider.crearProyecto(proyecto));
         print("el id del proyecto es: ${proyecto.id}");

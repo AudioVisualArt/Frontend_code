@@ -39,7 +39,7 @@ void MostrarDialog(BuildContext context, String mensaje, String description) {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
                       child: Text(description,
                           textAlign: TextAlign.center,
                           style: TextStyle(

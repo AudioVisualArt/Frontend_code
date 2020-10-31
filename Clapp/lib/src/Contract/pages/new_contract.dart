@@ -28,13 +28,6 @@ class _NewContract extends State<NewContract> {
   ContractModel contrato = new ContractModel();
   bool _guardando = false;
   var _selectedValue;
-  var _categoriesJobPosition = List<DropdownMenuItem>();
-
-  var _categoriesWorkDays = List<DropdownMenuItem>();
-
-  var _categoriesPlace = List<DropdownMenuItem>();
-
-  var _categoriesDesiredSkills = List<DropdownMenuItem>();
 
   final contratoProvider = new ContratosProvider();
   @override
@@ -92,6 +85,12 @@ class _NewContract extends State<NewContract> {
                         SizedBox(height: 10),
                         _payment(),
                         SizedBox(height: 10),
+                        Container(
+                            padding: EdgeInsets.only(bottom: 15.0),
+                            child: Text('Ubicación (opcional)',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 17.5, fontFamily: "Raleway"))),
                         _googleMap(),
                         SizedBox(height: 10),
                       ],
@@ -363,12 +362,11 @@ class _NewContract extends State<NewContract> {
       _guardando = true;
     });
     if (contrato.id == null) {
-      contratoProvider.crearContrato(contrato);
-
       Navigator.pop(context);
 
       mostrar_dialog.MostrarDialog(context, 'Tu contrato ha sido creado!',
-          'Otros Clappers podrán ver tus contrato y contactarte.');
+          'Otros Clappers podrán ver tu contrato y contactarte.');
+      contratoProvider.crearContrato(contrato);
     }
     //else {
     //contratoProvider.editarContrato(contrato);
@@ -380,7 +378,7 @@ class _NewContract extends State<NewContract> {
 
     //Duration(milliseconds: 1500);
     //Navigator.pop(context,
-      //  new MaterialPageRoute(builder: (context) => new NewContract()));
+    //  new MaterialPageRoute(builder: (context) => new NewContract()));
     //Navigator.pushReplacementNamed(context, 'contrato');
   }
 
