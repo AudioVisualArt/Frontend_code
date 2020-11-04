@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
 
   bool _guardando = false;
   bool _rentSell = true;
+  bool _loading = false;
 
   List<String> _tags = [
     'Seleccionar',
@@ -75,6 +77,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
             child: Form(
               key: formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _mostrarFoto(),
@@ -100,6 +103,16 @@ class _EquipmentPageState extends State<EquipmentPage> {
                   _crearSell(),
                   Divider(),
                   _crearBoton(),
+                  Divider(),
+                  _loading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ))
+                      : Container(
+                          height: 0.0,
+                          width: 0.0,
+                        ),
                 ],
               ),
             ),
@@ -326,7 +339,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
@@ -334,33 +347,23 @@ class _EquipmentPageState extends State<EquipmentPage> {
     print('Todo Ok');
 
     setState(() {
+      _loading = true;
       _guardando = true;
     });
 
     if (equipment.id == null) {
       equipment.idOwner = widget.userModel.id;
-      equipmentProvider.crearEquipmente(equipment, foto);
+      await equipmentProvider.crearEquipmente(equipment, foto);
     } else {
-      equipmentProvider.editarEquipment(equipment, foto);
+      await equipmentProvider.editarEquipment(equipment, foto);
     }
 
-    final snacckbar = SnackBar(
-      content: Text('En Clapp'),
-      duration: Duration(seconds: 1),
-    );
+    setState(() {
+      _loading = false;
+    });
 
-    scaffoldKey.currentState.showSnackBar(snacckbar);
-
-    Navigator.pop(context);
-  }
-
-  void mostrarSnackbar(String mensaje) {
-    final snacckbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 3),
-    );
-
-    scaffoldKey.currentState.showSnackBar(snacckbar);
+    MostrarDialog(context, 'Equipo en Clapp !!!',
+        'Has creado el Equipo ${equipment.titulo}');
   }
 
   Widget _mostrarFoto() {

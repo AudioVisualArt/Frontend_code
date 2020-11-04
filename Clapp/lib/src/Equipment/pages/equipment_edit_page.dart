@@ -1,13 +1,15 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
-import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:Clapp/src/item/providers/productos_provider.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
 class EquipmentEditPage extends StatefulWidget {
@@ -28,6 +30,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
 
   bool _guardando = false;
   bool _rentSell = true;
+  bool _loading = false;
 
   List<String> _tags = [
     'Seleccionar',
@@ -108,6 +111,16 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
                   _crearSell(),
                   Divider(),
                   _crearBoton(),
+                  Divider(),
+                  _loading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ))
+                      : Container(
+                          height: 0.0,
+                          width: 0.0,
+                        ),
                 ],
               ),
             ),
@@ -333,7 +346,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
@@ -342,22 +355,17 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
 
     setState(() {
       _guardando = true;
+      _loading = true;
     });
 
-    equipmentProvider.editarEquipment(equipment, foto);
+    await equipmentProvider.editarEquipment(equipment, foto);
 
-    mostrarSnackbar('Registro Guardado');
+    setState(() {
+      _loading = false;
+    });
 
-    Navigator.pop(context);
-  }
-
-  void mostrarSnackbar(String mensaje) {
-    final snacckbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 3),
-    );
-
-    scaffoldKey.currentState.showSnackBar(snacckbar);
+    MostrarDialog(context, 'Equipo Actualizado en Clapp !!!',
+        'Has actualizado el equipo ${equipment.titulo}');
   }
 
   Widget _mostrarFoto() {

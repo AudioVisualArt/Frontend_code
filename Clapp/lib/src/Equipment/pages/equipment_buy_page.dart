@@ -14,7 +14,7 @@ import 'package:Clapp/src/utils/utils.dart' as utils;
 class EquipmentCompraPage extends StatefulWidget {
   final UserModel userModel;
   final EquipmentModel equipmentModel;
-  
+
   EquipmentCompraPage({Key key, this.userModel, this.equipmentModel})
       : super(key: key);
 
@@ -27,7 +27,7 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   ChatProvider chat = new ChatProvider();
   final equipmentProvider = new EquipmentProvider();
-  UsuarioProvider userProvider=UsuarioProvider();
+  UsuarioProvider userProvider = UsuarioProvider();
   UserModel owner;
   bool _guardando = false;
 
@@ -157,18 +157,15 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
         'Contactar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      icon: Icon(Icons.system_update_alt),
+      icon: Icon(Icons.message),
       onPressed: () async {
-
-                      if (widget.userModel.id != widget.equipmentModel.idOwner) {
-                        ChatModel chat = await _conseguirChat(
-                            widget.equipmentModel.idOwner, widget.userModel);
-                        ScreenArgument sc = ScreenArgument(
-                           widget.userModel, chat, owner.name, owner.id, null);
-                        Navigator.pushNamed(context, 'messageInfo',
-                            arguments: sc);
-                      }
-      
+        if (widget.userModel.id != widget.equipmentModel.idOwner) {
+          ChatModel chat = await _conseguirChat(
+              widget.equipmentModel.idOwner, widget.userModel);
+          ScreenArgument sc = ScreenArgument(
+              widget.userModel, chat, owner.name, owner.id, null);
+          Navigator.pushNamed(context, 'messageInfo', arguments: sc);
+        }
       },
     );
   }
@@ -233,9 +230,9 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       setState(() {});
     }
   }
-  Future<ChatModel> _conseguirChat(
-      String tag, UserModel usuarioOferta) async {
-     owner=await userProvider.obtenerUsuario(tag);
+
+  Future<ChatModel> _conseguirChat(String tag, UserModel usuarioOferta) async {
+    owner = await userProvider.obtenerUsuario(tag);
     bool existe = false;
     ChatModel ct;
     List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);

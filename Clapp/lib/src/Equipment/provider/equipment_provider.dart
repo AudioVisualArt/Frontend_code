@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class EquipmentProvider {
   final String _url = utils.url;
 
-  ActividadProvider actividadProvider=ActividadProvider();
+  ActividadProvider actividadProvider = ActividadProvider();
   Future<bool> crearEquipmente(EquipmentModel equipmentModel, File foto) async {
     final url = '$_url/saveEquipment';
 
@@ -34,13 +34,13 @@ class EquipmentProvider {
 
     print(resp.statusCode);
     print("ACTIVIDAD");
-     ActividadModel activity=new ActividadModel(
-          descripcion: "Has publicado un nuevo equipo",
-          fecha: DateTime.now().toString(),
-          tipo: "Equipo",
-          contenido: "${equipmentModel.titulo},${equipmentModel.marca},${equipmentModel.valor}",
-          photoUrl: equipmentModel.fotoUrl
-    );
+    ActividadModel activity = new ActividadModel(
+        descripcion: "Has publicado un nuevo equipo",
+        fecha: DateTime.now().toString(),
+        tipo: "Equipo",
+        contenido:
+            "${equipmentModel.titulo},${equipmentModel.marca},${equipmentModel.valor}",
+        photoUrl: equipmentModel.fotoUrl);
     print("QUE PASA ${activity.contenido}");
 
     actividadProvider.crearActividad(activity, equipmentModel.idOwner);
@@ -113,14 +113,13 @@ class EquipmentProvider {
     equipmentModels =
         decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
 
-     equipmentModels.forEach((element) {
-      if(element.id==id){
+    equipmentModels.forEach((element) {
+      if (element.id == id) {
         return element;
-      }else{
+      } else {
         return null;
       }
     });
-
   }
 
   Future<List<EquipmentModel>> cargarEquipmentsNotSessionUser(String id) async {
@@ -212,7 +211,4 @@ class EquipmentProvider {
 
     return 1;
   }
-
-  
-
 }

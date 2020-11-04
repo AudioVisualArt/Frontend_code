@@ -15,7 +15,6 @@ class MostrarProductosPage extends StatefulWidget {
 class _MostrarProductosPageState extends State<MostrarProductosPage> {
   final productosProvider = new ProductosProvider();
   final equipmentProvider = new EquipmentProvider();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +161,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           color: Colors.red,
         ),
         onDismissed: (direction) {
-          productosProvider.borrarProducto(equipmentModel.id);
+          equipmentProvider.borrarProducto(equipmentModel.id);
         },
         child: Card(
           child: InkWell(

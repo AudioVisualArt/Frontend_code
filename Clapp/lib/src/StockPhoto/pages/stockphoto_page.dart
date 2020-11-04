@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
 import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -25,7 +26,7 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
   final stockphotoProvider = new StockPhotoProvider();
 
   bool _guardando = false;
-
+  bool _loading = false;
   bool _equipo = false;
 
   File foto;
@@ -66,6 +67,7 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
             child: Form(
               key: formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   _mostrarFoto(),
                   Divider(),
@@ -84,6 +86,16 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
                   _crearDisponible(),
                   Divider(),
                   _crearBoton(),
+                  Divider(),
+                  _loading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ))
+                      : Container(
+                          height: 0.0,
+                          width: 0.0,
+                        ),
                 ],
               ),
             ),
@@ -242,7 +254,7 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
@@ -251,27 +263,22 @@ class _StockPhotoPageState extends State<StockPhotoPage> {
 
     setState(() {
       _guardando = true;
+      _loading = true;
     });
 
     if (stockPhoto.id == null) {
       stockPhoto.idOwner = widget.userModel.id;
-      stockphotoProvider.crearPhoto(stockPhoto, foto);
+      await stockphotoProvider.crearPhoto(stockPhoto, foto);
     } else {
-      stockphotoProvider.editarPhoto(stockPhoto, foto);
+      await stockphotoProvider.editarPhoto(stockPhoto, foto);
     }
 
-    mostrarSnackbar('Registro Guardado');
+    setState(() {
+      _loading = false;
+    });
 
-    Navigator.pop(context);
-  }
-
-  void mostrarSnackbar(String mensaje) {
-    final snacckbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 3),
-    );
-
-    scaffoldKey.currentState.showSnackBar(snacckbar);
+    MostrarDialog(context, 'Foto en Clapp !!!',
+        'Has creado el Equipo ${stockPhoto.titulo}');
   }
 
   Widget _mostrarFoto() {
