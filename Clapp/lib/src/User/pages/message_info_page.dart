@@ -61,11 +61,15 @@ class _MessageInfoState extends State<MessageInfo> {
   
 
   Widget _mensajeInfo(ChatModel chat,BuildContext context, UserModel user,String name) {
-    
+    print(chat.chatId);
+    print(chat.photoUrlO);
+    print(chat.photoUrlD);
       if(chat.usuarioD==user.id){
-        print(url);
+        print("1111111111111111111111111");
+        
         url=chat.photoUrlO;
       }else{
+        print("222222222222222222222222222222");
         print(url);
         url=chat.photoUrlD;
       }

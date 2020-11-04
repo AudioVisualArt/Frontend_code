@@ -16,8 +16,8 @@ import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 class RecomendadosPage extends StatefulWidget {
-  final UserModel userF;
-  RecomendadosPage({Key key, this.userF}) : super(key: key);
+  
+  RecomendadosPage({Key key}) : super(key: key);
 
   @override
   _RecomendadosPageState createState() => _RecomendadosPageState();
@@ -37,7 +37,8 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   List<EquipmentModel> equipos=new List();
   List<dynamic> artes=new List();
   EquipmentProvider eq=new EquipmentProvider();
-  bool cargar;
+
+  UserModel userF;
   WorkersProvider wk=new WorkersProvider();
   StockPhotoProvider ph=new StockPhotoProvider();
   SpacesProvider sp=new SpacesProvider();
@@ -46,11 +47,13 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   int selectedIndex=0;
   List<double> _valores=new List();
   final ScrollController sc= ScrollController();
- 
+  List<dynamic> args=new List();
   @override
   Widget build(BuildContext context) {
-    _valores=ModalRoute.of(context).settings.arguments;
-    cargar=true;
+    args=ModalRoute.of(context).settings.arguments;
+    _valores=args[1];
+    userF=args[0];
+
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -155,7 +158,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   Future<bool> _llenarR() async {
     List workers=await wk.cargarTrabajadores();
     int i=0;
-    print(cargar);
+
     if(actores.length > 0 || tecnico.length > 0 || espacios.length > 0 || equipos.length >0 || artes.length > 0){
      
     }else{
@@ -194,7 +197,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     this.photos.forEach((element) {
       this.artes.add(element);
     });
-    cargar=false;
+
     }
     
 
@@ -277,7 +280,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                           wker.profession,
                           user.cityResidence,
                           user.photoUrl,
-                          widget.userF,
+                          userF,
                           wker.hvUrl)
                     ),
         );
@@ -360,7 +363,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                           wker.profession,
                           user.cityResidence,
                           user.photoUrl,
-                          widget.userF,
+                          userF,
                           wker.hvUrl)
                     ),
         );
@@ -378,7 +381,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                       new MaterialPageRoute(
                       builder: (context) => new EquipmentCompraPage(
                       equipmentModel: equip,
-                      userModel: widget.userF,
+                      userModel: userF,
                   ))),
             child: Container(
                   padding: EdgeInsets.all(20.0),
@@ -577,7 +580,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                         new MaterialPageRoute(
                             builder: (context) => new StockPhotoComprarPage(
                                   stockPhotoModel: ph,
-                                  userModel: widget.userF,
+                                  userModel: userF,
                                 )));
       },
     );

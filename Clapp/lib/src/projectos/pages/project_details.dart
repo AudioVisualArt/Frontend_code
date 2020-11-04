@@ -14,9 +14,11 @@ class ProjectDetails extends StatefulWidget {
 }
 
 class _ProjectDetails extends State<ProjectDetails> {
+  List<dynamic> args=new List();
   @override
   Widget build(BuildContext context) {
-    ProjectModel proyecto = ModalRoute.of(context).settings.arguments;
+    args = ModalRoute.of(context).settings.arguments;
+    ProjectModel proyecto=args[1];
     final List<Widget> _screens = [];
     return Scaffold(
       body: Container(
@@ -120,7 +122,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                               textColor: Color.fromRGBO(0, 51, 51, 0.8),
                               color: Colors.white,
                               onPressed: () {
-                                Navigator.pushNamed(context, 'presupuesto');
+                                Navigator.pushNamed(context, 'presupuesto',arguments: args[0]);
                               },
                             ),
                           ),
