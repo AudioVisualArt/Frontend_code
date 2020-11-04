@@ -18,7 +18,7 @@ class _ShowPropPageState extends State<ShowPropPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Equipos',
+        title: Text('Props',
             style: TextStyle(fontSize: 25.0, fontFamily: "Raleway")),
       ),
       body: Container(

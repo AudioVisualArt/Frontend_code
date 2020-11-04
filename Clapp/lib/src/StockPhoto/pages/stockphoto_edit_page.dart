@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
 import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,7 +24,7 @@ class _StockPhotoEditPageState extends State<StockPhotoEditPage> {
   final stockPhotoProvider = new StockPhotoProvider();
 
   bool _guardando = false;
-
+  bool _loading = false;
   bool _equipo = false;
 
   File foto;
@@ -82,6 +83,16 @@ class _StockPhotoEditPageState extends State<StockPhotoEditPage> {
                   _crearDisponible(),
                   Divider(),
                   _crearBoton(),
+                  Divider(),
+                  _loading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ))
+                      : Container(
+                          height: 0.0,
+                          width: 0.0,
+                        ),
                 ],
               ),
             ),
@@ -240,7 +251,7 @@ class _StockPhotoEditPageState extends State<StockPhotoEditPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
@@ -249,22 +260,16 @@ class _StockPhotoEditPageState extends State<StockPhotoEditPage> {
 
     setState(() {
       _guardando = true;
+      _loading = true;
     });
 
-    stockPhotoProvider.editarPhoto(stockPhoto, foto);
+    await stockPhotoProvider.editarPhoto(stockPhoto, foto);
+    setState(() {
+      _loading = false;
+    });
 
-    mostrarSnackbar('Registro Guardado');
-
-    Navigator.pop(context);
-  }
-
-  void mostrarSnackbar(String mensaje) {
-    final snacckbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 3),
-    );
-
-    scaffoldKey.currentState.showSnackBar(snacckbar);
+    MostrarDialog(context, 'Foto Actualizada en Clapp !!!',
+        'Has Actualizado la foto ${stockPhoto.titulo}');
   }
 
   Widget _mostrarFoto() {

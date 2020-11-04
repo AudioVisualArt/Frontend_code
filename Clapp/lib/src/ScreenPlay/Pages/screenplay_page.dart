@@ -1,17 +1,20 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:Clapp/src/ScreenPlay/widgets/uploadtasklisttitle.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/showPDF.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
-import 'package:Clapp/src/ScreenPlay/widgets/uploadtasklisttitle.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/providers/actividad_provider.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
 // ignore: must_be_immutable
@@ -27,9 +30,10 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
   ScreenPlayModel screenPlayModel = ScreenPlayModel();
   bool _saved = false;
   bool _savedFile = false;
+  bool _loading = false;
   PlatformFile guion;
   GlobalKey<ScaffoldState> _scafoldKey = GlobalKey();
-  ActividadProvider actividadProvider=new ActividadProvider();
+  ActividadProvider actividadProvider = new ActividadProvider();
   final formKey = GlobalKey<FormState>();
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   final screenPlayProvider = ScreenPlayProvider();
@@ -50,7 +54,7 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
         appBar: AppBar(
           title: Text(
             'Guion',
-            style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
+            style: TextStyle(fontSize: 25.0, fontFamily: "Raleway"),
           ),
           actions: [
             IconButton(
@@ -68,8 +72,8 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
             child: Form(
               key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _crearNombre(),
                   Divider(),
@@ -94,7 +98,17 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
                       ),
                       _mostrarPDF(),
                     ],
-                  )
+                  ),
+                  Divider(),
+                  _loading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ))
+                      : Container(
+                          height: 0.0,
+                          width: 0.0,
+                        ),
                 ],
               ),
             ),
@@ -265,35 +279,27 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
     });
 
     if (guion != null) {
+      setState(() {
+        _saved = true;
+        _savedFile = true;
+        _loading = true;
+      });
+
       print(guion.path.toString());
       screenPlayModel.idOwner = widget.userModel.id;
-      StorageUploadTask t;
-      t = await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
+      await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
 
-      if (t.isComplete) {
-        setState(() {
-          _tasks.add(t);
-          _saved = true;
-          _savedFile = true;
-        });
-      }
-       ActividadModel activity=new ActividadModel(
-          descripcion: "Has publicado un nuevo guion",
-          fecha: DateTime.now().toString(),
-          tipo: "Guion",
-          contenido: "${screenPlayModel.titulo},${screenPlayModel.topic},${screenPlayModel.valor}",
-          photoUrl: ""
-
-
-    );
-    actividadProvider.crearActividad(activity, screenPlayModel.idOwner);
-      // Navigator.pop(context);
-      utils.mostrarAlerta(context, 'Guion en  Clapp !!!');
+      setState(() {
+        _loading = false;
+      });
+      MostrarDialog(context, 'Guion en Clapp !!!',
+          'Has Subido el Guion ${screenPlayModel.titulo}');
     } else {
       setState(() {
         _saved = false;
       });
-      utils.mostrarAlerta(context, 'No Has Subido Ningún Guion');
+      MostrarDialog(
+          context, 'Alerta Clapper', 'No Has Seleccionado Ningún Documento');
     }
   }
 
