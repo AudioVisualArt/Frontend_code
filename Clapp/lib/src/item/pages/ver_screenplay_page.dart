@@ -1,24 +1,22 @@
-import 'package:Clapp/src/Equipment/model/equipment_models.dart';
-import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
+import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:Clapp/src/item/model/item_models.dart';
-import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
-class MostrarProductosPage extends StatefulWidget {
-  final UserModel userModel;
-  MostrarProductosPage({this.userModel});
+class MostrarScreenPlayPage extends StatefulWidget {
+  UserModel userModel;
+  MostrarScreenPlayPage({this.userModel});
+
   @override
-  _MostrarProductosPageState createState() => _MostrarProductosPageState();
+  _MostrarScreenPlayPageState createState() => _MostrarScreenPlayPageState();
 }
 
-class _MostrarProductosPageState extends State<MostrarProductosPage> {
-  final productosProvider = new ProductosProvider();
-  final equipmentProvider = new EquipmentProvider();
+class _MostrarScreenPlayPageState extends State<MostrarScreenPlayPage> {
+  final screenPlayProvider = new ScreenPlayProvider();
 
   @override
   Widget build(BuildContext context) {
-    equipmentProvider.cargarEquipmentsUser(widget.userModel.id);
+    screenPlayProvider.cargarScreenPlays();
 
     return Container(
         child: Scaffold(
@@ -39,13 +37,9 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           child: Column(
             children: <Widget>[
               newappbar(),
-
-              //SizedBox(height: 20.0,),
-              //SizedBox(height: 9),
               Expanded(
                 child: Container(
                   child: _crearListado(),
-                  //padding: EdgeInsets.all(4.0),
                   width: MediaQuery.of(context).size.width - 10.0,
                   height: MediaQuery.of(context).size.height - 210,
                 ),
@@ -94,7 +88,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 16.0, right: 20, top: 37),
-                    child: Text('Tus Equipos',
+                    child: Text('Tus Guiones',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 25.0,
@@ -137,14 +131,15 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
   Widget _crearListado() {
     return FutureBuilder(
-      future: equipmentProvider.cargarEquipmentsUser(widget.userModel.id),
-      builder: (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
+      future: screenPlayProvider.cargarScreenPlays(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<ScreenPlayModel>> snapshot) {
         if (snapshot.hasData) {
-          final equipos = snapshot.data;
+          final screenPlays = snapshot.data;
           return ListView.builder(
-            itemCount: equipos.length,
+            itemCount: screenPlays.length,
             itemBuilder: (context, index) =>
-                _crearItem(context, equipos[index]),
+                _crearFoto(context, screenPlays[index]),
           );
         } else {
           return Center(
@@ -157,40 +152,39 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     );
   }
 
-  Widget _crearItem(BuildContext context, EquipmentModel equipmentModel) {
+  Widget _crearFoto(BuildContext context, ScreenPlayModel screenPlayModel) {
     return Dismissible(
         key: UniqueKey(),
         background: Container(
-            child: Text('Eliminar',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 25.0,
-                    fontFamily: "Raleway",
-                    color: Colors.white)),
-            margin: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(20.0),
-            )),
+          child: Text('Eliminar',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 25.0, fontFamily: "Raleway", color: Colors.white)),
+          margin: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
         onDismissed: (direction) {
-          equipmentProvider.borrarProducto(equipmentModel);
+          screenPlayProvider.borrarScreenPlay(screenPlayModel);
         },
         child: Card(
           child: InkWell(
-              onTap: () => Navigator.pushNamed(context, 'equipment_edit',
-                  arguments: equipmentModel),
+              onTap: () => Navigator.pushNamed(context, 'screenplay_edit',
+                  arguments: screenPlayModel),
               child: Container(
                 height: 80,
                 child: Column(
                   children: <Widget>[
                     ListTile(
                       title: Text(
-                          '${equipmentModel.titulo} - ${equipmentModel.valor}',
+                          '${screenPlayModel.titulo} - ${screenPlayModel.valor}',
                           style: TextStyle(
                               fontSize: 20.0,
                               fontFamily: "Raleway",
                               fontWeight: FontWeight.bold)),
-                      subtitle: Text(equipmentModel.itemDescription,
+                      subtitle: Text(screenPlayModel.itemDescription,
                           style: TextStyle(
                               fontSize: 12.0,
                               fontFamily: "Raleway",
@@ -232,7 +226,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
       color: Colors.white,
 
       onPressed: () {
-        Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
+        Navigator.pushNamed(context, 'screenplay', arguments: widget.userModel);
       },
     );
   }

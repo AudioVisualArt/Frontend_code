@@ -44,7 +44,7 @@ class _ShowPropPageState extends State<ShowPropPage> {
 
   Widget _crearListadoProps() {
     return FutureBuilder(
-      future: propProvider.cargarProps(),
+      future: propProvider.cargarPropsNotSessionUser(widget.userModel.id),
       builder: (BuildContext context, AsyncSnapshot<List<PropModel>> snapshot) {
         if (snapshot.hasData) {
           final props = snapshot.data;
@@ -106,23 +106,15 @@ class _ShowPropPageState extends State<ShowPropPage> {
                       ),
                       color: Color.fromRGBO(112, 252, 118, 1.0),
                       label: Text(
-                        'Más...',
+                        'Contactar',
                         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
                         textAlign: TextAlign.center,
                       ),
                       autofocus: true,
                       icon: Icon(
-                        Icons.description,
+                        Icons.message,
                       ),
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     new MaterialPageRoute(
-                        //         builder: (context) => new EquipmentCompraPage(
-                        //               equipmentModel: equipmentModel,
-                        //               userModel: widget.userModel,
-                        //             )));
-                      }),
+                      onPressed: () {}),
                 ),
               ],
             ),

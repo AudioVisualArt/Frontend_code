@@ -132,7 +132,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                   'Vender',
                   'Publica tus productos en el mercado',
                   Icons.shopping_cart_rounded,
-                  5),
+                  6),
               //_carruselStudio(usuario),
               SizedBox(height: 25.0),
               //_carruselMarket(usuario),
@@ -179,12 +179,15 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                               userModel: usuario,
                             )));
                 break;
+              case 6:
+                Navigator.pushNamed(context, 'menu_mostrar',
+                    arguments: usuario);
+                break;
 
               case 11:
                 print("Falta la ruta");
                 break;
             }
-            ;
           },
           child: Container(
             height: 105,

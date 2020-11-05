@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:Clapp/src/Contract/model/contract_models.dart';
@@ -22,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
 
-void main (){
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final contractProvider = new ContratosProvider();
   final equipmentProvider = new EquipmentProvider();
@@ -35,45 +33,48 @@ void main (){
   final stockPhotoProvider = new StockPhotoProvider();
   final userProvider = new UsuarioProvider();
 
-  group('ContractProvider', (){
-    test('Get Contracts From Project', ()async{
+  group('ContractProvider', () {
+    test('Get Contracts From Project', () async {
       print('Get Contracts From Project');
-      final response = await contractProvider.cargarContratosProoyecto("S2xmILeqB7ytIuKqd5xa");
-      expect(response,isA<List<ContractModel>>());
+      final response = await contractProvider
+          .cargarContratosProoyecto("S2xmILeqB7ytIuKqd5xa");
+      expect(response, isA<List<ContractModel>>());
     });
-    test('Get Contracts Offered', ()async{
+    test('Get Contracts Offered', () async {
       print('Get Contracts Offered');
-      final response = await contractProvider.cargarContratosOfrecidos("IGMd9Ev82iuABtwmJedW");
-      expect(response,isA<List<ContractModel>>());
+      final response = await contractProvider
+          .cargarContratosOfrecidos("IGMd9Ev82iuABtwmJedW");
+      expect(response, isA<List<ContractModel>>());
     });
-    test('Save Contract', ()async{
+    test('Save Contract', () async {
       print('Save Contract');
       ContractModel contract = new ContractModel();
-      contract.projectId="S2xmILeqB7ytIuKqd5xa";
-      contract.latitud=0;
-      contract.longitud=0;
-      contract.acceptedBidder=false;
-      contract.userBidderId="IGMd9Ev82iuABtwmJedW";
-      contract.acceptedApplicant=false;
-      contract.jobPosition="test";
-      contract.payment=99999;
-      contract.workHours=999999;
+      contract.projectId = "S2xmILeqB7ytIuKqd5xa";
+      contract.latitud = 0;
+      contract.longitud = 0;
+      contract.acceptedBidder = false;
+      contract.userBidderId = "IGMd9Ev82iuABtwmJedW";
+      contract.acceptedApplicant = false;
+      contract.jobPosition = "test";
+      contract.payment = 99999;
+      contract.workHours = 999999;
 
       final response = await contractProvider.crearContrato(contract);
-      expect(response,isTrue);
+      expect(response, isTrue);
     });
   });
 
-  group('Equipment Provider', (){
-    test('Get Equipments', ()async{
+  group('Equipment Provider', () {
+    test('Get Equipments', () async {
       print('Get Equipments');
       final response = await equipmentProvider.cargarEquipments();
-      expect(response,isA<List<EquipmentModel>>());
+      expect(response, isA<List<EquipmentModel>>());
     });
-    test('Get Equipment', ()async{
+    test('Get Equipment', () async {
       print('Get Equipment');
-      final response = await equipmentProvider.cargarEquipment("8BK1ODjcFCtMYdqU2nzI");
-      expect(response,isNull);
+      final response =
+          await equipmentProvider.cargarEquipmentsUser("8BK1ODjcFCtMYdqU2nzI");
+      expect(response, isNull);
     });
     /*test('Save Equipment', ()async{
       print('Save Equipments');
@@ -91,7 +92,7 @@ void main (){
       final response = await equipmentProvider.crearEquipmente(equipment,photo);
       expect(response,isTrue);
     });*/
-   /* test('Edit Equipment', ()async{
+    /* test('Edit Equipment', ()async{
       print('Edit Equipment');
       EquipmentModel equipment = new EquipmentModel();
       equipment.tag = "test";
@@ -109,56 +110,59 @@ void main (){
     });*/
   });
 
-  group('Finances Provider', (){
-    test('Get Finances', ()async{
+  group('Finances Provider', () {
+    test('Get Finances', () async {
       print('Get Finances');
-      final response = await financeProvider.cargarFinanzas("75AdCbVzdVSQg78WaoFL");
-      expect(response,isA<List<FinanceModel>>());
+      final response =
+          await financeProvider.cargarFinanzas("75AdCbVzdVSQg78WaoFL");
+      expect(response, isA<List<FinanceModel>>());
     });
 
-    test('Save Finances', ()async{
+    test('Save Finances', () async {
       print('Save Finances');
       FinanceModel finance = new FinanceModel();
-      finance.projectId="test";
-      finance.title="test";
-      finance.percentage=999;
-      finance.quantity=999;
+      finance.projectId = "test";
+      finance.title = "test";
+      finance.percentage = 999;
+      finance.quantity = 999;
       final response = await financeProvider.crearFinance(finance);
-      expect(response,isTrue);
+      expect(response, isTrue);
     });
   });
-  group('Project Provider', (){
-    test('Get Projects', ()async{
+  group('Project Provider', () {
+    test('Get Projects', () async {
       print('Get Projects');
       final response = await proyectProvider.cargarTodosProyectos();
-      expect(response,isA<List<ProjectModel>>());
+      expect(response, isA<List<ProjectModel>>());
     });
-    test('Get Projects From User', ()async{
+    test('Get Projects From User', () async {
       print('Get Projects From User');
-      final response = await proyectProvider.cargarProyectos("IGMd9Ev82iuABtwmJedW");
-      expect(response,isA<List<ProjectModel>>());
+      final response =
+          await proyectProvider.cargarProyectos("IGMd9Ev82iuABtwmJedW");
+      expect(response, isA<List<ProjectModel>>());
     });
-    test('Save Projects From User', ()async{
+    test('Save Projects From User', () async {
       print('Save Projects From User');
       ProjectModel project = new ProjectModel();
-      project.main_file="./test/test_resources/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png";
-      project.executive_summary="./test/test_resources/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png";
-      project.proyectName="test";
-      project.ownerId="test";
-      project.description="test";
-      project.contacto="test";
-      project.projectType="test";
+      project.main_file =
+          "./test/test_resources/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png";
+      project.executive_summary =
+          "./test/test_resources/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png";
+      project.proyectName = "test";
+      project.ownerId = "test";
+      project.description = "test";
+      project.contacto = "test";
+      project.projectType = "test";
 
       final response = await proyectProvider.crearProyecto(project);
-      expect(response,isNotEmpty);
+      expect(response, isNotEmpty);
     });
-
   });
-  group('Props Provider', (){
-    test('Get Props', ()async{
+  group('Props Provider', () {
+    test('Get Props', () async {
       print('Get Props');
       final response = await propsProvider.cargarProps();
-      expect(response,isA<List<PropModel>>());
+      expect(response, isA<List<PropModel>>());
     });
 
     /*test('Save Props', ()async{
@@ -169,26 +173,23 @@ void main (){
       final response = await propsProvider.crearProp(propModel, foto);
       expect(response,isA<List<PropModel>>());
     });*/
-
-
   });
 
-  group('ScreenPlay Provider', (){
-    test('Get ScreenPlays', ()async{
+  group('ScreenPlay Provider', () {
+    test('Get ScreenPlays', () async {
       print('Get ScreenPlays');
       final response = await screenPlayProvider.cargarScreenPlays();
-      expect(response,isA<List<ScreenPlayModel>>());
+      expect(response, isA<List<ScreenPlayModel>>());
     });
-    test('Get ScreenPlays', ()async{
+    test('Get ScreenPlays', () async {
       print('Get ScreenPlays');
       ScreenPlayModel screenPlayModel = new ScreenPlayModel();
 
       PlatformFile screenplay;
 
-
-      final response = await screenPlayProvider.crearScreenPlay(screenPlayModel, screenplay);
-      expect(response,isA<List<ScreenPlayModel>>());
+      final response =
+          await screenPlayProvider.crearScreenPlay(screenPlayModel, screenplay);
+      expect(response, isA<List<ScreenPlayModel>>());
     });
   });
-
 }

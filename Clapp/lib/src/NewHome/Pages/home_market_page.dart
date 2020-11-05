@@ -346,8 +346,7 @@ class _HomeMarketPage extends State<HomeMarketPage> {
                       height: 115, //MediaQuery.of(context).size.height - 570,
                       width: 131, // MediaQuery.of(context).size.width - 280,
                       child: InkWell(
-                        onTap: () => Navigator.pushNamed(context, 'items_buy',
-                            arguments: usuario),
+                        onTap: () {},
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [

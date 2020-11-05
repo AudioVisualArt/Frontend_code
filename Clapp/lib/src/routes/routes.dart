@@ -5,16 +5,20 @@ import 'package:Clapp/src/NewHome/Pages/home_market_page.dart';
 import 'package:Clapp/src/NewHome/Pages/home_page_principal.dart';
 import 'package:Clapp/src/NewHome/Pages/home_servicios_page.dart';
 import 'package:Clapp/src/PhotoFind/pages/find_fast_page.dart';
+import 'package:Clapp/src/Props/Pages/prop_edit_page.dart';
 import 'package:Clapp/src/Props/Pages/prop_page.dart';
+import 'package:Clapp/src/ScreenPlay/Pages/screenplay_edit_page.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/screenplay_page.dart';
 import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/pages/new_space2.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/Space/pages/spaces_page.dart';
+import 'package:Clapp/src/StockPhoto/pages/stockphoto_edit_page.dart';
 import 'package:Clapp/src/User/pages/actividad_page.dart';
 import 'package:Clapp/src/User/pages/contracts_page.dart';
 import 'package:Clapp/src/User/pages/edit_profile_page.dart';
 import 'package:Clapp/src/User/pages/inicio_clapp_terminos.dart';
+import 'package:Clapp/src/item/pages/menu_mostrar.dart';
 import 'package:Clapp/src/projectos/pages/presupuesto_page.dart';
 import 'package:Clapp/src/projectos/pages/Project_page.dart';
 import 'package:Clapp/src/Space/pages/space_details.dart';
@@ -58,7 +62,6 @@ import 'package:Clapp/src/services/pages/contratar_page.dart';
 import 'package:Clapp/src/services/pages/personel_page.dart';
 import 'package:Clapp/src/StockPhoto/pages/stockphoto_page.dart';
 import 'package:Clapp/src/User/pages/sign_up_google.dart';
-
 
 import 'package:Clapp/src/Contract/pages/my_contract_requests.dart';
 
@@ -118,7 +121,9 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home_principal': (BuildContext context) => HomePagePrincipal(),
     'props': (BuildContext context) => PropPage(),
     'terminos_clapp': (BuildContext context) => InicioClapp(),
-
-
+    'menu_mostrar': (BuildContext context) => MenuMostrarPage(),
+    'stockphoto_edit': (BuildContext context) => StockPhotoEditPage(),
+    'screenplay_edit': (BuildContext context) => ScreenPlayEditPage(),
+    'prop_edit': (BuildContext context) => PropEditPage(),
   };
 }
