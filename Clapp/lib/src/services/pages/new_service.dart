@@ -1,6 +1,6 @@
 import 'dart:ffi';
 import 'dart:ui';
-
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 import 'package:Clapp/src/NewHome/Pages/elemento_carrusel.dart';
 import 'package:Clapp/src/NewHome/Pages/home_page_principal.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
@@ -65,15 +65,6 @@ class _NewService extends State<NewService> {
               CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
-                    actions: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.file_upload,
-                          color: Colors.black,
-                        ),
-                        onPressed: openFileExplorer,
-                      ),
-                    ],
                     expandedHeight: 100.0,
                     floating: false,
                     pinned: true,
@@ -117,6 +108,39 @@ class _NewService extends State<NewService> {
                               SizedBox(height: 10),
                               _maxPayment(),
                               SizedBox(height: 10),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 1.0, left: 0.5, right: 59.0),
+                                child: SizedBox(
+                                  height: 52,
+                                  width: MediaQuery.of(context).size.width - 40,
+                                  child: RaisedButton(
+                                    //splashColor: Colors.green,
+                                    padding: EdgeInsets.only(
+                                        top: 13,
+                                        bottom: 13,
+                                        left: 10,
+                                        right: 10),
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: Color.fromRGBO(0, 51, 51, 0.8),
+                                          width: 1.2),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Text('Sube tu portafolio',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontFamily: "Raleway",
+                                            color:
+                                                Color.fromRGBO(0, 51, 51, 0.8),
+                                            fontWeight: FontWeight.bold)),
+                                    textColor: Color.fromRGBO(0, 51, 51, 0.8),
+                                    color: Colors.white,
+                                    onPressed: openFileExplorer,
+                                  ),
+                                ),
+                              ),
                               //_tags()
                             ],
                           ),
@@ -521,6 +545,7 @@ class _NewService extends State<NewService> {
     //trabajador.userId= workerProvider.crearWorker(trabajador).toString();
     //print("el id del servicio es: ${trabajador.userId}");
     //trabajador.briefcase= values;
+    if(guion != null){
     if (!workerformkey.currentState.validate())
       workerformkey.currentState.save();
 
@@ -529,7 +554,7 @@ class _NewService extends State<NewService> {
     setState(() {
       _guardando = true;
     });
-    if (guion != null) {
+
       print(guion.path.toString());
 
       StorageUploadTask t;
@@ -543,22 +568,25 @@ class _NewService extends State<NewService> {
         });
       }
       // Navigator.pop(context);
-      utils.mostrarAlerta(context, 'HV en  Clapp !!!');
+      //utils.mostrarAlerta(context, 'HV en  Clapp !!!');
       Navigator.pop(context);
+    mostrar_dialog.MostrarDialog(context, 'Tu servicio ha sido creado!',
+        'Tu perfil de servicio aparecera en la sección de personal de Clapp.');
     } else {
       setState(() {
         _saved = false;
       });
-      utils.mostrarAlerta(context, 'No Has Subido Ningún hoja de vida');
+      mostrar_dialog.MostrarDialog(context, 'Error!',
+          'Debes subir el archivo de portafolio para poder continuar.');
     }
 
     // setState(() {
     //   _guardando = false;
     // });
 
-    Duration(milliseconds: 1500);
-    Navigator.pop(context,
-        new MaterialPageRoute(builder: (context) => new ServicesPages()));
+    //Duration(milliseconds: 1500);
+    //Navigator.pop(context,
+     //   new MaterialPageRoute(builder: (context) => new ServicesPages()));
   }
 
   openFileExplorer() async {
