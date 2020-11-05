@@ -114,7 +114,7 @@ class _VerContratos extends State<VerContratos> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Todo',
+                    Text('Actualizar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromRGBO(115, 115, 115, 1.0),

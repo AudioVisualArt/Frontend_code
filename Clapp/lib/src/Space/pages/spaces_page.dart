@@ -232,12 +232,12 @@ class _SpacesPage extends State<SpacesPage> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
                   child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 7.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 6.0, right: 20, top: 37),
                     child: IconButton(
                       icon: Icon(Icons.arrow_back),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
@@ -245,24 +245,22 @@ class _SpacesPage extends State<SpacesPage> {
                     ),
                   ),
                 ),
-                Container(
-                  child: Padding(
-                    padding:
-                    const EdgeInsets.only(left: 16.0, right: 20, top: 37),
-                    child: Text('Espacios',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontFamily: "Raleway",
-                            color: Color.fromRGBO(115, 115, 115, 1.0))),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: Container(
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.only(left: 16.0, right: 20, top: 37),
+                      child: Text('Espacios',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              fontFamily: "Raleway",
+                              color: Color.fromRGBO(115, 115, 115, 1.0))),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
-                  child: _botonEspacioNuevo(
-                     usuario
-                  ),
-                )
+
               ],
             ),
             Container(
@@ -270,7 +268,7 @@ class _SpacesPage extends State<SpacesPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Todo',
+                    Text('Actualizar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromRGBO(115, 115, 115, 1.0),
