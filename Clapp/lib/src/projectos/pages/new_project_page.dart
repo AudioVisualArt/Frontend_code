@@ -49,7 +49,7 @@ class _NewProjectPage extends State<NewProjectPage> {
     if(args.length==0){
       args.add(usuario);
     }
-    
+    print(args.length);
     proyecto.ownerId = usuario.id;
     print("id de usuario en new project: ${usuario.id}");
     //final bloc = ProyectosProvider.of(context);
