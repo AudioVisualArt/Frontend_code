@@ -21,7 +21,10 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
     //final idUsuario = ModalRoute.of(context).settings.arguments;
-    args.add(usuario);
+    if(args.length==0){
+      args.add(usuario);
+    }
+    
     //print('id User ' + widget.user.id);
 
     return Scaffold(
@@ -231,7 +234,12 @@ class _ProjectPageState extends State<ProjectPage> {
                 borderRadius: BorderRadius.circular(25.0)),
             child: InkWell(
               onTap: () {
-                args.add(proyecto);
+                if(args.length==1){
+                  args.add(proyecto);
+                }
+                if(args.length==2){
+                  args[1]=proyecto;
+                }
                 Navigator.pushNamed(context, 'details_project',
                   arguments: args);
                   },

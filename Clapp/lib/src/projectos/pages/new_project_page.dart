@@ -219,7 +219,7 @@ class _NewProjectPage extends State<NewProjectPage> {
             args.add(proyecto);
           }
           
-          print(args.length);
+
           Navigator.popAndPushNamed(
             context,
             'details_project',
