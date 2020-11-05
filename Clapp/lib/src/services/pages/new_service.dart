@@ -559,6 +559,9 @@ class _NewService extends State<NewService> {
           trabajador.profession.isNotEmpty &&
           trabajador.studies.isNotEmpty) {
         print(guion.path.toString());
+        Navigator.pop(context);
+        mostrar_dialog.MostrarDialog(context, 'Tu servicio ha sido creado!',
+            'Tu perfil de servicio aparecera en la sección de personal de Clapp.');
 
         StorageUploadTask t;
         //t = await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
@@ -571,9 +574,7 @@ class _NewService extends State<NewService> {
           });
         }
 
-        Navigator.pop(context);
-        mostrar_dialog.MostrarDialog(context, 'Tu servicio ha sido creado!',
-            'Tu perfil de servicio aparecera en la sección de personal de Clapp.');
+
       }
     } else {
       setState(() {
