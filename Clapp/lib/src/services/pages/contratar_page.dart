@@ -50,14 +50,12 @@ class _ContratarPage extends State<ContratarPage> {
                       fit: BoxFit.cover,
                     )),
                     child: ListView(children: <Widget>[
-                      SizedBox(
-                        height: 15.0,
-                      ),
+
                       Container(
                           padding: EdgeInsets.only(
-                              right: 10.0, left: 10.0, top: 0.5),
+                              right: 10.0, left: 10.0, top: 0.0),
                           width: MediaQuery.of(context).size.width - 30.0,
-                          height: MediaQuery.of(context).size.height - 50.0,
+                          height: MediaQuery.of(context).size.height - 81.0,
                           child: GridView.builder(
                               primary: false,
                               gridDelegate:
@@ -68,12 +66,15 @@ class _ContratarPage extends State<ContratarPage> {
                                       childAspectRatio: 0.69),
                               itemCount: worker.length,
                               itemBuilder: (context, index) =>
-                                  _buildCard(context, worker[index], usuario, index)))
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: _buildCard(context, worker[index], usuario, index),
+                                  )))
                     ])),
               ),
-              floatingActionButton: _BotonCrear2(usuario),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerFloat,
+             // floatingActionButton: _BotonCrear2(usuario),
+              //floatingActionButtonLocation:
+               //   FloatingActionButtonLocation.centerFloat,
             );
           } else {
             return Center(child: CircularProgressIndicator());
