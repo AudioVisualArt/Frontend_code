@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
 import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
+import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
@@ -21,11 +25,11 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final stockPhotoProvider = new StockPhotoProvider();
-
+  UserModel owner;
   bool _guardando = false;
-
+  UsuarioProvider userProvider=UsuarioProvider();
   bool _equipo = false;
-
+  ChatProvider chat=ChatProvider();
   File foto;
 
   @override
@@ -144,11 +148,22 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       color: Color.fromRGBO(89, 122, 121, 1.0),
       textColor: Colors.white,
       label: Text(
-        'Comprar',
+        'Contactar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       icon: Icon(Icons.system_update_alt),
-      onPressed: (_guardando) ? null : _submit,
+      onPressed: () async {
+
+                      if (widget.userModel.id != widget.stockPhotoModel.idOwner) {
+                        ChatModel chat = await _conseguirChat(
+                            widget.stockPhotoModel.idOwner, widget.userModel);
+                        ScreenArgument sc = ScreenArgument(
+                           widget.userModel, chat, owner.name, owner.id, null);
+                        Navigator.pushNamed(context, 'messageInfo',
+                            arguments: sc);
+                      }
+      
+      },
     );
   }
 
@@ -206,5 +221,44 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
         );
       }
     }
+  }
+   Future<ChatModel> _conseguirChat(
+      String tag, UserModel usuarioOferta) async {
+     owner=await userProvider.obtenerUsuario(tag);
+    bool existe = false;
+    ChatModel ct;
+    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
+    if (chats != null) {
+      chats.forEach((element) {
+        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
+          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
+            existe = true;
+            ct = element;
+          }
+        }
+      });
+    }
+
+    if (existe == false) {
+      ct = ChatModel(
+          chatId: "dddd",
+          fecha: DateTime.now().toString(),
+          nameD: owner.name,
+          nameO: usuarioOferta.name,
+          photoUrlD: owner.photoUrl,
+          photoUrlO: usuarioOferta.photoUrl,
+          usuarioD: tag,
+          usuarioO: usuarioOferta.id);
+      bool resp = await chat.crearChat(ct);
+      chats = await chat.cargarChats(usuarioOferta.id);
+      chats.forEach((element) {
+        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
+          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
+            ct = element;
+          }
+        }
+      });
+    }
+    return ct;
   }
 }

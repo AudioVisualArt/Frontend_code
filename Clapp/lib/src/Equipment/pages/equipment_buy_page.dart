@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
@@ -10,6 +14,7 @@ import 'package:Clapp/src/utils/utils.dart' as utils;
 class EquipmentCompraPage extends StatefulWidget {
   final UserModel userModel;
   final EquipmentModel equipmentModel;
+
   EquipmentCompraPage({Key key, this.userModel, this.equipmentModel})
       : super(key: key);
 
@@ -20,9 +25,10 @@ class EquipmentCompraPage extends StatefulWidget {
 class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  ChatProvider chat = new ChatProvider();
   final equipmentProvider = new EquipmentProvider();
-
+  UsuarioProvider userProvider = UsuarioProvider();
+  UserModel owner;
   bool _guardando = false;
 
   bool _equipo = false;
@@ -151,8 +157,16 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
         'Contactar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      icon: Icon(Icons.system_update_alt),
-      onPressed: (_guardando) ? null : _submit,
+      icon: Icon(Icons.message),
+      onPressed: () async {
+        if (widget.userModel.id != widget.equipmentModel.idOwner) {
+          ChatModel chat = await _conseguirChat(
+              widget.equipmentModel.idOwner, widget.userModel);
+          ScreenArgument sc = ScreenArgument(
+              widget.userModel, chat, owner.name, owner.id, null);
+          Navigator.pushNamed(context, 'messageInfo', arguments: sc);
+        }
+      },
     );
   }
 
@@ -215,5 +229,44 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       //limpiar
       setState(() {});
     }
+  }
+
+  Future<ChatModel> _conseguirChat(String tag, UserModel usuarioOferta) async {
+    owner = await userProvider.obtenerUsuario(tag);
+    bool existe = false;
+    ChatModel ct;
+    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
+    if (chats != null) {
+      chats.forEach((element) {
+        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
+          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
+            existe = true;
+            ct = element;
+          }
+        }
+      });
+    }
+
+    if (existe == false) {
+      ct = ChatModel(
+          chatId: "dddd",
+          fecha: DateTime.now().toString(),
+          nameD: owner.name,
+          nameO: usuarioOferta.name,
+          photoUrlD: owner.photoUrl,
+          photoUrlO: usuarioOferta.photoUrl,
+          usuarioD: tag,
+          usuarioO: usuarioOferta.id);
+      bool resp = await chat.crearChat(ct);
+      chats = await chat.cargarChats(usuarioOferta.id);
+      chats.forEach((element) {
+        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
+          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
+            ct = element;
+          }
+        }
+      });
+    }
+    return ct;
   }
 }

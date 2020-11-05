@@ -1,6 +1,8 @@
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/Props/Model/prop_model.dart';
+import 'package:Clapp/src/Props/Provider/prop_provider.dart';
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
@@ -12,9 +14,10 @@ import 'package:Clapp/src/services/model/worker_model.dart';
 import 'package:Clapp/src/services/providers/worker_provider.dart';
 import 'package:Clapp/src/services/pages/perfil_personal_disponible.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 class RecomendadosPage extends StatefulWidget {
-  final UserModel userF;
-  RecomendadosPage({Key key, this.userF}) : super(key: key);
+  
+  RecomendadosPage({Key key}) : super(key: key);
 
   @override
   _RecomendadosPageState createState() => _RecomendadosPageState();
@@ -30,20 +33,27 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   List<SpaceModel> espacios=new List();
   List<WorkerModel> actores=new List();
   List<WorkerModel> tecnico=new List();
+  List<PropModel> props=new List();
   List<EquipmentModel> equipos=new List();
+  List<dynamic> artes=new List();
   EquipmentProvider eq=new EquipmentProvider();
+
+  UserModel userF;
   WorkersProvider wk=new WorkersProvider();
   StockPhotoProvider ph=new StockPhotoProvider();
   SpacesProvider sp=new SpacesProvider();
+  PropProvider prop=new PropProvider();
   double value;
   int selectedIndex=0;
   List<double> _valores=new List();
   final ScrollController sc= ScrollController();
- 
+  List<dynamic> args=new List();
   @override
   Widget build(BuildContext context) {
-    _valores=ModalRoute.of(context).settings.arguments;
-    
+    args=ModalRoute.of(context).settings.arguments;
+    _valores=args[1];
+    userF=args[0];
+
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -82,9 +92,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   return _tarjetas(selectedIndex);
                 }
                 else{
-                  return Container(
-
-                  );
+                  return Center(child: CircularProgressIndicator(),);
                 }
               },
             ),
@@ -150,11 +158,11 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   Future<bool> _llenarR() async {
     List workers=await wk.cargarTrabajadores();
     int i=0;
-    this.actores.clear();
-    this.tecnico.clear();
-    this.usersW.clear();
-    this.usersA.clear();
-    workers.forEach((element) async{
+
+    if(actores.length > 0 || tecnico.length > 0 || espacios.length > 0 || equipos.length >0 || artes.length > 0){
+     
+    }else{
+       workers.forEach((element) async{
       UserModel user= await wk.cargarUsuarioTrabajador(element.userId);
       if(element.mainRol=="Actor" && element.minPayment<=_valores[0]){
         this.actores.add(element);
@@ -181,6 +189,17 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
       UserModel user= await wk.cargarUsuarioTrabajador(element.userOwner);
       this.usersE.add(user);
     });
+    this.props=await prop.cargarProps();
+    this.props.removeWhere((element) => element.valor>_valores[4]);
+    this.props.forEach((element) {
+      this.artes.add(element);
+    });
+    this.photos.forEach((element) {
+      this.artes.add(element);
+    });
+
+    }
+    
 
     return true;
 
@@ -261,7 +280,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                           wker.profession,
                           user.cityResidence,
                           user.photoUrl,
-                          widget.userF,
+                          userF,
                           wker.hvUrl)
                     ),
         );
@@ -278,7 +297,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
           child: Container(
                 padding: EdgeInsets.all(20.0),
                 margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
-                height: 300,
+                height: 400,
                 width: 160,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(181, 189, 185 , 1.0),
@@ -344,7 +363,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                           wker.profession,
                           user.cityResidence,
                           user.photoUrl,
-                          widget.userF,
+                          userF,
                           wker.hvUrl)
                     ),
         );
@@ -362,7 +381,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                       new MaterialPageRoute(
                       builder: (context) => new EquipmentCompraPage(
                       equipmentModel: equip,
-                      userModel: widget.userF,
+                      userModel: userF,
                   ))),
             child: Container(
                   padding: EdgeInsets.all(20.0),
@@ -495,7 +514,9 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
   }
 
   Widget _tarjetasArte(index)  {
-    StockPhotoModel ph=this.photos[index];
+    print("INDEX $index");
+    if(this.artes[index] is StockPhotoModel){
+      StockPhotoModel ph=this.artes[index];
     if(ph.fotoUrl==null || ph.fotoUrl==""){
       ph.fotoUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
     }
@@ -541,7 +562,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                           ),
                       ),
                       SizedBox(height: 10.0,),
-                      Text("Typo: " , style: TextStyle(
+                      Text("Tipo: " , style: TextStyle(
                         fontWeight: FontWeight.bold)),
                       Text(ph.photoType,textAlign: TextAlign.center,),
                       SizedBox(height: 5.0,),
@@ -559,10 +580,85 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                         new MaterialPageRoute(
                             builder: (context) => new StockPhotoComprarPage(
                                   stockPhotoModel: ph,
-                                  userModel: widget.userF,
+                                  userModel: userF,
                                 )));
       },
     );
+      
+    }else{
+       PropModel pr=this.artes[index];
+    if(pr.fotoUrl==null || pr.fotoUrl==""){
+      pr.fotoUrl=('https://evangelismodigital.net/wp-content/plugins/learnpress/assets/images/no-image.png');
+    }
+    if(pr.propType==null){
+      pr.propType="general";
+    }
+      return InkWell(
+          child: Container(
+                padding: EdgeInsets.all(20.0),
+                margin: EdgeInsets.only(top:5.0,left: 5.0,right: 5.0),
+                height: 300,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(181, 189, 185 , 1.0),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 10.0,
+                          offset: Offset(5.0, 4.0)
+                      )
+                    ],
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        child: Text(pr.titulo,
+                        style: TextStyle(
+                           color: Color.fromRGBO(0, 51, 51, 0.8),
+                            fontSize: 15.5,
+                            fontFamily: "Raleway",
+                            fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center
+                        ),
+                      ),
+                      SizedBox(height: 5.0,),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image(
+                          image: NetworkImage(pr.fotoUrl),
+                           width: 140,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          ),
+                      ),
+                      SizedBox(height: 10.0,),
+                      Text("Tipo: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(pr.propType,textAlign: TextAlign.center,),
+                      SizedBox(height: 5.0,),
+                      Text("Valor: " , style: TextStyle(
+                        fontWeight: FontWeight.bold)),
+                      Text(pr.valor.toString(),textAlign: TextAlign.center),
+
+                    ],
+                  ),
+                ),
+      ),
+      onTap: (){
+       /*  Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => new StockPhotoComprarPage(
+                                  stockPhotoModel: ph,
+                                  userModel: widget.userF,
+                                ))); */
+      },
+    );
+    }
+    
   
     
   }
@@ -579,7 +675,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.70,
+                  childAspectRatio: 0.62,
                 ), 
                 itemBuilder: (context,index) {
                   return _tarjetasActores(index);
@@ -598,7 +694,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.70,
+                  childAspectRatio: 0.62,
                 ), 
                 itemBuilder: (context,index) => _tarjetasTecnico(index),
                 ),
@@ -614,7 +710,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.70,
+                  childAspectRatio: 0.64,
                 ), 
                 itemBuilder: (context,index) =>  _tarjetasEquipos(index),
                 ),
@@ -630,7 +726,7 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.70,
+                  childAspectRatio: 0.62,
                 ), 
                 itemBuilder: (context,index) => _tarjetasEspacios(index),
                 ),
@@ -641,12 +737,12 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: GridView.builder(
-                itemCount: photos.length,
+                itemCount: artes.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.70,
+                  childAspectRatio: 0.62,
                 ), 
                 itemBuilder: (context,index) => _tarjetasArte(index),
                 ),

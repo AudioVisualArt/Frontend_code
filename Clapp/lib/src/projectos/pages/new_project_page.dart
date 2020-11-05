@@ -1,3 +1,5 @@
+import 'package:Clapp/src/Finance/Model/Finance.dart';
+import 'package:Clapp/src/Finance/provider/finances_provider.dart';
 import 'package:Clapp/src/User/bloc/provider.dart';
 import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/providers/actividad_provider.dart';
@@ -32,6 +34,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   ProjectModel proyecto = new ProjectModel();
   bool _guardando = false;
   final proyectoProvider = new ProyectosProvider();
+
 
   PlatformFile resumen_ejecutivo;
   PlatformFile carpeta_madre;
@@ -218,6 +221,7 @@ class _NewProjectPage extends State<NewProjectPage> {
             'Desde esta sección puedes crear contratos y gestionar el personal y las finanzas de tu proyecto.');
         proyecto.id =
             await Future.value(proyectoProvider.crearProyecto(proyecto));
+
         print("el id del proyecto es: ${proyecto.id}");
         ActividadModel activity = new ActividadModel(
             descripcion: "Has creado un nuevo proyecto",
@@ -227,6 +231,7 @@ class _NewProjectPage extends State<NewProjectPage> {
                 "${proyecto.proyectName},${proyecto.projectType},${proyecto.description}",
             photoUrl: usuario.photoUrl);
         actividadProvider.crearActividad(activity, usuario.id);
+
 
         StorageUploadTask t;
         t = await proyectoProvider.editarProyecto(
@@ -238,6 +243,7 @@ class _NewProjectPage extends State<NewProjectPage> {
             _saved = true;
             _savedFile = true;
           });
+
         }
 
         // Navigator.pop(context);

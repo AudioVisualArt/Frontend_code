@@ -1,3 +1,4 @@
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 
@@ -10,6 +11,7 @@ class PresupuestoPage extends StatefulWidget {
 
 class _PresupuestoPageState extends State<PresupuestoPage> {
   List<double> _valores = new List();
+  List<dynamic> args=new List();
   PageController pc=new PageController();
   int _valorActores=0;
   int _valorTecnico=0;
@@ -19,6 +21,12 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
   int _presupuesto=0;
   @override
   Widget build(BuildContext context) {
+    UserModel user=ModalRoute.of(context).settings.arguments;
+   if(args.length==0){
+     args.add(user);
+   }
+    
+    
     return Container(
           child: Scaffold(
         resizeToAvoidBottomPadding: false,
@@ -375,7 +383,8 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                         this._valores.add((this._presupuesto)*(this._valorEquipo/100));
                         this._valores.add((this._presupuesto)*(this._valorEspacios/100));
                         this._valores.add((this._presupuesto)*(this._valorArte/100));
-                        Navigator.pushNamed(context, 'recomendado',arguments: this._valores);
+                        args.add(this._valores);            
+                       Navigator.pushNamed(context, 'recomendado',arguments: args);
 
                       }
                     },

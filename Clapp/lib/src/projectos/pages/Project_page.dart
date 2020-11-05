@@ -16,12 +16,12 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   final proyectosProvider = new ProyectosProvider();
-
+  List<dynamic> args=new List();
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
     //final idUsuario = ModalRoute.of(context).settings.arguments;
-
+    args.add(usuario);
     //print('id User ' + widget.user.id);
 
     return Scaffold(
@@ -230,8 +230,11 @@ class _ProjectPageState extends State<ProjectPage> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0)),
             child: InkWell(
-              onTap: () => Navigator.pushNamed(context, 'details_project',
-                  arguments: proyecto),
+              onTap: () {
+                args.add(proyecto);
+                Navigator.pushNamed(context, 'details_project',
+                  arguments: args);
+                  },
               child: Container(
                 height: 80,
                 child: Column(

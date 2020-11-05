@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:Clapp/src/Finance/Model/Finance.dart';
+import 'package:Clapp/src/Finance/provider/finances_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:Clapp/src/projectos/bloc/project_bloc.dart';
@@ -39,6 +41,14 @@ class ProyectosProvider extends InheritedWidget{
         body: ProjectModelToJson(proyecto));
 
     print(resp.body);
+    FinancesProvider financeProvider = new FinancesProvider();
+    FinanceModel f = new FinanceModel(
+      projectId: resp.body,
+      title: "Total",
+      percentage: 0,
+      quantity: 0
+    );
+    financeProvider.crearFinance(f);
 
     return resp.body;
   }
@@ -115,6 +125,8 @@ class ProyectosProvider extends InheritedWidget{
     final decodeData = resp.body;
 
     print(decodeData);
+
+
 
     return uploadTask;
   }

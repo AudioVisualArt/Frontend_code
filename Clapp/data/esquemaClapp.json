@@ -3,7 +3,7 @@
         "Contracts": [{
             "acceptedApplicant": true,
             "acceptedBidder": true,
-            "city": "Bogotá",
+            "city": "String",
             "desiredSkills": "actor express",
             "id": "1k1l3ne3nwern",
             "jobPosition": "Actor",

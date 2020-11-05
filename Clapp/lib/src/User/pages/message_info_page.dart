@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Clapp/src/User/models/actividad_model.dart';
 import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/mensaje_model.dart';
@@ -19,6 +21,7 @@ class _MessageInfoState extends State<MessageInfo> {
   ActividadProvider actividadProvider=new ActividadProvider();
   ChatModel aux;
   bool cambio=false;
+  final ScrollController scrollController= ScrollController();
   ScreenArgument args;
   String url;
   final tarjetas=new List<Widget>();
@@ -43,50 +46,64 @@ class _MessageInfoState extends State<MessageInfo> {
           style: TextStyle(fontSize: 20.0, fontFamily: "Raleway"),
         ),
       ),
-      body: _mensajeInfo(args.model,context,args.user,args.nameuser),
+      body: Column(children:[ _mensajeInfo(args.model,context,args.user,args.nameuser),
+        
+        _scrollContainer()
+      ]),
+      
+        
+      
       bottomSheet: _bottom(context,args.user,args.model.chatId,args.id2,contador),
         
       );
   }
 
+  
+
   Widget _mensajeInfo(ChatModel chat,BuildContext context, UserModel user,String name) {
-    
+    print(chat.chatId);
+    print(chat.photoUrlO);
+    print(chat.photoUrlD);
       if(chat.usuarioD==user.id){
-        print(url);
+        print("1111111111111111111111111");
+        
         url=chat.photoUrlO;
       }else{
+        print("222222222222222222222222222222");
         print(url);
         url=chat.photoUrlD;
       }
-    return Wrap(
-          children: [Column(
+    return Column(
         
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 20.0),
-            child: Center(
-              child: Hero(
-                tag: user.id,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(35.0),
-                  child: FadeInImage(
-                    image: NetworkImage(url),
-                    placeholder: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png'),
-                    height: 100.0,
-                    width: 100.0,
-                    fit: BoxFit.cover,
+            Container(
+              margin: EdgeInsets.only(top: 20.0),
+                child: Center(
+                  child: Hero(
+                    tag: user.id,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(35.0),
+                      child: FadeInImage(
+                        image: NetworkImage(url),
+                        placeholder: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png'),
+                        height: 100.0,
+                        width: 100.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              
             ),
-          ),
-          Text(name,style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
-          _mensajes(chat,context,user),
-          
+            Text(name,style: Theme.of(context).textTheme.headline6,textAlign: TextAlign.center),
+        
+            _mensajes(chat,context,user)
+            
         ],
-      ),
-          ]
-    );
+      );
+          
+          
+    
   }
 
   Widget _mensajes(ChatModel chat,BuildContext context,UserModel user) {
@@ -107,13 +124,19 @@ class _MessageInfoState extends State<MessageInfo> {
     });
 
    
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: tarjetas.length,
-      itemBuilder: (context,index){    
-        return tarjetas[index];  
-      });
+    return Container(
+      height: 550,
+          child: ListView.builder(
+        primary: false,
+        scrollDirection: Axis.vertical,
+        physics: AlwaysScrollableScrollPhysics(),
+        shrinkWrap: true,
+        controller: scrollController,
+        itemCount: tarjetas.length,
+        itemBuilder: (context,index){    
+          return tarjetas[index];  
+        }),
+    );
   }
 
   Widget _bottom(BuildContext context,UserModel usuario,String id,String idUser2,int ct) {
@@ -138,7 +161,7 @@ class _MessageInfoState extends State<MessageInfo> {
               MensajeModel nuevoMsj= await _crearMensaje(valor,usuario,id,idUser2,ct);  
 
               setState(() {
-                
+                _srollState();
               }); 
             },
           ),
@@ -149,9 +172,13 @@ class _MessageInfoState extends State<MessageInfo> {
     );
   }
   Widget crearCardContact(MensajeModel msj,BuildContext context){
+    var str=msj.fecha.split(" ");
+    
+    var str2=str[1].split(".");
+    var aux=str2[0].split(":");
     return Card(
       color: Color.fromRGBO(169, 196, 230, 0.5),
-      margin: EdgeInsets.only(top: 10.0,left: 35.0),
+      margin: EdgeInsets.only(top: 5.0,left: 35.0,bottom: 5.0),
       elevation: 10.0,
       shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
       child: Column(
@@ -163,8 +190,8 @@ class _MessageInfoState extends State<MessageInfo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(width: 30.0),
-              Text(msj.fecha,style: Theme.of(context).textTheme.subtitle2)
+              SizedBox(width: 190.0),
+              Text("${aux[0]}:${aux[1]} del ${str[0]}",style: Theme.of(context).textTheme.subtitle2)
             ],
           )
         ],
@@ -172,9 +199,12 @@ class _MessageInfoState extends State<MessageInfo> {
     );
   }
   Widget crearCard(MensajeModel msj,BuildContext context){
+    var str=msj.fecha.split(" ");
+    var str2=str[1].split(".");
+    var aux=str2[0].split(":");
     return Card(
     
-      margin: EdgeInsets.only(top: 10.0,right: 35.0),
+      margin: EdgeInsets.only(top: 5.0,right: 35.0,bottom: 5.0),
       elevation: 10.0,
       shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
       child: Column(
@@ -186,8 +216,8 @@ class _MessageInfoState extends State<MessageInfo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(width: 70.0),
-              Text(msj.fecha,style: Theme.of(context).textTheme.subtitle2)
+              SizedBox(width: 190.0),
+              Text("${aux[0]}:${aux[1]} del ${str[0]}",style: Theme.of(context).textTheme.subtitle2,)
             ],
           )
         ],
@@ -247,7 +277,28 @@ class _MessageInfoState extends State<MessageInfo> {
       return null;
     }
     mensajes.sort((a,b)=>a.cont.compareTo(b.cont));
+    
     return mensajes;
+  }
+
+  Widget _scrollContainer() {
+ if (scrollController.hasClients) {
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 100), curve: Curves.decelerate);
+    } else {
+      Timer(Duration(milliseconds: 400), () => _scrollContainer());
+    }
+    return Container(
+      height: 60,
+    );
+  }
+
+  void _srollState() {
+    Timer(Duration(milliseconds: 400), () => {
+       scrollController.jumpTo(scrollController.position.maxScrollExtent)
+
+    });
+   
   }
 
 }

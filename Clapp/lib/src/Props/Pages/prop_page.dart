@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,6 +28,7 @@ class _PropPageState extends State<PropPage> {
   final propProvider = new PropProvider();
 
   bool _guardando = false;
+  bool _loading = false;
   File foto;
 
   @override
@@ -64,6 +66,7 @@ class _PropPageState extends State<PropPage> {
             child: Form(
               key: formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   _mostrarFoto(),
                   Divider(),
@@ -80,6 +83,16 @@ class _PropPageState extends State<PropPage> {
                   _crearDisponible(),
                   Divider(),
                   _crearBoton(),
+                  Divider(),
+                  _loading
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromRGBO(0, 51, 51, 1.0),
+                        ))
+                      : Container(
+                          height: 0.0,
+                          width: 0.0,
+                        ),
                 ],
               ),
             ),
@@ -218,7 +231,7 @@ class _PropPageState extends State<PropPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
@@ -231,23 +244,17 @@ class _PropPageState extends State<PropPage> {
 
     if (propModel.id == null) {
       propModel.idOwner = widget.userModel.id;
-      propProvider.crearProp(propModel, foto);
+      await propProvider.crearProp(propModel, foto);
     } else {
-      propProvider.editarProp(propModel, foto);
+      await propProvider.editarProp(propModel, foto);
     }
 
-    mostrarSnackbar('Registro Guardado');
+    setState(() {
+      _loading = false;
+    });
 
-    Navigator.pop(context);
-  }
-
-  void mostrarSnackbar(String mensaje) {
-    final snacckbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(seconds: 3),
-    );
-
-    scaffoldKey.currentState.showSnackBar(snacckbar);
+    MostrarDialog(context, 'Prop en Clapp !!!',
+        'Has creado el Equipo ${propModel.titulo}');
   }
 
   Widget _mostrarFoto() {
