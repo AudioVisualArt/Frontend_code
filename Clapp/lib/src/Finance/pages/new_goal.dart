@@ -13,6 +13,7 @@ class NewGoal extends StatefulWidget{
 }
 
 class _NewGoal extends State<NewGoal>{
+  final financesformkey = GlobalKey<FormState>();
   FinanceModel finanza = new FinanceModel();
   FinancesProvider financesProvider= new FinancesProvider();
 
@@ -57,7 +58,7 @@ class _NewGoal extends State<NewGoal>{
                   padding: EdgeInsets.only(
                       right: 15.0, left: 15.0, top: 20.0, bottom: 30.0),
                   child: Form(
-                    //key: formKey,
+                    key: financesformkey,
 
                     child: Column(
                       children: <Widget>[
@@ -89,6 +90,9 @@ class _NewGoal extends State<NewGoal>{
                         textColor: Colors.white,
                         color: Color.fromRGBO(112, 252, 118, 0.8),
                         onPressed: () {
+                          if (!financesformkey.currentState.validate()) return;
+                          financesformkey.currentState.save();
+                          print('Todo Ok');
                           finanza.projectId = proyecto.id;
                           financesProvider.crearFinance(finanza);
                           Navigator.popAndPushNamed(context, 'finances',

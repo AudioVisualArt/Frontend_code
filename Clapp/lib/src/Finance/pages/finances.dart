@@ -4,6 +4,7 @@ import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 
 class Finances extends StatefulWidget {
   final ProjectModel project;
@@ -18,7 +19,6 @@ class Finances extends StatefulWidget {
 
 class _Finances extends State<Finances> {
   String state = 'Animation start';
-  FinancesProvider financesProvider = new FinancesProvider();
   @override
   Widget build(BuildContext context) {
     ProjectModel project = ModalRoute.of(context).settings.arguments;
@@ -26,20 +26,98 @@ class _Finances extends State<Finances> {
     return Scaffold(
         body: Container(
           height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-        image: AssetImage("assets/img/home.jpg"),
-        fit: BoxFit.cover,
-      )),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            appbar(project),
-            crearlistado(project.id)
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/img/home.jpg"),
+                fit: BoxFit.cover,
+              )),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                appbar(project),
 
+                /*Padding(
+                padding: EdgeInsets.all(15.0),
+                child: LinearPercentIndicator(
+                  animation: true,
+                  animationDuration: 500,
+                  lineHeight: 20.0,
+                  leading: Expanded(
+                    child: Text("left finanzas"),
+                  ),
+                  trailing: Expanded(
+                      child: Text(
+                        "right finanzas",
+                        textAlign: TextAlign.end,
+                      )),
+                  percent: 0.2,
+                  center: Text("20.0%"),
+                  linearStrokeCap: LinearStrokeCap.butt,
+                  progressColor: Colors.red,
+                ),
+              ),
 
-            /*Padding(
+               */
+
+                crowdfunding(
+                  "CrowdFunding",
+                  "2.145.018 COP",
+                  "Objetivo 2818 US",
+                  0.2,
+                  "20.0%",
+                  Color.fromRGBO(112, 252, 118, 1),
+                ),
+                crowdfunding(
+                  "Inversores",
+                  "2.681.272 COP",
+                  "Objetivo 2818 US",
+                  0.25,
+                  "25.0%",
+                  Color.fromRGBO(112, 252, 118, 1),
+                ),
+                crowdfunding("Total", "4.826.290 COP", "Objetivo 2818 US", 0.45,
+                    "45.0%", Colors.blueAccent),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Container(
+
+                    /* decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  border: Border.all(
+                    width: 1.3,
+                    color: Color.fromRGBO(0, 51, 51, 0.8),
+                  ),
+                ),
+
+                */
+                      width: MediaQuery.of(context).size.width - 10,
+                      //color: Color.fromRGBO(112,252,118, 1),
+                      child: Padding(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 4),
+                          child: Center(
+                              child: Text(
+                                "Nómina",
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: "Raleway",
+                                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                                    fontWeight: FontWeight.bold),
+                              )))),
+                ),
+                crowdfunding(
+                  "Preproducción",
+                  "7.000.000 COP",
+                  "",
+                  0.72,
+                  "72.0%",
+                  Color.fromRGBO(112, 252, 118, 1),
+                ),
+                crowdfunding(
+                    "Total", "7.000.000 COP", "", 0.72, "72.0%", Colors.blueAccent),
+
+                /*Padding(
               padding: EdgeInsets.all(15),
               child: LinearPercentIndicator(
                 lineHeight: 20,
@@ -55,49 +133,10 @@ class _Finances extends State<Finances> {
             Text(state),
 
              */
-          ],
-        ),
-      ),
-    ));
-  }
-
-  Widget crearlistado(String id){
-    return FutureBuilder(
-      future: financesProvider.cargarFinanzas(id),
-
-      builder: (BuildContext context, AsyncSnapshot<List<FinanceModel>> snapshot) {
-        if (!snapshot.hasData) {
-          return CircularProgressIndicator();
-        }else{
-          final finanzas = snapshot.data;
-          return ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: finanzas.length,
-              itemBuilder: (context, index){
-                if(finanzas[index].title != "Total"){
-                  return crowdfunding(
-                    finanzas[index].title,
-                    "${finanzas[index].quantity} COP",
-                    "${finanzas[index].quantity} COP",
-                    finanzas[index].percentage,
-                    "${num.parse((finanzas[index].percentage*100).toStringAsFixed(3))}%",
-                    Color.fromRGBO(112, 252, 118, 1),
-                  );
-                }else{
-                  return crowdfunding(
-                      finanzas[index].title,
-                      "${finanzas[index].quantity} COP",
-                      "${finanzas[index].quantity} COP",
-                      finanzas[index].percentage,
-                      "${num.parse((finanzas[index].percentage*100).toStringAsFixed(3))}%",
-                      Colors.blueAccent);
-                }
-              }
-          );
-        }
-      },
-    );
+              ],
+            ),
+          ),
+        ));
   }
 
   Widget crowdfunding(String nombre, String cantidad, String objetivo,
@@ -107,7 +146,7 @@ class _Finances extends State<Finances> {
         Align(
             alignment: Alignment.topLeft,
             child: Container(
-                //color: Color.fromRGBO(112,252,118, 1),
+              //color: Color.fromRGBO(112,252,118, 1),
                 child: Padding(
                     padding: EdgeInsets.only(
                         left: 15.0, right: 15.0, top: 5.0, bottom: 15),
@@ -133,7 +172,7 @@ class _Finances extends State<Finances> {
               children: [
                 Padding(
                     padding:
-                        EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
+                    EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
                     child: Text("Cantidad recaudada",
                         style: TextStyle(
                           fontSize: 18.0,
@@ -167,7 +206,7 @@ class _Finances extends State<Finances> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                  EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -216,7 +255,7 @@ class _Finances extends State<Finances> {
                 Container(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 7.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
                       icon: Icon(Icons.arrow_back),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
@@ -232,7 +271,7 @@ class _Finances extends State<Finances> {
                   child: Container(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 10.0, right: 10, top: 37),
+                      const EdgeInsets.only(left: 10.0, right: 10, top: 37),
                       child: Text('Finanzas',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -244,7 +283,7 @@ class _Finances extends State<Finances> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 7, top: 37),
-                  child: _botonNuevo(proyecto),
+                  child: _botonNuevo(),
                 )
               ],
             ),
@@ -265,7 +304,7 @@ class _Finances extends State<Finances> {
         ));
   }
 
-  Widget _botonNuevo(ProjectModel project) {
+  Widget _botonNuevo() {
     return RaisedButton(
       splashColor: Colors.grey,
       padding: EdgeInsets.only(top: 13, bottom: 13, left: 10, right: 10),
@@ -289,8 +328,10 @@ class _Finances extends State<Finances> {
       color: Colors.white,
 
       onPressed: () {
-        Navigator.pushNamed(context, 'newgoal', arguments: project
-            ); //ver routes
+        mostrar_dialog.MostrarDialog(context, 'Estamos trabajando en esto!',
+            'Esta funcionalidad estará lista para la segunda version de Clapp. Disculpa las molestias.');
+        //Navigator.pushNamed(context, 'newgoal',
+        //); //ver routes
       },
     );
   }
