@@ -82,7 +82,7 @@ class WorkersProvider {
 
   Future<List<WorkerModel>> cargarTrabajadores() async {
     print("la url que se trata de acceder es: $_url");
-    final url = '$_url/getAllWorkers';
+    final url = '$_url/getAllWorkersTop';
     final rsp = await http.get(url);
     print(rsp.body);
 
