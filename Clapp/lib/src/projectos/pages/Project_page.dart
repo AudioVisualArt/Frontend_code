@@ -191,7 +191,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
       onPressed: () {
         Navigator.pushNamed(context, 'new_project',
-            arguments: userModel); //ver routes
+            arguments: args[0]); //ver routes
       },
     );
   }
