@@ -83,10 +83,10 @@ class EquipmentProvider {
   }
 
   Future<List<EquipmentModel>> cargarEquipments() async {
-    print("la url que se trata de acceder es: $_url");
+    //print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllEquipments';
     final rsp = await http.get(url);
-    print('Equipments: ' + rsp.body);
+    //print('Equipments: ' + rsp.body);
 
     String source = Utf8Decoder().convert(rsp.bodyBytes);
 
@@ -101,10 +101,10 @@ class EquipmentProvider {
   }
 
   Future<EquipmentModel> cargarEquipment(String id) async {
-    print("la url que se trata de acceder es: $_url");
+    //print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllEquipments';
     final rsp = await http.get(url);
-    print('Equipments: ' + rsp.body);
+    //print('Equipments: ' + rsp.body);
 
     final Iterable decodeData = json.decode(rsp.body);
     List<EquipmentModel> equipmentModels = new List();

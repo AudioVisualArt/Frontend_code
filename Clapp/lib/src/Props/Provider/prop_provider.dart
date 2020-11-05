@@ -68,7 +68,7 @@ class PropProvider {
     //print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllProps';
     final rsp = await http.get(url);
-    print('Props: ' + rsp.body);
+    //print('Props: ' + rsp.body);
 
     final Iterable decodeData = json.decode(rsp.body);
     List<PropModel> propsModels = new List();
@@ -76,7 +76,7 @@ class PropProvider {
 
     propsModels = decodeData.map((model) => PropModel.fromJson(model)).toList();
 
-    print('Props: $decodeData');
+    //print('Props: $decodeData');
 
     return propsModels;
   }
