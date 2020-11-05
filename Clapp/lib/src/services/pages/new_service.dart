@@ -545,33 +545,36 @@ class _NewService extends State<NewService> {
     //trabajador.userId= workerProvider.crearWorker(trabajador).toString();
     //print("el id del servicio es: ${trabajador.userId}");
     //trabajador.briefcase= values;
-    if(guion != null){
-    if (!workerformkey.currentState.validate())
-      workerformkey.currentState.save();
+    if (guion != null) {
+      if (!workerformkey.currentState.validate())
+        workerformkey.currentState.save();
 
-    print('Todo Ok');
+      print('Todo Ok');
 
-    setState(() {
-      _guardando = true;
-    });
+      setState(() {
+        _guardando = true;
+      });
+      if (trabajador.description.isNotEmpty &&
+          trabajador.mainRol.isNotEmpty &&
+          trabajador.profession.isNotEmpty &&
+          trabajador.studies.isNotEmpty) {
+        print(guion.path.toString());
 
-      print(guion.path.toString());
+        StorageUploadTask t;
+        //t = await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
+        t = await workerProvider.crearWorker(trabajador, guion);
+        if (t.isComplete) {
+          setState(() {
+            _tasks.add(t);
+            _saved = true;
+            _savedFile = true;
+          });
+        }
 
-      StorageUploadTask t;
-      //t = await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
-      t = await workerProvider.crearWorker(trabajador, guion);
-      if (t.isComplete) {
-        setState(() {
-          _tasks.add(t);
-          _saved = true;
-          _savedFile = true;
-        });
+        Navigator.pop(context);
+        mostrar_dialog.MostrarDialog(context, 'Tu servicio ha sido creado!',
+            'Tu perfil de servicio aparecera en la sección de personal de Clapp.');
       }
-      // Navigator.pop(context);
-      //utils.mostrarAlerta(context, 'HV en  Clapp !!!');
-      Navigator.pop(context);
-    mostrar_dialog.MostrarDialog(context, 'Tu servicio ha sido creado!',
-        'Tu perfil de servicio aparecera en la sección de personal de Clapp.');
     } else {
       setState(() {
         _saved = false;
@@ -579,14 +582,6 @@ class _NewService extends State<NewService> {
       mostrar_dialog.MostrarDialog(context, 'Error!',
           'Debes subir el archivo de portafolio para poder continuar.');
     }
-
-    // setState(() {
-    //   _guardando = false;
-    // });
-
-    //Duration(milliseconds: 1500);
-    //Navigator.pop(context,
-     //   new MaterialPageRoute(builder: (context) => new ServicesPages()));
   }
 
   openFileExplorer() async {
