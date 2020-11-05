@@ -4,6 +4,7 @@ import 'package:Clapp/src/Space/pages/spaces_page.dart';
 import 'package:Clapp/src/item/pages/ver_productos_page.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
 import 'package:Clapp/src/User/providers/chat_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/widgets/menu_widget.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ChatProvider chatprovider = new ChatProvider();
+  
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
