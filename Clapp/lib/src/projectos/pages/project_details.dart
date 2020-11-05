@@ -17,8 +17,8 @@ class _ProjectDetails extends State<ProjectDetails> {
   List<dynamic> args=new List();
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute.of(context).settings.arguments;
-    ProjectModel proyecto=args[1];
+     
+    ProjectModel proyecto=ModalRoute.of(context).settings.arguments;
     final List<Widget> _screens = [];
     return Scaffold(
       body: Container(

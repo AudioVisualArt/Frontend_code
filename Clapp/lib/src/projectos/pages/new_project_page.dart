@@ -42,7 +42,7 @@ class _NewProjectPage extends State<NewProjectPage> {
   bool _saved = false;
   bool _savedFile = false;
   final projectformkey = GlobalKey<FormState>();
-
+  List<dynamic> args=new List();
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
