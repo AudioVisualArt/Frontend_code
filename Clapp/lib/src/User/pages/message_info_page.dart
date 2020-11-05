@@ -65,11 +65,8 @@ class _MessageInfoState extends State<MessageInfo> {
     print(chat.photoUrlO);
     print(chat.photoUrlD);
       if(chat.usuarioD==user.id){
-        print("1111111111111111111111111");
-        
         url=chat.photoUrlO;
       }else{
-        print("222222222222222222222222222222");
         print(url);
         url=chat.photoUrlD;
       }

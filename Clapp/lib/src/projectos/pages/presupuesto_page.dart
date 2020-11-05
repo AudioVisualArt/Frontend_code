@@ -1,4 +1,5 @@
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 
@@ -19,6 +20,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
   int _valorEspacios=0;
   int _valorArte=0;
   int _presupuesto=0;
+  String auxp;
   @override
   Widget build(BuildContext context) {
     UserModel user=ModalRoute.of(context).settings.arguments;
@@ -96,9 +98,17 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                             color: Color.fromRGBO(0, 51, 51, 0.8), width: 0.7),
                         borderRadius: BorderRadius.circular(16.0)),
                   ),
-                  onChanged: (value) => _presupuesto = int.tryParse(value),
+                  onChanged: (value) => auxp = value,
                   onEditingComplete: (){
-                    pc.animateToPage(2, duration: Duration(milliseconds: 1000), curve: Curves.linear);
+                    var entero=int.tryParse(auxp);
+                    if(entero is int){
+                      _presupuesto=entero;
+                      pc.animateToPage(2, duration: Duration(milliseconds: 1000), curve: Curves.linear);
+                    }
+                    else{
+                      mostrarAlerta(context, "valor erroneo");
+                      
+                    }
                   },
                   validator: (value) {
                     if (value.length==0) {
