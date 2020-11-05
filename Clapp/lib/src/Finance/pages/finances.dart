@@ -25,6 +25,7 @@ class _Finances extends State<Finances> {
     // TODO: implement build
     return Scaffold(
         body: Container(
+          height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
           image: DecorationImage(
         image: AssetImage("assets/img/home.jpg"),
