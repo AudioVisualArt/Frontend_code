@@ -91,7 +91,7 @@ class ScreenPlayProvider {
   Future<List<ScreenPlayModel>> cargarScreenPlays() async {
     final url = '$_url/getAllScreen';
     final rsp = await http.get(url);
-    print('ScreenPlays: ' + rsp.body);
+    //print('ScreenPlays: ' + rsp.body);
 
     String source = Utf8Decoder().convert(rsp.bodyBytes);
 
