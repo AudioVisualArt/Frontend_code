@@ -347,25 +347,35 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
   }
 
   void _submit() async {
-    if (!formKey.currentState.validate()) return;
+    if (equipment.fotoUrl != null || equipment.fotoUrl.isNotEmpty) {
+    if (foto != null) {
+      if (!formKey.currentState.validate()) return;
 
-    formKey.currentState.save();
+      formKey.currentState.save();
 
-    print('Todo Ok');
+      print('Todo Ok');
 
-    setState(() {
-      _guardando = true;
-      _loading = true;
-    });
+      setState(() {
+        _guardando = true;
+        _loading = true;
+      });
 
-    await equipmentProvider.editarEquipment(equipment, foto);
+      await equipmentProvider.editarEquipment(equipment, foto);
 
-    setState(() {
-      _loading = false;
-    });
+      setState(() {
+        _loading = false;
+      });
 
-    MostrarDialog(context, 'Equipo Actualizado en Clapp !!!',
-        'Has actualizado el equipo ${equipment.titulo}');
+      MostrarDialog(context, 'Equipo Actualizado en Clapp !!!',
+          'Has actualizado el equipo ${equipment.titulo}');
+    } }else {
+      setState(() {
+        _guardando = false;
+      });
+
+      MostrarDialog(context, 'Equipo Actualizado en Clapp !!!',
+          'Has actualizado el equipo ${equipment.titulo}');
+    }
   }
 
   Widget _mostrarFoto() {
@@ -427,7 +437,7 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
     }
   }
 
-  _tomarFoto() async {
+ _tomarFoto() async {
     PickedFile image = await _picker.getImage(source: ImageSource.camera);
     foto = File(image.path);
 
@@ -436,4 +446,6 @@ class _EquipmentEditPageState extends State<EquipmentEditPage> {
     }
     setState(() {});
   }
+
+
 }

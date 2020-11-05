@@ -27,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final userProvider = new UsuarioProvider();
   final workerProvider = new WorkersProvider();
   final spaceProvider = new SpacesProvider();
+
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
@@ -153,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Color.fromRGBO(227, 227, 227, 1.0),
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
+                            borderRadius: BorderRadius.circular(15.0),
                           ))),
                 ),
                 Container(
@@ -165,10 +166,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     //color: Color.fromRGBO(227, 227, 227, 1.0),
                     borderRadius:
                         BorderRadius.only(
-                            topLeft: Radius.circular(34),
-                            topRight: Radius.circular(34),
-                      bottomLeft: Radius.circular(29),
-                    bottomRight: Radius.circular(29),
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
             ),
                   ),
                   child: Column(
@@ -190,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(
                         child: Container(
-                           /* decoration: BoxDecoration(
+                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
@@ -200,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: Color.fromRGBO(227, 227, 227, 1),
                             ),
 
-                            */
+
                             height: 150,
                             width: MediaQuery.of(context).size.width - 20.0,
                             margin: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -467,12 +468,25 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+
+
   Widget _servicios(UserModel usuario) {
+
     return FutureBuilder(
       future: workerProvider.cargarTrabajadoresUsuario(usuario.id),
       builder:
           (BuildContext context, AsyncSnapshot<List<WorkerModel>> snapshot) {
-        if (snapshot.hasData) {
+            if(!snapshot.hasData){
+              // still waiting for data to come
+              return Center(child: CircularProgressIndicator());
+
+            }
+            else if(snapshot.hasData && snapshot.data.isEmpty) {
+              // got data from snapshot but it is empty
+
+              return Text('No tienes un perfil publicado, ve a "Se parte de un proyecto" y conviertete en un Clapper ya!');
+            }else {
+
           final workers = snapshot.data;
           return Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -484,10 +498,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   _buildServicio(context, workers[index], usuario),
             ),
           );
-        } else {
+        } /*else {
+
 
            return Center(child: CircularProgressIndicator());
         }
+        */
         /*else if (snapshot.data == null){
 
           return Text("¿No tienes servicios?\nDirigete a Servicios y crea un perfil!",style: TextStyle(
