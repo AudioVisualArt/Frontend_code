@@ -46,6 +46,10 @@ class _NewProjectPage extends State<NewProjectPage> {
   @override
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
+    if(args.length==0){
+      args.add(usuario);
+    }
+    
     proyecto.ownerId = usuario.id;
     print("id de usuario en new project: ${usuario.id}");
     //final bloc = ProyectosProvider.of(context);
@@ -211,10 +215,15 @@ class _NewProjectPage extends State<NewProjectPage> {
             proyecto.projectType.isNotEmpty &&
             proyecto.proyectName.isNotEmpty) {
           //_submit(usuario);
+          if(args.length==1){
+            args.add(proyecto);
+          }
+          
+          print(args.length);
           Navigator.popAndPushNamed(
             context,
             'details_project',
-            arguments: proyecto,
+            arguments: args,
           );
         }
         mostrar_dialog.MostrarDialog(context, 'Tu proyecto ha sido creado!',

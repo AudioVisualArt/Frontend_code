@@ -233,7 +233,7 @@ class _ProjectPageState extends State<ProjectPage> {
               onTap: () {
                 args.add(proyecto);
                 Navigator.pushNamed(context, 'details_project',
-                  arguments: proyecto);
+                  arguments: args);
                   },
               child: Container(
                 height: 80,
