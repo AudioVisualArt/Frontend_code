@@ -171,7 +171,7 @@ class _VerColaboradores extends State<VerColaboradores> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 2, left: 2, right: 2),
-                            child: Text(user.description,
+                            child: Text(user.cityResidence,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16.0,
