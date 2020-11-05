@@ -44,7 +44,7 @@ class _ShowPropPageState extends State<ShowPropPage> {
 
   Widget _crearListadoProps() {
     return FutureBuilder(
-      future: propProvider.cargarProps(),
+      future: propProvider.cargarPropsNotSessionUser(widget.userModel.id),
       builder: (BuildContext context, AsyncSnapshot<List<PropModel>> snapshot) {
         if (snapshot.hasData) {
           final props = snapshot.data;

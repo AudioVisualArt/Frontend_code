@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class StockPhotoProvider {
   final String _url = utils.url;
-  ActividadProvider actividadProvider=ActividadProvider();
+  ActividadProvider actividadProvider = ActividadProvider();
   Future<bool> crearPhoto(StockPhotoModel stockPhotoModel, File foto) async {
     final url = '$_url/savePhoto';
 
@@ -34,15 +34,13 @@ class StockPhotoProvider {
 
     print(resp.statusCode);
 
-     ActividadModel activity=new ActividadModel(
-          descripcion: "Has publicado una nueva foto",
-          fecha: DateTime.now().toString(),
-          tipo: "Photo",
-          contenido: "${stockPhotoModel.titulo},${stockPhotoModel.photoType},${stockPhotoModel.valor}",
-          photoUrl: stockPhotoModel.fotoUrl
-
-
-    );
+    ActividadModel activity = new ActividadModel(
+        descripcion: "Has publicado una nueva foto",
+        fecha: DateTime.now().toString(),
+        tipo: "Photo",
+        contenido:
+            "${stockPhotoModel.titulo},${stockPhotoModel.photoType},${stockPhotoModel.valor}",
+        photoUrl: stockPhotoModel.fotoUrl);
     actividadProvider.crearActividad(activity, stockPhotoModel.idOwner);
 
     return true;
@@ -95,8 +93,57 @@ class StockPhotoProvider {
     return stockPhotosModels;
   }
 
-  Future<int> borrarProducto(String id) async {
-    final url = '$_url/deletePhoto/$id';
+  Future<List<StockPhotoModel>> cargarPhotosNotSessionUser(String id) async {
+    final url = '$_url/getAllPhotos';
+    final rsp = await http.get(url);
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<StockPhotoModel> stockPhotosModels = new List();
+    List<StockPhotoModel> stockPhotosModelsMarket = new List();
+    if (decodeData == null) return [];
+
+    stockPhotosModels =
+        decodeData.map((model) => StockPhotoModel.fromJson(model)).toList();
+
+    stockPhotosModels.forEach((element) {
+      print(element.idOwner.compareTo(id));
+      if (element.idOwner.compareTo(id) != 0) {
+        stockPhotosModelsMarket.add(element);
+      }
+    });
+
+    return stockPhotosModelsMarket;
+  }
+
+  Future<List<StockPhotoModel>> cargarPhotosUser(String id) async {
+    //print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getAllPhotos';
+    final rsp = await http.get(url);
+    //print('Photos: ' + rsp.body);
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<StockPhotoModel> stockPhotosModels = new List();
+    List<StockPhotoModel> stockPhotosModelsUser = new List();
+    if (decodeData == null) return [];
+
+    stockPhotosModels =
+        decodeData.map((model) => StockPhotoModel.fromJson(model)).toList();
+
+    stockPhotosModels.forEach((element) {
+      if (element.idOwner == id) {
+        print(id + " - " + element.idOwner);
+        stockPhotosModelsUser.add(element);
+      }
+    });
+
+    return stockPhotosModelsUser;
+  }
+
+  Future<int> borrarFoto(StockPhotoModel stockPhotoModel) async {
+    final url = '$_url/deletePhoto/${stockPhotoModel.id.toString()}';
+    await FirebaseStorage.instance
+        .getReferenceFromUrl(stockPhotoModel.fotoUrl)
+        .then((value) => value.delete());
     final rsp = await http.delete(url);
 
     return 1;

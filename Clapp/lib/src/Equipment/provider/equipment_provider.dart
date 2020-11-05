@@ -100,26 +100,26 @@ class EquipmentProvider {
     return equipmentModels;
   }
 
-  Future<EquipmentModel> cargarEquipment(String id) async {
-    print("la url que se trata de acceder es: $_url");
+  Future<List<EquipmentModel>> cargarEquipmentsUser(String id) async {
     final url = '$_url/getAllEquipments';
     final rsp = await http.get(url);
-    print('Equipments: ' + rsp.body);
 
     final Iterable decodeData = json.decode(rsp.body);
     List<EquipmentModel> equipmentModels = new List();
+    List<EquipmentModel> equipmentModelsUser = new List();
     if (decodeData == null) return null;
 
     equipmentModels =
         decodeData.map((model) => EquipmentModel.fromJson(model)).toList();
 
     equipmentModels.forEach((element) {
-      if (element.id == id) {
-        return element;
-      } else {
-        return null;
+      if (element.idOwner == id) {
+        print(id + " - " + element.idOwner);
+        equipmentModelsUser.add(element);
       }
     });
+
+    return equipmentModelsUser;
   }
 
   Future<List<EquipmentModel>> cargarEquipmentsNotSessionUser(String id) async {
@@ -203,8 +203,11 @@ class EquipmentProvider {
     return equipmentModelsMarket;
   }
 
-  Future<int> borrarProducto(String id) async {
-    final url = '$_url/deleteEquipment/$id';
+  Future<int> borrarProducto(EquipmentModel equipmentModel) async {
+    final url = '$_url/deleteEquipment/${equipmentModel.id.toString()}';
+    await FirebaseStorage.instance
+        .getReferenceFromUrl(equipmentModel.fotoUrl)
+        .then((value) => value.delete());
     final rsp = await http.delete(url);
 
     //print(json.decode(rsp.body));

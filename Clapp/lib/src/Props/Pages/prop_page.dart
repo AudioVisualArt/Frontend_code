@@ -253,8 +253,8 @@ class _PropPageState extends State<PropPage> {
       _loading = false;
     });
 
-    MostrarDialog(context, 'Prop en Clapp !!!',
-        'Has creado el Equipo ${propModel.titulo}');
+    MostrarDialog(
+        context, 'Prop en Clapp !!!', 'Has creado el Prop ${propModel.titulo}');
   }
 
   Widget _mostrarFoto() {

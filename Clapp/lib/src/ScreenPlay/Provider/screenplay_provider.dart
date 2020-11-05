@@ -105,8 +105,37 @@ class ScreenPlayProvider {
     return screenplayModels;
   }
 
-  Future<int> borrarScreenPlay(String id) async {
-    final url = '$_url/deleteEquipment/$id';
+  Future<List<ScreenPlayModel>> cargarScreenPlaysNotSessionUser(
+      String id) async {
+    final url = '$_url/getAllScreen';
+    final rsp = await http.get(url);
+    print('ScreenPlays: ' + rsp.body);
+
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
+    List<ScreenPlayModel> screenplayModels = new List();
+    List<ScreenPlayModel> screenplayModelsMarket = new List();
+    if (decodeData == null) return [];
+
+    screenplayModels =
+        decodeData.map((model) => ScreenPlayModel.fromJson(model)).toList();
+
+    screenplayModels.forEach((element) {
+      print(element.idOwner.compareTo(id));
+      if (element.idOwner.compareTo(id) != 0) {
+        screenplayModelsMarket.add(element);
+      }
+    });
+
+    return screenplayModelsMarket;
+  }
+
+  Future<int> borrarScreenPlay(ScreenPlayModel screenplayModel) async {
+    final url = '$_url/deleteScreen/${screenplayModel.id.toString()}';
+    await FirebaseStorage.instance
+        .getReferenceFromUrl(screenplayModel.fotoUrl)
+        .then((value) => value.delete());
     final rsp = await http.delete(url);
 
     //print(json.decode(rsp.body));

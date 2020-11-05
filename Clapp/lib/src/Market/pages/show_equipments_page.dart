@@ -52,7 +52,8 @@ class _ShowEquipmentPageState extends State<ShowEquipmentPage> {
 
   Widget _crearListadoEquipments() {
     return FutureBuilder(
-      future: equipmentProvider.cargarEquipments(),
+      future:
+          equipmentProvider.cargarEquipmentsNotSessionUser(widget.userModel.id),
       builder:
           (BuildContext context, AsyncSnapshot<List<EquipmentModel>> snapshot) {
         if (snapshot.hasData) {

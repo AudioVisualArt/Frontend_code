@@ -81,8 +81,55 @@ class PropProvider {
     return propsModels;
   }
 
-  Future<int> borrarProp(String id) async {
-    final url = '$_url/deleteProp/$id';
+  Future<List<PropModel>> cargarPropsNotSessionUser(String id) async {
+    //print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getAllProps';
+    final rsp = await http.get(url);
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<PropModel> propsModels = new List();
+    List<PropModel> propsModelsMarket = new List();
+    if (decodeData == null) return [];
+
+    propsModels = decodeData.map((model) => PropModel.fromJson(model)).toList();
+
+    propsModels.forEach((element) {
+      print(element.idOwner.compareTo(id));
+      if (element.idOwner.compareTo(id) != 0) {
+        propsModelsMarket.add(element);
+      }
+    });
+
+    return propsModelsMarket;
+  }
+
+  Future<List<PropModel>> cargarPropsUser(String id) async {
+    //print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getAllProps';
+    final rsp = await http.get(url);
+    //print('Props: ' + rsp.body);
+
+    final Iterable decodeData = json.decode(rsp.body);
+    List<PropModel> propsModels = new List();
+    List<PropModel> propsModelsUser = new List();
+    if (decodeData == null) return [];
+
+    propsModels = decodeData.map((model) => PropModel.fromJson(model)).toList();
+
+    propsModels.forEach((element) {
+      if (element.idOwner == id) {
+        print(id + " - " + element.idOwner);
+        propsModelsUser.add(element);
+      }
+    });
+    return propsModelsUser;
+  }
+
+  Future<int> borrarProp(PropModel propModel) async {
+    final url = '$_url/deleteProp/${propModel.id.toString()}';
+    await FirebaseStorage.instance
+        .getReferenceFromUrl(propModel.fotoUrl)
+        .then((value) => value.delete());
     final rsp = await http.delete(url);
     return 1;
   }

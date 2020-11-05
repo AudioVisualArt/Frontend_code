@@ -1,35 +1,26 @@
-import 'dart:async';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Clapp/src/ScreenPlay/widgets/uploadtasklisttitle.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
 import 'package:Clapp/src/ScreenPlay/Model/screenplay_models.dart';
 import 'package:Clapp/src/ScreenPlay/Pages/showPDF.dart';
 import 'package:Clapp/src/ScreenPlay/Provider/screenplay_provider.dart';
 import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
-import 'package:Clapp/src/User/models/actividad_model.dart';
-import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/providers/actividad_provider.dart';
 
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
-// ignore: must_be_immutable
-class ScreenPlayPage extends StatefulWidget {
-  UserModel userModel;
-  ScreenPlayPage({this.userModel});
+class ScreenPlayEditPage extends StatefulWidget {
+  ScreenPlayEditPage({Key key}) : super(key: key);
 
   @override
-  _ScreenPlayPageState createState() => _ScreenPlayPageState();
+  _ScreenPlayEditPageState createState() => _ScreenPlayEditPageState();
 }
 
-class _ScreenPlayPageState extends State<ScreenPlayPage> {
+class _ScreenPlayEditPageState extends State<ScreenPlayEditPage> {
   ScreenPlayModel screenPlayModel = ScreenPlayModel();
   bool _saved = false;
-  bool _savedFile = false;
   bool _loading = false;
   PlatformFile guion;
   GlobalKey<ScaffoldState> _scafoldKey = GlobalKey();
@@ -39,8 +30,10 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
 
   @override
   Widget build(BuildContext context) {
-    widget.userModel = ModalRoute.of(context).settings.arguments;
-    print('ScreenPlay User ID: ${widget.userModel.id}');
+    ScreenPlayModel screenPlayModelData =
+        ModalRoute.of(context).settings.arguments;
+    screenPlayModel = screenPlayModelData;
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -277,22 +270,40 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
       _saved = true;
     });
 
+    File fileEdit =
+        await screenPlayProvider.createFileOfPdfUrl(screenPlayModel);
+
     if (guion != null) {
       setState(() {
         _saved = true;
-        _savedFile = true;
         _loading = true;
       });
 
       print(guion.path.toString());
-      screenPlayModel.idOwner = widget.userModel.id;
-      await screenPlayProvider.crearScreenPlay(screenPlayModel, guion);
+
+      await screenPlayProvider.editarScreenPlay(
+          screenPlayModel, File(guion.path));
 
       setState(() {
         _loading = false;
       });
-      MostrarDialog(context, 'Guion en Clapp !!!',
-          'Has Subido el Guion ${screenPlayModel.titulo}');
+      MostrarDialog(context, 'Guion Actualizado en Clapp !!!',
+          'Has Actualizado el Guion ${screenPlayModel.titulo}');
+    } else if (fileEdit != null) {
+      setState(() {
+        _saved = true;
+        _loading = true;
+      });
+
+      print(guion.path.toString());
+
+      await screenPlayProvider.editarScreenPlay(screenPlayModel, fileEdit);
+
+      setState(() {
+        _loading = false;
+      });
+      MostrarDialog(context, 'Guion Actualizado en Clapp !!!',
+          'Has Actualizado el Guion ${screenPlayModel.titulo}');
     } else {
       setState(() {
         _saved = false;
@@ -314,7 +325,7 @@ class _ScreenPlayPageState extends State<ScreenPlayPage> {
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       icon: Icon(Icons.dehaze),
-      onPressed: (!_savedFile) ? null : _showPDF,
+      onPressed: (screenPlayModel.fotoUrl.isEmpty) ? null : _showPDF,
     );
   }
 

@@ -1,24 +1,22 @@
-import 'package:Clapp/src/Equipment/model/equipment_models.dart';
-import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/StockPhoto/model/stockphoto_models.dart';
+import 'package:Clapp/src/StockPhoto/provider/stockphoto_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
-import 'package:Clapp/src/item/model/item_models.dart';
-import 'package:Clapp/src/item/providers/productos_provider.dart';
 import 'package:flutter/material.dart';
 
-class MostrarProductosPage extends StatefulWidget {
+class MostrarPhotosPage extends StatefulWidget {
   final UserModel userModel;
-  MostrarProductosPage({this.userModel});
+  MostrarPhotosPage({this.userModel});
+
   @override
-  _MostrarProductosPageState createState() => _MostrarProductosPageState();
+  _MostrarPhotosPageState createState() => _MostrarPhotosPageState();
 }
 
-class _MostrarProductosPageState extends State<MostrarProductosPage> {
-  final productosProvider = new ProductosProvider();
-  final equipmentProvider = new EquipmentProvider();
+class _MostrarPhotosPageState extends State<MostrarPhotosPage> {
+  final stockPhotoProvider = new StockPhotoProvider();
 
   @override
   Widget build(BuildContext context) {
-    equipmentProvider.cargarEquipmentsUser(widget.userModel.id);
+    stockPhotoProvider.cargarPhotosUser(widget.userModel.id);
 
     return Container(
         child: Scaffold(
@@ -39,13 +37,9 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
           child: Column(
             children: <Widget>[
               newappbar(),
-
-              //SizedBox(height: 20.0,),
-              //SizedBox(height: 9),
               Expanded(
                 child: Container(
                   child: _crearListado(),
-                  //padding: EdgeInsets.all(4.0),
                   width: MediaQuery.of(context).size.width - 10.0,
                   height: MediaQuery.of(context).size.height - 210,
                 ),
@@ -94,7 +88,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 16.0, right: 20, top: 37),
-                    child: Text('Tus Equipos',
+                    child: Text('Tus Fotos',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 25.0,
@@ -137,14 +131,14 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
 
   Widget _crearListado() {
     return FutureBuilder(
-      future: equipmentProvider.cargarEquipmentsUser(widget.userModel.id),
-      builder: (BuildContext context, AsyncSnapshot<List<ItemModel>> snapshot) {
+      future: stockPhotoProvider.cargarPhotosUser(widget.userModel.id),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<StockPhotoModel>> snapshot) {
         if (snapshot.hasData) {
-          final equipos = snapshot.data;
+          final fotos = snapshot.data;
           return ListView.builder(
-            itemCount: equipos.length,
-            itemBuilder: (context, index) =>
-                _crearItem(context, equipos[index]),
+            itemCount: fotos.length,
+            itemBuilder: (context, index) => _crearFoto(context, fotos[index]),
           );
         } else {
           return Center(
@@ -157,40 +151,35 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
     );
   }
 
-  Widget _crearItem(BuildContext context, EquipmentModel equipmentModel) {
+  Widget _crearFoto(BuildContext context, StockPhotoModel stockPhotoModel) {
     return Dismissible(
         key: UniqueKey(),
         background: Container(
-            child: Text('Eliminar',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 25.0,
-                    fontFamily: "Raleway",
-                    color: Colors.white)),
+            child: Text('Eliminar'),
             margin: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(20.0),
             )),
         onDismissed: (direction) {
-          equipmentProvider.borrarProducto(equipmentModel);
+          stockPhotoProvider.borrarFoto(stockPhotoModel);
         },
         child: Card(
           child: InkWell(
-              onTap: () => Navigator.pushNamed(context, 'equipment_edit',
-                  arguments: equipmentModel),
+              onTap: () => Navigator.pushNamed(context, 'stockphoto_edit',
+                  arguments: stockPhotoModel),
               child: Container(
                 height: 80,
                 child: Column(
                   children: <Widget>[
                     ListTile(
                       title: Text(
-                          '${equipmentModel.titulo} - ${equipmentModel.valor}',
+                          '${stockPhotoModel.titulo} - ${stockPhotoModel.valor}',
                           style: TextStyle(
                               fontSize: 20.0,
                               fontFamily: "Raleway",
                               fontWeight: FontWeight.bold)),
-                      subtitle: Text(equipmentModel.itemDescription,
+                      subtitle: Text(stockPhotoModel.itemDescription,
                           style: TextStyle(
                               fontSize: 12.0,
                               fontFamily: "Raleway",
@@ -232,7 +221,7 @@ class _MostrarProductosPageState extends State<MostrarProductosPage> {
       color: Colors.white,
 
       onPressed: () {
-        Navigator.pushNamed(context, 'menu_item', arguments: widget.userModel);
+        Navigator.pushNamed(context, 'photos', arguments: widget.userModel);
       },
     );
   }

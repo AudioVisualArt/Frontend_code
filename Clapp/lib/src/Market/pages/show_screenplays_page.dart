@@ -25,8 +25,8 @@ class ShowScreenPlayPage extends StatefulWidget {
 class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
   final screenPlayProvider = ScreenPlayProvider();
   UserModel owner;
-  UsuarioProvider user=UsuarioProvider();
-  ChatProvider chat=ChatProvider();
+  UsuarioProvider user = UsuarioProvider();
+  ChatProvider chat = ChatProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +57,8 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
 
   Widget _crearListadoScreenPlays() {
     return FutureBuilder(
-      future: screenPlayProvider.cargarScreenPlays(),
+      future: screenPlayProvider
+          .cargarScreenPlaysNotSessionUser(widget.userModel.id),
       builder: (BuildContext context,
           AsyncSnapshot<List<ScreenPlayModel>> snapshot) {
         if (snapshot.hasData) {
@@ -302,7 +303,7 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
                         ChatModel chat = await _conseguirChat(
                             screenPlayModel.idOwner, widget.userModel);
                         ScreenArgument sc = ScreenArgument(
-                           widget.userModel, chat, owner.name, owner.id, null);
+                            widget.userModel, chat, owner.name, owner.id, null);
                         Navigator.pushNamed(context, 'messageInfo',
                             arguments: sc);
                       }
@@ -366,9 +367,9 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
           }
         });
   }
-   Future<ChatModel> _conseguirChat(
-      String tag, UserModel usuarioOferta) async {
-     owner=await user.obtenerUsuario(tag);
+
+  Future<ChatModel> _conseguirChat(String tag, UserModel usuarioOferta) async {
+    owner = await user.obtenerUsuario(tag);
     bool existe = false;
     ChatModel ct;
     List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
