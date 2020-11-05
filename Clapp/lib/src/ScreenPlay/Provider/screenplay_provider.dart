@@ -87,6 +87,30 @@ class ScreenPlayProvider {
 
     return true;
   }
+  Future<List<ScreenPlayModel>> cargarScreenPlaysFromUser(String id) async {
+    final url = '$_url/getAllScreen';
+    final rsp = await http.get(url);
+    //print('ScreenPlays: ' + rsp.body);
+
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
+    List<ScreenPlayModel> screenplayModels = new List();
+    List<ScreenPlayModel> screenplayModelsUser = new List();
+    if (decodeData == null) return [];
+
+    screenplayModels =
+        decodeData.map((model) => ScreenPlayModel.fromJson(model)).toList();
+
+    screenplayModels.forEach((element) {
+      if (element.idOwner == id) {
+        print(id + " - " + element.idOwner);
+        screenplayModelsUser.add(element);
+      }
+    });
+
+    return screenplayModelsUser;
+  }
 
   Future<List<ScreenPlayModel>> cargarScreenPlays() async {
     final url = '$_url/getAllScreen';
@@ -154,4 +178,5 @@ class ScreenPlayProvider {
     await file.writeAsBytes(bytes);
     return file;
   }
+
 }

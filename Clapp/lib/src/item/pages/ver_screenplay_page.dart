@@ -16,7 +16,7 @@ class _MostrarScreenPlayPageState extends State<MostrarScreenPlayPage> {
 
   @override
   Widget build(BuildContext context) {
-    screenPlayProvider.cargarScreenPlays();
+    screenPlayProvider.cargarScreenPlaysFromUser(widget.userModel.id);
 
     return Container(
         child: Scaffold(
@@ -131,7 +131,7 @@ class _MostrarScreenPlayPageState extends State<MostrarScreenPlayPage> {
 
   Widget _crearListado() {
     return FutureBuilder(
-      future: screenPlayProvider.cargarScreenPlays(),
+      future: screenPlayProvider.cargarScreenPlaysFromUser(widget.userModel.id),
       builder: (BuildContext context,
           AsyncSnapshot<List<ScreenPlayModel>> snapshot) {
         if (snapshot.hasData) {
