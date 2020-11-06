@@ -1,0 +1,586 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "Clapp": {
+        "type": "object",
+        "properties": {
+          "Contracts": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "acceptedApplicant": {
+                    "type": "boolean"
+                  },
+                  "acceptedBidder": {
+                    "type": "boolean"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "desiredSkills": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "jobPosition": {
+                    "type": "string"
+                  },
+                  "latitud": {
+                    "type": "number"
+                  },
+                  "longitud": {
+                    "type": "number"
+                  },
+                  "payment": {
+                    "type": "integer"
+                  },
+                  "projectId": {
+                    "type": "string"
+                  },
+                  "userApplicantId": {
+                    "type": "string"
+                  },
+                  "userBidderId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "acceptedApplicant",
+                  "acceptedBidder",
+                  "city",
+                  "desiredSkills",
+                  "id",
+                  "jobPosition",
+                  "latitud",
+                  "longitud",
+                  "payment",
+                  "projectId",
+                  "userApplicantId",
+                  "userBidderId"
+                ]
+              }
+            ]
+          },
+          "projects": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "contacto": {
+                    "type": "integer"
+                  },
+                  "crew": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "excutive_summary": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "ownerId": {
+                    "type": "string"
+                  },
+                  "projectType": {
+                    "type": "string"
+                  },
+                  "projectName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contacto",
+                  "crew",
+                  "description",
+                  "excutive_summary",
+                  "id",
+                  "ownerId",
+                  "projectType",
+                  "projectName"
+                ]
+              }
+            ]
+          },
+          "Finances": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "porcentaje": {
+                    "type": "integer"
+                  },
+                  "projectId": {
+                    "type": "string"
+                  },
+                  "quanty": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "porcentaje",
+                  "projectId",
+                  "quanty",
+                  "title"
+                ]
+              }
+            ]
+          },
+          "registros": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "idUser": {
+                "type": "string"
+              },
+              "actividades": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "contenido": {
+                        "type": "string"
+                      },
+                      "descripcion": {
+                        "type": "string"
+                      },
+                      "fecha": {
+                        "type": "string"
+                      },
+                      "photoUrl": {
+                        "type": "string"
+                      },
+                      "tipo": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "contenido",
+                      "descripcion",
+                      "fecha",
+                      "photoUrl",
+                      "tipo"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "idUser",
+              "actividades"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "titulo": {
+                    "type": "string"
+                  },
+                  "valor": {
+                    "type": "number"
+                  },
+                  "disponible": {
+                    "type": "boolean"
+                  },
+                  "fotoUrl": {
+                    "type": "string"
+                  },
+                  "itemDescription": {
+                    "type": "string"
+                  },
+                  "idOwner": {
+                    "type": "string"
+                  },
+                  "Equipments": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "spec": {
+                            "type": "string"
+                          },
+                          "marca": {
+                            "type": "string"
+                          },
+                          "modelo": {
+                            "type": "string"
+                          },
+                          "rent": {
+                            "type": "boolean"
+                          },
+                          "sell": {
+                            "type": "boolean"
+                          },
+                          "tag": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "spec",
+                          "marca",
+                          "modelo",
+                          "rent",
+                          "sell",
+                          "tag"
+                        ]
+                      }
+                    ]
+                  },
+                  "ScreenPlays": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "topic": {
+                            "type": "string"
+                          },
+                          "pages": {
+                            "type": "integer"
+                          },
+                          "sinopsis": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "topic",
+                          "pages",
+                          "sinopsis"
+                        ]
+                      }
+                    ]
+                  },
+                  "StockPhotos": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "photoType": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "height": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "photoType",
+                          "width",
+                          "height"
+                        ]
+                      }
+                    ]
+                  },
+                  "Props": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "propType": {
+                            "type": "string"
+                          },
+                          "propTheme": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "propType",
+                          "propTheme"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "titulo",
+                  "valor",
+                  "disponible",
+                  "fotoUrl",
+                  "itemDescription",
+                  "idOwner",
+                  "Equipments",
+                  "ScreenPlays",
+                  "StockPhotos",
+                  "Props"
+                ]
+              }
+            ]
+          },
+          "spaces": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "minimumHours": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "priceHour": {
+                    "type": "integer"
+                  },
+                  "raiting": {
+                    "type": "integer"
+                  },
+                  "scheduleDays": {
+                    "type": "string"
+                  },
+                  "scheduleHours": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "description",
+                  "imageUrl",
+                  "location",
+                  "minimumHours",
+                  "name",
+                  "priceHour",
+                  "raiting",
+                  "scheduleDays",
+                  "scheduleHours"
+                ]
+              }
+            ]
+          },
+          "users": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "integer"
+                  },
+                  "cityResidence": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "photoUrl": {
+                    "type": "string"
+                  },
+                  "rating": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "age",
+                  "cityResidence",
+                  "description",
+                  "email",
+                  "name",
+                  "photoUrl",
+                  "rating"
+                ]
+              }
+            ]
+          },
+          "workers": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "string"
+                  },
+                  "studies": {
+                    "type": "string"
+                  },
+                  "profession": {
+                    "type": "string"
+                  },
+                  "minPayment": {
+                    "type": "integer"
+                  },
+                  "maxPayment": {
+                    "type": "integer"
+                  },
+                  "mainRol": {
+                    "type": "string"
+                  },
+                  "hvUrl": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "briefCase": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "userId",
+                  "studies",
+                  "profession",
+                  "minPayment",
+                  "maxPayment",
+                  "mainRol",
+                  "hvUrl",
+                  "description",
+                  "briefCase"
+                ]
+              }
+            ]
+          },
+          "chats": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "fecha": {
+                    "type": "string"
+                  },
+                  "nameD": {
+                    "type": "string"
+                  },
+                  "nameO": {
+                    "type": "string"
+                  },
+                  "photoUrlD": {
+                    "type": "string"
+                  },
+                  "photoUrlO": {
+                    "type": "string"
+                  },
+                  "usuarioD": {
+                    "type": "string"
+                  },
+                  "usuarioO": {
+                    "type": "string"
+                  },
+                  "mensajes": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "chatId": {
+                            "type": "string"
+                          },
+                          "cont": {
+                            "type": "integer"
+                          },
+                          "contenido": {
+                            "type": "string"
+                          },
+                          "fecha": {
+                            "type": "string"
+                          },
+                          "usuario": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "chatId",
+                          "cont",
+                          "contenido",
+                          "fecha",
+                          "usuario"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "fecha",
+                  "nameD",
+                  "nameO",
+                  "photoUrlD",
+                  "photoUrlO",
+                  "usuarioD",
+                  "usuarioO",
+                  "mensajes"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "Contracts",
+          "projects",
+          "Finances",
+          "registros",
+          "items",
+          "spaces",
+          "users",
+          "workers",
+          "chats"
+        ]
+      }
+    },
+    "required": [
+      "Clapp"
+    ]
+  }
