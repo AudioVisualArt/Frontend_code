@@ -197,7 +197,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                 Container(
                     width: double.infinity,
                     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    padding: EdgeInsets.only(top: 8, left: 14),
+                    padding: EdgeInsets.only(top: 8, left: 11, right: 7),
                     decoration: BoxDecoration(
                         gradient: LinearGradient(colors: [
                           Color.fromRGBO(112, 252, 118, 1),
@@ -249,8 +249,9 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Container(
+
                                     constraints: BoxConstraints(
-                                        maxHeight: 55, maxWidth: 235),
+                                        maxHeight: 65, maxWidth: 235),
                                     child: Text(description,
                                         style: TextStyle(
                                           fontSize: 14.0,

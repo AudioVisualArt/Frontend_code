@@ -46,11 +46,10 @@ class _ContratarPage extends State<ContratarPage> {
                 child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage("assets/img/background.jpg"),
+                      image: AssetImage("assets/img/Home2.jpg"),
                       fit: BoxFit.cover,
                     )),
                     child: ListView(children: <Widget>[
-
                       Container(
                           padding: EdgeInsets.only(
                               right: 10.0, left: 10.0, top: 0.0),
@@ -61,20 +60,22 @@ class _ContratarPage extends State<ContratarPage> {
                               gridDelegate:
                                   new SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      crossAxisSpacing: 13.0,
+                                      crossAxisSpacing:
+                                      //MediaQuery.of(context).size.width-395,
+                                      13.0,
                                       mainAxisSpacing: 16.0,
                                       childAspectRatio: 0.69),
                               itemCount: worker.length,
-                              itemBuilder: (context, index) =>
-                                  Padding(
+                              itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(top: 5.0),
-                                    child: _buildCard(context, worker[index], usuario, index),
+                                    child: _buildCard(
+                                        context, worker[index], usuario, index),
                                   )))
                     ])),
               ),
-             // floatingActionButton: _BotonCrear2(usuario),
+              // floatingActionButton: _BotonCrear2(usuario),
               //floatingActionButtonLocation:
-               //   FloatingActionButtonLocation.centerFloat,
+              //   FloatingActionButtonLocation.centerFloat,
             );
           } else {
             return Center(child: CircularProgressIndicator());
@@ -138,6 +139,7 @@ class _ContratarPage extends State<ContratarPage> {
                 );
               },
               child: Container(
+                height: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
@@ -164,7 +166,7 @@ class _ContratarPage extends State<ContratarPage> {
                     Text(
                       user.name,
                       style: TextStyle(
-                          fontSize: 17.0,
+                          fontSize: 16.0,
                           fontFamily: "Raleway",
                           color: Color.fromRGBO(115, 115, 115, 1.0),
                           fontWeight: FontWeight.bold),
@@ -173,7 +175,7 @@ class _ContratarPage extends State<ContratarPage> {
                       child: Text(
                         worker.mainRol,
                         style: TextStyle(
-                            fontSize: 17.0,
+                            fontSize: 15.0,
                             fontFamily: "Raleway",
                             color: Color.fromRGBO(115, 115, 115, 1.0),
                             fontWeight: FontWeight.bold),
@@ -186,56 +188,46 @@ class _ContratarPage extends State<ContratarPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(right: 0.2, bottom: 2),
-                            child: Container(
-                              height: 37,
-                              width: 85,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(112, 252, 118, 0.8),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(5),
-                                )
-                              ),
-
-                              child: Center(
-                                child: Text('Perfil',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontFamily: "Raleway",
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold)
-
-                                ),
-                              )
-
-
-                            )
-                          ),
-
-                          Padding(
+                          Flexible(child: Padding(
                               padding: EdgeInsets.only(right: 0.2, bottom: 2),
-                              child: SizedBox(
-                                height: 37, width: 85,
-                                child: RaisedButton(
-
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5),
-                                      topRight: Radius.circular(5),
-                                      bottomLeft: Radius.circular(5),
-                                      bottomRight: Radius.circular(20),
-                                    )
-                                  ),
+                              child: Container(
+                                  height: 37,
+                                  width: 85,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(112, 252, 118, 0.8),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(5),
+                                        topRight: Radius.circular(5),
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(5),
+                                      )),
                                   child: Center(
-                                    child : Text('Estudio',
+                                    child: Text('Perfil',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: 15.0,
+                                            fontSize: 14.0,
+                                            fontFamily: "Raleway",
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.bold)),
+                                  )))),
+                          Flexible(child: Padding(
+                              padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                              child: SizedBox(
+                                height: 37,
+                                width: 85,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
+                                    bottomRight: Radius.circular(20),
+                                  )),
+                                  child: Center(
+                                    child: Text('Estudio',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14.0,
                                             fontFamily: "Raleway",
                                             color: Colors.grey,
                                             fontWeight: FontWeight.bold)),
@@ -244,18 +236,10 @@ class _ContratarPage extends State<ContratarPage> {
                                   color: Color.fromRGBO(0, 51, 51, 0.8),
                                   onPressed: () {},
                                 ),
-                              )
-                          )
-
-
-
-
-
-
+                              )))
                         ],
                       ),
                     )
-
                   ],
                 ),
               ),

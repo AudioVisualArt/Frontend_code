@@ -53,9 +53,9 @@ class _NewContract extends State<NewContract> {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text('Nuevo Contrato',
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
-                      fontSize: 25.0,
+                      fontSize: 20.0,
                       fontFamily: "Raleway",
                       color: Color.fromRGBO(115, 115, 115, 1.0),
                     )),
@@ -111,7 +111,7 @@ class _NewContract extends State<NewContract> {
                         child: Text('Abrir Contrato',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17.0,
                                 fontFamily: "Raleway",
                                 color: Color.fromRGBO(115, 115, 115, 1.0),
                                 fontWeight: FontWeight.bold)),

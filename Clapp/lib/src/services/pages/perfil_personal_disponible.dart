@@ -45,7 +45,7 @@ class PerfilPersonal extends StatelessWidget {
         body: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage("assets/img/background.jpg"),
+              image: AssetImage("assets/img/Home2.jpg"),
               fit: BoxFit.cover,
             )),
             child: ListView(
@@ -86,7 +86,13 @@ class PerfilPersonal extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding:
-                                        EdgeInsets.only(top: 30.0, left: 35.0),
+                                        EdgeInsets.only(top: 30.0, left: 25.0, right: 5),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: MediaQuery.of(context).size.width-230,
+                                        maxHeight: 22
+                                      ),
+
                                     child: Text(
                                       name,
                                       style: TextStyle(
@@ -95,53 +101,76 @@ class PerfilPersonal extends StatelessWidget {
                                           color: Color.fromRGBO(
                                               115, 115, 115, 1.0),
                                           fontWeight: FontWeight.bold),
-                                    ),
+                                    ),),
                                   ),
                                   SizedBox(
                                     height: 7.0,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 35.0),
-                                    child: Text(
-                                      rol,
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                    padding:
+                                    EdgeInsets.only(top: 5.0, left: 25.0, right: 5),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context).size.width-230,
+                                          maxHeight: 22
+                                      ),
+
+                                      child: Text(
+                                        rol,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: "Raleway",
+                                            color: Color.fromRGBO(
+                                                115, 115, 115, 1.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),),
                                   ),
                                   SizedBox(
                                     height: 20.0,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 35.0),
-                                    child: Text(
-                                      profesion,
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                    padding:
+                                    EdgeInsets.only(top: 5.0, left: 25.0, right: 5),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context).size.width-230,
+                                          maxHeight: 22
+                                      ),
+
+                                      child: Text(
+                                        profesion,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: "Raleway",
+                                            color: Color.fromRGBO(
+                                                115, 115, 115, 1.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),),
                                   ),
+
                                   SizedBox(
                                     height: 7.0,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 35.0),
-                                    child: Text(
-                                      ciudad,
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                    padding:
+                                    EdgeInsets.only(top: 5.0, left: 25.0, right: 5),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context).size.width-230,
+                                          maxHeight: 22
+                                      ),
+
+                                      child: Text(
+                                        ciudad,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: "Raleway",
+                                            color: Color.fromRGBO(
+                                                115, 115, 115, 1.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),),
                                   ),
+
                                 ],
                               )
                             ],
@@ -154,13 +183,14 @@ class PerfilPersonal extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           color: Color.fromRGBO(227, 227, 227, 1),
                         ),
-                        height: 100,
+                        height: 120,
                         width: MediaQuery.of(context).size.width - 30.0,
                         margin: EdgeInsets.only(left: 15.0, right: 15.0),
                         padding: EdgeInsets.only(
                           top: 10.0,
                           left: 10.0,
                           right: 10.0,
+                          bottom: 10
                         ),
                         child: Text(
                           description,
@@ -181,7 +211,9 @@ class PerfilPersonal extends StatelessWidget {
                           children: [
                             Container(
                               padding: EdgeInsets.only(
-                                  top: 110.0, right: 7.0, left: 7.0),
+                                  top: MediaQuery.of(context).size.height-590,
+                                 // 110.0,
+                                  right: 7.0, left: 7.0),
                               child: RaisedButton(
                                 padding: EdgeInsets.only(
                                     top: 13, bottom: 13, left: 52, right: 51),
@@ -233,7 +265,8 @@ class PerfilPersonal extends StatelessWidget {
                           children: [
                             Container(
                               padding: EdgeInsets.only(
-                                  top: 110.0, right: 7.0, left: 7.0),
+                                  top: MediaQuery.of(context).size.height-590,
+                                  right: 7.0, left: 7.0),
                               child: RaisedButton(
                                 padding: EdgeInsets.only(
                                     top: 13, bottom: 13, left: 40, right: 40),

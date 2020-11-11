@@ -38,6 +38,13 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+
+        ),
         body: Stack(
           children: [
             Container(
@@ -47,7 +54,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
+                  /*Padding(
                       padding: EdgeInsets.only(top: 30, left: 15, right: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,9 +76,11 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
                            */
                         ],
                       )),
+
+                   */
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 20.0, left: 30, bottom: 12),
+                        const EdgeInsets.only(top: 26.0, left: 30, bottom: 12),
                     child: Text("Servicios",
                         style: TextStyle(
                             fontSize: 31.0,
@@ -115,7 +124,7 @@ class _HomeServiciosPage extends State<HomeServiciosPage> {
               ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height - 115,
+              top: MediaQuery.of(context).size.height - 195,
               child: _carruselServicio(usuario),
             ),
           ],

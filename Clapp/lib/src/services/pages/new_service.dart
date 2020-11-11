@@ -70,9 +70,9 @@ class _NewService extends State<NewService> {
                     pinned: true,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text('Nuevo Clapper',
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 20.0,
                             fontFamily: "Raleway",
                             color: Color.fromRGBO(115, 115, 115, 1.0),
                           )),
@@ -160,7 +160,7 @@ class _NewService extends State<NewService> {
                             child: Text('Publicar perfil',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 17.0,
                                     fontFamily: "Raleway",
                                     color: Color.fromRGBO(115, 115, 115, 1.0),
                                     fontWeight: FontWeight.bold)),

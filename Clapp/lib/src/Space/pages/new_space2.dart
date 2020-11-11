@@ -74,7 +74,7 @@ class _NewSpace2 extends State<NewSpace2> {
                   title: Text('Tarifa de renta',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 20.0,
                         fontFamily: "Raleway",
                         color: Color.fromRGBO(115, 115, 115, 1.0),
                       )),
@@ -162,7 +162,7 @@ class _NewSpace2 extends State<NewSpace2> {
                         child: Text('Publicar Locación',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17.0,
                                 fontFamily: "Raleway",
                                 color: Color.fromRGBO(115, 115, 115, 1.0),
                                 fontWeight: FontWeight.bold)),

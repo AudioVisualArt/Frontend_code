@@ -80,7 +80,7 @@ class _NewSpace extends State<NewSpace> {
                   title: Text('Nueva Locacion',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 20.0,
                         fontFamily: "Raleway",
                         color: Color.fromRGBO(115, 115, 115, 1.0),
                       )),
@@ -159,7 +159,7 @@ class _NewSpace extends State<NewSpace> {
                         child: Text('Siguiente',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 17.0,
                                 fontFamily: "Raleway",
                                 color: Color.fromRGBO(115, 115, 115, 1.0),
                                 fontWeight: FontWeight.bold)),
@@ -318,7 +318,7 @@ class _NewSpace extends State<NewSpace> {
               color: Colors.grey,
               fontWeight: FontWeight.bold),
           cursorColor: Color.fromRGBO(0, 51, 51, 0.8),
-          maxLength: 4,
+          maxLength: 25,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
               labelText: 'Capacidad maxima',

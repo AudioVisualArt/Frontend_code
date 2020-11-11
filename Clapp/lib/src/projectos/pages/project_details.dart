@@ -275,7 +275,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 12, left: 10, right: 10),
+                    padding: EdgeInsets.only(top: 12, left: 10, right: 10, bottom: 15),
                     child: SizedBox(
                       height: 52,
                       width: MediaQuery.of(context).size.width - 40,
@@ -332,6 +332,7 @@ class _ProjectDetails extends State<ProjectDetails> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
+
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
@@ -346,7 +347,10 @@ class _ProjectDetails extends State<ProjectDetails> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width- 365
+                   //   50
+                  ),
                   child: Container(
                     child: Padding(
                       padding:

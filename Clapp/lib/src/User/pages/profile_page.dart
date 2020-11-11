@@ -33,6 +33,14 @@ class _ProfilePageState extends State<ProfilePage> {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         //backgroundColor: Color.fromRGBO(89, 122, 121, 1),
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(89, 122, 121, 1),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Color.fromRGBO(227, 227, 227, 1.0)),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+
+        ),
 
         body: Container(
             height: MediaQuery.of(context).size.height,
@@ -43,7 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                newappbar(),
+                SizedBox(height: 15,),
+                //newappbar(),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
@@ -64,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 20.0, left: 18.0),
+                                const EdgeInsets.only(top: 20.0, left: 12.0),
                             child: Text(
                               "Hola,",
                               style: TextStyle(
@@ -75,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 2.0, left: 18.0),
+                            padding: EdgeInsets.only(top: 2.0, left: 12.0),
                             child: Text(
                               usuario.name,
                               style: TextStyle(
@@ -86,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 5.0, left: 10),
+                            padding: const EdgeInsets.only(top: 5.0, left: 4),
                             child: Row(
                               children: [
                                 Padding(
