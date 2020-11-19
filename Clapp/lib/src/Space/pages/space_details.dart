@@ -38,6 +38,7 @@ class _SpaceDetails extends State<SpaceDetails> {
   ChatProvider chat = new ChatProvider();
   List<dynamic> arg = new List();
   UserModel usuario;
+  ChatModel chatU;
   @override
   Widget build(BuildContext context) {
     SegPagina usrSpace = ModalRoute.of(context).settings.arguments;
@@ -46,6 +47,7 @@ class _SpaceDetails extends State<SpaceDetails> {
 
     SpaceModel espacio = usrSpace.space2;
     usuario = usrSpace.usuario2;
+    
     //SpaceModel espacio =arg[1];
     //usuario=arg[0];
     return Scaffold(
@@ -331,7 +333,12 @@ class _SpaceDetails extends State<SpaceDetails> {
           if (!snapshot.hasData) {
             return CircularProgressIndicator();
           } else {
+           
             UserModel user = snapshot.data;
+             if (user.id != usuario.id) {
+                    _conseguirChat(
+                            user.id, user.name, user.photoUrl, usuario);
+            }
             return Column(
               children: [
                 Align(
@@ -383,11 +390,11 @@ class _SpaceDetails extends State<SpaceDetails> {
                     textColor: Colors.white,
                     color: Color.fromRGBO(0, 51, 51, 0.8),
                     onPressed: () async {
-                      if (user.id != usuario.id) {
-                        ChatModel chat = await _conseguirChat(
-                            user.id, user.name, user.photoUrl, usuario);
+                      print(chatU.runtimeType);
+                      if (user.id != usuario.id && chatU!=null) {
+                    
                         ScreenArgument sc = ScreenArgument(
-                            usuario, chat, user.name, user.id, null);
+                            usuario, chatU, user.name, user.id, null);
                         Navigator.pushNamed(context, 'messageInfo',
                             arguments: sc);
                       }
@@ -400,23 +407,13 @@ class _SpaceDetails extends State<SpaceDetails> {
         });
   }
 
-  Future<ChatModel> _conseguirChat(
+  void _conseguirChat(
       String tag, String name, String photo, UserModel usuarioOferta) async {
     bool existe = false;
-    ChatModel ct;
-    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
-    if (chats != null) {
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            existe = true;
-            ct = element;
-          }
-        }
-      });
-    }
+    
+    ChatModel ct = await chat.cargarChat(usuarioOferta.id,tag);
 
-    if (existe == false) {
+    if (ct == null) {
       ct = ChatModel(
           chatId: "dddd",
           fecha: DateTime.now().toString(),
@@ -427,16 +424,9 @@ class _SpaceDetails extends State<SpaceDetails> {
           usuarioD: tag,
           usuarioO: usuarioOferta.id);
       bool resp = await chat.crearChat(ct);
-      chats = await chat.cargarChats(usuarioOferta.id);
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            ct = element;
-          }
-        }
-      });
+      ct = await chat.cargarChat(usuarioOferta.id,tag);
     }
-    return ct;
+    chatU= ct;
   }
 
   Widget _constructorImagen(UserModel user) {

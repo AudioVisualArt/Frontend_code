@@ -12,6 +12,7 @@ class PerfilPersonal extends StatelessWidget {
   String tag, rol;
   String name, description, ciudad, profesion, photoUrl, hvUrl;
   UserModel usuarioOferta;
+  ChatModel chatU;
   //final description;
   PerfilPersonal(
       this.tag,
@@ -33,6 +34,11 @@ class PerfilPersonal extends StatelessWidget {
       this.photoUrl =
           "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png";
     }
+    if (tag != usuarioOferta.id) {
+      _conseguirChat(
+        tag, name, photoUrl, usuarioOferta);
+
+    }  
     var assetpath = "assets/img/perfiltest.PNG";
     return Scaffold(
         appBar: AppBar(
@@ -284,11 +290,9 @@ class PerfilPersonal extends StatelessWidget {
                                 textColor: Colors.white,
                                 color: Color.fromRGBO(227, 227, 227, 1),
                                 onPressed: () async {
-                                  if (tag != usuarioOferta.id) {
-                                    ChatModel chat = await _conseguirChat(
-                                        tag, name, photoUrl, usuarioOferta);
+                                  if (tag != usuarioOferta.id && chatU!=null) {     
                                     ScreenArgument sc = ScreenArgument(
-                                        usuarioOferta, chat, name, tag, null);
+                                        usuarioOferta, chatU, name, tag, null);
                                     Navigator.pushNamed(context, 'messageInfo',
                                         arguments: sc);
                                   }
@@ -362,23 +366,14 @@ class PerfilPersonal extends StatelessWidget {
     }
   }
 
-  Future<ChatModel> _conseguirChat(
+  void _conseguirChat(
       String tag, String name, String photo, UserModel usuarioOferta) async {
     bool existe = false;
-    ChatModel ct;
-    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
-    if (chats != null) {
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            existe = true;
-            ct = element;
-          }
-        }
-      });
-    }
 
-    if (existe == false) {
+    ChatModel ct = await chat.cargarChat(usuarioOferta.id,tag);
+
+
+    if (ct == null) {
       ct = ChatModel(
           chatId: "dddd",
           fecha: DateTime.now().toString(),
@@ -389,15 +384,9 @@ class PerfilPersonal extends StatelessWidget {
           usuarioD: tag,
           usuarioO: usuarioOferta.id);
       bool resp = await chat.crearChat(ct);
-      chats = await chat.cargarChats(usuarioOferta.id);
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            ct = element;
-          }
-        }
-      });
+       ct = await chat.cargarChat(usuarioOferta.id,tag);
+
     }
-    return ct;
+    chatU= ct;
   }
 }

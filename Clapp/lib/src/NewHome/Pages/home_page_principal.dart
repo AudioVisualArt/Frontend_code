@@ -12,9 +12,10 @@ class HomePagePrincipal extends StatefulWidget {
 
 class _HomePagePrincipal extends State<HomePagePrincipal> {
   ChatProvider chatprovider = new ChatProvider();
+  UserModel usuario;
   @override
   Widget build(BuildContext context) {
-    UserModel usuario = ModalRoute.of(context).settings.arguments;
+    usuario = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(

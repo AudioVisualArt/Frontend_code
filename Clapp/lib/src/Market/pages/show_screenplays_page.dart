@@ -27,8 +27,10 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
   UserModel owner;
   UsuarioProvider user = UsuarioProvider();
   ChatProvider chat = ChatProvider();
+  Map <String,ChatModel> chatU=Map<String,ChatModel>();
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Guiones',
@@ -87,6 +89,11 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
 
   Widget _tarjetaScreenPlay(
       BuildContext context, ScreenPlayModel screenPlayModel) {
+       
+        if (widget.userModel.id != screenPlayModel.idOwner) {
+               _conseguirChat(
+                            screenPlayModel.idOwner, widget.userModel);
+                }
     final _containerInfoUser = Container(
       height: 140.0,
       width: 300.0,
@@ -299,11 +306,11 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
                       Icons.mark_chat_read,
                     ),
                     onPressed: () async {
-                      if (widget.userModel.id != screenPlayModel.idOwner) {
-                        ChatModel chat = await _conseguirChat(
-                            screenPlayModel.idOwner, widget.userModel);
+                      if (widget.userModel.id != screenPlayModel.idOwner && chatU!=null) {
+                        ChatModel aux=chatU[screenPlayModel.idOwner];
+                  
                         ScreenArgument sc = ScreenArgument(
-                            widget.userModel, chat, owner.name, owner.id, null);
+                            widget.userModel, chatU[screenPlayModel.idOwner], aux.nameD, aux.usuarioD, null);
                         Navigator.pushNamed(context, 'messageInfo',
                             arguments: sc);
                       }
@@ -368,23 +375,14 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
         });
   }
 
-  Future<ChatModel> _conseguirChat(String tag, UserModel usuarioOferta) async {
+  void  _conseguirChat(String tag, UserModel usuarioOferta) async {
     owner = await user.obtenerUsuario(tag);
-    bool existe = false;
-    ChatModel ct;
-    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
-    if (chats != null) {
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            existe = true;
-            ct = element;
-          }
-        }
-      });
-    }
 
-    if (existe == false) {
+   
+    var ct = await chat.cargarChat(usuarioOferta.id,tag);
+   
+
+    if (ct == null) {
       ct = ChatModel(
           chatId: "dddd",
           fecha: DateTime.now().toString(),
@@ -395,15 +393,14 @@ class _ShowScreenPlayPageState extends State<ShowScreenPlayPage> {
           usuarioD: tag,
           usuarioO: usuarioOferta.id);
       bool resp = await chat.crearChat(ct);
-      chats = await chat.cargarChats(usuarioOferta.id);
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            ct = element;
-          }
-        }
-      });
+      ct = await chat.cargarChat(usuarioOferta.id,tag);
     }
-    return ct;
+    var newRanger = Map<String,ChatModel>();
+    newRanger[tag]=ct;
+    if(!chatU.containsKey(tag)){
+      chatU.addAll(newRanger);
+    }
+    
+
   }
 }
