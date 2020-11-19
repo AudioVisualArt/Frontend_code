@@ -78,7 +78,11 @@ class PerfilPersonal extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(top: 7.0),
-                                child: Hero(
+                                child: Container(
+                                    height: 150.0,
+                                    width: 150.0,
+                                    child: _constructorImagen()),
+                                /*child: Hero(
                                   //tag: worker.userId,
                                   tag: tag,
                                   child: Container(
@@ -86,6 +90,8 @@ class PerfilPersonal extends StatelessWidget {
                                       width: 150.0,
                                       child: _constructorImagen()),
                                 ),
+
+                                 */
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
