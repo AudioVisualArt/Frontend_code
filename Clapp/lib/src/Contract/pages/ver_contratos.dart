@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Contract/model/contract_models.dart';
+import 'package:Clapp/src/Contract/pages/applicants.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/projectos/model/project_model.dart';
@@ -185,7 +186,7 @@ class _VerContratos extends State<VerContratos> {
     );
   }
 
-  Widget _crearcontrato(BuildContext context, ContractModel contrato) {
+  Widget _crearcontrato(BuildContext context, ContractModel contrato,) {
     return Dismissible(
         key: UniqueKey(),
         background: Container(
@@ -194,7 +195,18 @@ class _VerContratos extends State<VerContratos> {
         onDismissed: (direction) {
           contratosProvider.borrarContrato(contrato.id);
         },
-        child: Card(
+        child: InkWell(
+          onTap: (){
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (context) => new Applicants(
+                      contrato: contrato,
+                      //usuario: usuario,
+                    )));
+           // Navigator.pushNamed(context, 'solicitantes', arguments: contrato,);
+            },
+            child: Card(
           //margin: EdgeInsets.all(10),
 
           elevation: 10.0,
@@ -230,6 +242,6 @@ class _VerContratos extends State<VerContratos> {
                */
             ],
           ),
-        ));
+        )));
   }
 }
