@@ -5,6 +5,7 @@ import 'package:Clapp/src/projectos/model/project_model.dart';
 import 'package:Clapp/src/projectos/pages/project_details_outsider.dart';
 import 'package:Clapp/src/projectos/providers/proyectos_providers.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 import 'package:clay_containers/constants.dart';
 import 'package:clay_containers/widgets/clay_containers.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,12 +15,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
 
 class ContractDetails extends StatefulWidget {
-  final UserModel user;
-  ContractModel contrato;
-  UserModel usuario;
+  final ContractModel contrato;
+   final UserModel user;
 
-  ContractDetails(this.contrato, this.usuario, {Key key, this.user})
-      : super(key: key);
+
+  const ContractDetails({Key key, this.contrato, this.user}) : super(key: key);
+  //UserModel usuario;
+
+
+  //ContractDetails(this.contrato, this.usuario, {Key key, this.user})
+    //  : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,12 +34,16 @@ class ContractDetails extends StatefulWidget {
 }
 
 class _ContractDetails extends State<ContractDetails> {
+
+  UserModel usuario = new UserModel();
   ProyectosProvider proyectosProvider = new ProyectosProvider();
   ContratosProvider contratosProvider = new ContratosProvider();
 
   ProjectModel project;
   @override
   Widget build(BuildContext context) {
+    widget.contrato.useraplicando =new List<UserModel>();
+    UserModel usuario = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10, top: 160, bottom: 15),
@@ -100,18 +109,20 @@ class _ContractDetails extends State<ContractDetails> {
 
                              */
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: 6,
+                                    height: 3,
                                   ),
                                   _crearNombreProjecto(widget.contrato),
                                   row_info_contrato(
-                                      "Cargo :", widget.contrato.jobPosition),
+                                      "Cargo :", widget.contrato.jobPosition, 44),
                                   row_info_contrato("Horas:",
-                                      widget.contrato.workHours.toString()),
+                                      widget.contrato.workHours.toString(), 22),
                                   _crearCiudad(widget.contrato),
                                   row_info_contrato("Pago:",
-                                      widget.contrato.payment.toString()),
+                                      widget.contrato.payment.toString(), 22),
                                 ],
                               ),
                             ),
@@ -171,8 +182,11 @@ class _ContractDetails extends State<ContractDetails> {
                                 color: Color.fromRGBO(112, 252, 118, 1),
                                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                                 onPressed: () {
-                                  _confirmarContrato(
-                                      widget.contrato, widget.usuario.id);
+                                  _aplicar(widget.user, widget.contrato);
+
+
+                                  //_confirmarContrato(
+                                    //  widget.contrato, widget.usuario.id);
                                 },
                               ),
                             ),
@@ -186,6 +200,19 @@ class _ContractDetails extends State<ContractDetails> {
             ],
           ),
         ));
+  }
+  void _aplicar(UserModel usuario, ContractModel contrato)async{
+
+    await contratosProvider.crearUsuarioAplicando(usuario, contrato.id);
+
+    //widget.contrato.useraplicando.add(widget.user);
+    //print(widget.contrato.useraplicando);
+    Navigator.pop(context);
+    mostrar_dialog.MostrarDialog(context, contrato.jobPosition,
+        'Tu solicitud ha sido enviada al líder del proyecto, en caso de ser escogido para el puesto serás notificado!');
+   // await contratosProvider.editarContrato(widget.contrato);
+
+
   }
 
   void _confirmarContrato(ContractModel contrato, String idUsuario) {
@@ -202,7 +229,7 @@ class _ContractDetails extends State<ContractDetails> {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
           project = snapshot.data;
-          return row_info_contrato("Proyecto:", snapshot.data.proyectName);
+          return row_info_contrato("Proyecto:", snapshot.data.proyectName, 44);
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -229,7 +256,7 @@ class _ContractDetails extends State<ContractDetails> {
       builder: (BuildContext context, AsyncSnapshot<Address> snapshot) {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
-          return row_info_contrato("Locacion:", snapshot.data.locality);
+          return row_info_contrato("Locacion:", snapshot.data.locality, 22);
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -237,7 +264,7 @@ class _ContractDetails extends State<ContractDetails> {
     );
   }
 
-  Widget row_info_contrato(String name, String info) {
+  Widget row_info_contrato(String name, String info, double mxh) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -247,12 +274,15 @@ class _ContractDetails extends State<ContractDetails> {
               left: 12,
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width - 310,
+
+              width: MediaQuery.of(context).size.width - 300,
+              height: 22,
+
               child: Text(
                 name,
                 style: TextStyle(
                     decoration: TextDecoration.none,
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),
@@ -262,15 +292,18 @@ class _ContractDetails extends State<ContractDetails> {
             padding: EdgeInsets.only(
               top: 4,
               left: 12,
+              right: 5
             ),
             child: Container(
-              constraints: BoxConstraints(maxHeight: 50),
-              width: MediaQuery.of(context).size.width - 210,
+              constraints: BoxConstraints(maxHeight: mxh,
+              maxWidth: MediaQuery.of(context).size.width - 220,),
+
+              //width: MediaQuery.of(context).size.width - 170,
               child: Text(
                 info,
                 style: TextStyle(
                     decoration: TextDecoration.none,
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),

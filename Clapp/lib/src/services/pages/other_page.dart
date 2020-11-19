@@ -156,11 +156,12 @@ class _OtherPage extends State<OtherPage> {
       child: ListTile(
         onTap: () {
           //mostrar_dialog.MostrarDialog(context, 'Tu proyecto ha sido creado!', 'Puedes buscar locaciones y personal en servicios.');
+          print('Es: ${contrato.useraplicando}');
 
           showDialog(
             context: context,
             builder: (BuildContext context) =>
-                ContractDetails(contrato, usuario),
+                ContractDetails(contrato: contrato, user: usuario,),
           );
         },
         title: Text('${contrato.jobPosition} - ${contrato.workHours} horas',

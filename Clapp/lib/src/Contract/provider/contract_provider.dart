@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Clapp/src/Contract/model/contract_models.dart';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 import 'package:http/http.dart' as http;
 
@@ -62,4 +63,6 @@ class EquipmentProvider {
 
     return 1;
   }
+
+
 }
