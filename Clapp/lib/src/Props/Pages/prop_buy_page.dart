@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:Clapp/src/Props/Model/prop_model.dart';
 import 'package:Clapp/src/Props/Provider/prop_provider.dart';
 import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
+import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
+import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
 
@@ -19,17 +23,22 @@ class PropBuyPage extends StatefulWidget {
 class _PropBuyPageState extends State<PropBuyPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  UserModel owner;
   PropModel propModel = new PropModel();
   final propProvider = new PropProvider();
-
+  UsuarioProvider usuarioProvider=UsuarioProvider();
   bool _guardando = false;
   bool _loading = false;
   File foto;
-
+  ChatProvider chat=ChatProvider();
+  ChatModel chatU;
   @override
   Widget build(BuildContext context) {
     widget.userModel = ModalRoute.of(context).settings.arguments;
+  /*   if (widget.userModel.id != widget.propModel.idOwner) {
+          _conseguirChat(
+              widget.propModel.idOwner, widget.userModel);
+        } */
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -167,7 +176,14 @@ class _PropBuyPageState extends State<PropBuyPage> {
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
       icon: Icon(Icons.message),
-      onPressed: () {},
+      onPressed: () async {
+        /* if (widget.userModel.id != widget.propModel.idOwner && chatU!=null) {
+        
+          ScreenArgument sc = ScreenArgument(
+              widget.userModel, chatU, owner.name, owner.id, null);
+          Navigator.pushNamed(context, 'messageInfo', arguments: sc);
+        } */
+      },
     );
   }
 
@@ -195,4 +211,26 @@ class _PropBuyPageState extends State<PropBuyPage> {
       }
     }
   }
+  /* void _conseguirChat(String tag, UserModel usuarioOferta) async {
+    owner = await usuarioProvider.obtenerUsuario(tag);
+    bool existe = false;
+    
+    ChatModel ct = await chat.cargarChat(usuarioOferta.id,tag);
+   
+
+    if (ct == null) {
+      ct = ChatModel(
+          chatId: "dddd",
+          fecha: DateTime.now().toString(),
+          nameD: owner.name,
+          nameO: usuarioOferta.name,
+          photoUrlD: owner.photoUrl,
+          photoUrlO: usuarioOferta.photoUrl,
+          usuarioD: tag,
+          usuarioO: usuarioOferta.id);
+      bool resp = await chat.crearChat(ct);
+       ct = await chat.cargarChat(usuarioOferta.id,tag);
+    }
+    chatU=ct;
+  } */
 }
