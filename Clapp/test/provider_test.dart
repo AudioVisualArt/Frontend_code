@@ -165,14 +165,14 @@ void main() {
       expect(response, isA<List<PropModel>>());
     });
 
-    /*test('Save Props', ()async{
+    test('Save Props', ()async{
       print('Saver Props');
       PropModel propModel = new PropModel();
 
       File foto = await File("./test/test_resources/b4a49d4b864c74bb73de63f080ad7930-bot--n-de-perfil-de-instagram.png").create();
       final response = await propsProvider.crearProp(propModel, foto);
       expect(response,isA<List<PropModel>>());
-    });*/
+    });
   });
 
   group('ScreenPlay Provider', () {
