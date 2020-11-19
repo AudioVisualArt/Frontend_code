@@ -172,11 +172,7 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.pushNamed(context, 'editar_perfil',
-                                    arguments: usuario); //ver routes
-                                setState(() {
-                                  _hasBeenPressed = !_hasBeenPressed;
-                                });
+
                               },
                               //splashColor:  Color.fromRGBO(112, 252, 118, 0.8),
                               highlightedBorderColor:
@@ -393,7 +389,7 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 130.0),
                                 child: Text(
-                                  "No has publicado ninguna locación!!",
+                                  "Sin contenido",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       decoration: TextDecoration.none,
@@ -405,9 +401,9 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 8.0, right: 8, left: 8),
+                                    top: 8.0, right: 30, left: 30),
                                 child: Text(
-                                    "Alquila tu propiedad para filmar obras audiovisuales desde el menu principal de Clapp y empieza a ganar dinero",
+                                    "\nEste usuario no ha publicado ningúna locación todavía.",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
@@ -640,7 +636,7 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                         Padding(
                           padding: const EdgeInsets.only(top: 130.0),
                           child: Text(
-                            "No has publicado tu perfil de servicio!",
+                            "Sin contenido",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 decoration: TextDecoration.none,
@@ -652,9 +648,9 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 8.0, right: 8, left: 8),
+                              top: 8.0, right: 30, left: 30),
                           child: Text(
-                              "Publica tu perfil desde el menu principal de Clapp y conviertete en un Clapper ya!",
+                              "\nEste usuario no ha publicado ningún servicio todavía.",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
