@@ -177,8 +177,9 @@ class UsuarioProvider {
     final url = '$_url/getUser/$id';
     final rsp = await http.get(url);
     print('Usuario: ' + rsp.body);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
 
-    final decodeData = json.decode(rsp.body);
+    final decodeData = json.decode(source);
     if (decodeData == null) return null;
 
     UserModel user = UserModel.fromJson(decodeData);
