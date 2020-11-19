@@ -163,10 +163,10 @@ class _PropBuyPageState extends State<PropBuyPage> {
       color: Color.fromRGBO(89, 122, 121, 1.0),
       textColor: Colors.white,
       label: Text(
-        'Guardar',
+        'Contactar',
         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
       ),
-      icon: Icon(Icons.save),
+      icon: Icon(Icons.message),
       onPressed: () {},
     );
   }
