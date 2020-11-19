@@ -34,9 +34,13 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
   bool _equipo = false;
 
   File foto;
-
+  ChatModel chatU;
   @override
   Widget build(BuildContext context) {
+    if (widget.userModel.id != widget.equipmentModel.idOwner) {
+          _conseguirChat(
+              widget.equipmentModel.idOwner, widget.userModel);
+        }
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -159,11 +163,10 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
       ),
       icon: Icon(Icons.message),
       onPressed: () async {
-        if (widget.userModel.id != widget.equipmentModel.idOwner) {
-          ChatModel chat = await _conseguirChat(
-              widget.equipmentModel.idOwner, widget.userModel);
+        if (widget.userModel.id != widget.equipmentModel.idOwner && chatU!=null) {
+        
           ScreenArgument sc = ScreenArgument(
-              widget.userModel, chat, owner.name, owner.id, null);
+              widget.userModel, chatU, owner.name, owner.id, null);
           Navigator.pushNamed(context, 'messageInfo', arguments: sc);
         }
       },
@@ -231,23 +234,14 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
     }
   }
 
-  Future<ChatModel> _conseguirChat(String tag, UserModel usuarioOferta) async {
+  void _conseguirChat(String tag, UserModel usuarioOferta) async {
     owner = await userProvider.obtenerUsuario(tag);
     bool existe = false;
-    ChatModel ct;
-    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
-    if (chats != null) {
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            existe = true;
-            ct = element;
-          }
-        }
-      });
-    }
+    
+    ChatModel ct = await chat.cargarChat(usuarioOferta.id,tag);
+   
 
-    if (existe == false) {
+    if (ct == null) {
       ct = ChatModel(
           chatId: "dddd",
           fecha: DateTime.now().toString(),
@@ -258,15 +252,8 @@ class _EquipmentCompraPageState extends State<EquipmentCompraPage> {
           usuarioD: tag,
           usuarioO: usuarioOferta.id);
       bool resp = await chat.crearChat(ct);
-      chats = await chat.cargarChats(usuarioOferta.id);
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            ct = element;
-          }
-        }
-      });
+       ct = await chat.cargarChat(usuarioOferta.id,tag);
     }
-    return ct;
+    chatU=ct;
   }
 }

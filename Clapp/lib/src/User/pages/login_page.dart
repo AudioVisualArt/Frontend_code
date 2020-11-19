@@ -231,16 +231,18 @@ class LoginPage extends StatelessWidget {
                 height: 36,
                 width: 36,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
-                child: Center(
-                  child: Text(
-                    "Ingresa con Gmail",
-                    style: TextStyle(
-                        fontSize: 17.0,
-                        fontFamily: "Raleway",
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+                  child: Center(
+                    child: Text(
+                      "Ingresa con Gmail",
+                      style: TextStyle(
+                          fontSize: 17.0,
+                          fontFamily: "Raleway",
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               )

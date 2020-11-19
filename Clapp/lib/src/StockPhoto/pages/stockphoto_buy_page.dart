@@ -31,9 +31,13 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
   bool _equipo = false;
   ChatProvider chat=ChatProvider();
   File foto;
-
+  ChatModel chatU;
   @override
   Widget build(BuildContext context) {
+     if (widget.userModel.id != widget.stockPhotoModel.idOwner) {
+                    _conseguirChat(
+                            widget.stockPhotoModel.idOwner, widget.userModel);
+     }
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -154,11 +158,10 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       icon: Icon(Icons.system_update_alt),
       onPressed: () async {
 
-                      if (widget.userModel.id != widget.stockPhotoModel.idOwner) {
-                        ChatModel chat = await _conseguirChat(
-                            widget.stockPhotoModel.idOwner, widget.userModel);
+                      if (widget.userModel.id != widget.stockPhotoModel.idOwner && chatU!=null) {
+                     
                         ScreenArgument sc = ScreenArgument(
-                           widget.userModel, chat, owner.name, owner.id, null);
+                           widget.userModel, chatU, owner.name, owner.id, null);
                         Navigator.pushNamed(context, 'messageInfo',
                             arguments: sc);
                       }
@@ -222,24 +225,14 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
       }
     }
   }
-   Future<ChatModel> _conseguirChat(
+   void _conseguirChat(
       String tag, UserModel usuarioOferta) async {
      owner=await userProvider.obtenerUsuario(tag);
     bool existe = false;
-    ChatModel ct;
-    List<ChatModel> chats = await chat.cargarChats(usuarioOferta.id);
-    if (chats != null) {
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            existe = true;
-            ct = element;
-          }
-        }
-      });
-    }
+    ChatModel ct = await chat.cargarChat(usuarioOferta.id,tag);
+    
 
-    if (existe == false) {
+    if (ct == null) {
       ct = ChatModel(
           chatId: "dddd",
           fecha: DateTime.now().toString(),
@@ -250,15 +243,8 @@ class _StockPhotoComprarPageState extends State<StockPhotoComprarPage> {
           usuarioD: tag,
           usuarioO: usuarioOferta.id);
       bool resp = await chat.crearChat(ct);
-      chats = await chat.cargarChats(usuarioOferta.id);
-      chats.forEach((element) {
-        if (element.usuarioD == usuarioOferta.id || element.usuarioD == tag) {
-          if (element.usuarioO == usuarioOferta.id || element.usuarioO == tag) {
-            ct = element;
-          }
-        }
-      });
+      ct = await chat.cargarChat(usuarioOferta.id,tag);
     }
-    return ct;
+    chatU=ct;
   }
 }

@@ -55,6 +55,30 @@ class ChatProvider {
     }
     return chatModels;
   }
+    Future<ChatModel> cargarChat(String id,String id2) async {
+    print("la url que se trata de acceder es: $_url");
+    final url = '$_url/getChat/$id/$id2';
+    final rsp = await http.get(url);
+
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
+    List<ChatModel> chatModels = new List();
+    List<MensajeModel> msgs=new List();
+    if (decodeData == null) return null;
+    Chats chats=new Chats.fromJsonList(decodeData);
+    for (var item in chats.items) {
+      item.mensajes= await cargarMess(item.chatId);
+      chatModels.add(item);
+    }
+    if(chatModels.length>0){
+      return chatModels[0];
+    }
+    else{
+      return null;
+    }
+    
+  }
   Future<List<MensajeModel>> cargarMess(String chatid) async {
     final url = '$_url/getAllMess/$chatid';
     final rsp = await http.get(url);
