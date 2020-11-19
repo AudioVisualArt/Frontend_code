@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Props/Model/prop_model.dart';
+import 'package:Clapp/src/Props/Pages/prop_buy_page.dart';
 import 'package:Clapp/src/Props/Provider/prop_provider.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -106,15 +107,23 @@ class _ShowPropPageState extends State<ShowPropPage> {
                       ),
                       color: Color.fromRGBO(112, 252, 118, 1.0),
                       label: Text(
-                        'Contactar',
+                        'Mas...',
                         style: TextStyle(fontSize: 15.0, fontFamily: "Raleway"),
                         textAlign: TextAlign.center,
                       ),
                       autofocus: true,
                       icon: Icon(
-                        Icons.message,
+                        Icons.description,
                       ),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new PropBuyPage(
+                                      propModel: propModel,
+                                      userModel: widget.userModel,
+                                    )));
+                      }),
                 ),
               ],
             ),

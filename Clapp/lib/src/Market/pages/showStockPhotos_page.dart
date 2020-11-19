@@ -45,7 +45,8 @@ class _ShowPhotosPageState extends State<ShowPhotosPage> {
 
   Widget _crearListadoStockPhotos() {
     return FutureBuilder(
-      future: stockPhotoProvider.cargarPhotosUser(widget.userModel.id),
+      future:
+          stockPhotoProvider.cargarPhotosNotSessionUser(widget.userModel.id),
       builder: (BuildContext context,
           AsyncSnapshot<List<StockPhotoModel>> snapshot) {
         if (snapshot.hasData) {
