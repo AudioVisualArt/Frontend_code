@@ -1,3 +1,5 @@
+import 'package:Clapp/src/Contract/pages/applicants.dart';
+import 'package:Clapp/src/Contract/pages/applying_profile.dart';
 import 'package:Clapp/src/Finance/pages/finances.dart';
 import 'package:Clapp/src/Finance/pages/new_goal.dart';
 
@@ -125,5 +127,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'stockphoto_edit': (BuildContext context) => StockPhotoEditPage(),
     'screenplay_edit': (BuildContext context) => ScreenPlayEditPage(),
     'prop_edit': (BuildContext context) => PropEditPage(),
+    'solicitantes': (BuildContext context) => Applicants(),
+    'perfil_solicitante': (BuildContext context) => ApplyingProfile(),
   };
 }

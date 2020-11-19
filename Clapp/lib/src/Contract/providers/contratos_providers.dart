@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:Clapp/src/User/preferencias_usuario/preferencias_usuario.dart';
 import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/utils/utils.dart' as utils;
@@ -94,4 +95,30 @@ class ContratosProvider {
 
     return contratos;
   }
+  Future<bool> crearUsuarioAplicando(UserModel usuario, String id) async {
+    final url = '$_url/saveuserAplicando/$id';
+
+    final resp = await http.post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: userModelToJson(usuario));
+
+    print(resp.statusCode);
+
+    return true;
+  }
+
+  Future<List<UserModel>> cargarUsuariosAplicando(String id) async {
+    final url = '$_url/getAllUsersApplying/$id';
+    final rsp = await http.get(url);
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
+
+    final Iterable decodeData = json.decode(source);
+    if (decodeData == null) return null;
+    final usersApp = decodeData.map((model) => UserModel.fromJson(model)).toList();
+
+    return usersApp;
+  }
+
 }

@@ -114,7 +114,9 @@ class _SpaceDetails extends State<SpaceDetails> {
                                             child: Container(
                                               constraints: BoxConstraints(
                                                   minWidth: 100,
-                                                  maxWidth: 200,
+                                                  maxWidth:
+                                                  MediaQuery.of(context).size.width-200,
+                                                  //200,
                                                   maxHeight: 56,
                                                   minHeight: 22),
                                               child: Text(

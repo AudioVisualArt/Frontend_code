@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 ///
 
 //final url = 'http://192.168.0.12:8080'; //Lemus
-//final url = 'http://192.168.0.24:8080'; //Sebastian
+//final url = 'http://192.168.0.44:8080'; //Sebastian
 final  url = 'https://clappbackend.herokuapp.com/'; //General
 //final url = 'http://192.168.0.3:8080'; //jonathan
 //final url = 'http://192.168.0.16:8080'; //Camilo

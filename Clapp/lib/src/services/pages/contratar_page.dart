@@ -158,10 +158,13 @@ class _ContratarPage extends State<ContratarPage> {
                     Padding(
                       padding: EdgeInsets.all(2.5),
                     ),
-                    Hero(
+                    _crearImage(worker),
+                    /*Hero(
                       tag: worker.userId,
                       child: _crearImage(worker),
                     ),
+
+                     */
                     SizedBox(height: 7.0),
                     Text(
                       user.name,

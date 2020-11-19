@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class ActividadProvider{
     final String _url = utils.url;
-    Future<bool> crearActividad(ActividadModel act,String userid) async {
+    Future<bool> crearActividad(ActividadModel act, String userid) async {
     final url = '$_url/saveActivity/$userid';
 
     final resp = await http.post(url,

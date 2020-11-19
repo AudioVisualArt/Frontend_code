@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:Clapp/src/User/models/user_model.dart';
+
 ContractModel contractsModelFromJson(String str) =>
     ContractModel.fromJson(json.decode(str));
 
@@ -21,6 +23,9 @@ class ContractModel {
   bool acceptedApplicant =false;
   double latitud;
   double longitud;
+  List<UserModel> useraplicando;
+  List<UserModel> userDenegado;
+
 
 
   ContractModel({
@@ -36,7 +41,9 @@ class ContractModel {
     this.acceptedBidder,
     this.acceptedApplicant,
     this.latitud,
-    this.longitud
+    this.longitud,
+    this.useraplicando,
+    this.userDenegado
 
   });
 
@@ -55,6 +62,8 @@ class ContractModel {
         acceptedApplicant: json["acceptedApplicant"],
         latitud: json["latitud"],
         longitud:json["longitud"],
+        useraplicando:json["useraplicando"],
+        userDenegado:json["userDenegado"],
 
       );
 
@@ -71,6 +80,8 @@ class ContractModel {
     "acceptedBidder": acceptedBidder,
     "acceptedApplicant": acceptedApplicant,
     "latitud": latitud,
-    "longitud" : longitud
+    "longitud" : longitud,
+    "useraplicando": useraplicando,
+    "userDenegado": userDenegado
   };
 }

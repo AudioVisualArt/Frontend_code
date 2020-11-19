@@ -13,15 +13,15 @@ import 'package:clay_containers/widgets/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class ProfilePage extends StatefulWidget {
+class ApplyingProfile extends StatefulWidget {
   final UserModel usuario;
-  ProfilePage({Key key, this.usuario}) : super(key: key);
+  ApplyingProfile({Key key, this.usuario}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ApplyingProfileState createState() => _ApplyingProfileState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ApplyingProfileState extends State<ApplyingProfile> {
   List tags = ['Informacion', 'Eventos', 'Eliminar cuenta'];
   bool _hasBeenPressed = false;
   final userProvider = new UsuarioProvider();
@@ -32,11 +32,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     UserModel usuario = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-        //backgroundColor: Color.fromRGBO(89, 122, 121, 1),
+      //backgroundColor: Color.fromRGBO(89, 122, 121, 1),
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(89, 122, 121, 1),
+          backgroundColor: Colors.white,
+          //Color.fromRGBO(89, 122, 121, 1),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Color.fromRGBO(227, 227, 227, 1.0)),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.black,
+        //Color.fromRGBO(227, 227, 227, 1.0),
+        ),
             onPressed: () => Navigator.pop(context, false),
           ),
 
@@ -45,279 +48,309 @@ class _ProfilePageState extends State<ProfilePage> {
         body: Container(
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(89, 122, 121, 1),
+              color:
+              //Colors.white,
+              Color.fromRGBO(89, 122, 121, 1),
             ),
             child: SingleChildScrollView(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 15,),
-                //newappbar(),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 7.0, left: 28, right: 10),
-                        child: Container(
-                            height: 100.0,
-                            width: 100.0,
-                            child:
-                                _constructorImagen(usuario, 100.0, 100, 100)),
-                      ),
-                      Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(bottom: 15),
+                      color: Colors.white,
+
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+
+                    SizedBox(height: 15,),
+                    //newappbar(),
+                    Container(
+
+
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        //mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(top: 20.0, left: 12.0),
-                            child: Text(
-                              "Hola,",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(227, 227, 227, 1.0),
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            padding: EdgeInsets.only(top: 7.0, left: 28, right: 10),
+                            child: Container(
+                                height: 100.0,
+                                width: 100.0,
+                                child:
+                                _constructorImagen(usuario, 100.0, 100, 100)),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 2.0, left: 12.0),
-                            child: Text(
-                              usuario.name,
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(246, 246, 246, 1.0),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0, left: 4),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 6.0),
-                                  child: Icon(
-                                    Icons.location_on,
-                                    color: Colors.white,
-                                    size: 17,
-                                  ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+
+                              Padding(
+                                padding: EdgeInsets.only(top: 2.0, left: 12.0),
+                                child: Text(
+                                  usuario.name,
+                                  style: TextStyle(
+                                      fontSize: 25.0,
+                                      fontFamily: "Raleway",
+                                      color: Colors.black,
+                                      //Color.fromRGBO(227, 227, 227, 1.0),
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    "${usuario.cityResidence}-Colombia",
-                                    style: TextStyle(
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5.0, left: 4),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 6.0),
+                                      child: Icon(
+                                        Icons.location_on,
+                                        color: Colors.black,
+                                        //Color.fromRGBO(227, 227, 227, 1.0),
+                                        size: 17,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        "${usuario.cityResidence} - Colombia",
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontFamily: "Raleway",
+                                          color: Colors.black,
+                                          //Color.fromRGBO(227, 227, 227, 1.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(top: 10.0, left: 12.0),
+                                child: Text(
+                                   usuario.age.toString() +' años',
+                                  style: TextStyle(
                                       fontSize: 18.0,
                                       fontFamily: "Raleway",
-                                      color: Color.fromRGBO(227, 227, 227, 1.0),
-                                    ),
-                                  ),
+                                      color: Colors.black,
+                                      //Color.fromRGBO(227, 227, 227, 1.0),
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15.0,
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 35,
-                  child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: OutlineButton(
-                          child: Center(
-                            child: Text(
-                              "Editar perfil",
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: "Raleway",
-                                  //color: Color.fromRGBO(112, 252, 118, 0.8),
-                                  color: Color.fromRGBO(227, 227, 227, 1.0),
-                                  /*color: _hasBeenPressed
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 35,
+                      child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: OutlineButton(
+                              child: Center(
+                                child: Text(
+                                  "Contactar",
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontFamily: "Raleway",
+                                      //color: Color.fromRGBO(112, 252, 118, 0.8),
+                                      color: Colors.black,
+                                      //Color.fromRGBO(227, 227, 227, 1.0),
+                                      /*color: _hasBeenPressed
                                           ? Color.fromRGBO(112, 252, 118, 0.8)
                                           : Color.fromRGBO(227, 227, 227, 1.0),
 
                                        */
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'editar_perfil',
-                                arguments: usuario); //ver routes
-                            setState(() {
-                              _hasBeenPressed = !_hasBeenPressed;
-                            });
-                          },
-                          //splashColor:  Color.fromRGBO(112, 252, 118, 0.8),
-                          highlightedBorderColor:
-                              Color.fromRGBO(112, 252, 118, 0.8),
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(227, 227, 227, 1.0),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ))),
-                ),
-                Container(
-                  height: 230,
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    //color: Color.fromRGBO(227, 227, 227, 1.0),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 25.0, left: 25, right: 25),
-                        child: Text("Perfil",
-                            style: TextStyle(
-                                fontSize: 27.0,
-                                fontFamily: "Raleway",
-                                color: Color.fromRGBO(115, 115, 115, 1.0),
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      SizedBox(
-                        child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                                bottomLeft: Radius.circular(20),
-                              ),
-                              color: Color.fromRGBO(227, 227, 227, 1),
-                            ),
-                            height: 150,
-                            width: MediaQuery.of(context).size.width - 20.0,
-                            margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                            padding: EdgeInsets.only(
-                              top: 10.0,
-                              left: 10.0,
-                              right: 10.0,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Text(
-                                      "Descripcion",
-                                      style: TextStyle(
-                                          fontSize: 19.0,
-                                          fontFamily: "Raleway",
-                                          color: Color.fromRGBO(
-                                              115, 115, 115, 1.0),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  usuario.description,
-                                  style: TextStyle(
-                                      fontSize: 17.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
                                       fontWeight: FontWeight.bold),
                                 ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                    child: Column(
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 10),
-                        child: Container(
-                          height: 1.2,
-                          width: MediaQuery.of(context).size.width - 30,
-                          color: Color.fromRGBO(227, 227, 227, 1.0),
+                              ),
+                              onPressed: () {
+
+                              },
+                              //splashColor:  Color.fromRGBO(112, 252, 118, 0.8),
+                              highlightedBorderColor:
+                              Color.fromRGBO(112, 252, 118, 0.8),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                //Color.fromRGBO(227, 227, 227, 1.0),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ))),
+                    ),
+                        ],
+                      )
+                    ),
+
+
+                    Container(
+                      height: 230,
+                      width: MediaQuery.of(context).size.width,
+                      //margin: EdgeInsets.only(top: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        //color: Color.fromRGBO(227, 227, 227, 1.0),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(0),
+                          topRight: Radius.circular(0),
+                          bottomLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15),
                         ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 25.0, left: 25, right: 25),
+                            child: Text("Perfil",
+                                style: TextStyle(
+                                    fontSize: 27.0,
+                                    fontFamily: "Raleway",
+                                    color: Color.fromRGBO(115, 115, 115, 1.0),
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          SizedBox(
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20),
+                                  ),
+                                  color: Color.fromRGBO(227, 227, 227, 1),
+                                ),
+                                height: 150,
+                                width: MediaQuery.of(context).size.width - 20.0,
+                                margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                                padding: EdgeInsets.only(
+                                  top: 10.0,
+                                  left: 10.0,
+                                  right: 10.0,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          "Descripcion",
+                                          style: TextStyle(
+                                              fontSize: 19.0,
+                                              fontFamily: "Raleway",
+                                              color: Color.fromRGBO(
+                                                  115, 115, 115, 1.0),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      usuario.description,
+                                      style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontFamily: "Raleway",
+                                          color: Color.fromRGBO(115, 115, 115, 1.0),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        ],
                       ),
                     ),
                     Container(
-                        decoration: BoxDecoration(
-                            //color: Colors.white,
-                            ),
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                        ),
                         child: Column(
                           children: [
                             Center(
-                              child: Container(
-                                  child: Text(
-                                'Sus servicios publicados',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 21.0,
-                                    fontFamily: "Raleway",
-                                    color: Color.fromRGBO(227, 227, 227, 1.0),
-                                    fontWeight: FontWeight.bold),
-                              )),
-                            ),
-                            Container(
-                              height: 282,
-                              child: _servicios(usuario),
-                            ),
-                            Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10.0, bottom: 10),
+                                padding: const EdgeInsets.only(top: 15.0, bottom: 10),
                                 child: Container(
                                   height: 1.2,
                                   width: MediaQuery.of(context).size.width - 30,
-                                  color: Color.fromRGBO(227, 227, 227, 1.0),
+                                  color: //Color.fromRGBO(115, 115, 115, 1.0),
+                                  Color.fromRGBO(227, 227, 227, 1.0),
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Center(
-                                child: Container(
-                                    child: Text(
-                                  'Sus locaciones publicadas',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 21.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(227, 227, 227, 1.0),
-                                      fontWeight: FontWeight.bold),
+                            Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.white,
+                                ),
+                                padding: const EdgeInsets.only(
+                                  top: 8.0,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                                        child: Container(
+                                            child: Text(
+                                              'Servicios de '+ usuario.name,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 19.0,
+                                                  fontFamily: "Raleway",
+                                                  color: //Colors.black,
+                                                  Color.fromRGBO(227, 227, 227, 1.0),
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 282,
+                                      child: _servicios(usuario),
+                                    ),
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, bottom: 10),
+                                        child: Container(
+                                          height: 1.2,
+                                          width: MediaQuery.of(context).size.width - 30,
+                                          color: Color.fromRGBO(227, 227, 227, 1.0),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Center(
+                                        child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 10, left: 10),
+                                              child: Text(
+                                                'Locaciones que '+usuario.name+' ha publicado',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 19.0,
+                                                    fontFamily: "Raleway",
+                                                    color: //Colors.black,
+                                                    Color.fromRGBO(227, 227, 227, 1.0),
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            )),
+                                      ),
+                                    ),
+                                    _buildservicios(usuario),
+                                  ],
                                 )),
-                              ),
-                            ),
-                            _buildservicios(usuario),
                           ],
-                        )),
+                        ))
                   ],
-                ))
-              ],
-            ))));
+                ))));
   }
 
   Widget _buildservicios(UserModel usuario) {
@@ -333,97 +366,97 @@ class _ProfilePageState extends State<ProfilePage> {
 
             return Center(
                 child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 15),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                      height: 260,
-                      width: MediaQuery.of(context).size.width - 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 8),
-                            blurRadius: 25,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 130.0),
-                            child: Text(
-                              "No has publicado ninguna locación!!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  fontSize: 24.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(89, 122, 121, 1),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8.0, right: 8, left: 8),
-                            child: Text(
-                                "Alquila tu propiedad para filmar obras audiovisuales desde el menu principal de Clapp y empieza a ganar dinero",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  fontSize: 14.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(89, 122, 121, 1),
-                                )),
-                          ),
-                        ],
-                      )),
-                  Positioned(
-                      top: 0,
-                      child: Container(
-                        height: 100,
-                        width: MediaQuery.of(context).size.width - 40,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromRGBO(112, 252, 118, 1),
-                              Color.fromRGBO(89, 122, 121, 1),
-                            ],
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                        ),
-                      )),
-                  Positioned(
-                    top: 0,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Center(
-                          child: ClipRRect(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 15),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                          height: 260,
+                          width: MediaQuery.of(context).size.width - 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
-                            child: Image(
-                              image: AssetImage("assets/img/APP ICON.png"),
-                              height: 100.0,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(0, 8),
+                                blurRadius: 25,
+                              )
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 130.0),
+                                child: Text(
+                                  "Sin contenido",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 24.0,
+                                      fontFamily: "Raleway",
+                                      color: Color.fromRGBO(89, 122, 121, 1),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, right: 30, left: 30),
+                                child: Text(
+                                    "\nEste usuario no ha publicado ningúna locación todavía.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 14.0,
+                                      fontFamily: "Raleway",
+                                      color: Color.fromRGBO(89, 122, 121, 1),
+                                    )),
+                              ),
+                            ],
+                          )),
+                      Positioned(
+                          top: 0,
+                          child: Container(
+                            height: 100,
+                            width: MediaQuery.of(context).size.width - 40,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(112, 252, 118, 1),
+                                  Color.fromRGBO(89, 122, 121, 1),
+                                ],
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              ),
+                            ),
+                          )),
+                      Positioned(
+                        top: 0,
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Center(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image(
+                                  image: AssetImage("assets/img/APP ICON.png"),
+                                  height: 100.0,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ));
+                      )
+                    ],
+                  ),
+                ));
           } else {
             final espacios = snapshot.data;
             return ListView.builder(
@@ -494,16 +527,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             Padding(
                                 padding:
-                                    EdgeInsets.only(top: 7, left: 2, right: 2),
+                                EdgeInsets.only(top: 7, left: 2, right: 2),
                                 child: Container(
                                     child: Text(
-                                  espacio.name,
-                                  style: TextStyle(
-                                      fontSize: 19.0,
-                                      fontFamily: "Raleway",
-                                      color: Color.fromRGBO(115, 115, 115, 1.0),
-                                      fontWeight: FontWeight.bold),
-                                ))),
+                                      espacio.name,
+                                      style: TextStyle(
+                                          fontSize: 19.0,
+                                          fontFamily: "Raleway",
+                                          color: Color.fromRGBO(115, 115, 115, 1.0),
+                                          fontWeight: FontWeight.bold),
+                                    ))),
                             Padding(
                                 padding: EdgeInsets.only(
                                   top: 2,
@@ -603,7 +636,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 130.0),
                           child: Text(
-                            "No has publicado tu perfil de servicio!",
+                            "Sin contenido",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 decoration: TextDecoration.none,
@@ -615,9 +648,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 8.0, right: 8, left: 8),
+                              top: 8.0, right: 30, left: 30),
                           child: Text(
-                              "Publica tu perfil desde el menu principal de Clapp y conviertete en un Clapper ya!",
+                              "\nEste usuario no ha publicado ningún servicio todavía.",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
@@ -746,7 +779,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: EdgeInsets.all(2.5),
                 ),
                 _constructorImagen(usuario, 50.0, 162, 160),
-               /* Hero(
+                /* Hero(
                   tag: workers.userId,
                   child: _constructorImagen(usuario, 50.0, 162, 160),
                 ),
@@ -807,11 +840,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5),
-                                bottomLeft: Radius.circular(5),
-                                bottomRight: Radius.circular(20),
-                              )),
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
+                                    bottomRight: Radius.circular(20),
+                                  )),
                               child: Center(
                                 child: Text('Estudio',
                                     textAlign: TextAlign.center,
