@@ -109,30 +109,149 @@ class _Applicants extends State<Applicants> {
     final card = Container(
       child: Column(
         children: [
-          Flexible(flex: 8, child: _imagenUser(usuario)
-              //child: Hero(
-              //    tag: equipmentModel.id,
-              //  child: _imagenEquipo(equipmentModel))
-
-              ),
-          Flexible(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8, left: 15),
-                child: Text(
+          Flexible(flex: 8, child:
+          Stack(
+            children: [
+              _imagenUser(usuario),
+             Positioned(
+               bottom: 20,
+               left: 10,
+               child: Container(
+                 constraints: BoxConstraints(
+                   maxHeight: 22
+                 ),
+                 child: Text(
                   usuario.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 16.0,
                     fontFamily: "Raleway",
-                    color: Colors.black,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
                   ),
-                ),
               ),
+               ),),
+              Positioned(
+                bottom: 5,
+                left: 10,
+                child: Text(
+                  usuario.age.toString()+' años',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: "Raleway",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),),
+            ],
+          )
+
+              ),
+          Padding(
+            padding:
+            EdgeInsets.only(bottom: 0.5, left: 2.0, right: 2.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(child: Padding(
+                    padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                    child: SizedBox(
+                      height: 37,
+                      width: 85,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(5),
+                            )),
+                        child: Center(
+                          child: Text('Aceptar',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontFamily: "Raleway",
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        textColor: Colors.white,
+                      color: Color.fromRGBO(112, 252, 118, 0.8),
+                        onPressed: () {},
+                      ),
+                    ))),
+
+                Flexible(child: Padding(
+                    padding: EdgeInsets.only(right: 0.2, bottom: 2),
+                    child: SizedBox(
+                      height: 37,
+                      width: 85,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                              bottomLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(20),
+                            )),
+                        child: Center(
+                          child: Text('Negar',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontFamily: "Raleway",
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        textColor: Colors.white,
+                        color: Colors.redAccent,
+                        onPressed: () {},
+                      ),
+                    )))
+              ],
             ),
+          )
+
+         /* Flexible(
+            flex:2,
+            fit: FlexFit.tight,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround ,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: IconButton(
+                      onPressed: (){},
+                      icon: Icon(
+                        Icons.highlight_remove_rounded,
+                        size: 40,
+                        color: Colors.redAccent,
+                      ),
+                    )
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: IconButton(
+                      onPressed: (){},
+                      icon: Icon(
+                        Icons.check_circle_rounded,
+                        size: 40,
+                        color: Colors.blueAccent,
+                      ),
+                    )
+                ),
+              ],
+            )
+
+
           ),
+
+          */
+
+
+          /*
           Flexible(
             flex: 1,
             child: Align(
@@ -153,22 +272,20 @@ class _Applicants extends State<Applicants> {
               ),
             ),
           ),
+
+           */
+
+
         ],
       ),
     );
 
     return InkWell(
-        /*onTap: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => new EquipmentCompraPage(
-                    equipmentModel: equipmentModel,
-                    userModel: widget.userModel,
-                  )));
+        onTap: () {
+          Navigator.pushNamed(context, 'perfil_solicitante', arguments: usuario);
         },
 
-         */
+
         child: Container(
       height: 400,
       width: 200,
