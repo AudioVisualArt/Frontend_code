@@ -2,6 +2,7 @@ import 'package:Clapp/src/Contract/model/contract_models.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 
 class Applicants extends StatefulWidget {
   final ContractModel contrato;
@@ -178,7 +179,8 @@ class _Applicants extends State<Applicants> {
                         ),
                         textColor: Colors.white,
                       color: Color.fromRGBO(112, 252, 118, 0.8),
-                        onPressed: () {},
+                        onPressed: () {
+                          _confirmarContrato(widget.contrato, usuario);},
                       ),
                     ))),
 
@@ -317,6 +319,16 @@ class _Applicants extends State<Applicants> {
         child: card,
       ),
     ));
+  }
+
+  void _confirmarContrato(ContractModel contrato, UserModel usuario) {
+    contrato.userApplicantId = usuario.id;
+    contrato.acceptedApplicant = true;
+    contratosProvider.editarContrato(contrato);
+    Navigator.pop(context);
+    Navigator.pop(context);
+    mostrar_dialog.MostrarDialog(context, 'El contrato fue asignado!',
+        'Ahora ${usuario.name} aparecerá en la sección de colaboradores de tu proyecto');
   }
 
   Widget _imagenUser(UserModel usuario) {

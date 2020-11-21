@@ -149,16 +149,16 @@ class _MyContractRequest extends State<MyContractRequest> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: 6,
+                                    height: 3,
                                   ),
                                   _crearNombreProjecto(contrato),
                                   row_info_contrato(
-                                      "Cargo :", contrato.jobPosition),
+                                      "Cargo :", contrato.jobPosition,44),
                                   row_info_contrato(
-                                      "Horas:", contrato.workHours.toString()),
+                                      "Horas:", contrato.workHours.toString(),22),
                                   _crearCiudad(contrato),
                                   row_info_contrato(
-                                      "Pago:", contrato.payment.toString()),
+                                      "Pago:", contrato.payment.toString(),22),
                                 ],
                               ),
                             ),
@@ -258,7 +258,7 @@ class _MyContractRequest extends State<MyContractRequest> {
         ));
   }
 
-  Widget row_info_contrato(String name, String info) {
+  Widget row_info_contrato(String name, String info, double mxh) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -268,11 +268,12 @@ class _MyContractRequest extends State<MyContractRequest> {
               left: 12,
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width - 310,
+              width: MediaQuery.of(context).size.width - 300,
+              height: 22,
               child: Text(
                 name,
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),
@@ -282,13 +283,16 @@ class _MyContractRequest extends State<MyContractRequest> {
             padding: EdgeInsets.only(
               top: 4,
               left: 12,
+                right: 5
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width - 210,
+              constraints: BoxConstraints(maxHeight: mxh,
+                maxWidth: MediaQuery.of(context).size.width - 220,),
+
               child: Text(
                 info,
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     fontFamily: "Raleway",
                     color: Color.fromRGBO(115, 115, 115, 1.0),
                     fontWeight: FontWeight.bold),
@@ -392,7 +396,7 @@ class _MyContractRequest extends State<MyContractRequest> {
       builder: (BuildContext context, AsyncSnapshot<Address> snapshot) {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
-          return row_info_contrato("Locacion:", snapshot.data.locality);
+          return row_info_contrato("Locacion:", snapshot.data.locality, 22);
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -407,7 +411,7 @@ class _MyContractRequest extends State<MyContractRequest> {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
           project = snapshot.data;
-          return row_info_contrato("Proyecto:", snapshot.data.proyectName);
+          return row_info_contrato("Proyecto:", snapshot.data.proyectName, 44);
         } else {
           return Center(child: CircularProgressIndicator());
         }
