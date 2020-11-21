@@ -45,12 +45,20 @@ class _ProfilePageState extends State<ProfilePage> {
         body: Container(
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(89, 122, 121, 1),
+              color: Colors.white,
+              //Color.fromRGBO(89, 122, 121, 1),
             ),
             child: SingleChildScrollView(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(bottom: 15),
+                  color: Color.fromRGBO(89, 122, 121, 1),
+                  child: Column(
+                    children: [
+
+
                 SizedBox(height: 15,),
                 //newappbar(),
                 Container(
@@ -73,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 20.0, left: 12.0),
+                                const EdgeInsets.only(top: 5.0, left: 12.0),
                             child: Text(
                               "Hola,",
                               style: TextStyle(
@@ -109,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.0),
                                   child: Text(
-                                    "${usuario.cityResidence}-Colombia",
+                                    "${usuario.cityResidence} - Colombia",
                                     style: TextStyle(
                                       fontSize: 18.0,
                                       fontFamily: "Raleway",
@@ -117,7 +125,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                 ),
+
                               ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 5.0, left: 12.0),
+                            child: Text(
+                              usuario.age.toString() +' años',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: "Raleway",
+                                  color: Color.fromRGBO(227, 227, 227, 1.0),
+                                  //Color.fromRGBO(227, 227, 227, 1.0),
+                                  ),
                             ),
                           ),
                           SizedBox(
@@ -166,16 +188,19 @@ class _ProfilePageState extends State<ProfilePage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ))),
                 ),
+                    ],
+                  )
+                ),
                 Container(
                   height: 230,
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 15),
+                  //margin: EdgeInsets.only(top: 15),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color.fromRGBO(89, 122, 121, 1),
                     //color: Color.fromRGBO(227, 227, 227, 1.0),
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+                      topLeft: Radius.circular(0),
+                      topRight: Radius.circular(0),
                       bottomLeft: Radius.circular(15),
                       bottomRight: Radius.circular(15),
                     ),
@@ -191,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                                 fontSize: 27.0,
                                 fontFamily: "Raleway",
-                                color: Color.fromRGBO(115, 115, 115, 1.0),
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold)),
                       ),
                       SizedBox(
@@ -254,9 +279,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 15.0, bottom: 10),
                         child: Container(
-                          height: 1.2,
+                          height: 1.7,
                           width: MediaQuery.of(context).size.width - 30,
-                          color: Color.fromRGBO(227, 227, 227, 1.0),
+                          color: Color.fromRGBO(115, 115, 115, 1.0).withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -277,7 +302,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 style: TextStyle(
                                     fontSize: 21.0,
                                     fontFamily: "Raleway",
-                                    color: Color.fromRGBO(227, 227, 227, 1.0),
+                                    color: Color.fromRGBO(115, 115, 115, 1.0),
                                     fontWeight: FontWeight.bold),
                               )),
                             ),
@@ -290,9 +315,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding: const EdgeInsets.only(
                                     top: 10.0, bottom: 10),
                                 child: Container(
-                                  height: 1.2,
+                                  height: 1.7,
                                   width: MediaQuery.of(context).size.width - 30,
-                                  color: Color.fromRGBO(227, 227, 227, 1.0),
+                                  color: Color.fromRGBO(115, 115, 115, 1.0).withOpacity(0.7),
                                 ),
                               ),
                             ),
@@ -306,7 +331,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   style: TextStyle(
                                       fontSize: 21.0,
                                       fontFamily: "Raleway",
-                                      color: Color.fromRGBO(227, 227, 227, 1.0),
+                                      color: Color.fromRGBO(115, 115, 115, 1.0),
                                       fontWeight: FontWeight.bold),
                                 )),
                               ),

@@ -89,7 +89,7 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                             children: [
 
                               Padding(
-                                padding: EdgeInsets.only(top: 2.0, left: 12.0),
+                                padding: EdgeInsets.only(top: 13.0, left: 12.0),
                                 child: Text(
                                   usuario.name,
                                   style: TextStyle(
