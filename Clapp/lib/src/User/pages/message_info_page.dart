@@ -30,9 +30,10 @@ class _MessageInfoState extends State<MessageInfo> {
    
    args=ModalRoute.of(context).settings.arguments;
    int contador=0;
-   if(cambio==true){
-     args.model=aux;
+   if(cambio==false){
+     aux=args.model;
    }
+   
    if(args.model.mensajes.length!=0 && args.model.mensajes.length!=null){
      args.model.mensajes=_ordenarMensajes(args.model.mensajes);
      contador=args.model.mensajes[args.model.mensajes.length-1].cont;
@@ -155,11 +156,9 @@ class _MessageInfoState extends State<MessageInfo> {
           suffixIcon: IconButton(
             icon: Icon(Icons.send),
             onPressed: () async {     
-              MensajeModel nuevoMsj= await _crearMensaje(valor,usuario,id,idUser2,ct);  
+               _crearMensaje(valor,usuario,id,idUser2,ct);  
 
-              setState(() {
-                _srollState();
-              }); 
+           
             },
           ),
           icon: Icon(Icons.account_circle)
@@ -208,6 +207,7 @@ class _MessageInfoState extends State<MessageInfo> {
         children: <Widget>[
           ListTile(
             
+            
             title: Text(msj.contenido),
           ),
           Row(
@@ -222,7 +222,7 @@ class _MessageInfoState extends State<MessageInfo> {
     );
   }
 
-  Future<MensajeModel> _crearMensaje(String valor, UserModel usuario,String id,String iduser2, int ct) async {
+  void _crearMensaje(String valor, UserModel usuario,String id,String iduser2, int ct) async {
    
     var now = new DateTime.now();
     String fecha=now.toString();
@@ -235,16 +235,13 @@ class _MessageInfoState extends State<MessageInfo> {
       cont: cont2
 
     );
+    aux.mensajes.add(nuevoM);
+    cambio=true;
+       setState(() {
+                _srollState();
+              }); 
     bool confi= await chatProvider.crearMensaje(nuevoM,fecha);
-     List<ChatModel> chats=await chatProvider.cargarChats(usuario.id);
-     chats.forEach((element) {
-       if(element.usuarioD==iduser2 || element.usuarioO==iduser2){
-         if(element.usuarioD==usuario.id || element.usuarioO==usuario.id){
-           aux=element;
-           cambio=true;
-         }
-       }
-     });
+    
     ActividadModel activity=new ActividadModel(
       descripcion: "Enviaste un mensaje a ${args.nameuser}",
       fecha: DateTime.now().toString(),
@@ -266,7 +263,6 @@ class _MessageInfoState extends State<MessageInfo> {
         
       });
     }
-    return nuevoM;
   }
 
   List<MensajeModel> _ordenarMensajes(List<MensajeModel> mensajes) {
