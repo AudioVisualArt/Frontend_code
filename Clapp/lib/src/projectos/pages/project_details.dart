@@ -329,38 +329,40 @@ class _ProjectDetails extends State<ProjectDetails> {
                 stops: [0.0, 0.6],
                 tileMode: TileMode.clamp)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+
           children: [
             Row(
-
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Container(
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 6.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back_ios),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
                       onPressed: () => Navigator.pop(context, false),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width- 365
-                   //   50
-                  ),
-                  child: Container(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20.0, right: 20, top: 37),
-                      child: Text('Proyecto',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 25.0,
-                              fontFamily: "Raleway",
-                              color: Color.fromRGBO(115, 115, 115, 1.0))),
+                  padding: EdgeInsets.only(top: 37),
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width-80,
+
+
+                      child: Align(
+                        alignment: Alignment(-0.36, 0.0),
+                        child: Text('Proyecto',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 25.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0))),
+                      ),
+
                     ),
                   ),
                 ),

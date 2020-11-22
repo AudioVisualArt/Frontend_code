@@ -234,29 +234,35 @@ class _SpacesPage extends State<SpacesPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Container(
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 6.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back_ios),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
                       onPressed: () => Navigator.pop(context, false),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    child: Padding(
-                      padding:
-                      const EdgeInsets.only(left: 16.0, right: 20, top: 37),
-                      child: Text('Espacios',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 25.0,
-                              fontFamily: "Raleway",
-                              color: Color.fromRGBO(115, 115, 115, 1.0))),
+                  padding: EdgeInsets.only(top: 37),
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width-80,
+
+
+                      child: Align(
+                        alignment: Alignment(-0.45, 0.0),
+                        child: Text('Espacios',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 25.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0))),
+                      ),
+
                     ),
                   ),
                 ),

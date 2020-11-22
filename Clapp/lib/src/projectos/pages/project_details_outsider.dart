@@ -10,7 +10,8 @@ class ProjectDetailsOutsider extends StatefulWidget {
   final UserModel user;
   final ProjectModel projectModel;
 
-  ProjectDetailsOutsider(this.projectModel, {Key key, this.user}) : super(key: key);
+  ProjectDetailsOutsider(this.projectModel, {Key key, this.user})
+      : super(key: key);
   @override
   _ProjectDetailsOutsider createState() => _ProjectDetailsOutsider();
 }
@@ -25,9 +26,9 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/img/homeback2.jpg"),
-              fit: BoxFit.cover,
-            )),
+          image: AssetImage("assets/img/homeback2.jpg"),
+          fit: BoxFit.cover,
+        )),
         child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 30.0,
@@ -63,7 +64,7 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
                         flex: 1,
                         child: Padding(
                           padding:
-                          EdgeInsets.only(top: 19, left: 10, right: 10),
+                              EdgeInsets.only(top: 19, left: 10, right: 10),
                           child: SizedBox(
                             height: 52,
                             width: 166,
@@ -98,7 +99,7 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
                         flex: 1,
                         child: Padding(
                           padding:
-                          EdgeInsets.only(top: 19, left: 10, right: 10),
+                              EdgeInsets.only(top: 19, left: 10, right: 10),
                           child: SizedBox(
                             height: 52,
                             width: 166,
@@ -163,12 +164,14 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainFilePage(
-                                  projectModel: proyecto,
-                                )));},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainFilePage(
+                                        projectModel: proyecto,
+                                      )));
+                        },
                       ),
                     ),
                   ),
@@ -224,12 +227,14 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
                                 fontWeight: FontWeight.bold)),
                         textColor: Color.fromRGBO(0, 51, 51, 0.8),
                         color: Colors.white,
-                        onPressed: () {Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ExecutiveSummaryPage(
-                                  projectModel: proyecto,
-                                )));},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ExecutiveSummaryPage(
+                                        projectModel: proyecto,
+                                      )));
+                        },
                       ),
                     ),
                   ),
@@ -260,29 +265,32 @@ class _ProjectDetailsOutsider extends State<ProjectDetailsOutsider> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Container(
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 6.0, right: 20, top: 37),
+                        const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back_ios),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
                       onPressed: () => Navigator.pop(context, false),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    child: Padding(
-                      padding:
-                      const EdgeInsets.only(left: 20.0, right: 20, top: 37),
-                      child: Text('Proyecto',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 25.0,
-                              fontFamily: "Raleway",
-                              color: Color.fromRGBO(115, 115, 115, 1.0))),
+                  padding: EdgeInsets.only(top: 37),
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 80,
+                      child: Align(
+                        alignment: Alignment(-0.36, 0.0),
+                        child: Text('Proyecto',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 25.0,
+                                fontFamily: "Raleway",
+                                color: Color.fromRGBO(115, 115, 115, 1.0))),
+                      ),
                     ),
                   ),
                 ),

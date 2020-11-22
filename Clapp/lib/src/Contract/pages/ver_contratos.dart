@@ -89,7 +89,7 @@ class _VerContratos extends State<VerContratos> {
                   padding: const EdgeInsets.only(left:7.0, right: 20, top: 37),
 
                   child: IconButton(
-                    icon: Icon(Icons.arrow_back), color: Color.fromRGBO(115, 115, 115, 1.0),
+                    icon: Icon(Icons.arrow_back_ios), color: Color.fromRGBO(115, 115, 115, 1.0),
                     onPressed: () => Navigator.pop(context, false),                ),
                 ),),
 

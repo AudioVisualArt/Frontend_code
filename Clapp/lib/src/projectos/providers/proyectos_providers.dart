@@ -14,22 +14,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ProyectosProvider extends InheritedWidget{
+class ProyectosProvider extends InheritedWidget {
   final String _url = utils.url;
 
   static ProyectosProvider _instancia;
 
   factory ProyectosProvider({Key key, Widget child}) {
-
     if (_instancia == null) {
-      _instancia = new ProyectosProvider._internal(key: key , child: child);
+      _instancia = new ProyectosProvider._internal(key: key, child: child);
     }
     return _instancia;
   }
 
-  ProyectosProvider._internal({ Key key, Widget child})
-      : super(key: key , child: child);
-
+  ProyectosProvider._internal({Key key, Widget child})
+      : super(key: key, child: child);
 
   Future<String> crearProyecto(ProjectModel proyecto) async {
     final url = '$_url/saveProject';
@@ -43,11 +41,7 @@ class ProyectosProvider extends InheritedWidget{
     print(resp.body);
     FinancesProvider financeProvider = new FinancesProvider();
     FinanceModel f = new FinanceModel(
-      projectId: resp.body,
-      title: "Total",
-      percentage: 0,
-      quantity: 0
-    );
+        projectId: resp.body, title: "Total", percentage: 0, quantity: 0);
     financeProvider.crearFinance(f);
 
     return resp.body;
@@ -61,7 +55,8 @@ class ProyectosProvider extends InheritedWidget{
     return project;
   }
 
-  Future<StorageUploadTask> editarProyecto(ProjectModel proyecto, PlatformFile resumen_ejecutivo, PlatformFile carpeta_madre) async {
+  Future<StorageUploadTask> editarProyecto(ProjectModel proyecto,
+      PlatformFile resumen_ejecutivo, PlatformFile carpeta_madre) async {
     final url = '$_url/updateProject/${proyecto.id}';
 
     String fileName;
@@ -73,18 +68,18 @@ class ProyectosProvider extends InheritedWidget{
     extensionFile = fileName.split('.').last;
 
     final StorageReference postImageRef =
-    FirebaseStorage.instance.ref().child('Project_excutive_summary');
+        FirebaseStorage.instance.ref().child('Project_excutive_summary');
 
     final StorageUploadTask uploadTask =
-    postImageRef.child(proyecto.id).putFile(
-      File(filePath),
-      StorageMetadata(
-        contentType: '${FileType.any}/$extensionFile',
-      ),
-    );
+        postImageRef.child(proyecto.id).putFile(
+              File(filePath),
+              StorageMetadata(
+                contentType: '${FileType.any}/$extensionFile',
+              ),
+            );
 
     final excutivesummaryUrl =
-    await (await uploadTask.onComplete).ref.getDownloadURL();
+        await (await uploadTask.onComplete).ref.getDownloadURL();
 
     print('URL ScreenPlay: ' + excutivesummaryUrl);
 
@@ -99,24 +94,21 @@ class ProyectosProvider extends InheritedWidget{
     extensionFile2 = fileName2.split('.').last;
 
     final StorageReference postImageRef2 =
-    FirebaseStorage.instance.ref().child('Project_main_file');
+        FirebaseStorage.instance.ref().child('Project_main_file');
 
     final StorageUploadTask uploadTask2 =
-    postImageRef2.child(proyecto.id).putFile(
-      File(filePath2),
-      StorageMetadata(
-        contentType: '${FileType.any}/$extensionFile2',
-      ),
-    );
+        postImageRef2.child(proyecto.id).putFile(
+              File(filePath2),
+              StorageMetadata(
+                contentType: '${FileType.any}/$extensionFile2',
+              ),
+            );
 
-    final mainFile =
-    await (await uploadTask2.onComplete).ref.getDownloadURL();
+    final mainFile = await (await uploadTask2.onComplete).ref.getDownloadURL();
 
     print('URL ScreenPlay: ' + excutivesummaryUrl);
 
     proyecto.main_file = mainFile;
-
-
 
     final resp = await http.put(url,
         headers: <String, String>{'Content-Type': 'application/json'},
@@ -126,8 +118,6 @@ class ProyectosProvider extends InheritedWidget{
 
     print(decodeData);
 
-
-
     return uploadTask;
   }
 
@@ -136,16 +126,17 @@ class ProyectosProvider extends InheritedWidget{
     final url = '$_url/getCollaborators/$idProject';
     final rsp = await http.get(url);
     //print(rsp.body.toString());
+    String source = Utf8Decoder().convert(rsp.bodyBytes);
 
-    final Iterable decodeData = json.decode(rsp.body);
+    final Iterable decodeData = json.decode(source);
     List<UserModel> users = new List();
     if (decodeData == null) return [];
 
-    users =
-        decodeData.map((model) => UserModel.fromJson(model)).toList();
+    users = decodeData.map((model) => UserModel.fromJson(model)).toList();
 
     return users;
   }
+
   Future<WorkerModel> cargarWorkerInfo(idUser) async {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getWorkerUserId/$idUser';
@@ -156,7 +147,6 @@ class ProyectosProvider extends InheritedWidget{
   }
 
   Future<List<ProjectModel>> cargarProyectos(idUsuario) async {
-
     final url = '$_url/getAllProjectsUser/$idUsuario';
     print("la url que se trata de acceder es: $url");
     final rsp = await http.get(url);
@@ -173,6 +163,7 @@ class ProyectosProvider extends InheritedWidget{
 
     return proyectos;
   }
+
   Future<List<ProjectModel>> cargarTodosProyectos() async {
     print("la url que se trata de acceder es: $_url");
     final url = '$_url/getAllProjects';
@@ -191,7 +182,6 @@ class ProyectosProvider extends InheritedWidget{
     return proyectos;
   }
 
-
   Future<int> borrarProyectos(String id) async {
     print("se borrara el proyecto con id: $id");
     final url = '$_url/deleteProject/$id';
@@ -204,12 +194,12 @@ class ProyectosProvider extends InheritedWidget{
 
   final projectBloc = ProjectBloc();
 
-  static ProjectBloc of (BuildContext context){
-
-    return context.dependOnInheritedWidgetOfExactType<ProyectosProvider>().projectBloc;
+  static ProjectBloc of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<ProyectosProvider>()
+        .projectBloc;
   }
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
-
 }

@@ -213,23 +213,23 @@ class _OtherPage extends State<OtherPage> {
                   alignment: Alignment.topLeft,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 7.0, right: 20, top: 37),
+                    const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back_ios),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
                       onPressed: () => Navigator.pop(context, false),
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 37),
+                Padding(
+                  padding: EdgeInsets.only(top: 37),
+                  child: Center(
                     child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
+                      width: MediaQuery.of(context).size.width-80,
+
+
+                      child: Align(
+                        alignment: Alignment(-0.55, 0.0),
                         child: Text('Contratos Disponibles',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -237,9 +237,11 @@ class _OtherPage extends State<OtherPage> {
                                 fontFamily: "Raleway",
                                 color: Color.fromRGBO(115, 115, 115, 1.0))),
                       ),
+
                     ),
                   ),
-                )
+                ),
+
               ],
             ),
             Container(
@@ -247,7 +249,7 @@ class _OtherPage extends State<OtherPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Todo',
+                    Text('Actualizar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromRGBO(115, 115, 115, 1.0),

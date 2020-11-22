@@ -36,29 +36,28 @@ class _VerColaboradores extends State<VerColaboradores> {
         )),
         child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 30.0,
-            padding: EdgeInsets.only(
-              right: 1.0,
-              left: 1.0,
-            ),
+            height: MediaQuery.of(context).size.height - 10.0,
+
             child: Column(
               children: [
-                newappbar(),
+                newappbar(projectModel),
                 Expanded(
                     child: SingleChildScrollView(
-                        child: Container(
-                  padding: EdgeInsets.only(
-                    right: 5.0,
-                    left: 5.0,
-                    //top: 15.0,
-                  ),
-                  width: MediaQuery.of(context).size.width - 10.0,
-                  height: MediaQuery.of(context).size.height - 150,
+                        child: Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height - 150,
 
-                  //TitleBar('Colaboradores'),
+                      //TitleBar('Colaboradores'),
 
-                  child: _crearListado(projectModel.id),
-                )))
+                      child: _crearListado(projectModel.id),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    )
+                  ],
+                ))),
               ],
             )));
   }
@@ -72,12 +71,14 @@ class _VerColaboradores extends State<VerColaboradores> {
           return GridView.builder(
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.71,
-                crossAxisSpacing: 13,
-                mainAxisSpacing: 16),
+                crossAxisSpacing: 14.0,
+                mainAxisSpacing: 6.0,
+                childAspectRatio: 0.66),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             itemCount: projectos.length,
-            itemBuilder: (context, index) =>
-                _crearProyecto(context, projectos[index]),
+            itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(top: 0.0, bottom: 15),
+                child: _cardColaborador(context, projectos[index])),
           );
         } else {
           return Center(child: CircularProgressIndicator());
@@ -86,140 +87,135 @@ class _VerColaboradores extends State<VerColaboradores> {
     );
   }
 
-  Widget _crearProyecto(BuildContext context, UserModel user) {
-    return Padding(
-        padding: EdgeInsets.only(left: 7, right: 7),
-        child: Container(
+  Widget _cardColaborador(BuildContext context, UserModel usuario) {
+    final card = Container(
+      child: Column(
+        children: [
+          Flexible(
+              flex: 8,
+              child: Stack(
+                children: [
+                  _imagenUser(usuario),
+                  Positioned(
+                    bottom: 20,
+                    left: 10,
+                    child: Container(
+                      constraints: BoxConstraints(maxHeight: 22),
+                      child: Text(
+                        usuario.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 17.0,
+                            fontFamily: "Raleway",
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 5,
+                    left: 10,
+                    child: Text(
+                      usuario.age.toString() + ' años',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 17.0,
+                          fontFamily: "Raleway",
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              )),
 
-            /*decoration: ConcaveDecoration(
-            shape: ContinuousRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            colors: [
-              Color.fromRGBO(230, 230, 230, 0.6),
-              Color.fromRGBO(247, 245, 245, 0.6),
-            ],
-            depression: 15),
 
-         */
-            decoration: BoxDecoration(
 
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20)),
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(189, 189, 189, 1.0),
-                    Color.fromRGBO(250, 250, 250, 1.0),
-                    Color.fromRGBO(250, 250, 250, 1.0),
-                    Color.fromRGBO(189, 189, 189, 1.0),
-                   // Color.fromRGBO(112, 252, 118, 1.0),
-                    //Color.fromRGBO(185, 250, 188, 1.0),
-                  ],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(0, 4),
-                      spreadRadius: 1.0,
-                      blurRadius: 4.0)
-                ]),
 
-            //color: Colors.white.withOpacity(0.95),),
 
-            //color: Colors.amber,
-            //elevation: 20.0,
-            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-            child: Column(
-              children: <Widget>[
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 6),
-                    child: _crearPhoto(user.photoUrl),
+          Flexible(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 5.0, left: 15),
+                child: Text(
+                  usuario.cityResidence,
+                  textAlign: TextAlign.center,
+                  //equipmentModel.titulo.toString(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: "Raleway",
+                    color: Colors.black,
+                    //fontWeight: FontWeight.bold
                   ),
                 ),
-                Padding(
-                    padding: EdgeInsets.only(top: 5, left: 2, right: 2),
-                    child: Center(
-                        child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        /* borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(20.0),
-                              bottomLeft: Radius.circular(20),
-                              topRight: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                            ),
-
-                            */
-                      ),
-                      height: 90,
-                      width: 160,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 5, left: 2, right: 2),
-                            child: Text('${user.name}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontFamily: "Raleway",
-                                    color: Color.fromRGBO(89, 89, 89, 1.0),
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 2, left: 2, right: 2),
-                            child: Text(user.cityResidence,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontFamily: "Raleway",
-                                  color: Color.fromRGBO(89, 89, 89, 1.0),
-                                )),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 2, left: 2, right: 2),
-                            child: Text("Profesion:",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontFamily: "Raleway",
-                                    color: Color.fromRGBO(89, 89, 89, 1.0),
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Expanded(child: _crearDatosWork(user.id))
-                        ],
-                      ),
-                    ))),
-                /*ListTile(
-              title: Text('${user.name}',
-                  style: TextStyle(fontSize: 20.0, fontFamily: "Raleway")),
-              subtitle: Text(user.description,
-                  style: TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
+              ),
             ),
+          ),
 
 
-            _crearDatosWork(user.id)
+        ],
+      ),
+    );
 
-             */
-
-                /*Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    FlatButton(
-                        child: Text('Details ->',
-                            style:
-                            TextStyle(fontSize: 15.0, fontFamily: "Raleway")),
-                        onPressed: () => Navigator.pushNamed(context, 'details_project',
-                            arguments: proyecto)
-
-                    ),
-                  ],
-                )*/
+    return InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, 'perfil_solicitante',
+              arguments: usuario);
+        },
+        child: Container(
+          height: 400,
+          width: 200,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(112, 252, 118, 1),
+                Color.fromRGBO(89, 122, 121, 1),
               ],
-            )));
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0, 8),
+                blurRadius: 25,
+              )
+            ],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: card,
+          ),
+        ));
+  }
+
+  Widget _imagenUser(UserModel usuario) {
+    if (usuario.photoUrl == null) {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image(
+            image: AssetImage('assets/img/no-image.png'),
+            fit: BoxFit.cover,
+            height: double.infinity,
+          ));
+    } else if (usuario.photoUrl != null || usuario.photoUrl.isNotEmpty) {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: FadeInImage(
+            placeholder: AssetImage('assets/img/loader3.gif'),
+            image: NetworkImage(usuario.photoUrl),
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+          ));
+    }
   }
 
   Widget _crearDatosWork(String userId) {
@@ -242,32 +238,7 @@ class _VerColaboradores extends State<VerColaboradores> {
     );
   }
 
-  Widget _crearPhoto(String photoUrl) {
-    if (photoUrl == null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(50.0),
-        child: Image(
-          image: AssetImage('assets/img/no-image.png'),
-          fit: BoxFit.cover,
-          width: 155.0,
-          height: 155.0,
-        ),
-      );
-    } else {
-      return ClipRRect(
-          borderRadius: BorderRadius.circular(50.0),
-          child: FadeInImage(
-              placeholder: AssetImage('assets/img/loader3.gif'),
-              image: NetworkImage(
-                photoUrl,
-              ),
-              width: 145.0,
-              height: 145.0,
-              fit: BoxFit.cover));
-    }
-  }
-
-  Widget newappbar() {
+  Widget newappbar(ProjectModel projectModel) {
     return Container(
         height: 150,
         decoration: BoxDecoration(
@@ -292,31 +263,33 @@ class _VerColaboradores extends State<VerColaboradores> {
                     padding:
                         const EdgeInsets.only(left: 7.0, right: 20, top: 37),
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back_ios),
                       color: Color.fromRGBO(115, 115, 115, 1.0),
                       onPressed: () => Navigator.pop(context, false),
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
+               Padding(
                     padding: EdgeInsets.only(top: 37),
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        child: Text('Colaboraciones',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 25.0,
-                                fontFamily: "Raleway",
-                                color: Color.fromRGBO(115, 115, 115, 1.0))),
+                    child: Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width-80,
+
+
+                          child: Align(
+                            alignment: Alignment(-0.55, 0.0),
+                            child: Text('Colaboraciones',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontFamily: "Raleway",
+                                    color: Color.fromRGBO(115, 115, 115, 1.0))),
+                          ),
+
                       ),
                     ),
                   ),
-                )
+
               ],
             ),
             Container(
@@ -324,7 +297,7 @@ class _VerColaboradores extends State<VerColaboradores> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Todo',
+                    Text('Actualizar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromRGBO(115, 115, 115, 1.0),
@@ -336,7 +309,7 @@ class _VerColaboradores extends State<VerColaboradores> {
                       icon: Icon(Icons.autorenew),
                       onPressed: () {
                         setState(() {
-                          //_crearListado(usuario.id, usuario);
+                          _crearListado(projectModel.id);
                         });
                       },
                     ),
