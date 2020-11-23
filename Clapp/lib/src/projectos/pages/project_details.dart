@@ -87,8 +87,14 @@ class _ProjectDetails extends State<ProjectDetails> {
                               textColor: Color.fromRGBO(0, 51, 51, 0.8),
                               color: Colors.white,
                               onPressed: () {
-                                Navigator.pushNamed(context, 'see_contracts',
-                                    arguments: proyecto);
+                                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VerContratos(
+                                project: proyecto,
+                                user: args[0],
+                                )));
+                
                               },
                             ),
                           ),

@@ -1,7 +1,10 @@
 import 'package:Clapp/src/Space/model/SpaceModel.dart';
 import 'package:Clapp/src/Space/pages/new_space.dart';
 import 'package:Clapp/src/Space/provider/SpacesProvider.dart';
+import 'package:Clapp/src/User/models/chat_model.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
+import 'package:Clapp/src/User/pages/messages_page.dart';
+import 'package:Clapp/src/User/providers/chat_provider.dart';
 import 'package:Clapp/src/User/providers/usuario_provider.dart';
 import 'package:Clapp/src/User/widgets/menu_widget.dart';
 import 'package:Clapp/src/projectos/widgets/concave_decoration.dart';
@@ -15,7 +18,8 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ApplyingProfile extends StatefulWidget {
   final UserModel usuario;
-  ApplyingProfile({Key key, this.usuario}) : super(key: key);
+  final UserModel session;
+  ApplyingProfile({Key key, this.usuario,this.session}) : super(key: key);
 
   @override
   _ApplyingProfileState createState() => _ApplyingProfileState();
@@ -27,10 +31,20 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
   final userProvider = new UsuarioProvider();
   final workerProvider = new WorkersProvider();
   final spaceProvider = new SpacesProvider();
-
+   ChatProvider chat = new ChatProvider();
+  ChatModel chatU;
   @override
   Widget build(BuildContext context) {
-    UserModel usuario = ModalRoute.of(context).settings.arguments;
+    UserModel usuario = widget.usuario;
+    print("AAAAAAASASASASASASSASA-----------");
+    print(usuario.id);
+    print( widget.session.id);
+    
+     if (usuario.id != widget.session.id) {
+      _conseguirChat(
+        usuario.id, usuario.name, usuario.photoUrl, widget.session);
+
+    }  
     return Scaffold(
       //backgroundColor: Color.fromRGBO(89, 122, 121, 1),
         appBar: AppBar(
@@ -172,7 +186,12 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
                                 ),
                               ),
                               onPressed: () {
-
+                                   if (usuario.id != widget.session.id && chatU!=null) {     
+                                    ScreenArgument sc = ScreenArgument(
+                                        widget.session, chatU, usuario.name, usuario.id, null);
+                                    Navigator.pushNamed(context, 'messageInfo',
+                                        arguments: sc);
+                                  }
                               },
                               //splashColor:  Color.fromRGBO(112, 252, 118, 0.8),
                               highlightedBorderColor:
@@ -915,5 +934,29 @@ class _ApplyingProfileState extends State<ApplyingProfile> {
               height: hei,
               fit: BoxFit.cover));
     }
+
+  }
+  void _conseguirChat(
+      String tag, String name, String photo, UserModel usuarioOferta) async {
+    bool existe = false;
+
+    ChatModel ct = await chat.cargarChat(usuarioOferta.id,tag);
+
+
+    if (ct == null) {
+      ct = ChatModel(
+          chatId: "dddd",
+          fecha: DateTime.now().toString(),
+          nameD: name,
+          nameO: usuarioOferta.name,
+          photoUrlD: photo,
+          photoUrlO: usuarioOferta.photoUrl,
+          usuarioD: tag,
+          usuarioO: usuarioOferta.id);
+      bool resp = await chat.crearChat(ct);
+       ct = await chat.cargarChat(usuarioOferta.id,tag);
+
+    }
+    chatU= ct;
   }
 }

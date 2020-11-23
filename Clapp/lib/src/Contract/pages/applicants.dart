@@ -1,4 +1,5 @@
 import 'package:Clapp/src/Contract/model/contract_models.dart';
+import 'package:Clapp/src/Contract/pages/applying_profile.dart';
 import 'package:Clapp/src/Contract/providers/contratos_providers.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:Clapp/src/Space/pages/mostrar_dialog.dart' as mostrar_dialog;
 class Applicants extends StatefulWidget {
   final ContractModel contrato;
   final UserModel usuario;
-
+  
   const Applicants({Key key, this.contrato, this.usuario}) : super(key: key);
 
   @override
@@ -284,7 +285,15 @@ class _Applicants extends State<Applicants> {
 
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, 'perfil_solicitante', arguments: usuario);
+           Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (context) => new ApplyingProfile(
+                        usuario: usuario,
+                        session: widget.usuario,
+                    )));
+           // Naviga
+        
         },
 
 

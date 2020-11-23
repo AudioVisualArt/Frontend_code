@@ -16,7 +16,7 @@ class _HomePagePrincipal extends State<HomePagePrincipal> {
   @override
   Widget build(BuildContext context) {
     usuario = ModalRoute.of(context).settings.arguments;
-
+    
     return Scaffold(
       appBar: AppBar(
           // backgroundColor: Colors.white,

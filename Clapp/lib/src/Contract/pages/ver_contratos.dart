@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:Clapp/src/MyStudio/widgets/title_bar.dart';
 
 class VerContratos extends StatefulWidget {
-  final ProjectModel user;
-  VerContratos({Key key, this.user}) : super(key: key);
+  final ProjectModel project;
+  final UserModel user;
+  VerContratos({Key key, this.project,this.user}) : super(key: key);
   @override
   _VerContratos createState() => _VerContratos();
 }
@@ -19,7 +20,7 @@ class _VerContratos extends State<VerContratos> {
   @override
   Widget build(BuildContext context) {
     //final idUsuario = ModalRoute.of(context).settings.arguments;
-    ProjectModel project = ModalRoute.of(context).settings.arguments;
+
     return Container(
         child: Scaffold(
 
@@ -42,14 +43,14 @@ class _VerContratos extends State<VerContratos> {
                     //key: formKey,
                       child: Column(
                         children: <Widget>[
-                          newappbar(project),
+                          newappbar(widget.project),
 
                           //SizedBox(height: 9),
                          Expanded(
                            child: Container(
                              width: MediaQuery.of(context).size.width - 10.0,
                              height: MediaQuery.of(context).size.height -210 ,
-                             child: _crearListado(project.id),
+                             child: _crearListado(widget.project.id),
                            ),
                          )
                         ],
@@ -202,7 +203,7 @@ class _VerContratos extends State<VerContratos> {
                 new MaterialPageRoute(
                     builder: (context) => new Applicants(
                       contrato: contrato,
-                      //usuario: usuario,
+                      usuario: widget.user,
                     )));
            // Navigator.pushNamed(context, 'solicitantes', arguments: contrato,);
             },
