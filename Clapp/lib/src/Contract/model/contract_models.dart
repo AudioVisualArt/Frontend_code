@@ -25,7 +25,7 @@ class ContractModel {
   double longitud;
   List<UserModel> useraplicando;
   List<UserModel> userDenegado;
-
+  bool publico;
 
 
   ContractModel({
@@ -43,7 +43,8 @@ class ContractModel {
     this.latitud,
     this.longitud,
     this.useraplicando,
-    this.userDenegado
+    this.userDenegado,
+    this.publico
 
   });
 
@@ -64,6 +65,7 @@ class ContractModel {
         longitud:json["longitud"],
         useraplicando:json["useraplicando"],
         userDenegado:json["userDenegado"],
+        publico: json["publico"]
 
       );
 
@@ -82,6 +84,7 @@ class ContractModel {
     "latitud": latitud,
     "longitud" : longitud,
     "useraplicando": useraplicando,
-    "userDenegado": userDenegado
+    "userDenegado": userDenegado,
+    "publico": publico
   };
 }

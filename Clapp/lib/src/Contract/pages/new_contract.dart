@@ -357,6 +357,7 @@ class _NewContract extends State<NewContract> {
     contrato.userBidderId = project.ownerId;
     contractformkey.currentState.save();
     contrato.acceptedBidder = true;
+    contrato.publico=true;
     print('Todo Ok');
     setState(() {
       _guardando = true;

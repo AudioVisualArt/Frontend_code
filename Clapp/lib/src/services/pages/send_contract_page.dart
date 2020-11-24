@@ -347,6 +347,7 @@ class _SendContract extends State<SendContract> {
     contrato.userApplicantId = widget.tag;
     contrato.projectId = _selectedProject.id;
     contrato.acceptedBidder = true;
+    contrato.publico=false;
     print('Todo Ok');
 
     setState(() {
