@@ -127,14 +127,8 @@ class _OtherPage extends State<OtherPage> {
             builder: (BuildContext context,
                 AsyncSnapshot<List<ContractModel>> snapshot) {
               if (snapshot.hasData) {
-                final contratos = snapshot.data;
-                contratos.forEach((element) {
-                  print("DSDASDSADSADASDADASD");
-                  print(element.publico);
-                });
-                print(contratos.length);
-                contratos.removeWhere((element) => element.publico==false);
-                print(contratos.length);
+                final contratos = snapshot.data;           
+                contratos.removeWhere((element) => element.publico==false);    
                 return ListView.builder(
                   // padding: const EdgeInsets.all(8.0),
                   shrinkWrap: true,
