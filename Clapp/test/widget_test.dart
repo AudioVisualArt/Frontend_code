@@ -56,16 +56,16 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Menú Principal'), findsOneWidget);
     expect(find.text('Estudio'), findsOneWidget);
-  });
+  });/* 
   testWidgets("Mercado Page", (WidgetTester tester) async{
     await tester.pumpWidget(MyApp());
     expect(find.text("Bienvenido a Clapp"),findsOneWidget);
     expect(find.byType(TextField),findsNWidgets(2));
 
-  });
-  testWidgets("Servicios Page", (WidgetTester tester) async{
+  }); */
+  testWidgets("Mercado Page", (WidgetTester tester) async{
     await tester.pumpWidget(MyApp());
-    expect(find.text("Bienvenido a Clapp"),findsOneWidget);
+    expect(find.text("Mercado"),findsOneWidget);
     expect(find.byType(TextField),findsNWidgets(2));
 
   });

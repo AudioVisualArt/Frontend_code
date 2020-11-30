@@ -47,7 +47,7 @@ class _ProjectDetails extends State<ProjectDetails> {
                     alignment: Alignment.centerLeft,
                     child: Container(
                       padding: EdgeInsets.only(left: 20, bottom: 4),
-                      child: Text('Descripcion de la obra',
+                      child: Text('Descripción de la obra',
                           style: TextStyle(
                               color: Color.fromRGBO(0, 51, 51, 0.8),
                               fontSize: 20.5,

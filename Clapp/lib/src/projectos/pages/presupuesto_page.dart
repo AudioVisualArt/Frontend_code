@@ -158,7 +158,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Actores: \u0024 ${((this._valorActores/100)*this._presupuesto)}",
+                        child: Text("Personal Artístico: \u0024 ${((this._valorActores/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),
@@ -205,7 +205,7 @@ class _PresupuestoPageState extends State<PresupuestoPage> {
                           right: 10.0,
 
                         ),
-                        child: Text("Personal Tecnico: \u0024 ${((this._valorTecnico/100)*this._presupuesto)}",
+                        child: Text("Personal Técnico: \u0024 ${((this._valorTecnico/100)*this._presupuesto)}",
                           style: TextStyle(fontSize: 17.0, fontFamily: "Raleway",color: Color.fromRGBO(115, 115, 115, 1.0), fontWeight: FontWeight.bold ),
 
                         ),

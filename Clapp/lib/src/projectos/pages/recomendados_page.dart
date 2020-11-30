@@ -25,7 +25,7 @@ class RecomendadosPage extends StatefulWidget {
 
 class _RecomendadosPageState extends State<RecomendadosPage> {
   
-  List<String> _categories = ["Actores", "Personal Tecnico", "Equipos", "Espacios","Arte"];
+  List<String> _categories = ["Personal Artístico", "Personal Técnico", "Equipos", "Espacios","Arte"];
   List<StockPhotoModel> photos=new List();
   List<UserModel> usersA=new List();
   List<UserModel> usersW=new List();
@@ -164,7 +164,8 @@ class _RecomendadosPageState extends State<RecomendadosPage> {
     }else{
        workers.forEach((element) async{
       UserModel user= await wk.cargarUsuarioTrabajador(element.userId);
-      if(element.mainRol=="Actor" && element.minPayment<=_valores[0]){
+      print(element.mainRol);
+      if(element.mainRol=="Personal artistico" && element.minPayment<=_valores[0]){
         this.actores.add(element);
         this.usersA.add(user);
         print("entre 1");
