@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:Clapp/src/Equipment/model/equipment_models.dart';
 import 'package:Clapp/src/Equipment/pages/equipment_buy_page.dart';
 import 'package:Clapp/src/Equipment/provider/equipment_provider.dart';
+import 'package:Clapp/src/Space/pages/mostrar_dialog.dart';
 import 'package:Clapp/src/User/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -30,6 +31,8 @@ class _ShowFoundImagePageState extends State<ShowFoundImagePage> {
   void initState() {
     _cargarModeloEquipment();
     _clasificarEquipment(widget.file);
+    MostrarDialog(context, 'Encontramos...',
+        'Hemos Encontrado la marca ${widget.etiqueta}');
     print('Marca:' + marcaEquipment.toString());
     super.initState();
   }
